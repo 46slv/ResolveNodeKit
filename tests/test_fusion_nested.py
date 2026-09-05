@@ -3,6 +3,7 @@ import unittest
 
 from resolve_node_kit.fusion import FusionHostError, tidy_nested_comp
 from resolve_node_kit.fusion.recursive_groups import GroupTidyResult
+from resolve_node_kit.fusion.recursive_groups import _layout_step, _snapshot
 
 
 class MockOutput:
@@ -57,6 +58,13 @@ class StaleReadbackFlow(MockFlow):
     def SetPos(self, tool, x, y):
         self.calls += 1
         return True
+class HostLikeFlow(MockFlow):
+    """Mimics the measured host: snapped storage plus stable readback offsets."""
+    OFFSET_X = 0.001
+    OFFSET_Y = 0.009
+    def GetPosTable(self, tool):
+        x, y = self.positions[tool.Name]
+        return {1: x + self.OFFSET_X, 2: y + self.OFFSET_Y}
 
 
 class MockComp:
@@ -167,6 +175,40 @@ class TidyNestedTests(unittest.TestCase):
         comp = MockComp([g1], flow)
         with self.assertRaises(FusionHostError): tidy_nested_comp(comp)
         self.assertEqual(flow.calls, 0)
+
+
+
+    def test_degenerate_tie_positions_settle_in_one_command(self):
+        # Replicates the host-measured P3A-validation drift: a 2-level case
+        # with a chain plus a disconnected group sibling, every child at the
+        # identical pasted position (-0.499, -0.224). One layout step from the
+        # tied PRE is not stable once host readback offsets (+0.001/+0.009)
+        # perturb the anchor and row order, so the command must iterate to a
+        # fixed point internally and the next run must move 0.
+        outer = MockTool("OuterG", "GroupOperator", expanded=False)
+        inner = MockTool("InnerG", "GroupOperator", parent=outer, expanded=False)
+        bg_in = MockTool("BGin", parent=inner)
+        bl_in = MockTool("BLin", parent=inner)
+        mg_in = MockTool("MGin", parent=inner)
+        bg_out = MockTool("BGout", parent=outer)
+        bl_out = MockTool("BLOut", parent=outer)
+        media = MockTool("MediaOut1")
+        connect(bg_in, bl_in, "Input")
+        connect(bl_in, mg_in, "Background")
+        connect(bg_out, bl_out, "Input")
+        names = ("OuterG", "InnerG", "BGin", "BLin", "MGin", "BGout", "BLOut", "MediaOut1")
+        flow = HostLikeFlow({name: (-0.499, -0.224) for name in names})
+        comp = MockComp([outer, media], flow)
+        snap = _snapshot(comp, flow)
+        first_step, _ = _layout_step(snap, dict(snap.positions), None)
+        perturbed = {name: (x + 0.001, y + 0.009) for name, (x, y) in first_step.items()}
+        second_step, _ = _layout_step(snap, perturbed, None)
+        self.assertNotEqual(first_step, second_step)
+        tidy_nested_comp(comp)
+        after_first = dict(flow.positions)
+        second = tidy_nested_comp(comp)
+        self.assertEqual(second.moved_count, 0)
+        self.assertEqual(flow.positions, after_first)
 
 
 if __name__ == "__main__":

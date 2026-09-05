@@ -143,7 +143,7 @@ def _project(name: str, scope: str | None, parents: dict[str, str | None]) -> st
         current = parent
 
 
-def _layout(snapshot: _Snapshot, config: LayoutConfig | None) -> tuple[dict[str, tuple[float, float]], int]:
+def _layout_step(snapshot: _Snapshot, positions: dict[str, tuple[float, float]], config: LayoutConfig | None) -> tuple[dict[str, tuple[float, float]], int]:
     desired: dict[str, tuple[float, float]] = {}
     scopes: list[str | None] = [None]
     scopes += sorted(snapshot.groups, key=lambda name: (_depth(name, snapshot.parents), name))
@@ -159,7 +159,7 @@ def _layout(snapshot: _Snapshot, config: LayoutConfig | None) -> tuple[dict[str,
             target = _project(edge.target, scope, snapshot.parents)
             if source in child_set and target in child_set and source != target:
                 edges.append(Edge(source, target, edge.kind))
-        original = {name: snapshot.positions[name] for name in children}
+        original = {name: positions[name] for name in children}
         relative = layout_graph(children, edges, original_positions=original, config=config)
         anchor_x = min(x for x, _ in original.values())
         anchor_y = min(y for _, y in original.values())
@@ -169,6 +169,32 @@ def _layout(snapshot: _Snapshot, config: LayoutConfig | None) -> tuple[dict[str,
     if set(desired) != set(snapshot.tools):
         missing = sorted(set(snapshot.tools) - set(desired))
         raise FusionHostError(f"recursive layout omitted tools: {', '.join(missing[:12])}")
+    return desired, scope_count
+
+
+def _layout(snapshot: _Snapshot, config: LayoutConfig | None) -> tuple[dict[str, tuple[float, float]], int]:
+    """Single recursive-layout step (shared by the expand+tidy command)."""
+    return _layout_step(snapshot, snapshot.positions, config)
+
+
+def _layout_to_fixed_point(
+    snapshot: _Snapshot, config: LayoutConfig | None, max_iterations: int = 16
+) -> tuple[dict[str, tuple[float, float]], int]:
+    """Iterate single layout steps until the snapped layout stops changing.
+
+    The shared layout core orders nodes by their input positions, so one step
+    from degenerate (e.g. all-identical) positions can settle one grid unit
+    away from its own output. Iterating to a fixed point makes the command
+    output stable: re-running the command on its own output moves nothing.
+    Bounded; on cap exhaustion the last (still deterministic) layout is used.
+    """
+    positions = dict(snapshot.positions)
+    desired, scope_count = _layout_step(snapshot, positions, config)
+    for _ in range(max_iterations):
+        if all(desired[name] == positions[name] for name in desired):
+            break
+        positions = dict(desired)
+        desired, scope_count = _layout_step(snapshot, positions, config)
     return desired, scope_count
 
 
@@ -397,7 +423,7 @@ def tidy_nested_comp(comp: Any, config: LayoutConfig | None = None) -> GroupTidy
         start_undo("ResolveNodeKit: Tidy Nested")
 
     try:
-        desired, scope_count = _layout(original, config)
+        desired, scope_count = _layout_to_fixed_point(original, config)
         tools = {name: _find_tool(comp, name, original.tools) for name in desired}
         writes = {name: pos for name, pos in desired.items() if not _close_enough(original.positions[name], pos)}
         for name in sorted(writes):
