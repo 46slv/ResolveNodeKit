@@ -22,6 +22,17 @@ This is intentionally separate from `tidy_comp()` until the real Resolve/Fusion 
 
 Flattening a nested graph loses the visual meaning of a GroupOperator. For an edge from a node inside `GroupB` to a sibling node inside `GroupA`, the `GroupA` layout sees `GroupB -> sibling`, while the `GroupB` layout sees the real internal edge. The connection itself is not changed.
 
+## Offline validation
+
+Focused recursive-group tests cover:
+
+1. two nested GroupOperators remain grouped, both expand, and root/parent/nested scopes each receive a layout;
+2. a second run is position-identical and performs no unnecessary expansion;
+3. failure while expanding a nested group restores earlier group state and original positions and discards the Undo event;
+4. a malformed parent-group cycle fails before any position write.
+
+Current focused result: **4/4 PASS** with `compileall` PASS. This is mock/API-contract evidence only, not a Resolve/Fusion host claim.
+
 ## Host-only gate: fit to contents
 
 Offline mocks can prove recursive discovery, scope projection, deterministic positions, expansion-state handling, and rollback. They cannot prove the Fusion UI's `GroupInfo.Size`, `Scale`, and `Offset` behavior.
