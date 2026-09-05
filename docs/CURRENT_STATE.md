@@ -15,11 +15,11 @@ The mission-critical unresolved requirement remains runtime visual nested-group 
 ## Canonical repo state
 
 - repo: `46slv/ResolveNodeKit`
-- task branch: `feat/bootstrap-nodekit-20260905`
-- Draft PR: #1, open/draft
+- task branch: `feat/semantic-arrange-v1-20260906` (implements Semantic Arrange v1; design docs merged from PR #2)
+- Draft PR: #1 (bootstrap) plus #5 (Semantic Arrange v1, stacked on the bootstrap branch), both open/draft
 - branch locator immediately before this state normalization: `f974730f5952a6376feb443d482bbb571e71d59e`
 - reported worktree at latest run end: clean, remote in sync
-- offline suite: 36/36 unittest PASS + `compileall` PASS
+- offline suite: 63/63 unittest PASS + `compileall` PASS (36 baseline plus 27 semantic-arrange)
 
 Fresh-read all locators on resume.
 
@@ -166,3 +166,14 @@ A feature-local blocker must be checkpointed, then another independent ready lan
 8. `docs/checkpoints/2026-09-06-tidy-nested-r1-pass.md`
 9. `docs/checkpoints/2026-09-06-p5-transport-block.md`
 10. older checkpoints only as needed
+
+## Semantic Arrange v1 - A8 status (2026-09-06 JST)
+
+Flat-fixture preserve-mode Arrange is HOST-PASS (canaries 1-2, evidence in `docs/checkpoints/2026-09-06-semantic-arrange-a8-canary.md`). 
+A host-found anchor drift was fixed (canonical backbone-head anchor plus snapped origin) with regression tests that fail before and pass after. 
+Nested-Group preserve proof is open behind a Paste transport gate (single 8-tool Paste times out with `-32001` and drops session tools; retry with a split envelope, never identically). 
+Host is clean: timelines exactly `[Timeline 1]`, current Timeline 1, all comps unmodified, no save.
+
+Adjusted ready queue: (1) nested preserve via split Paste envelope; (2) selection-only host proof or documented selection-API boundary; 
+(3) dialog proof with the user at the machine (AskUser shape, Cancel zero-mutation, menu Run); (4) Comp Scripts install after gate 3; 
+(5) Ungroup stays fail-closed until exact restoration is proven on a disposable fixture.
