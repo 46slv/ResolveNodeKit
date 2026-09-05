@@ -31,14 +31,7 @@ Host-measured local fixes were preserved, reconciled with the newer remote orche
 
 ### P2C — Flat Tidy: HOST-PASS
 
-Real Resolve Studio 21.0.3.7 disposable validation proved:
-
-- serial / Merge / EffectMask / isolated-node handling;
-- connection invariance;
-- measured FlowView grid/readback handling;
-- second-run `moved=0`;
-- Undo restoring positions;
-- fail-closed rollback.
+Real Resolve Studio 21.0.3.7 disposable validation proved serial / Merge / EffectMask / isolated-node handling, connection invariance, measured FlowView grid/readback handling, second-run `moved=0`, Undo restoring positions, and fail-closed rollback.
 
 ### P3A collapsed-child canary: PASS
 
@@ -124,7 +117,7 @@ Use `docs/EVIDENCE_PROTOCOL.md` and determine a transport-fitting envelope first
 8. only mutate after a pre-evidence strategy can complete reliably;
 9. never repeat a materially identical full-graph timeout path.
 
-The goal of the next P5 attempt is first to establish a stable transport envelope, then run pre -> Tidy Nested -> post -> second-run evidence within that envelope.
+The next P5 attempt should first establish a stable transport envelope, then run pre -> Tidy Nested -> post -> second-run evidence within that envelope.
 
 ## Mission-critical visual Group expansion — P3B OPEN
 
