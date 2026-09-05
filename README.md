@@ -42,6 +42,30 @@ Development entrypoints include:
 - `scripts/Fusion/ResolveNodeKit_TidyNested.py`
 - `scripts/Fusion/ResolveNodeKit_TidyGroups.py`
 
+## Semantic layout direction
+
+The next layout-quality layer is **Group-local semantic layout**.
+
+Rather than packing the whole composition as one uniform DAG, ResolveNodeKit should make every root/Group/nested-Group scope read as a small local graph:
+
+- main flow left-to-right;
+- Merge-heavy chains as a horizontal rail;
+- branch sources above receiving Merge nodes where practical;
+- child Groups treated as semantic boxes in the parent scope;
+- the same policy recursively applied inside Groups;
+- **Merge-side spacing may widen** when branch, Group, or wire clearance improves readability.
+
+Uniform density is therefore not a hard goal. Semantic readability wins when the two conflict.
+
+This policy is design-ready but does not replace the current host-verified generic commands yet. The intended rollout is a separate semantic planner/entrypoint first, followed by offline fixtures and host canaries.
+
+See:
+
+- `docs/SEMANTIC_LAYOUT.md`
+- `docs/SEMANTIC_LAYOUT_ACCEPTANCE.md`
+- `docs/decisions/0001-group-local-semantic-layout.md`
+- `docs/references/`
+
 ## Group behavior
 
 ResolveNodeKit treats hierarchy-aware layout, runtime visual expansion, and fit-to-contents as separate capabilities.
