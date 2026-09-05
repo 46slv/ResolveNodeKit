@@ -2,40 +2,68 @@
 
 ## Goal
 
-Build compact, reversible node-workflow tools for both DaVinci Resolve Fusion and Color. The product goal is faster node editing, not parity with Blender Node Wrangler and not a fork of Auto-Node-Tree.
+Build compact, reversible node-workflow tools for DaVinci Resolve Fusion and Color. This is a Resolve-specific toolkit, not a Blender Node Wrangler port and not an Auto-Node-Tree fork.
 
-## Authority
+## Authority order
 
 1. current user instruction;
-2. current repository code/tests/host evidence;
-3. current installed Resolve scripting docs and runtime probes;
-4. committed docs/prior-art notes;
-5. inference.
+2. live local Git/worktree, current remote branch/PR, current tests, and live Resolve/Fusion readback;
+3. `docs/CURRENT_STATE.md`;
+4. `docs/ORCHESTRATION.md` and relevant repo contracts;
+5. installed/current Resolve scripting documentation and measured host behavior;
+6. historical checkpoints / prior-art notes;
+7. inference.
 
-## Long-running execution
+Historical SHAs, project names, timeline names, comp identities, worker session IDs, and test counts are locators/evidence only. Fresh-read before acting.
 
-Before a multi-stage, host-mutating, or autonomous continuation run, read `docs/ORCHESTRATION.md`. It defines the parent/worker/verifier roles, ordered phase gates, autonomous mutation authority, stop/escalation rules, expected blockers, and checkpoint/resume contract. Live repo/host state still outranks the document's snapshot wording.
+## Required read order for long-running work
 
-For the current measured Fusion host state, also read `docs/checkpoints/2026-09-05-host-group-expansion-blocker.md`. It records the proven flat-Tidy host behavior, the local-only grid/readback fixes that must be reconciled with the newer remote branch, and the measured failure of `LoadSettings(Expanded=true)` to persist runtime Group expansion on Resolve Studio 21.0.3.7.
+For any multi-stage, host-mutating, or autonomous continuation run:
+
+1. inspect live Git status before pull/reset/rebase/checkout;
+2. read `docs/CURRENT_STATE.md`;
+3. read `docs/ORCHESTRATION.md`;
+4. read the relevant feature contract (`docs/GROUPS.md`, `docs/HOST_VALIDATION.md`, `docs/COLOR_API.md`);
+5. read the newest applicable checkpoint under `docs/checkpoints/`;
+6. choose the smallest ready gate from the dependency graph.
+
+Do not replay chat history as the operating plan.
 
 ## Invariants
 
-- Keep Fusion and Color adapters separate; never assume a Fusion API exists on Color or vice versa.
-- Layout-only commands must not alter connections, parameters, keyframes, tools, grades, renders, or media.
-- Group layout must preserve every `GroupOperator` and direct parent/child membership. Never flatten or ungroup merely to make a graph easier to arrange.
-- Cross-boundary edges may be projected to the visible GroupOperator for layout planning only; never rewire the actual graph to match the projection.
-- For host writes: snapshot -> bounded mutation -> readback -> rollback on failure. Use host Undo where verified.
+- Fusion and Color use separate adapters; never assume Fusion APIs exist on Color.
+- Layout/display commands must not alter connections, processing parameters, keyframes, tools, media, grades, or render state.
+- Preserve every `GroupOperator` and direct parent/child membership. Never flatten or ungroup merely to arrange the graph.
+- Cross-boundary edges may be projected to a visible GroupOperator for layout planning only; never rewire the actual graph to match that projection.
+- Host writes follow: target bind -> snapshot -> bounded mutation -> readback -> invariant comparison -> rollback on mismatch.
+- Worker narration is not proof. Host success needs structured MCP evidence plus independent parent verification.
 - Offline mocks do not prove Resolve/Fusion host behavior.
-- Do not install watchers, services, login-start items, or change the user's Resolve keyboard shortcuts unless explicitly requested.
-- Auto-Node-Tree is prior art only. Do not copy its source into this repository without explicit provenance/license review.
-- Prefer small commands with deterministic tests over a monolithic automation daemon.
-- Keep the strict `Tidy + Expand Groups` meaning fail-closed. A recursive-tidy-only path must be a separate command/API rather than a flag that silently weakens expansion acceptance.
+- Never blind-retry an ambiguous write or ambiguous ChatGPT/MCP delivery.
+- Do not install watchers/services/startup items or change global Resolve keyboard shortcuts unless explicitly authorized.
+- Auto-Node-Tree and Blender Node Wrangler are prior art/UX references only; do not vendor their source without explicit provenance/license review.
 
-## Current next gates
+## Current repository authority
 
-1. Reconcile the host-run local dirty changes (`tidy.py`, `recursive_groups.py`, `docs/GROUPS.md`, `tests/test_fusion_host_grid.py`) with the fresh remote task-branch head without losing either side; rerun the full suite.
-2. Close the flat-Tidy host gate with the measured FlowView grid/readback corrections integrated.
-3. Canary a separate recursive hierarchy-preserving tidy path that does not require Group visual expansion. Only implement it if collapsed-group child positions are host-readable/writable with membership/connection invariance.
-4. Investigate the actual runtime Group Expand/Collapse action path. Do not continue retrying serialized `Expanded=true` settings without new evidence; the measured host discards that state on readback.
-5. If no readback-verifiable expansion action exists, classify visual expansion specifically as `BLOCKED_API` and continue independent Fusion layout/selection utilities.
-6. Run the read-only Color probe against the installed Resolve version and record the actual graph API boundary before implementing Color writes.
+The current project authorization allows autonomous work inside ResolveNodeKit task branches: code/tests/docs edits, commits, pushes, and Draft PR updates. Do not merge to `main`, publish a release, force-push shared history, delete unrelated branches/work, or rewrite unrelated user changes without explicit authority.
+
+If a host run leaves valuable local dirty work while the remote branch advances, preserve the local work first (temporary branch/checkpoint commit or patch), then reconcile. Never use `reset --hard` or cleanup as the first response to that condition.
+
+## Completion semantics
+
+A blocker belongs to the narrowest affected feature/lane. If another authorized independent gate is ready, the overall program status is `CHECKPOINTED`, not `BLOCKED_*`, and work continues.
+
+The user's visual-group requirement is mission-critical: nested groups must eventually be openable while remaining groups, with their contents visible. A usable beta may checkpoint a host/API limitation, but `MISSION_COMPLETE` requires that requirement to pass or the user to explicitly waive/change it.
+
+Keep strict names strict. `Tidy + Expand Groups` must fail closed when expansion is not proven. A hierarchy-preserving recursive tidy without visual expansion is a separate command/API.
+
+## Checkpoint discipline
+
+After each meaningful host gate or phase transition:
+
+- commit/push accepted task-branch work when safe;
+- update the Draft PR;
+- update `docs/CURRENT_STATE.md`;
+- add a dated checkpoint only when it contains evidence worth preserving;
+- record exact tests, host identity, worker route, mutations, readback, blocker, and smallest next gate.
+
+See `docs/ORCHESTRATION.md` for the phase graph, stop rules, large-graph evidence fallback, and resume contract.
