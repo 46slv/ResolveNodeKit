@@ -21,6 +21,12 @@ Observed risks that ResolveNodeKit treats as regression requirements rather than
 
 ResolveNodeKit is an independent implementation. No upstream source is vendored here.
 
+## Fusion GroupOperator
+
+Fusion scripting/reference material exposes `TOOLH_GroupParent`, `Operator.ParentTool`, `Operator.GetChildrenList()`, and `SaveSettings()` / `LoadSettings()`. Real GroupOperator setting examples serialize children under nested `Tools` and expanded UI state as `ViewInfo = GroupInfo { Flags = { Expanded = true } }`.
+
+ResolveNodeKit uses those facts only for hierarchy discovery and expansion-state handling. It does not copy another layout implementation. `GroupInfo.Size`, `Scale`, and `Offset` remain host-measurement inputs rather than guessed constants; see `docs/GROUPS.md`.
+
 ## Blender Node Wrangler
 
 Node Wrangler is a UX reference for the value of fast node operations, not a naming, shortcut, UI, or code compatibility target. ResolveNodeKit should favor operations that fit Resolve's own Fusion and Color models.
