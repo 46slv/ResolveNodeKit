@@ -2,72 +2,69 @@
 
 Node workflow tools for **DaVinci Resolve Fusion and Color**.
 
-ResolveNodeKit targets Resolve-specific node workflow friction. It is not a Blender Node Wrangler port and not an Auto-Node-Tree fork.
+The project is not a Blender Node Wrangler port. It targets Resolve-specific node workflow friction with independent implementations and host-specific adapters.
 
 ## Current status
 
-The project is actively host-validating its first Fusion layout features.
+The project is active and `CHECKPOINTED`, not mission-complete.
 
-- **Flat Fusion Tidy** — real-host canary evidence exists on Resolve Studio 21.0.3.7. Host-measured grid/readback fixes still need to be reconciled into the current canonical task branch before this is called current-branch HOST-PASS.
-- **Nested hierarchy layout** — per-group-scope layout exists offline. A separate `Tidy Nested` host canary is next; it must keep groups collapsed/expanded exactly as they were while arranging their children safely.
-- **Visual Group expansion** — the tested serialized `Expanded=true` / `LoadSettings` path is disproven on the measured host because the state does not persist on readback. Runtime Expand/Collapse action research remains open.
-- **Fit to contents** — intentionally deferred until real runtime Group expansion is proven.
-- **Color** — read-only graph capability work exists; current-host capability mapping is still required before mutations.
+Host-verified on the current measured Resolve Studio 21.0.3.7 environment:
 
-The user's nested-group visibility requirement remains mission-critical. ResolveNodeKit will not call the mission complete by silently replacing “open nested groups” with “tidy hidden contents.”
+- Flat Fusion **Tidy Graph**
+- hierarchy-preserving **Tidy Nested** for collapsed/nested GroupOperator scopes
+- Undo/readback/rollback behavior for the validated layout paths
+- Color read-only capability mapping
 
-For the operational source of truth, read:
+Current known limitations:
 
-- `AGENTS.md`
-- `docs/CURRENT_STATE.md`
-- `docs/ORCHESTRATION.md`
-- `docs/HOST_VALIDATION.md`
+- visual runtime Group expansion is still unproven; the serialized `LoadSettings(Expanded=true)` path is disproven on the measured host;
+- large ~1100-tool stress is currently transport-limited by long MCP/bridge calls, not by a demonstrated layout failure;
+- physical Color-node XY positioning is absent from the measured Color Graph API surface.
 
-## Fusion design
+See `docs/CURRENT_STATE.md` for the operational next gate and `docs/ORCHESTRATION.md` for the long-running execution contract.
 
-Layout commands are designed to be deterministic, reversible, and structural-state preserving:
+## Fusion scope
 
-- no connection changes;
-- no processing parameter/keyframe changes;
-- no tool/media/render mutation;
-- explicit position/settings snapshot;
-- bounded write;
-- readback verification;
-- rollback on mismatch;
-- Undo integration where host behavior is proven.
+Implemented / under validation:
 
-Nested GroupOperators are modeled per hierarchy scope. Cross-boundary edges may be projected to the visible Group node for planning only; the real graph is never rewired to match that projection.
+- deterministic flat **Tidy Graph** layout;
+- **Tidy Nested**: recursively arrange nested GroupOperator child scopes without changing visual expanded/collapsed state;
+- strict **Tidy + Expand Groups** remains a separate fail-closed research path and must not silently degrade to `Tidy Nested`;
+- disconnected/isolated tools included so they are not silently overlapped;
+- cycle detection before writes;
+- `StartUndo` / `EndUndo` integration where exposed;
+- position/settings snapshot, readback verification, rollback on failure;
+- no connection, parameter, keyframe, tool creation, grade, media, or render mutation in layout commands.
 
-## Feature lanes
+Development entrypoints include:
 
-### Fusion layout
+- `scripts/Fusion/ResolveNodeKit_Tidy.py`
+- `scripts/Fusion/ResolveNodeKit_TidyNested.py`
+- `scripts/Fusion/ResolveNodeKit_TidyGroups.py`
 
-- `Tidy Graph` — flat/whole-comp deterministic layout.
-- planned `Tidy Nested` — recursively arrange children inside nested GroupOperators without requiring visual expansion.
-- strict `Tidy + Expand Groups` — separate mission-critical feature that must perform real runtime expansion, not merely edit serialized settings.
-- fit-to-contents — measured only after expansion works.
+## Group behavior
 
-### Fusion workflow operations
+ResolveNodeKit treats hierarchy-aware layout, runtime visual expansion, and fit-to-contents as separate capabilities.
 
-Planned order after Flat Tidy closeout:
+`Tidy Nested` is host-verified as a hierarchy-preserving layout feature. It does **not** satisfy the mission-critical visual requirement by itself.
 
-- align/distribute selected nodes;
-- selected/component-scope tidy;
-- upstream/downstream/connected-component selection;
-- then bounded rewiring commands such as insert-between, reconnect, Merge input swap, and detach with exact edge readback/rollback.
+The current explicit mission still requires nested GroupOperators to remain groups, actually open in the Fusion runtime/UI sense, have their internals tidied, and show all contents. `MISSION_COMPLETE` cannot be declared until that is proven or the user explicitly changes scope.
 
-### Color
+See `docs/GROUPS.md`.
 
-Fusion and Color do not share one assumed API. Color support is capability-driven:
+## Color scope
 
-- read current graph/node state where exposed;
-- map actual timeline/clip/group Graph surfaces on the installed host;
-- add only mutations with observable postconditions and rollback/exclusion contracts;
-- treat physical Color node XY layout as a separate capability question.
+Color uses a separate adapter and does not inherit Fusion FlowView assumptions.
 
-## Large graph validation
+Current read-only probing on the measured host found Graph access for current items and readback surfaces including node count, label, LUT, cache, enabled state, and tools where available. Physical Color-node XY positioning was not present in the measured callable surface.
 
-PSD2Fusion-scale graphs can exceed practical MCP snapshot payloads. Large-host validation must compute compact canonical signatures inside Resolve/Fusion and return counts/hashes/timing plus focused mismatches rather than repeatedly serializing an entire 1000+ node graph.
+Future Color mutations are limited to operations with observable postconditions/readback.
+
+See `docs/COLOR_API.md`.
+
+## Large graph evidence
+
+For hundreds/thousands of Fusion tools, ResolveNodeKit avoids transporting the entire graph through MCP as one payload. Use the versioned compact signature protocol in `docs/EVIDENCE_PROTOCOL.md` and keep host calls bounded/chunked.
 
 ## Development
 
@@ -76,32 +73,21 @@ python -m pip install -e . --no-build-isolation
 python -m unittest discover -s tests -v
 ```
 
-Development entrypoints currently include:
+Current offline suite and exact host evidence are tracked in `docs/CURRENT_STATE.md` and `docs/checkpoints/` rather than hard-coded here.
 
-- `scripts/Fusion/ResolveNodeKit_Tidy.py`
-- `scripts/Fusion/ResolveNodeKit_TidyGroups.py` (strict expansion path; host-blocked on the measured serialized-settings method)
-- `scripts/Color/ResolveNodeKit_Probe.py` (read-only)
+## Long-running agent entrypoint
 
-A separate `ResolveNodeKit_TidyNested.py` should be added only after the collapsed-group child-position host canary passes.
+Long autonomous runs should read:
 
-## Roadmap / completion
+1. live local Git/worktree + remote state
+2. `AGENTS.md`
+3. `docs/CURRENT_STATE.md`
+4. `docs/ORCHESTRATION.md`
+5. `docs/EVIDENCE_PROTOCOL.md`
+6. relevant feature contracts/checkpoints
 
-Work is dependency-driven rather than blocked behind one feature:
-
-1. reconcile the local host-measured fixes with the fresh remote task branch;
-2. close current-branch Flat Tidy host acceptance;
-3. canary/implement `Tidy Nested`;
-4. stress nested tidy on a large duplicate using compact in-host evidence;
-5. build low-risk Fusion helpers;
-6. map/add Color capabilities independently;
-7. continue runtime Group Expand/Collapse research in parallel;
-8. if expansion succeeds, measure and implement fit-to-contents;
-9. build unified command surface and safe packaging;
-10. produce an accurately limited usable beta;
-11. close `MISSION_COMPLETE` only when all explicit mission-critical requirements pass or the user explicitly changes scope.
-
-See `docs/ORCHESTRATION.md` for prerequisites, stop criteria, autonomous authority, and checkpoint rules.
+Host-specific claims require structured OpenCode/MCP evidence, exact target identity, pre/post readback, invariant comparison, and parent verification. Worker narration alone is not acceptance evidence.
 
 ## Prior art
 
-`SoumyA16-git/Auto-Node-Tree` was reviewed for graph-layout ideas and failure modes. ResolveNodeKit does not vendor or fork it. Blender Node Wrangler is a UX reference for workflow value, not a naming, shortcut, UI, or code compatibility target.
+`SoumyA16-git/Auto-Node-Tree` was reviewed as prior art for graph layout and failure modes. ResolveNodeKit does not vendor or fork that implementation. Blender Node Wrangler is a UX reference only, not a naming, shortcut, UI, or code compatibility target.
