@@ -145,7 +145,7 @@ Run current-host capability mapping first. Only add mutations with observable po
 The parent orchestrator should choose the first ready item whose prerequisites are satisfied:
 
 1. `P0R` — DONE (see Reconciliation state above; next: push + PR #1 update, then P2C).
-2. `P2C` — minimal flat-Tidy host closeout using the integrated fixes.
+2. `P2C` — DONE (HOST-PASS 2026-09-05, see section above).
 3. `P3A` — collapsed-group recursive-tidy canary; implement separate `Tidy Nested` only if safe.
 4. `P5` — stress `Tidy Nested` on a duplicate of the large 1107-tool / 31-group composition using compact in-host evidence.
 5. `P6` — low-risk Fusion node operations.
@@ -165,3 +165,19 @@ Independent ready lanes should continue when another feature is blocked.
 ## Primary evidence checkpoint
 
 Read `docs/checkpoints/2026-09-05-host-group-expansion-blocker.md` for the detailed measured host run. Do not treat its historical target/session IDs as current bindings.
+
+## P2C flat-Tidy host closeout — PASS 2026-09-05
+
+Worker route: OpenCode CLI 1.18.29 -> `opencode-go/muse-spark-1.3-contributor` (agent `build`) -> davinci-resolve MCP 2.203.0 -> Resolve Studio 21.0.3.7. Structured events: `%TEMP%\rnk-p2c\events2.jsonl` (first attempt died on a file-write permission denial; second attempt forbade worker file writes and completed).
+
+Target: project PSD2Fusion, disposable timeline RNK_P2C (created, verified, deleted afterwards), Timeline 1 restored current with timeline list exactly [Timeline 1] and all 5 Timeline 1 comps read back `Modified=false`. No project save.
+
+Canary comp (10 tools): serial BG->Blur->Merge, BG+FG->Merge, EllipseMask EffectMask branch, isolated node. Repo HEAD (`1c2ca6f`) `tidy_comp` loaded in-process via `run_inline`:
+
+- `TIDY_RESULT nodes=10 edges=5 moved=10`; edge list pre == post (5/5 identical); tool count 10 -> 10;
+- `GRID_ALL_OK: True` — all 10 readbacks within grid tolerance incl. mask frame offsets;
+- `TIDY_RUN2 moved=0` (idempotent);
+- `UNDO_RESTORE: True` — post-Undo positions exactly equal pre-tidy snapshot;
+- Rollback: Undo path proven this run; fail-closed mismatch rollback proven on identical code in the prior run.
+
+Flat Tidy is HOST-PASS on the canonical branch and no longer blocks independent node-tool work. Save/reopen persistence remains a separate gate (must not force-save the user project).
