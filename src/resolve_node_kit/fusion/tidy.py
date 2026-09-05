@@ -1,9 +1,37 @@
 from __future__ import annotations
 
+import math
+from collections import OrderedDict  # noqa: F401  (see _ensure_ordered_dict)
+import builtins
 from dataclasses import dataclass
 from typing import Any
 
 from resolve_node_kit.core.layout import Edge, LayoutConfig, LayoutError, layout_graph
+
+
+def _ensure_ordered_dict() -> None:
+    """Fusion's SaveSettings bridge evals ``OrderedDict(...)`` on deserialize.
+
+    Measured on Studio 21.0.3.7: without ``OrderedDict`` in builtins the call
+    still succeeds but ``Tools`` comes back as ``None`` (plus console spam).
+    Ensuring it here keeps group-state handling fail-closed instead of silent.
+    """
+    if not hasattr(builtins, "OrderedDict"):
+        builtins.OrderedDict = OrderedDict  # type: ignore[attr-defined]
+
+
+_ensure_ordered_dict()
+
+# Host-measured FlowView grid (Studio 21.0.3.7, GridSnap on):
+# X snaps to 0.5, Y snaps to whole numbers. Most tools read back with a stable
+# +0.009 Y offset; mask/operator tools (e.g. EllipseMask +0.073/+0.054) carry a
+# larger per-type frame offset. Snapping desired positions to that grid keeps
+# readback verification and second-run idempotence meaningful; tolerance covers
+# the largest measured frame offset but still fails closed on real grid snaps
+# (which differ by >=0.2).
+FLOW_GRID_X = 0.5
+FLOW_GRID_Y = 1.0
+FLOW_POSITION_TOLERANCE = 0.1
 
 
 class FusionHostError(RuntimeError):
@@ -117,7 +145,20 @@ def _snapshot(comp: Any, flow: Any) -> tuple[dict[str, Any], dict[str, tuple[flo
     return tools, positions, edges
 
 
-def _close_enough(a: tuple[float, float], b: tuple[float, float], epsilon: float = 1e-6) -> bool:
+def _snap_position(x: float, y: float) -> tuple[float, float]:
+    # Ties snap down on the measured host (1.50 -> 1.009, 1.51 -> 2.009),
+    # so use floor-half-down rather than banker's round().
+    snapped_x = math.floor(float(x) / FLOW_GRID_X + 0.5 - 1e-9) * FLOW_GRID_X
+    snapped_y = math.floor(float(y) / FLOW_GRID_Y + 0.5 - 1e-9) * FLOW_GRID_Y
+    # Avoid -0.0 noise in readback comparisons.
+    if snapped_x == 0:
+        snapped_x = 0.0
+    if snapped_y == 0:
+        snapped_y = 0.0
+    return snapped_x, snapped_y
+
+
+def _close_enough(a: tuple[float, float], b: tuple[float, float], epsilon: float = FLOW_POSITION_TOLERANCE) -> bool:
     return abs(a[0] - b[0]) <= epsilon and abs(a[1] - b[1]) <= epsilon
 
 
@@ -148,7 +189,10 @@ def tidy_comp(comp: Any, config: LayoutConfig | None = None) -> TidyResult:
     relative = layout_graph(tools.keys(), edges, original_positions=original, config=config)
     anchor_x = min(x for x, _ in original.values())
     anchor_y = min(y for _, y in original.values())
-    desired = {name: (anchor_x + xy[0], anchor_y + xy[1]) for name, xy in relative.items()}
+    desired = {
+        name: _snap_position(anchor_x + xy[0], anchor_y + xy[1])
+        for name, xy in relative.items()
+    }
     writes = {name: xy for name, xy in desired.items() if not _close_enough(original[name], xy)}
     if not writes:
         return TidyResult(len(tools), len(edges), 0, (anchor_x, anchor_y))

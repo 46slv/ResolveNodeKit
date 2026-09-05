@@ -9,10 +9,15 @@ from .tidy import (
     _attrs,
     _classify_input,
     _close_enough,
+    _ensure_ordered_dict,
     _iter_values,
+    _snap_position,
     _tool_name,
     _xy_from_pos_table,
 )
+
+
+_ensure_ordered_dict()
 
 
 @dataclass(frozen=True)
@@ -158,7 +163,8 @@ def _layout(snapshot: _Snapshot, config: LayoutConfig | None) -> tuple[dict[str,
         relative = layout_graph(children, edges, original_positions=original, config=config)
         anchor_x = min(x for x, _ in original.values())
         anchor_y = min(y for _, y in original.values())
-        desired.update({name: (anchor_x + x, anchor_y + y) for name, (x, y) in relative.items()})
+        for name, (x, y) in relative.items():
+            desired[name] = _snap_position(anchor_x + x, anchor_y + y)
         scope_count += 1
     if set(desired) != set(snapshot.tools):
         missing = sorted(set(snapshot.tools) - set(desired))
