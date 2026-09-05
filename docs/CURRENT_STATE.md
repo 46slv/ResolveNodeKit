@@ -146,7 +146,7 @@ The parent orchestrator should choose the first ready item whose prerequisites a
 
 1. `P0R` — DONE (see Reconciliation state above; next: push + PR #1 update, then P2C).
 2. `P2C` — DONE (HOST-PASS 2026-09-05, see section above).
-3. `P3A` — canary PASS (see section above); implement separate `Tidy Nested` now.
+3. `P3A` — canary PASS + `tidy_nested_comp` implemented offline (`9b90ea9`); host validation of the real command is next.
 4. `P5` — stress `Tidy Nested` on a duplicate of the large 1107-tool / 31-group composition using compact in-host evidence.
 5. `P6` — low-risk Fusion node operations.
 6. `P8` — Color read-only capability map.
@@ -188,3 +188,6 @@ Disposable run on timeline RNK_P3A (deleted afterwards; Timeline 1 restored, all
 Key results on Studio 21.0.3.7: `AddTool('GroupOperator')` works; `ParentTool` assignment does not stick; settings-assembled 2-level nesting is real (children/parent agree); child writes inside collapsed groups read back exactly; membership/geometry/display state unchanged; one Undo restores all positions. Canary nodes were unconnected, so connected-nested proof moves to P5.
 
 Ready next: implement `tidy_nested_comp` + `ResolveNodeKit_TidyNested.py` (repo only), then P5 stress, P6, P8. P3B expansion research stays the mission-critical track.
+## Tidy Nested implementation — OFFLINE PASS 2026-09-06 (`9b90ea9`)
+
+`tidy_nested_comp(...)` added to `src/resolve_node_kit/fusion/recursive_groups.py` (+ export, + `scripts/Fusion/ResolveNodeKit_TidyNested.py`, + `tests/test_fusion_nested.py`). Design: same per-scope snapshot/layout/write/readback/rollback machinery as `tidy_groups_comp` but calls no settings API at all, so collapsed/expanded display state cannot be disturbed through this path; post-write hierarchy + edge re-verification included. Offline: 35/35 unittest PASS + `compileall` PASS. Host gate still pending: run the real `tidy_nested_comp` against a collapsed disposable group (membership/connections/display-state invariance, second-run stability, Undo).
