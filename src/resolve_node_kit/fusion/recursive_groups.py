@@ -372,3 +372,62 @@ def tidy_groups_comp(comp: Any, config: LayoutConfig | None = None) -> GroupTidy
         node_count=len(active.tools), edge_count=len(active.edges), moved_count=len(writes),
         group_count=len(active.groups), expanded_count=len(expanded), scope_count=scope_count,
     )
+
+def tidy_nested_comp(comp: Any, config: LayoutConfig | None = None) -> GroupTidyResult:
+    """Recursively tidy every hierarchy scope without touching group display state.
+
+    This is the `Tidy Nested` fallback for hosts where runtime visual expansion is
+    unavailable: collapsed groups stay collapsed, expanded groups stay expanded.
+    Group membership and connections are never intentionally changed.
+    Cross-boundary connections are projected to the visible group node only for
+    layout planning. No settings API is called, so group display state cannot be
+    disturbed through this path.
+    """
+    frame = getattr(comp, "CurrentFrame", None)
+    flow = getattr(frame, "FlowView", None) if frame is not None else None
+    if flow is None or not callable(getattr(flow, "GetPosTable", None)) or not callable(getattr(flow, "SetPos", None)):
+        raise FusionHostError("required Fusion FlowView position API is unavailable")
+
+    original = _snapshot(comp, flow)
+    if not original.tools:
+        return GroupTidyResult(0, 0, 0, 0, 0, 0)
+    start_undo, end_undo = getattr(comp, "StartUndo", None), getattr(comp, "EndUndo", None)
+    undo = callable(start_undo) and callable(end_undo)
+    if undo:
+        start_undo("ResolveNodeKit: Tidy Nested")
+
+    try:
+        desired, scope_count = _layout(original, config)
+        tools = {name: _find_tool(comp, name, original.tools) for name in desired}
+        writes = {name: pos for name, pos in desired.items() if not _close_enough(original.positions[name], pos)}
+        for name in sorted(writes):
+            flow.SetPos(tools[name], *writes[name])
+        mismatch = [
+            name for name in sorted(writes)
+            if not _close_enough(_xy_from_pos_table(flow.GetPosTable(tools[name])), desired[name])
+        ]
+        if mismatch:
+            raise FusionHostError(f"position readback mismatch: {', '.join(mismatch[:12])}")
+        live_tools, live_parents = _collect_tools(comp)
+        if set(live_tools) != set(original.tools) or live_parents != original.parents:
+            raise FusionHostError("nested tidy changed the discovered hierarchy")
+        live_edges = _edge_signature(_snapshot(comp, flow))
+        if live_edges != _edge_signature(original):
+            raise FusionHostError("nested tidy changed node connections")
+    except Exception as exc:
+        position_failures = _restore_positions(comp, flow, original)
+        if undo:
+            end_undo(False)
+        if position_failures:
+            raise FusionHostError(f"nested tidy failed; rollback incomplete for: {', '.join(position_failures[:12])}") from exc
+        if isinstance(exc, (FusionHostError, LayoutError)):
+            raise
+        raise FusionHostError(f"nested tidy failed; original state restored: {exc}") from exc
+    else:
+        if undo:
+            end_undo(True)
+
+    return GroupTidyResult(
+        node_count=len(original.tools), edge_count=len(original.edges), moved_count=len(writes),
+        group_count=len(original.groups), expanded_count=0, scope_count=scope_count,
+    )
