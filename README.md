@@ -64,7 +64,7 @@ See `docs/COLOR_API.md`.
 
 ## Large graph evidence
 
-For hundreds/thousands of Fusion tools, ResolveNodeKit avoids transporting the entire graph through MCP as one payload. Use the versioned compact signature protocol in `docs/EVIDENCE_PROTOCOL.md` and keep host calls bounded/chunked.
+For hundreds/thousands of Fusion tools, ResolveNodeKit avoids transporting the entire graph through MCP as one payload. Use the versioned compact signature protocol in `docs/EVIDENCE_PROTOCOL.md`, establish a transport-fitting chunk size, and keep host calls bounded.
 
 ## Development
 
