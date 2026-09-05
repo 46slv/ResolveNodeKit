@@ -18,6 +18,24 @@ Offline tests are necessary but insufficient. Before calling a host feature read
 - [ ] connections and relevant tool parameters are unchanged;
 - [ ] save/reopen retains the arranged positions.
 
+## Fusion Tidy + Expand Groups
+
+- [ ] `GroupOperator.GetChildrenList()` returns the expected direct children;
+- [ ] `ParentTool` / `TOOLH_GroupParent` identifies the same direct hierarchy;
+- [ ] 1-level group expands and its children are arranged;
+- [ ] 2–3 nested group levels expand recursively;
+- [ ] all GroupOperators read back `ViewInfo.Flags.Expanded = true` after the command;
+- [ ] GroupOperator membership is unchanged before/after;
+- [ ] connection signature is unchanged before/after;
+- [ ] root, parent-group, and nested-group scopes each have stable non-overlapping layouts;
+- [ ] second run is position-identical and performs no unnecessary expansion;
+- [ ] one Undo restores both positions and prior expanded/collapsed states;
+- [ ] expansion or position-write failure restores original positions and group settings;
+- [ ] save/reopen preserves group membership, layout, and intended expanded state;
+- [ ] every expanded group visually shows all direct children without clipping.
+
+If the last check fails, capture the actual `GroupInfo.Size`, `Scale`, `Offset`, child bounds, and host behavior first. Add a fit-to-contents calculation only from measured host evidence; do not infer a formula from `.setting` examples.
+
 ## Color capability gate
 
 - [ ] current Resolve object acquisition;
