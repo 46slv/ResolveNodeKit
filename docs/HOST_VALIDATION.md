@@ -1,160 +1,150 @@
-# Host validation matrix
+# Host validation checklist
 
-Offline tests are necessary but insufficient. A host feature is accepted only against an exact Resolve/Fusion version with target identity, pre/post readback, invariant comparison, and rollback/Undo evidence appropriate to the command.
+Offline tests are necessary but insufficient. Before calling a host feature ready, record the exact Resolve/Fusion version and use structured OpenCode/MCP evidence plus independent parent verification.
 
-For current operational status, read `docs/CURRENT_STATE.md`. Historical host runs belong under `docs/checkpoints/`.
-
-## Evidence levels
-
-- `OFFLINE` — mocks/fixtures/algorithm tests only.
-- `HOST-MEASURED` — real host evidence exists, but current canonical branch may still need integration/closeout.
-- `HOST-PASS` — current canonical implementation has been run and accepted on the stated host.
-- `BLOCKED-CURRENT-PATH` — a specific attempted host path is disproven; other hypotheses may remain.
-- `BLOCKED-API` — no safe/readback-verifiable path remains for the feature on the measured host.
-
-Do not turn a return value such as `True` into HOST-PASS without state readback.
+For current live gate/order, read `docs/CURRENT_STATE.md`. For large graphs, use `docs/EVIDENCE_PROTOCOL.md` rather than whole-graph MCP dumps.
 
 ## Fusion Flat Tidy
 
-Historical 2026-09-05 evidence: HOST-MEASURED PASS on Resolve Studio 21.0.3.7 disposable canary with local measured fixes. Canonical branch HOST-PASS requires reconciliation and a small closeout canary.
+Current measured status: HOST-PASS on Resolve Studio 21.0.3.7 canaries.
 
-Acceptance checklist:
+Validated behavior includes:
 
-- [ ] current canonical branch contains the measured FlowView snap/readback fixes;
-- [ ] full offline suite + `compileall` pass;
-- [ ] script loads in intended Resolve/Fusion context;
-- [ ] serial chain canary;
-- [ ] BG + FG -> Merge canary;
-- [ ] EffectMask branch canary;
-- [ ] isolated/disconnected case;
-- [ ] connections unchanged;
-- [ ] sampled processing parameters/keyframes unchanged;
-- [ ] second run position-identical / no drift;
-- [ ] one Undo restores positions when safely testable;
-- [ ] failure/readback mismatch restores original positions;
-- [ ] no project/timeline/comp identity drift.
+- script loads in the intended host path;
+- `GetToolList`, `CurrentFrame.FlowView`, `GetPosTable`, and `SetPos` usable;
+- serial chain;
+- BG + FG -> Merge;
+- EffectMask branch;
+- isolated node;
+- measured grid/readback handling;
+- second run position-identical / moved=0;
+- Undo returns prior positions;
+- fail-closed rollback behavior;
+- connections preserved;
+- sampled processing state unchanged.
 
-Save/reopen persistence is a separate persistence gate and must not force saving the user's active project without explicit safe-target authority.
+Still separate from product readiness:
 
-## Fusion `Tidy Nested` — hierarchy-preserving recursive tidy without expansion
+- save/reopen persistence must only be tested on an explicitly safe save target; never force-save the user's active project merely to close this gate.
 
-This is separate from strict `Tidy + Expand Groups`.
+## Fusion `Tidy Nested`
 
-First real-host canary on a collapsed GroupOperator:
+Current measured status: HOST-PASS on the fixed canary path.
 
-- [ ] `GetChildrenList()` direct children match parent ownership via `ParentTool` / `TOOLH_GroupParent`;
-- [ ] child positions are readable while parent is collapsed;
-- [ ] child positions can be changed and read back while parent remains collapsed;
-- [ ] direct group membership unchanged;
-- [ ] connection signature unchanged;
-- [ ] group expanded/collapsed display state unchanged;
-- [ ] sampled processing parameters/keyframes unchanged;
-- [ ] Undo/explicit rollback restores positions;
-- [ ] nested 2–3-level scopes receive deterministic layouts;
-- [ ] second run is position-identical.
+Required/validated contract:
 
-Only after this canary passes should `tidy_nested_comp(...)` / `ResolveNodeKit_TidyNested.py` be considered host-ready.
+- nested GroupOperators remain groups;
+- direct parent/child membership unchanged;
+- collapsed/expanded display state unchanged by `Tidy Nested`;
+- root/parent/nested scopes receive deterministic layouts;
+- cross-boundary projection is planning-only;
+- connections unchanged;
+- sampled processing state unchanged;
+- second run position-identical / moved=0;
+- Undo restores prior positions;
+- rollback remains fail-closed.
 
-## Fusion visual Group expansion — strict user-visible requirement
+The fixed implementation uses a bounded fixed-point planning loop before the host write to avoid settle drift caused by measured FlowView readback offsets.
 
-Known measured current-path result on Resolve Studio 21.0.3.7:
+### Large graph stress for `Tidy Nested`
 
-`SaveSettings -> Expanded=true -> LoadSettings(True result) -> SaveSettings readback` does **not** retain the expanded state. This serialized-settings path is therefore not accepted and should not be retried without new evidence.
+Not yet PASS.
 
-Runtime-action research checklist:
+The current large composition (~1107 tools / 31 nested groups in the measured context) exceeded the MCP/bridge transport envelope when one long in-host evidence walk was attempted. Resolve remained responsive and no product mutation ran.
 
-- [ ] inspect existing OpenCode/MCP/runtime surfaces for a named/bounded Fusion Expand/Collapse action;
-- [ ] avoid blind global keystrokes and avoid installing a new automation stack solely for this blocker;
-- [ ] on one disposable Group, bind exact selection/target;
-- [ ] invoke exactly one candidate runtime action;
-- [ ] independently observe actual expanded/subflow state;
-- [ ] verify GroupOperator identity/membership unchanged;
-- [ ] verify connections unchanged;
-- [ ] verify Undo/cleanup behavior;
-- [ ] prove deterministic targeting across nested groups before bulk expansion.
+Retry requirements:
 
-If every readback-verifiable action path is exhausted, classify this feature `BLOCKED-API`. That blocks `MISSION_COMPLETE` under current user requirements, but not independent ResolveNodeKit development.
+- do not repeat the same long whole-graph call;
+- establish a safe medium-scope/chunk size first;
+- keep each host call short;
+- compute compact canonical signatures in-host where possible;
+- aggregate bounded evidence deterministically;
+- only mutate once pre-evidence can complete reliably;
+- compare pre/post/second-run evidence using `docs/EVIDENCE_PROTOCOL.md`.
+
+## Fusion strict `Tidy + Expand Groups`
+
+Current status: runtime visual expansion UNRESOLVED / serialized-settings path disproven.
+
+The strict user-visible contract is:
+
+- groups remain GroupOperators;
+- nested groups actually open in the runtime/UI sense;
+- internals are tidied;
+- all intended contents become visible;
+- membership/connections/processing state remain unchanged;
+- second run stable;
+- Undo/rollback understood.
+
+Measured on Resolve Studio 21.0.3.7:
+
+- `SaveSettings` -> set `ViewInfo.Flags.Expanded=true` -> `LoadSettings` returns success;
+- immediate `SaveSettings` readback does not retain the expanded state;
+- same path failed to establish runtime expansion on empty/populated groups, with/without Undo;
+- no usable expanded flag appeared in `GetAttrs`;
+- `Size`/`Scale`/`Offset` did not establish a fit path.
+
+Do not repeat that exact hypothesis without new evidence.
+
+Next research target: a deterministic, readback-verifiable runtime Expand/Collapse command/action path. No blind keystrokes, new desktop automation stack, global shortcut mutation, ungrouping, or flattening merely to bypass this gate without new authority.
 
 ## Fusion fit-to-contents
 
-Prerequisite: real runtime Group expansion PASS.
+Prerequisite: strict runtime visual expansion PASS.
 
-Do not infer geometry from `.setting` examples.
+Only after a real expanded group exists:
 
-- [ ] capture real `GroupInfo.Size`, `Scale`, `Offset` and group/node positions before experiments;
-- [ ] capture direct-child bounds and visible clipping result;
-- [ ] change one geometry variable at a time on a canary;
-- [ ] derive semantics from repeated measured values;
-- [ ] implement padding/fit only from measured behavior;
-- [ ] all direct children visible, including nested Group nodes;
-- [ ] second run stable;
-- [ ] membership/connections/processing state unchanged;
-- [ ] Undo/rollback proven.
+- measure `GroupInfo.Size`, `Scale`, `Offset`, group position, direct-child bounds, and visible result;
+- change one variable at a time on a canary;
+- derive geometry semantics from measured host behavior;
+- implement a minimal fit with padding;
+- verify all direct children visible through 2–3 nesting depths;
+- prove second-run stability and structural/processing invariants.
 
-## Large/nested Fusion stress
+Do not infer a formula from `.setting` examples alone.
 
-Prerequisite for recursive-tidy stress: Flat Tidy HOST-PASS + `Tidy Nested` host canary PASS. Visual expansion/fit is a separate lane.
+## Fusion low-risk operations
 
-Do not request a full 1000+ tool JSON snapshot if it is known to time out.
+Ready independent lane after Flat Tidy PASS.
 
-Use in-host compact canonical evidence:
+Candidate order:
 
-- [ ] tool count;
-- [ ] group count + maximum nesting depth;
-- [ ] connection-signature hash;
-- [ ] group-membership-signature hash;
-- [ ] position-signature hash;
-- [ ] duplicate-coordinate counts per managed visible scope;
-- [ ] optional sampled processing-state hash;
-- [ ] runtime/timing;
-- [ ] focused mismatch rows only when a signature differs.
+1. Align selected horizontal/vertical;
+2. Distribute selected horizontal/vertical;
+3. selected/component-scope tidy;
+4. upstream/downstream/connected-component selection;
+5. safe group display helpers only where host API is proven;
+6. frame/center selected only if a real deterministic action/API exists.
 
-Stress acceptance:
+Each command requires explicit scope, deterministic result, readback, no processing-state change, and Undo/rollback where appropriate.
 
-- [ ] completes without host crash/hang;
-- [ ] structural hashes unchanged;
-- [ ] intended positions settle deterministically;
-- [ ] second run stable;
-- [ ] no unbounded loop;
-- [ ] operationally usable runtime.
+## Fusion rewiring operations
 
-## Fusion low-risk commands
+Only after low-risk command safety patterns are stable.
 
-Each Align / Distribute / selection traversal / selected-scope tidy command requires:
+Before any rewiring:
 
-- [ ] explicit target/selection scope;
-- [ ] deterministic postcondition;
-- [ ] readback of position/selection state where exposed;
-- [ ] no processing-state mutation;
-- [ ] Undo/rollback appropriate to the mutation;
-- [ ] offline tests for host-independent logic;
-- [ ] one real-host canary.
-
-## Fusion rewiring commands
-
-Each rewiring command requires:
-
-- [ ] exact pre edge/input/output identity snapshot;
-- [ ] minimal intended write set;
-- [ ] complete affected-edge readback;
-- [ ] exact postcondition and no extra edge changes;
-- [ ] processing state unchanged unless explicitly owned by the command;
-- [ ] rollback to exact pre edge set on mismatch;
-- [ ] representative host canary.
-
-No ambiguous input classification may be guessed.
+- snapshot exact affected edge/input/output identities;
+- perform minimal writes;
+- read back the complete affected edge set;
+- rollback exactly on mismatch;
+- fail closed on ambiguous input semantics.
 
 ## Color capability gate
 
-Read-only map first:
+Current measured status: read-only capability map PASS for the current project context.
 
-- [ ] current Resolve/project/timeline acquisition;
-- [ ] relevant current item acquisition path;
-- [ ] timeline/clip/group `GetNodeGraph()` availability where exposed;
-- [ ] distinguish unsupported API from current-context/item unavailability;
-- [ ] enumerate node count, labels, LUT/cache state, and tools where exposed;
-- [ ] record exact host version and item types that return no graph.
+Measured on Resolve Studio 21.0.3.7:
 
-Color writes begin only after capability mapping. Each mutation must have a readable postcondition and rollback/exclusion contract.
+- current-item Graph access available in the measured context;
+- measured item Graph contained one node;
+- timeline-level Graph available but empty;
+- no Color groups exist in the current project, so group Graph behavior remains context-unexercised;
+- observed Graph surface includes node count, label, LUT, cache, enabled state, tools, and grade-related operations;
+- physical Color-node XY position API absent from the measured callable surface.
 
-Do not claim physical Color node XY layout until a real readback-verifiable API or safe alternative is measured.
+### Color mutations
+
+Only add operations with observable postconditions/readback, e.g. enable/disable, cache mode, LUT helpers, inspection/navigation, and other measured surfaces.
+
+Do not claim Color physical XY layout unless a future measured API/action proves it.

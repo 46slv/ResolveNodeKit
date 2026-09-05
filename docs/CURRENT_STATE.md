@@ -2,160 +2,157 @@
 
 Updated: 2026-09-06 JST
 
-This file is the short-lived operational pointer for the next Codex run. Live local Git/worktree, remote Git/PR, and live Resolve state outrank it. Historical detail belongs in `docs/checkpoints/`.
+This file is the short-lived operational pointer for the next Codex run. Live local Git/worktree, remote Git/PR, and live Resolve state always outrank it. Historical detail belongs in `docs/checkpoints/`.
 
 ## Program status
 
-`BLOCKED_HOST`
+`CHECKPOINTED`
 
-Reason: the current DaVinci Resolve process became persistently unresponsive during a disposable nested-group validation run. Parent-side read-only observation reported `Responding=false`; Resolve MCP reported `Not connected`. Per the hard-stop contract, no kill/restart was attempted because the active user project may contain unsaved state.
+The Resolve host recovered successfully and was clean/responsive at the end of the latest run. ResolveNodeKit is not globally blocked and is not `MISSION_COMPLETE`.
 
-This is a **host-recovery boundary**, not a code failure and not `MISSION_COMPLETE`.
-
-Do not launch further Resolve/OpenCode host workers until the user confirms the Resolve session is healthy.
+The mission-critical unresolved requirement remains runtime visual nested-group access: groups must remain GroupOperators, actually open in the Fusion runtime/UI sense, have their internals tidied, and show all contents.
 
 ## Canonical repo state
 
 - repo: `46slv/ResolveNodeKit`
 - task branch: `feat/bootstrap-nodekit-20260905`
-- current remote HEAD locator: `3f3d5c27b9d896accd80917cf8e17bf0f17991e9`
 - Draft PR: #1, open/draft
-- reported worktree at stop: clean, remote in sync
-- current offline suite at stop: 36/36 unittest PASS + `compileall` PASS
+- branch locator immediately before this state normalization: `f974730f5952a6376feb443d482bbb571e71d59e`
+- reported worktree at latest run end: clean, remote in sync
+- offline suite: 36/36 unittest PASS + `compileall` PASS
 
-Treat these as locators and fresh-read on resume.
+Fresh-read all locators on resume.
 
-## Closed gates
+## Closed / proven gates
 
 ### P0R — reconciliation: PASS
 
-The host-measured grid/readback/settings fixes were preserved, reconciled with the newer remote orchestration branch, tested, committed, and pushed.
+Host-measured local fixes were preserved, reconciled with the newer remote orchestration work, tested, committed, and pushed.
 
-### P2C — Flat Tidy host closeout: PASS
+### P2C — Flat Tidy: HOST-PASS
 
-Real Resolve Studio 21.0.3.7 disposable validation established:
+Real Resolve Studio 21.0.3.7 disposable validation proved serial / Merge / EffectMask / isolated-node handling, connection invariance, measured FlowView grid/readback handling, second-run `moved=0`, Undo restoring positions, and fail-closed rollback.
 
-- serial / Merge / EffectMask / isolated-node handling;
-- connection invariance;
-- measured FlowView grid/readback handling;
-- second-run `moved=0`;
-- Undo restoring positions;
-- fail-closed rollback behavior.
+### P3A collapsed-child canary: PASS
 
-Flat Tidy is HOST-PASS on the canonical task branch.
+A real collapsed nested GroupOperator canary proved child positions can be changed/read back without changing hierarchy, connections, processing state, or collapsed/expanded display state. Undo restores positions.
 
-### P3A collapsed-child position canary: PASS
-
-A real collapsed nested GroupOperator canary proved that child positions can be changed/read back without changing hierarchy, group display state, connections, or processing state, and Undo restores positions.
-
-## Tidy Nested implementation
+### R1 — `Tidy Nested` fixed-command re-validation: HOST-PASS
 
 `tidy_nested_comp(...)` and `scripts/Fusion/ResolveNodeKit_TidyNested.py` are implemented.
 
-Host validation round 1 found a real second-run settle drift:
+A prior host validation found a second-run settle drift (`moved=7 -> 1 -> 0`). The cause was reproduced offline and fixed by iterating `_layout_step` to a fixed point before one host write.
 
-- run1 moved=7;
-- run2 moved=1 (`InnerG` y settled by one grid row);
-- run3 moved=0;
-- hierarchy/connections/collapsed-state/geometry remained invariant.
+Latest real-host re-validation after Resolve recovery:
 
-Root cause was reproduced offline: layout row ordering depends on input Y and measured host readback offsets can perturb anchor/order.
+- run1 `moved=7`, reaching the fixed point directly;
+- run2 `moved=0`, identical positions;
+- membership unchanged;
+- connections unchanged;
+- collapsed/display state unchanged;
+- sampled processing state unchanged;
+- Undo restored all positions exactly;
+- disposable deleted;
+- Timeline 1 remained untouched/unmodified;
+- no project save.
 
-Fix: `f1c2982` makes `tidy_nested_comp` iterate `_layout_step` to a fixed point (cap 16) before one host write. `tidy_groups_comp` was intentionally left unchanged because no measured failure exists there.
+Evidence: `docs/checkpoints/2026-09-06-tidy-nested-r1-pass.md`.
 
-Regression coverage encodes the measured drift. Current offline result: 36/36 PASS + `compileall` PASS.
+`Tidy Nested` is HOST-PASS.
 
-### Tidy Nested host re-validation
+### P8 — Color read-only capability map: PASS
 
-Status: **PENDING ONLY BECAUSE HOST HUNG**.
+Measured on Resolve Studio 21.0.3.7 with zero host writes:
 
-A second disposable validation (`RNK_P3B2`) hung during nested Paste before the fixed command could be revalidated. This is not evidence that the fixed command caused the hang; the hang occurred during disposable setup/Paste and must be treated as an unresolved host event.
+- per-item Color Graphs available on current Timeline 1 items, with one node in the measured context;
+- timeline-level Graph available but empty;
+- no Color groups exist in the current project, so group-graph behavior remains context-unexercised rather than disproven;
+- Graph surface includes LUT/cache/enabled/label/tools/grade-related operations;
+- physical Color-node XY position API is absent in the measured callable surface.
 
-## Current host blocker
+Consequence: future Color operations may use readback-verifiable enable/cache/LUT/etc. surfaces, but must not claim physical XY layout.
 
-Historical host locator from the stopped run:
+## Current feature-local blocker
 
-- Resolve Studio 21.0.3.7
-- process PID observed: 27928
-- parent readback: `Responding=false`
-- MCP: `Not connected`
-- disposable timeline: `RNK_P3B2` may still exist in unknown partial state
-- Timeline 1 was not intentionally modified
-- no project save was issued
+### P5 — large nested stress: `BLOCKED_HOST` (transport only)
 
-Detailed evidence: `docs/checkpoints/2026-09-06-resolve-hang-p3aval2.md`.
+The large real composition contains approximately 1107 tools and 31 nested GroupOperators in the measured context.
 
-### Human boundary
+Latest P5 attempt:
 
-The user must first make Resolve healthy. They may restart Resolve themselves if necessary. Do not kill/restart the process autonomously.
+- disposable duplicate was verified identical before the evidence walk;
+- Timeline 1 remained untouched;
+- no product mutation ran;
+- no project save;
+- Resolve remained responsive;
+- one long in-host evidence walk timed out at the MCP layer (`-32001`), retry then lost/deregistered the bridge (`-32000` / tools unavailable).
 
-## Mandatory recovery sequence after user confirmation
+This is not evidence that `Tidy Nested` fails at large graph scale. It is a transport-envelope failure: the call was too long for the MCP/bridge path.
 
-Before resuming product work:
+Evidence: `docs/checkpoints/2026-09-06-p5-transport-block.md`.
 
-1. fresh-read local/remote Git and verify clean canonical task branch;
-2. run `opencode mcp list` and re-establish the proven OpenCode/Muse/Resolve MCP route;
-3. bind the actual current Resolve project/timeline/comp from live state; do not assume historical identity;
-4. verify the original Timeline 1 data is intact before cleanup;
-5. locate `RNK_P3B2*` disposable artifacts only if they still exist;
-6. inspect enough state to distinguish safe disposable cleanup from user data;
-7. delete only confirmed ResolveNodeKit disposable artifacts;
-8. restore Timeline 1 as current if necessary;
-9. verify final timeline list / current target and that original comps are not unexpectedly modified;
-10. only then resume host validation of the fixed `tidy_nested_comp`.
+### Cleanup after P5: PASS
 
-If target identity or disposable ownership cannot be proven, stop `BLOCKED_SAFETY` rather than guessing cleanup.
+A short/light worker run removed stale ResolveNodeKit-owned timelines with exact identity + confirmation guardrails. Final host state was verified:
 
-## Ready queue after host recovery
+- timeline list exactly `[Timeline 1]`;
+- current timeline `Timeline 1`;
+- original comps `Modified=false`;
+- no save;
+- Resolve healthy/responsive.
 
-### R1 — Tidy Nested fixed-command re-validation
+## P5 retry strategy
 
-Re-run the smallest disposable nested-group validation using the current fixed code. Acceptance:
+Do not retry the same full 1107-tool single-call walk.
 
-- run1 reaches intended layout;
-- run2 `moved=0` / identical quantized position hash;
-- hierarchy, membership, connections, processing-state evidence, and collapsed/expanded display state unchanged;
-- Undo/rollback understood;
-- disposable cleanup complete;
-- original Timeline 1 remains untouched/unmodified.
+Use `docs/EVIDENCE_PROTOCOL.md` and determine a transport-fitting envelope first:
 
-### P5 — large nested stress
+1. start with a medium real/disposable subtree or bounded subset;
+2. keep each Resolve/MCP call short;
+3. compute compact counts/hashes locally/in-host;
+4. return only compact evidence per chunk;
+5. measure elapsed time and successful chunk size;
+6. increase scope gradually;
+7. combine chunk evidence deterministically on the parent side or via bounded in-host aggregation;
+8. only mutate after a pre-evidence strategy can complete reliably;
+9. never repeat a materially identical full-graph timeout path.
 
-After R1 PASS, exercise a duplicate of the large real composition using `docs/EVIDENCE_PROTOCOL.md`. Do not serialize all ~1100 tools through MCP. Compute compact in-host counts/hashes/timing and expand only mismatches.
+The next P5 attempt should first establish a stable transport envelope, then run pre -> Tidy Nested -> post -> second-run evidence within that envelope.
 
-### P6 — low-risk Fusion operations
+## Mission-critical visual Group expansion — P3B OPEN
 
-After host recovery, independent of visual Group expansion: Align, Distribute, selection traversal, selected/component tidy, etc., each with readback and Undo/rollback contracts.
+The serialized-settings hypothesis is disproven on Resolve Studio 21.0.3.7:
 
-### P8 — Color read-only capability map
+`SaveSettings -> Expanded=true -> LoadSettings(True) -> SaveSettings`
 
-Independent read-only lane after host recovery.
+does not retain runtime expanded state.
 
-### P3B — visual Group expansion research
+Strict `Tidy + Expand Groups` remains fail-closed and must never silently degrade to `Tidy Nested`.
 
-Mission-critical but independent of Tidy Nested. The serialized `LoadSettings(Expanded=true)` path is disproven on the measured host. Investigate only a deterministic/readback-verifiable runtime Expand/Collapse action path. No blind keystrokes, new desktop automation stack, global shortcut mutation, ungrouping, or flattening merely to bypass this blocker.
+Next research hypothesis: a deterministic/readback-verifiable runtime Expand/Collapse action/command path.
 
-### P4 — fit to contents
+Do not use blind keystrokes, install a new desktop automation stack, mutate global shortcuts, ungroup, or flatten merely to bypass this blocker without new authority.
 
-Runs only after real runtime visual expansion is proven.
+P4 fit-to-contents remains gated on P3B PASS.
 
-## Visual Group requirement
+## Ready queue
 
-The explicit mission remains:
+Choose the smallest ready gate from live evidence rather than blindly following numeric order.
 
-- keep nested groups as GroupOperators;
-- actually open nested groups in the runtime/UI sense;
-- tidy their internals;
-- make all contents visible.
+1. **P5-retry** — establish a transport-fitting chunk size on a medium scope, then scale bounded evidence toward the large graph.
+2. **P6** — low-risk Fusion operations: Align / Distribute / selection traversal / selected-component tidy, each with readback and Undo/rollback contracts.
+3. **P3B** — runtime visual Group Expand/Collapse action research; mission-critical but independent of P5/P6.
+4. **P9** — Color reversible helpers based only on P8-observed readback surfaces (enable/cache/LUT/etc.); no XY layout claim.
+5. **P4** — fit-to-contents only after P3B PASS.
 
-`Tidy Nested` is a useful independent feature but does not satisfy visual expansion. `MISSION_COMPLETE` cannot be declared until visual nested-group access is proven or the user explicitly changes scope.
+A feature-local blocker must be checkpointed, then another independent ready lane should continue if authorized.
 
-## Status semantics for the next run
+## Program completion semantics
 
-- While Resolve remains unhealthy: whole current run = `BLOCKED_HOST`.
-- Once the user restores Resolve and host transport is available: return to the dependency-driven orchestration in `docs/ORCHESTRATION.md`.
-- A later feature-local blocker must not stop independent ready lanes.
-- Any ambiguous cleanup/write without independent readback is a hard stop.
+- Current overall status: `CHECKPOINTED`.
+- `USABLE_BETA` may eventually be checkpointed with accurately documented non-critical limitations.
+- `MISSION_COMPLETE` is not allowed while the explicit visual nested-group requirement is unresolved, unless the user explicitly changes/waives that requirement.
+- A whole-run `BLOCKED_*` should be used only when no authorized ready gate remains, host/safety conditions block all useful work, or new user authority is required.
 
 ## Required reading on resume
 
@@ -166,18 +163,6 @@ The explicit mission remains:
 5. `docs/EVIDENCE_PROTOCOL.md`
 6. `docs/HOST_VALIDATION.md`
 7. `docs/GROUPS.md`
-8. `docs/checkpoints/2026-09-06-resolve-hang-p3aval2.md`
-9. other relevant checkpoints only as needed
-
-## R1 — Tidy Nested fixed-command re-validation: PASS 2026-09-06
-
-Recovery executed first (fresh bind, Timeline 1 intact, RNK_R1* deleted, list [Timeline 1], no save). Fresh disposable RNK_R2 (deleted afterwards): run1 `moved=7` settling directly on the fixed point, run2 `moved=0 identical=True`, membership/connections/display-state/params invariant, Undo restoring all 8 positions exactly. Evidence: `docs/checkpoints/2026-09-06-tidy-nested-r1-pass.md`, events `%TEMP%\rnk-recover2\events.jsonl`. `Tidy Nested` is HOST-PASS. Next: P5 large-stress, P6 low-risk ops, P8 Color map, P3B expansion research.
-## P8 — Color read-only capability map: PASS 2026-09-06
-
-Zero-write worker run on Studio 21.0.3.7 (events `%TEMP%\rnk-p8\events.jsonl`, 42 lines; parent-verified 0 mutating calls). Timeline 1 items are generator/Fusion Composition clips; per-item graphs available (1 node, empty label/LUT, cache -1, GetToolsInNode null); timeline-level graph 0 nodes; no color groups exist (group graphs untestable = context, not API). Full Graph method surface enumerated (Get/Set LUT, cache, enabled, label, tools, ApplyGradeFromDRX, ResetAllGrades...). XY position API: ABSENT — dir() sweep found no position semantics. Consequence: P9 Color work must use enable/cache/LUT helpers with readback, never physical XY layout. Repo untouched.
-## P5 — large nested stress: BLOCKED_HOST (transport, feature-local) 2026-09-06
-
-Duplicate verified identical and Timeline 1 untouched, but the full in-host evidence walk over the 1107-tool comp timed out at the MCP layer (-32001), the retry dropped the connection (-32000, tools deregistered), and cleanup could not run. Resolve stayed responsive; no mutation ran; no save. Stale on host: RNK_STRESS + Timeline 1_archived_v02 (+possible archived variant) — cleanup pending via light calls. Evidence: `docs/checkpoints/2026-09-06-p5-transport-block.md`, events `%TEMP%\rnk-p5\events.jsonl`. Lesson: keep in-host calls short/chunked; bridge timeout knobs are out of repo scope. Next: tiny cleanup run, then P5-retry at fitting scope, P6, P3B.
-## Stale-state cleanup: PASS 2026-09-06
-
-Light-call worker run (events `%TEMP%\rnk-cleanup\events.jsonl`, 49 lines): both stale timelines deleted with exact id match + confirm-token guardrail (Timeline 1_archived_v02: 3->2; RNK_STRESS: 2->1, each verified:true). Current Timeline 1 restored, final list exactly [Timeline 1], all comps `Modified=false`, no save, repo untouched. Host is clean. Next: P5-retry at transport-fitting scope, P6 low-risk ops, P3B expansion research.
+8. `docs/checkpoints/2026-09-06-tidy-nested-r1-pass.md`
+9. `docs/checkpoints/2026-09-06-p5-transport-block.md`
+10. older checkpoints only as needed

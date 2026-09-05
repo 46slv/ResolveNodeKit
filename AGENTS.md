@@ -56,6 +56,16 @@ The user's visual-group requirement is mission-critical: nested groups must even
 
 Keep strict names strict. `Tidy + Expand Groups` must fail closed when expansion is not proven. A hierarchy-preserving recursive tidy without visual expansion is a separate command/API.
 
+## Current measured orientation
+
+Use `docs/CURRENT_STATE.md` for the live ready queue, but keep these durable facts in mind:
+
+- Flat Fusion Tidy is host-verified on the measured Resolve Studio 21.0.3.7 path.
+- `Tidy Nested` is host-verified after fixed-point stabilization; repeated execution is stable and hierarchy/connection/display-state invariants held in the canary.
+- Color read-only capability mapping is complete for the current project context; physical Color-node XY positioning is absent from the measured callable surface.
+- Large ~1100-tool stress is currently transport-limited by long MCP/bridge calls; establish a transport-fitting chunk size and use compact evidence rather than repeating a whole-graph call.
+- Visual runtime Group expansion remains mission-critical and unresolved. The serialized `LoadSettings(Expanded=true)` path is disproven on the measured host.
+
 ## Checkpoint discipline
 
 After each meaningful host gate or phase transition:
@@ -66,6 +76,6 @@ After each meaningful host gate or phase transition:
 - add a dated checkpoint only when it contains evidence worth preserving;
 - record exact tests, host identity, worker route, mutations, readback, blocker, and smallest next gate.
 
-Large-graph host gates must follow `docs/EVIDENCE_PROTOCOL.md` rather than relying on full-graph MCP dumps or worker narration.
+Large-graph host gates must follow `docs/EVIDENCE_PROTOCOL.md` rather than relying on full-graph MCP dumps or worker narration. Establish a bounded/chunked transport envelope first.
 
 See `docs/ORCHESTRATION.md` for the phase graph, stop rules, large-graph fallback, and resume contract.
