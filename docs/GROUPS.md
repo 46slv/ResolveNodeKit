@@ -1,49 +1,133 @@
-# Fusion GroupOperator tidy contract
+# Fusion GroupOperator contracts
 
-ResolveNodeKit must support deeply nested Fusion `GroupOperator` trees without ungrouping them.
+ResolveNodeKit must support deeply nested Fusion `GroupOperator` trees without flattening or ungrouping them.
 
-## Required behavior
+This document separates three different behaviors that must not be conflated:
 
-`Tidy + Expand Groups` treats every GroupOperator as both a node in its parent scope and a container with its own child scope.
+1. hierarchy-aware layout;
+2. runtime visual expansion;
+3. fit-to-contents of an already expanded group.
 
-- preserve GroupOperator membership;
-- recursively discover children with `GetChildrenList()` and parent ownership via `ParentTool` / `TOOLH_GroupParent`;
-- expand every GroupOperator by setting `ViewInfo.Flags.Expanded = true` through `SaveSettings` / `LoadSettings`;
-- run deterministic layout independently at root and inside every nested group;
-- project cross-boundary connections to the visible group node for layout planning only;
-- never rewire a connection to achieve layout;
-- verify hierarchy, connection signatures, positions, and Expanded readback;
-- wrap the operation in one Undo event when available;
-- rollback positions and group settings if any expansion or position write fails.
+## 1. Shared hierarchy model
 
-This is intentionally separate from `tidy_comp()` until the real Resolve/Fusion host behavior is verified.
+Every GroupOperator is both:
 
-## Why per-scope layout is necessary
+- a node in its parent scope; and
+- a container owning a child scope.
 
-Flattening a nested graph loses the visual meaning of a GroupOperator. For an edge from a node inside `GroupB` to a sibling node inside `GroupA`, the `GroupA` layout sees `GroupB -> sibling`, while the `GroupB` layout sees the real internal edge. The connection itself is not changed.
+Shared invariants:
 
-## Offline validation
+- preserve direct parent/child membership;
+- discover children through `GetChildrenList()` and parent ownership through `ParentTool` / `TOOLH_GroupParent` where available;
+- layout each hierarchy scope independently;
+- project cross-boundary connections to the visible GroupOperator for layout planning only;
+- never rewire the real graph to match the projection;
+- preserve processing parameters/keyframes/media/render state;
+- snapshot/readback/rollback every host mutation path.
 
-Focused recursive-group tests cover:
+For an edge from a node inside `GroupB` to a sibling inside `GroupA`, the `GroupA` layout may see `GroupB -> sibling` while the `GroupB` layout sees its actual internal edge. This is only a planning projection.
 
-1. two nested GroupOperators remain grouped, both expand, and root/parent/nested scopes each receive a layout;
-2. a second run is position-identical and performs no unnecessary expansion;
-3. failure while expanding a nested group restores earlier group state and original positions and discards the Undo event;
-4. a malformed parent-group cycle fails before any position write.
+## 2. `Tidy Nested` — recursive layout without requiring visual expansion
 
-Current focused result: **4/4 PASS** with `compileall` PASS. This is mock/API-contract evidence only, not a Resolve/Fusion host claim.
+This is the independent fallback/product feature intended to keep progress useful even when runtime Group expansion is not yet scriptable.
 
-## Host-only gate: fit to contents
+Target API/script:
 
-Offline mocks can prove recursive discovery, scope projection, deterministic positions, expansion-state handling, and rollback. They cannot prove the Fusion UI's `GroupInfo.Size`, `Scale`, and `Offset` behavior.
+- `tidy_nested_comp(...)`
+- `scripts/Fusion/ResolveNodeKit_TidyNested.py`
 
-The user-visible requirement is stricter than merely setting `Expanded = true`: after host validation, every expanded group must show all direct children without clipping. Do not invent a `GroupInfo.Size` formula from setting-file examples. Measure the installed Resolve/Fusion behavior first, then either:
+Required behavior:
 
-1. confirm Fusion automatically sizes/frames the expanded group after the child positions are written; or
-2. add a measured, readback-verifiable `Size` / `Scale` / `Offset` fit step.
+- leave every GroupOperator's visual expanded/collapsed state unchanged;
+- recursively tidy direct children in every managed scope;
+- preserve membership and connections;
+- be deterministic on repeated runs;
+- fail closed if nested identity/hierarchy cannot be resolved safely.
 
-Until that host gate passes, report the feature as recursive expand + tidy, not fully host-verified fit-to-contents.
+### Host gate
 
-## Evidence basis
+Do not declare this feature ready from mocks alone. First prove on a real collapsed GroupOperator that child positions can be read and changed while the group remains collapsed, and that those writes do not alter membership, connections, processing state, or display state.
 
-Fusion's scripting reference documents `TOOLH_GroupParent`, the `Operator.ParentTool` convenience property, `Operator.GetChildrenList()`, and `Operator.SaveSettings()` / `LoadSettings()`. Real GroupOperator settings serialize nested tools under `Tools = ordered() { ... }` and expanded UI state under `ViewInfo = GroupInfo { Flags = { Expanded = true, ... } }`.
+If collapsed child positions cannot be safely written/read back, classify this feature separately as host/API blocked. Do not weaken invariants to make it pass.
+
+## 3. `Tidy + Expand Groups` — strict runtime visual-expansion contract
+
+The user-visible meaning is strict:
+
+- groups remain GroupOperators;
+- nested groups are actually opened in the Fusion UI/runtime sense;
+- their internals are tidied;
+- a second run is stable;
+- structure and processing state are unchanged.
+
+It must never silently degrade to `Tidy Nested`.
+
+### Disproven serialized-settings path
+
+A real-host run on DaVinci Resolve Studio 21.0.3.7 measured:
+
+1. obtain GroupOperator settings;
+2. set `ViewInfo.Flags.Expanded = true`;
+3. call `LoadSettings`;
+4. host returns `True`;
+5. immediate `SaveSettings` readback does **not** retain the expanded state.
+
+The same behavior was reported with and without Undo and on both empty and populated groups. `Size`, `Scale`, and `Offset` did not change and `GetAttrs` did not expose a usable expanded flag.
+
+Therefore `LoadSettings(Expanded=true)` is not a proven runtime expansion API on that host. Do not keep retrying it without new evidence.
+
+### Current expansion hypothesis
+
+Fusion's real UI has an Expand/Collapse operation for Group nodes. The next research target is therefore a runtime command/action path, not another serialized-settings rewrite.
+
+Investigation must remain bounded and readback-verifiable:
+
+1. inspect already-configured OpenCode/MCP/Fusion runtime actions;
+2. inspect scriptable named actions/commands if exposed;
+3. canary one disposable Group only after exact target selection is proven;
+4. invoke one action;
+5. independently verify actual expanded/subflow state, membership, connections, Undo, and cleanup;
+6. prove deterministic targeting before recursive bulk expansion.
+
+Do not install a new desktop automation stack, change global shortcuts, or send blind keystrokes merely to bypass this blocker without new user authority.
+
+If no safe action route exists after evidence-driven investigation, classify visual expansion `BLOCKED_API`. Other ResolveNodeKit lanes continue, but `MISSION_COMPLETE` remains open under the current user requirement.
+
+## 4. Fit to contents
+
+Fit-to-contents depends on a real runtime-expanded group. It is not meaningful to infer a fit formula while expansion itself is unproven.
+
+Once expansion passes:
+
+- measure actual `GroupInfo.Size`, `Scale`, `Offset`, group position, direct-child positions/bounds, and visible UI result;
+- change one variable at a time on a canary;
+- derive semantics from repeated measurements;
+- implement a minimal fit with padding;
+- read back geometry and verify all direct children are visible;
+- repeat through 2–3 nesting depths;
+- prove second-run stability and Undo/rollback.
+
+Never infer the formula from `.setting` examples alone.
+
+## 5. Identity model
+
+Nested groups may eventually expose duplicate tool names or host objects that are reacquired after settings/action operations. The implementation must not assume a flat tool name is globally unique if host evidence disproves it.
+
+Escalation order:
+
+1. stable live object where valid;
+2. reacquisition by verified unique name within scope;
+3. hierarchical path / parent-qualified identity;
+4. other measured stable host identifier.
+
+If no unique/readback-stable identity exists for a mutation, fail closed.
+
+## 6. Offline evidence
+
+Existing offline recursive-group tests prove only the modeled contracts, including hierarchy projection, deterministic scope layout, rollback behavior, and hierarchy-cycle refusal. They do not prove current runtime expansion semantics or UI geometry.
+
+The real-host checkpoint is recorded in `docs/checkpoints/2026-09-05-host-group-expansion-blocker.md`.
+
+## 7. Evidence basis
+
+Fusion scripting references expose Group parent/child relationships and operator settings surfaces. Serialized Group settings can contain `ViewInfo = GroupInfo` and an `Expanded` flag, but the measured host result demonstrates that serialized presence does not itself prove a runtime-writable expansion state. Runtime behavior always outranks the serialized-file inference.
