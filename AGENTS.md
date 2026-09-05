@@ -29,6 +29,27 @@ For any multi-stage, host-mutating, or autonomous continuation run:
 
 Do not replay chat history as the operating plan.
 
+## Layout-quality work
+
+When a task concerns improving Fusion layout quality beyond the host-verified generic `Tidy Graph` / `Tidy Nested` behavior, also read:
+
+- `docs/SEMANTIC_LAYOUT.md`
+- `docs/SEMANTIC_LAYOUT_ACCEPTANCE.md`
+- `docs/decisions/0001-group-local-semantic-layout.md`
+- `docs/references/README.md`
+
+Durable design decision:
+
+- semantic readability outranks uniform density;
+- main flow should read left-to-right;
+- Merge-heavy runs may use a horizontal semantic rail;
+- branch sources normally feed from above where practical;
+- child Groups are semantic boxes in their parent scope;
+- the same policy is intended to recurse inside every Group;
+- Merge-side spacing may widen/asymmetrically expand when branch, Group, wire, or host-grid clearance improves readability.
+
+Do not silently replace the current host-verified generic Tidy behavior. Semantic layout should first exist as a distinct pure planner/policy and host-canary path.
+
 ## Invariants
 
 - Fusion and Color use separate adapters; never assume Fusion APIs exist on Color.
