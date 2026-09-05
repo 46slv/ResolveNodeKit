@@ -178,3 +178,6 @@ Zero-write worker run on Studio 21.0.3.7 (events `%TEMP%\rnk-p8\events.jsonl`, 4
 ## P5 — large nested stress: BLOCKED_HOST (transport, feature-local) 2026-09-06
 
 Duplicate verified identical and Timeline 1 untouched, but the full in-host evidence walk over the 1107-tool comp timed out at the MCP layer (-32001), the retry dropped the connection (-32000, tools deregistered), and cleanup could not run. Resolve stayed responsive; no mutation ran; no save. Stale on host: RNK_STRESS + Timeline 1_archived_v02 (+possible archived variant) — cleanup pending via light calls. Evidence: `docs/checkpoints/2026-09-06-p5-transport-block.md`, events `%TEMP%\rnk-p5\events.jsonl`. Lesson: keep in-host calls short/chunked; bridge timeout knobs are out of repo scope. Next: tiny cleanup run, then P5-retry at fitting scope, P6, P3B.
+## Stale-state cleanup: PASS 2026-09-06
+
+Light-call worker run (events `%TEMP%\rnk-cleanup\events.jsonl`, 49 lines): both stale timelines deleted with exact id match + confirm-token guardrail (Timeline 1_archived_v02: 3->2; RNK_STRESS: 2->1, each verified:true). Current Timeline 1 restored, final list exactly [Timeline 1], all comps `Modified=false`, no save, repo untouched. Host is clean. Next: P5-retry at transport-fitting scope, P6 low-risk ops, P3B expansion research.
