@@ -12,6 +12,10 @@ Build compact, reversible node-workflow tools for both DaVinci Resolve Fusion an
 4. committed docs/prior-art notes;
 5. inference.
 
+## Long-running execution
+
+Before a multi-stage, host-mutating, or autonomous continuation run, read `docs/ORCHESTRATION.md`. It defines the parent/worker/verifier roles, ordered phase gates, autonomous mutation authority, stop/escalation rules, expected blockers, and checkpoint/resume contract. Live repo/host state still outranks the document's snapshot wording.
+
 ## Invariants
 
 - Keep Fusion and Color adapters separate; never assume a Fusion API exists on Color or vice versa.
