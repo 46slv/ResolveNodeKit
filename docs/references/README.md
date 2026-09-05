@@ -2,9 +2,9 @@
 
 This directory stores visual references used to define ResolveNodeKit layout intent.
 
-These images are **design references**, not golden pixel outputs.
+The SVGs here are **architecture abstractions of user-provided Fusion screenshots**, not golden pixel outputs. They intentionally remove project-specific node names and exact coordinates while preserving the layout decisions that matter to the design.
 
-## semantic-layout-reference-01
+## semantic-layout-reference-01.svg
 
 Demonstrates:
 
@@ -19,9 +19,9 @@ Normative takeaway:
 
 > The graph should read as a hierarchy of understandable local modules rather than one globally compacted flat DAG.
 
-## semantic-layout-reference-02
+## semantic-layout-reference-02.svg
 
-Demonstrates the same hierarchy-aware layout with a more important spacing decision:
+Demonstrates the same hierarchy-aware layout with the more important spacing decision:
 
 - wider horizontal spacing on the Merge side is acceptable;
 - rail spacing may be asymmetric;
@@ -46,12 +46,15 @@ Normative takeaway:
 - exact node coordinates;
 - exact Group size;
 - exact zoom level;
-- exact node labels/names;
+- exact project node labels/names;
 - theme colors;
 - exact total width/height;
 - exact wire curvature/appearance.
+
+The original screenshots remain design-source evidence from the conversation; the repository SVGs are the durable, project-neutral representation used by the architecture contract.
 
 See:
 
 - `../SEMANTIC_LAYOUT.md`
 - `../SEMANTIC_LAYOUT_ACCEPTANCE.md`
+- `../decisions/0001-group-local-semantic-layout.md`
