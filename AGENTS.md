@@ -23,7 +23,7 @@ For any multi-stage, host-mutating, or autonomous continuation run:
 1. inspect live Git status before pull/reset/rebase/checkout;
 2. read `docs/CURRENT_STATE.md`;
 3. read `docs/ORCHESTRATION.md`;
-4. read the relevant feature contract (`docs/GROUPS.md`, `docs/HOST_VALIDATION.md`, `docs/COLOR_API.md`);
+4. read the relevant feature/evidence contract (`docs/GROUPS.md`, `docs/HOST_VALIDATION.md`, `docs/COLOR_API.md`, `docs/EVIDENCE_PROTOCOL.md`);
 5. read the newest applicable checkpoint under `docs/checkpoints/`;
 6. choose the smallest ready gate from the dependency graph.
 
@@ -66,4 +66,6 @@ After each meaningful host gate or phase transition:
 - add a dated checkpoint only when it contains evidence worth preserving;
 - record exact tests, host identity, worker route, mutations, readback, blocker, and smallest next gate.
 
-See `docs/ORCHESTRATION.md` for the phase graph, stop rules, large-graph evidence fallback, and resume contract.
+Large-graph host gates must follow `docs/EVIDENCE_PROTOCOL.md` rather than relying on full-graph MCP dumps or worker narration.
+
+See `docs/ORCHESTRATION.md` for the phase graph, stop rules, large-graph fallback, and resume contract.
