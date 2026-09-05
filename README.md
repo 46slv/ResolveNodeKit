@@ -17,7 +17,7 @@ The project is not a Blender Node Wrangler port. It targets Resolve-specific nod
 
 ### Color — capability work started
 
-Fusion and Color do **not** share one assumed API. Color support starts with a read-only capability probe. Node graph query/manipulation features are added only after current Resolve host verification.
+Fusion and Color do **not** share one assumed API. Color support starts with a read-only capability probe and Graph snapshot layer (`GetNumNodes`, labels/LUT/cache/tool enumeration when exposed). Node graph mutations are added only after current Resolve host verification.
 
 ## Roadmap
 
@@ -47,4 +47,4 @@ Offline tests prove layout and adapter behavior against mocks only. They do **no
 
 ## Prior art
 
-`SoumyA16-git/Auto-Node-Tree` was reviewed as prior art for graph layout and failure modes. ResolveNodeKit does not vendor or fork that implementation. See `docs/PRIOR_ART.md`.
+`SoumyA16-git/Auto-Node-Tree` was reviewed as prior art for graph layout and failure modes. ResolveNodeKit does not vendor or fork that implementation. See `docs/PRIOR_ART.md`. Color API evidence is tracked in `docs/COLOR_API.md`.

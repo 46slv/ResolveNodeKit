@@ -23,6 +23,6 @@ Offline tests are necessary but insufficient. Before calling a host feature read
 - [ ] current Resolve object acquisition;
 - [ ] current timeline/current clip acquisition path;
 - [ ] clip/timeline/group NodeGraph acquisition, if exposed;
-- [ ] enumerate node count, labels, and tools where supported;
+- [ ] read-only probe enumerates node count, labels, LUT/cache state, and tools where supported;
 - [ ] determine which mutations provide readback;
 - [ ] do not claim node XY positioning until an actual API or verified alternative exists.
