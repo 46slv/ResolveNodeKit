@@ -172,3 +172,6 @@ The explicit mission remains:
 ## R1 — Tidy Nested fixed-command re-validation: PASS 2026-09-06
 
 Recovery executed first (fresh bind, Timeline 1 intact, RNK_R1* deleted, list [Timeline 1], no save). Fresh disposable RNK_R2 (deleted afterwards): run1 `moved=7` settling directly on the fixed point, run2 `moved=0 identical=True`, membership/connections/display-state/params invariant, Undo restoring all 8 positions exactly. Evidence: `docs/checkpoints/2026-09-06-tidy-nested-r1-pass.md`, events `%TEMP%\rnk-recover2\events.jsonl`. `Tidy Nested` is HOST-PASS. Next: P5 large-stress, P6 low-risk ops, P8 Color map, P3B expansion research.
+## P8 — Color read-only capability map: PASS 2026-09-06
+
+Zero-write worker run on Studio 21.0.3.7 (events `%TEMP%\rnk-p8\events.jsonl`, 42 lines; parent-verified 0 mutating calls). Timeline 1 items are generator/Fusion Composition clips; per-item graphs available (1 node, empty label/LUT, cache -1, GetToolsInNode null); timeline-level graph 0 nodes; no color groups exist (group graphs untestable = context, not API). Full Graph method surface enumerated (Get/Set LUT, cache, enabled, label, tools, ApplyGradeFromDRX, ResetAllGrades...). XY position API: ABSENT — dir() sweep found no position semantics. Consequence: P9 Color work must use enable/cache/LUT helpers with readback, never physical XY layout. Repo untouched.
