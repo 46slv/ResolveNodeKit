@@ -168,3 +168,7 @@ The explicit mission remains:
 7. `docs/GROUPS.md`
 8. `docs/checkpoints/2026-09-06-resolve-hang-p3aval2.md`
 9. other relevant checkpoints only as needed
+
+## R1 — Tidy Nested fixed-command re-validation: PASS 2026-09-06
+
+Recovery executed first (fresh bind, Timeline 1 intact, RNK_R1* deleted, list [Timeline 1], no save). Fresh disposable RNK_R2 (deleted afterwards): run1 `moved=7` settling directly on the fixed point, run2 `moved=0 identical=True`, membership/connections/display-state/params invariant, Undo restoring all 8 positions exactly. Evidence: `docs/checkpoints/2026-09-06-tidy-nested-r1-pass.md`, events `%TEMP%\rnk-recover2\events.jsonl`. `Tidy Nested` is HOST-PASS. Next: P5 large-stress, P6 low-risk ops, P8 Color map, P3B expansion research.
