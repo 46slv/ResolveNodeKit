@@ -37,3 +37,22 @@ Safety sequence:
 8. keep the Undo event only after successful readback.
 
 Isolated nodes are components, not ignored obstacles. This explicitly avoids a prior-art failure where connected nodes could be placed on top of untouched isolated nodes.
+
+## Hierarchical Fusion layout
+
+Nested `GroupOperator` graphs are not flattened. Each group is a visual scope:
+
+```text
+root
+├─ ordinary tool
+└─ Group A
+   ├─ ordinary tool
+   └─ Group B
+      └─ ordinary tools
+```
+
+The layout engine runs once for root and once for every GroupOperator's direct children. A connection crossing a nested boundary is projected to the GroupOperator visible at the current scope for layout planning, while the real Fusion connection remains untouched.
+
+`Tidy + Expand Groups` additionally snapshots each GroupOperator settings table, sets `ViewInfo.Flags.Expanded = true`, verifies the hierarchy and connection signature again, writes positions, and restores positions/settings if any step fails.
+
+Group frame fit-to-contents is host-specific. `GroupInfo.Size`, `Scale`, and `Offset` are not guessed offline; see `docs/GROUPS.md` and the host-validation gate.
