@@ -411,3 +411,47 @@ class ArrangeCompTests(unittest.TestCase):
         comp = MockComp([group], flow)
         arrange_comp(comp, include_unselected=False, selected_names={"Inner"})
         self.assertEqual(flow.positions["G"], (0.0, 0.0))
+
+
+class ArrangeAnchorTests(unittest.TestCase):
+    def _branch_comp(self):
+        bg = MockTool("BG")
+        a = MockTool("A")
+        m1 = MockTool("M1", "Merge")
+        b = MockTool("B")
+        m2 = MockTool("M2", "Merge")
+        out = MockTool("Out")
+        connect(bg, m1, "Background")
+        connect(a, m1, "Foreground")
+        connect(m1, m2, "Background")
+        connect(b, m2, "Foreground")
+        connect(m2, out, "Input")
+        positions = {
+            "BG": (-0.499, -0.49),
+            "A": (-0.499, -0.49),
+            "M1": (-0.499, -0.49),
+            "B": (-0.499, -0.49),
+            "M2": (-0.499, -0.49),
+            "Out": (3.5, 1.009),
+        }
+        flow = MockFlow(positions)
+        return MockComp([bg, a, m1, b, m2, out], flow), flow
+
+    def test_branches_above_do_not_drag_anchor(self):
+        comp, flow = self._branch_comp()
+        first = arrange_comp(comp, include_unselected=True)
+        self.assertGreater(first["moved_count"], 0)
+        post_run1 = dict(flow.positions)
+        second = arrange_comp(comp, include_unselected=True)
+        self.assertEqual(second["moved_count"], 0)
+        self.assertEqual(flow.positions, post_run1)
+        third = arrange_comp(comp, include_unselected=True)
+        self.assertEqual(third["moved_count"], 0)
+        self.assertEqual(flow.positions, post_run1)
+
+    def test_backbone_row_stable_across_runs(self):
+        comp, flow = self._branch_comp()
+        arrange_comp(comp, include_unselected=True)
+        rows_run1 = (flow.positions["M1"][1], flow.positions["M2"][1])
+        arrange_comp(comp, include_unselected=True)
+        self.assertEqual((flow.positions["M1"][1], flow.positions["M2"][1]), rows_run1)

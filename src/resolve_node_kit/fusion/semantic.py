@@ -675,12 +675,22 @@ def arrange_comp(
         members = [n for n in scoped.placements if n in scope]
         if not members:
             continue
-        origin_x = min(snapshot.positions[n][0] for n in members)
-        origin_y = min(snapshot.positions[n][1] for n in members)
+        # Canonical anchor: min-of-members drifts when branches sit above the
+        # backbone, so anchor to the backbone head (or first member) and snap
+        # the origin itself. Reruns then reproduce the origin exactly.
+        if scoped.backbone and scoped.backbone[0] in scope:
+            canon = scoped.backbone[0]
+        else:
+            canon = sorted(members)[0]
+        canon_grid = scoped.placements[canon]
+        canon_pos = snapshot.positions[canon]
+        origin = _snap_position(
+            canon_pos[0] - canon_grid.column * policy.cell_x,
+            canon_pos[1] - canon_grid.row * policy.cell_y,
+        )
         for name in members:
-            desired[name] = _grid_to_host(scoped.placements[name], (origin_x, origin_y), policy)
+            desired[name] = _grid_to_host(scoped.placements[name], origin, policy)
     desired = {name: _snap_position(x, y) for name, (x, y) in desired.items()}
-
     start_undo, end_undo = getattr(comp, "StartUndo", None), getattr(comp, "EndUndo", None)
     undo = callable(start_undo) and callable(end_undo)
     if undo:
