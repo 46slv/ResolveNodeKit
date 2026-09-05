@@ -16,6 +16,8 @@ Build compact, reversible node-workflow tools for both DaVinci Resolve Fusion an
 
 - Keep Fusion and Color adapters separate; never assume a Fusion API exists on Color or vice versa.
 - Layout-only commands must not alter connections, parameters, keyframes, tools, grades, renders, or media.
+- Group layout must preserve every `GroupOperator` and direct parent/child membership. Never flatten or ungroup merely to make a graph easier to arrange.
+- Cross-boundary edges may be projected to the visible GroupOperator for layout planning only; never rewire the actual graph to match the projection.
 - For host writes: snapshot -> bounded mutation -> readback -> rollback on failure. Use host Undo where verified.
 - Offline mocks do not prove Resolve/Fusion host behavior.
 - Do not install watchers, services, login-start items, or change the user's Resolve keyboard shortcuts unless explicitly requested.
@@ -27,4 +29,5 @@ Build compact, reversible node-workflow tools for both DaVinci Resolve Fusion an
 1. Keep `python -m unittest discover -s tests -v` green.
 2. Run Fusion Tidy Graph against a disposable host comp, then a duplicate of a real graph.
 3. Verify position readback, repeat-run stability, Undo, save/reopen, and connection/parameter invariance.
-4. Run the read-only Color probe against the installed Resolve version and record the actual graph API boundary before implementing Color writes.
+4. Host-verify `Tidy + Expand Groups` on 2–3 nested levels; prove Expanded readback, membership/connection invariance, and whether expanded `GroupInfo` automatically fits all direct children. Measure `Size`/`Scale`/`Offset` before implementing fit-to-contents.
+5. Run the read-only Color probe against the installed Resolve version and record the actual graph API boundary before implementing Color writes.
