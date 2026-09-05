@@ -22,7 +22,11 @@ ResolveNodeKit is not globally blocked. Flat Fusion tidy has real-host evidence;
 
 These values are locators only. Fresh-read on resume.
 
-## Critical reconciliation state
+## Reconciliation state — P0R CLOSED 2026-09-05
+
+P0R is done. Local host-measured work was preserved on checkpoint commit `604b938` (`tmp/p0r-host-measured-fixes`, plus an off-repo patch backup), the task branch was fast-forwarded to `ce879bb`, and the fixes were merged as `9e8726c` with no code-side delta vs the checkpoint. `docs/GROUPS.md` was the only conflict: remote orchestration sections 1-7 kept, host measurement appended as section 8. Verified after merge: 29/29 unittest PASS (`PYTHONPATH=src python -m unittest discover -s tests`) + `compileall` PASS. Pushed to `feat/bootstrap-nodekit-20260905`; Draft PR #1 updated.
+
+## Critical reconciliation state (historical)
 
 A real-host run produced measured fixes locally but intentionally left them uncommitted at the time of that report:
 
@@ -140,7 +144,7 @@ Run current-host capability mapping first. Only add mutations with observable po
 
 The parent orchestrator should choose the first ready item whose prerequisites are satisfied:
 
-1. `P0R` — reconcile local host-measured fixes with the current remote task branch.
+1. `P0R` — DONE (see Reconciliation state above; next: push + PR #1 update, then P2C).
 2. `P2C` — minimal flat-Tidy host closeout using the integrated fixes.
 3. `P3A` — collapsed-group recursive-tidy canary; implement separate `Tidy Nested` only if safe.
 4. `P5` — stress `Tidy Nested` on a duplicate of the large 1107-tool / 31-group composition using compact in-host evidence.
