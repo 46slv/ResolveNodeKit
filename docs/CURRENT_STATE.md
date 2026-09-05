@@ -146,7 +146,7 @@ The parent orchestrator should choose the first ready item whose prerequisites a
 
 1. `P0R` — DONE (see Reconciliation state above; next: push + PR #1 update, then P2C).
 2. `P2C` — DONE (HOST-PASS 2026-09-05, see section above).
-3. `P3A` — collapsed-group recursive-tidy canary; implement separate `Tidy Nested` only if safe.
+3. `P3A` — canary PASS (see section above); implement separate `Tidy Nested` now.
 4. `P5` — stress `Tidy Nested` on a duplicate of the large 1107-tool / 31-group composition using compact in-host evidence.
 5. `P6` — low-risk Fusion node operations.
 6. `P8` — Color read-only capability map.
@@ -181,3 +181,10 @@ Canary comp (10 tools): serial BG->Blur->Merge, BG+FG->Merge, EllipseMask Effect
 - Rollback: Undo path proven this run; fail-closed mismatch rollback proven on identical code in the prior run.
 
 Flat Tidy is HOST-PASS on the canonical branch and no longer blocks independent node-tool work. Save/reopen persistence remains a separate gate (must not force-save the user project).
+## P3A collapsed-group child-position canary — PASS 2026-09-05
+
+Disposable run on timeline RNK_P3A (deleted afterwards; Timeline 1 restored, all comps `Modified=false`, no save). Full evidence: `docs/checkpoints/2026-09-05-p3a-collapsed-child-canary.md`, structured events `%TEMP%\rnk-p3a\events.jsonl`.
+
+Key results on Studio 21.0.3.7: `AddTool('GroupOperator')` works; `ParentTool` assignment does not stick; settings-assembled 2-level nesting is real (children/parent agree); child writes inside collapsed groups read back exactly; membership/geometry/display state unchanged; one Undo restores all positions. Canary nodes were unconnected, so connected-nested proof moves to P5.
+
+Ready next: implement `tidy_nested_comp` + `ResolveNodeKit_TidyNested.py` (repo only), then P5 stress, P6, P8. P3B expansion research stays the mission-critical track.
