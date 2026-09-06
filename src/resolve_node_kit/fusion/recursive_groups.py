@@ -9,6 +9,7 @@ from .tidy import (
     _attrs,
     _classify_input,
     _close_enough,
+    _call_list,
     _ensure_ordered_dict,
     _iter_values,
     _snap_position,
@@ -54,7 +55,7 @@ def _parent_obj(tool: Any) -> Any | None:
 def _collect_tools(comp: Any) -> tuple[dict[str, Any], dict[str, str | None]]:
     tools: dict[str, Any] = {}
     fallback_parent: dict[str, str | None] = {}
-    queue = [(tool, None) for tool in _iter_values(getattr(comp, "GetToolList", lambda: None)())]
+    queue = [(tool, None) for tool in _call_list(comp, "GetToolList")]
     scanned_groups: set[str] = set()
     while queue:
         tool, discovered_parent = queue.pop(0)
@@ -70,10 +71,8 @@ def _collect_tools(comp: Any) -> tuple[dict[str, Any], dict[str, str | None]]:
             fallback_parent[name] = discovered_parent
         if _reg_id(tool) == "GroupOperator" and name not in scanned_groups:
             scanned_groups.add(name)
-            getter = getattr(tool, "GetChildrenList", None)
-            if callable(getter):
-                for child in _iter_values(getter()):
-                    queue.append((child, name))
+            for child in _call_list(tool, "GetChildrenList"):
+                queue.append((child, name))
 
     parents: dict[str, str | None] = {}
     for name, tool in tools.items():
@@ -110,7 +109,7 @@ def _snapshot(comp: Any, flow: Any) -> _Snapshot:
     positions = {name: _xy_from_pos_table(flow.GetPosTable(tool)) for name, tool in sorted(tools.items())}
     edges: list[Edge] = []
     for target_name, target in sorted(tools.items()):
-        for input_obj in _iter_values(getattr(target, "GetInputList", lambda: None)()):
+        for input_obj in _call_list(target, "GetInputList"):
             get_output = getattr(input_obj, "GetConnectedOutput", None)
             output = get_output() if callable(get_output) else None
             get_tool = getattr(output, "GetTool", None) if output is not None else None

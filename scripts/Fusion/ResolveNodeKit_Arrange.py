@@ -226,6 +226,17 @@ def _run():
         print("[ResolveNodeKit] Arrange: no active Fusion composition. Open a comp and run again.")
         _write_log("no-comp", "")
         return 2
+    try:
+        describe = getattr(composition, "GetAttrs", lambda: {})()
+        comp_name = (describe or {}).get("COMPS_Name", "?")
+    except Exception:
+        comp_name = "?"
+    try:
+        tool_list = composition.GetToolList()
+        comp_tools = len(tool_list.values()) if isinstance(tool_list, dict) else len(list(tool_list))
+    except Exception:
+        comp_tools = -1
+    _write_log("target", "comp=" + str(comp_name) + " tools=" + str(comp_tools))
     if os.environ.get("RNK_ARRANGE_NO_UI", "0") == "1":
         state = _state_from_env()
     else:
@@ -247,6 +258,7 @@ def _run():
             composition,
             include_unselected=state.include_unselected,
             ungroup=state.ungroup,
+            progress=lambda message: _write_log("arrange", message),
         )
     except FusionHostError as exc:
         print("[ResolveNodeKit] Arrange refused: " + str(exc))

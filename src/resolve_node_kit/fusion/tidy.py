@@ -65,6 +65,17 @@ def _iter_values(value: Any) -> list[Any]:
         return []
 
 
+def _call_list(obj, method):
+    """Call a host list getter tolerantly: missing, None, or non-callable yields []."""
+    getter = getattr(obj, method, None)
+    if not callable(getter):
+        return []
+    try:
+        return _iter_values(getter())
+    except Exception:
+        return []
+
+
 def _attrs(obj: Any) -> dict[str, Any]:
     getter = getattr(obj, "GetAttrs", None)
     if not callable(getter):
@@ -119,16 +130,14 @@ def _classify_input(input_obj: Any) -> str:
 
 
 def _snapshot(comp: Any, flow: Any) -> tuple[dict[str, Any], dict[str, tuple[float, float]], list[Edge]]:
-    tool_list = getattr(comp, "GetToolList", lambda: None)()
-    tools = {_tool_name(tool): tool for tool in _iter_values(tool_list)}
+    tools = {_tool_name(tool): tool for tool in _call_list(comp, "GetToolList")}
     if not tools:
         return {}, {}, []
     positions = {name: _xy_from_pos_table(flow.GetPosTable(tools[name])) for name in sorted(tools)}
     edges: list[Edge] = []
     for target_name in sorted(tools):
         target = tools[target_name]
-        input_list = getattr(target, "GetInputList", lambda: None)()
-        for input_obj in _iter_values(input_list):
+        for input_obj in _call_list(target, "GetInputList"):
             get_connected = getattr(input_obj, "GetConnectedOutput", None)
             if not callable(get_connected):
                 continue

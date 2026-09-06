@@ -611,6 +611,7 @@ def arrange_comp(
     ungroup: bool = False,
     policy: SemanticPolicy | None = None,
     selected_names: Iterable[str] | None = None,
+    progress: Any = None,
 ) -> dict[str, Any]:
     """Arrange the resolved scope on the semantic orthogonal grid.
 
@@ -637,6 +638,12 @@ def arrange_comp(
             "is not yet host-proven on a disposable fixture, so no mutation ran"
         )
     policy = policy or SemanticPolicy()
+    def _note(message):
+        if progress is not None:
+            try:
+                progress(message)
+            except Exception:
+                pass
     frame = getattr(comp, "CurrentFrame", None)
     flow = getattr(frame, "FlowView", None) if frame is not None else None
     if flow is None or not callable(getattr(flow, "GetPosTable", None)) or not callable(
@@ -647,6 +654,7 @@ def arrange_comp(
     snapshot = _snapshot(comp, flow)
     if not snapshot.tools:
         return {"node_count": 0, "edge_count": 0, "moved_count": 0, "scope_count": 0}
+    _note("snapshot tools=" + str(len(snapshot.tools)) + " edges=" + str(len(snapshot.edges)))
 
     if selected_names is None:
         selected_names = _read_selection(comp, set(snapshot.tools))
@@ -667,6 +675,7 @@ def arrange_comp(
         group_names=groups,
     )
     layout = plan_layout(semantic, policy)
+    _note("plan scopes=" + str(len(layout.scopes)))
     if layout.diagnostics["overlap_count"]:
         raise FusionHostError("semantic plan has overlapping cells; refusing to write")
 
@@ -698,6 +707,7 @@ def arrange_comp(
     try:
         tools = {name: _find_tool(comp, name, snapshot.tools) for name in desired}
         writes = {name: pos for name, pos in desired.items() if not _close_enough(snapshot.positions[name], pos)}
+        _note("writes " + str(len(writes)))
         for name in sorted(writes):
             flow.SetPos(tools[name], *writes[name])
         mismatch = [
@@ -707,11 +717,13 @@ def arrange_comp(
         ]
         if mismatch:
             raise FusionHostError(f"position readback mismatch: " + ", ".join(mismatch[:12]))
+        _note("readback ok")
         live_tools, live_parents = _collect_tools(comp)
         if set(live_tools) != set(snapshot.tools) or live_parents != snapshot.parents:
             raise FusionHostError("arrange changed the discovered hierarchy")
         if _edge_signature(_snapshot(comp, flow)) != _edge_signature(snapshot):
             raise FusionHostError("arrange changed node connections")
+        _note("verify ok")
     except Exception as exc:
         position_failures = _restore_positions(comp, flow, snapshot)
         if undo:

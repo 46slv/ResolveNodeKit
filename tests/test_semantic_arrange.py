@@ -542,3 +542,38 @@ class ArrangeDialogInvokeTests(unittest.TestCase):
         self.assertFalse(state.include_unselected)
         self.assertFalse(state.ungroup)
         self.assertEqual(len(calls), 2)
+
+
+class ArrangeHostileApiTests(unittest.TestCase):
+    def test_none_input_list_is_tolerated(self):
+        a = MockTool("A")
+        b = MockTool("B")
+        b.GetInputList = None
+        connect(a, b, "Input")
+        flow = MockFlow({"A": (0.0, 0.0), "B": (5.0, 5.0)})
+        comp = MockComp([a, b], flow)
+        result = arrange_comp(comp, include_unselected=True)
+        self.assertEqual(result["arranged_count"], 2)
+        self.assertEqual(result["diagnostics"]["overlap_count"], 0)
+
+    def test_none_returning_input_list_is_tolerated(self):
+        a = MockTool("A")
+        b = MockTool("B")
+
+        def no_inputs():
+            return None
+
+        b.GetInputList = no_inputs
+        connect(a, b, "Input")
+        flow = MockFlow({"A": (0.0, 0.0), "B": (5.0, 5.0)})
+        comp = MockComp([a, b], flow)
+        result = arrange_comp(comp, include_unselected=True)
+        self.assertEqual(result["arranged_count"], 2)
+
+    def test_progress_phases_reported(self):
+        comp, flow, tools = serial_comp(["A", "B", "C"])
+        phases = []
+        arrange_comp(comp, include_unselected=True, progress=phases.append)
+        joined = " ".join(phases)
+        for marker in ("snapshot", "plan", "writes", "readback", "verify"):
+            self.assertIn(marker, joined)
