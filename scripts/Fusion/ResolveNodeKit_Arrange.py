@@ -174,12 +174,19 @@ _BOOTSTRAPPED_FROM = _bootstrap_package()
 try:
     from resolve_node_kit.fusion import ArrangeDialogState, FusionHostError, arrange_comp
     from resolve_node_kit.fusion import ask_arrange_options
+    from resolve_node_kit.fusion.dialog import BUSY_INITIAL_TEXT, show_busy_window, set_busy_text, hide_busy_window, show_result, stage_text
     _IMPORT_ERROR = ""
 except Exception as exc:
     ArrangeDialogState = None
     FusionHostError = RuntimeError
     arrange_comp = None
     ask_arrange_options = None
+    BUSY_INITIAL_TEXT = "..."
+    show_busy_window = None
+    set_busy_text = None
+    hide_busy_window = None
+    show_result = None
+    stage_text = lambda phase: "..."
     _IMPORT_ERROR = repr(exc)
 
 
@@ -212,6 +219,19 @@ def _state_from_env():
         include_unselected=os.environ.get("RNK_ARRANGE_INCLUDE_UNSELECTED", "0") == "1",
         ungroup=os.environ.get("RNK_ARRANGE_UNGROUP", "0") == "1",
     )
+
+
+def _fusion_handle():
+    fusion_obj = globals().get("fusion") or globals().get("fu")
+    if fusion_obj is not None:
+        return fusion_obj
+    resolve_obj = globals().get("resolve")
+    if resolve_obj is not None:
+        try:
+            return resolve_obj.Fusion()
+        except Exception:
+            return None
+    return None
 
 
 def _run():
@@ -253,30 +273,66 @@ def _run():
             print("[ResolveNodeKit] Arrange canceled; nothing changed.")
             _write_log("cancel", "")
             return 0
-    try:
-        result = arrange_comp(
-            composition,
-            include_unselected=state.include_unselected,
-            ungroup=state.ungroup,
-            progress=lambda message: _write_log("arrange", message),
+    busy = None
+    if callable(show_busy_window):
+        busy = show_busy_window(
+            _fusion_handle(), TITLE, BUSY_INITIAL_TEXT,
+            log=lambda message: _write_log("busy", message),
         )
-    except FusionHostError as exc:
-        print("[ResolveNodeKit] Arrange refused: " + str(exc))
-        _write_log("refused", str(exc))
-        return 3
-    diag = result.get("diagnostics", {})
-    template = "[ResolveNodeKit] Arrange: nodes=%s edges=%s moved=%s arranged=%s avoidable_diagonals=%s expanded_gaps=%s"
-    summary = template % (
-        result.get("node_count"),
-        result.get("edge_count"),
-        result.get("moved_count"),
-        result.get("arranged_count"),
-        diag.get("avoidable_diagonal_edge_count"),
-        diag.get("expanded_gap_count"),
-    )
-    print(summary)
-    _write_log("ok", summary)
-    return 0
+
+    def _on_progress(message):
+        _write_log("arrange", message)
+        try:
+            if callable(set_busy_text):
+                set_busy_text(busy, stage_text(message))
+        except Exception:
+            pass
+
+    ask = getattr(composition, "AskUser", None)
+    try:
+        try:
+            result = arrange_comp(
+                composition,
+                include_unselected=state.include_unselected,
+                ungroup=state.ungroup,
+                progress=_on_progress,
+            )
+        except FusionHostError as exc:
+            print("[ResolveNodeKit] Arrange refused: " + str(exc))
+            _write_log("refused", str(exc))
+            if callable(show_result):
+                show_result(
+                    ask, TITLE,
+                    "整列できませんでした。中止し、変更はありません。" + "\n" + str(exc),
+                    log=lambda message: _write_log("result", message),
+                )
+            return 3
+        diag = result.get("diagnostics", {})
+        template = "[ResolveNodeKit] Arrange: nodes=%s edges=%s moved=%s arranged=%s avoidable_diagonals=%s expanded_gaps=%s"
+        summary = template % (
+            result.get("node_count"),
+            result.get("edge_count"),
+            result.get("moved_count"),
+            result.get("arranged_count"),
+            diag.get("avoidable_diagonal_edge_count"),
+            diag.get("expanded_gap_count"),
+        )
+        print(summary)
+        _write_log("ok", summary)
+        if result.get("moved_count"):
+            visible = "整列しました。" + summary
+        else:
+            visible = "すでに整列済みのため、移動はありませんでした。" + summary
+        if callable(show_result):
+            show_result(ask, TITLE, visible, log=lambda message: _write_log("result", message))
+        return 0
+    finally:
+        if callable(hide_busy_window):
+            try:
+                hide_busy_window(busy, log=lambda message: _write_log("busy", message))
+            except Exception:
+                pass
+
 
 
 try:

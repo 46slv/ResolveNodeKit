@@ -130,6 +130,7 @@ def write_stub_package(src_root):
     fusion.mkdir(parents=True, exist_ok=True)
     (package / "__init__.py").write_text(STUB_INIT, encoding="utf-8")
     (fusion / "__init__.py").write_text(STUB_FUSION, encoding="utf-8")
+    (fusion / "dialog.py").write_text(STUB_DIALOG, encoding="utf-8")
 
 
 class ScriptBootstrapTests(unittest.TestCase):
@@ -232,3 +233,19 @@ class HostContextBootstrapTests(unittest.TestCase):
         log_file = fake_fusion / "ResolveNodeKit" / "logs" / "arrange-run.log"
         self.assertTrue(log_file.is_file())
         self.assertIn("start name=__main__", log_file.read_text(encoding="utf-8"))
+
+STUB_DIALOG_A = 1
+STUB_DIALOG = (
+    "BUSY_INITIAL_TEXT = " + chr(34) + "..." + chr(34) + chr(10)
+    + "STAGE_TEXTS = {}" + chr(10)
+    + "def stage_text(phase):" + chr(10)
+    + "    return BUSY_INITIAL_TEXT" + chr(10)
+    + "def show_busy_window(*args, **kwargs):" + chr(10)
+    + "    return None" + chr(10)
+    + "def set_busy_text(*args, **kwargs):" + chr(10)
+    + "    return False" + chr(10)
+    + "def hide_busy_window(*args, **kwargs):" + chr(10)
+    + "    return None" + chr(10)
+    + "def show_result(*args, **kwargs):" + chr(10)
+    + "    return False" + chr(10)
+)

@@ -577,3 +577,89 @@ class ArrangeHostileApiTests(unittest.TestCase):
         joined = " ".join(phases)
         for marker in ("snapshot", "plan", "writes", "readback", "verify"):
             self.assertIn(marker, joined)
+
+
+class ArrangeBusyUiTests(unittest.TestCase):
+    def test_stage_text_mapping(self):
+        from resolve_node_kit.fusion.dialog import BUSY_INITIAL_TEXT, stage_text
+        self.assertEqual(stage_text("snapshot tools=9"), "読み取り中…")
+        self.assertEqual(stage_text("plan scopes=3"), "配置を計算中…")
+        self.assertEqual(stage_text("writes 9"), "整列を適用中…")
+        self.assertEqual(stage_text("readback ok"), "確認中…")
+        self.assertEqual(stage_text("verify ok"), "確認中…")
+        self.assertEqual(stage_text("something-else"), BUSY_INITIAL_TEXT)
+
+    def test_busy_without_ui_returns_none(self):
+        from resolve_node_kit.fusion.dialog import hide_busy_window, set_busy_text, show_busy_window
+        logged = []
+        self.assertIsNone(show_busy_window(object(), log=logged.append))
+        self.assertTrue(logged)
+        self.assertFalse(set_busy_text(None, "x"))
+        hide_busy_window(None)
+
+    def test_busy_show_hide_with_fake_ui(self):
+        from resolve_node_kit.fusion.dialog import hide_busy_window, set_busy_text, show_busy_window
+
+        class FakeLabel:
+            def __init__(self):
+                self.texts = []
+
+            def SetText(self, text):
+                self.texts.append(text)
+
+        class FakeWindow:
+            def __init__(self, label):
+                self.label = label
+                self.visible = False
+
+            def Show(self):
+                self.visible = True
+
+            def Hide(self):
+                self.visible = False
+
+            def Find(self, name):
+                return self.label
+
+        class FakeDisp:
+            def __init__(self, ui):
+                pass
+
+            def AddWindow(self, attrs, children):
+                return FakeWindow(FakeLabel())
+
+        class FakeUi:
+            def Label(self, attrs):
+                return FakeLabel()
+
+            def VGroup(self, children):
+                return list(children)
+
+        class FakeFusion:
+            UIManager = FakeUi()
+
+            def UIDispatcher(self, ui):
+                return FakeDisp(ui)
+
+        logged = []
+        handle = show_busy_window(FakeFusion(), log=logged.append)
+        self.assertIsNotNone(handle)
+        self.assertTrue(handle["window"].visible)
+        self.assertTrue(set_busy_text(handle, "読み取り中…"))
+        hide_busy_window(handle, log=logged.append)
+        self.assertFalse(handle["window"].visible)
+
+    def test_show_result_uses_first_working_shape(self):
+        from resolve_node_kit.fusion.dialog import show_result
+        calls = []
+
+        def ask(title, controls):
+            calls.append(controls)
+            return {"Result": "ok"}
+
+        self.assertTrue(show_result(ask, "T", "done-message"))
+        self.assertEqual(len(calls), 1)
+
+    def test_show_result_false_without_ask(self):
+        from resolve_node_kit.fusion.dialog import show_result
+        self.assertFalse(show_result(None, "T", "done-message"))
