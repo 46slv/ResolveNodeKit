@@ -179,4 +179,4 @@ Adjusted ready queue: (1) DONE nested preserve; (2) DONE selection-only (SetActi
 (5) Ungroup stays fail-closed until exact restoration is proven on a disposable fixture.
 
 Gate 2 closeout: selection setter is `comp.SetActiveTool(tool)` with `GetToolList(True)` readback; `SetAttrs(TOOLB_Selected)` is a silent no-op; evidence in `docs/checkpoints/2026-09-06-semantic-arrange-gate2-selection.md`. 
-Next: adopt-with-guard cleanup of orphan RNK_NEST names from the stalled sibling run, then the dialog human gate (AskUser shape, Cancel, menu Run), then Comp Scripts install.
+Orphan RNK_NEST names adopted and deleted with guardrails 2026-09-06 JST afternoon; host clean ([Timeline 1] current, all comps unmodified, no save). Next: the dialog human gate (AskUser shape, Cancel, menu Run), then Comp Scripts install.
