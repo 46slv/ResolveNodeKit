@@ -3,9 +3,15 @@
 User flow on the Fusion page:
 
 1. optionally select nodes,
-2. run this script,
+2. run this script from Workspace -> Scripts -> Comp,
 3. set the two checkboxes (both default OFF),
 4. press OK to arrange or Cancel to change nothing.
+
+The script finds its package without a repo checkout:
+
+1. $RNK_SUPPORT_ROOT/ResolveNodeKit/src when the variable is set,
+2. <Fusion Support>/ResolveNodeKit/src located by walking up from this file,
+3. the repo src tree two levels above this file (developer fallback).
 
 Automated canary override (no dialog click needed):
 
@@ -20,17 +26,43 @@ import sys
 from pathlib import Path
 
 
-def _bootstrap_repo_src() -> None:
+def _candidate_src_dirs(script_file=None):
+    """Ordered candidate package roots; first existing directory wins."""
+    found = []
+    override = os.environ.get("RNK_SUPPORT_ROOT", "")
+    if override:
+        found.append(Path(override) / "ResolveNodeKit" / "src")
     try:
-        root = Path(__file__).resolve().parents[2]
+        here = Path(script_file).resolve() if script_file else Path(__file__).resolve()
     except Exception:
-        return
-    src = root / "src"
-    if src.is_dir() and str(src) not in sys.path:
-        sys.path.insert(0, str(src))
+        return found
+    for parent in [here.parent, *here.parents]:
+        if parent.name == "Fusion":
+            found.append(parent / "ResolveNodeKit" / "src")
+            break
+    try:
+        repo_src = here.parents[2] / "src"
+    except IndexError:
+        repo_src = None
+    if repo_src is not None:
+        found.append(repo_src)
+    return found
 
 
-_bootstrap_repo_src()
+def _bootstrap_package(script_file=None):
+    for candidate in _candidate_src_dirs(script_file):
+        try:
+            if candidate.is_dir() and str(candidate) not in sys.path:
+                sys.path.insert(0, str(candidate))
+                return str(candidate)
+            if candidate.is_dir():
+                return str(candidate)
+        except Exception:
+            continue
+    return ""
+
+
+_BOOTSTRAPPED_FROM = _bootstrap_package()
 
 from resolve_node_kit.fusion import ArrangeDialogState, FusionHostError, arrange_comp  # noqa: E402
 
@@ -137,5 +169,5 @@ def main() -> int:
     return 0
 
 
-status = main()
-print("[ResolveNodeKit] Arrange exit=" + str(status))
+if __name__ == "__main__":
+    raise SystemExit(main())
