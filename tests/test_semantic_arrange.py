@@ -663,3 +663,110 @@ class ArrangeBusyUiTests(unittest.TestCase):
     def test_show_result_false_without_ask(self):
         from resolve_node_kit.fusion.dialog import show_result
         self.assertFalse(show_result(None, "T", "done-message"))
+
+
+class ArrangeStrictGetterTests(unittest.TestCase):
+    def test_raising_input_getter_fails_closed(self):
+        from resolve_node_kit.fusion import FusionHostError, arrange_comp
+        a = MockTool("A")
+        b = MockTool("B")
+
+        def boom():
+            raise RuntimeError("host getter exploded")
+
+        b.GetInputList = boom
+        flow = MockFlow({"A": (0.0, 0.0), "B": (5.0, 5.0)})
+        comp = MockComp([a, b], flow)
+        before = dict(flow.positions)
+        with self.assertRaises(FusionHostError):
+            arrange_comp(comp, include_unselected=True)
+        self.assertEqual(flow.calls, 0)
+        self.assertEqual(flow.positions, before)
+        self.assertEqual(comp.undo, [])
+
+
+class BindTargetTests(unittest.TestCase):
+    def _handle(self, name, tools):
+        from resolve_node_kit.fusion.dialog import bind_target  # noqa
+
+        class FakeHandle:
+            def __init__(self, name, tools):
+                self._name = name
+                self._tools = list(tools)
+
+            def GetAttrs(self):
+                return {"COMPS_Name": self._name}
+
+            def GetToolList(self):
+                return {name: object() for name in self._tools}
+
+        return FakeHandle(name, tools)
+
+    def _fusion(self, handle):
+        class FakeFusion:
+            def GetCurrentComp(self):
+                return handle
+
+        return FakeFusion()
+
+    def test_live_preferred_over_global(self):
+        from resolve_node_kit.fusion.dialog import TargetMismatch, bind_target
+        live = self._handle("Comp", ["A"])
+        bound = bind_target(comp=self._handle("Comp", ["A"]), fusion=self._fusion(live))
+        self.assertIs(bound, live)
+
+    def test_global_fallback_without_live(self):
+        from resolve_node_kit.fusion.dialog import bind_target
+        comp = self._handle("Comp", ["A"])
+        self.assertIs(bind_target(comp=comp, fusion=None), comp)
+
+    def test_mismatch_raises(self):
+        from resolve_node_kit.fusion.dialog import TargetMismatch, bind_target
+        with self.assertRaises(TargetMismatch):
+            bind_target(comp=self._handle("A", ["X"]), fusion=self._fusion(self._handle("B", ["X"])))
+
+    def test_count_mismatch_raises(self):
+        from resolve_node_kit.fusion.dialog import TargetMismatch, bind_target
+        with self.assertRaises(TargetMismatch):
+            bind_target(comp=self._handle("A", ["X"]), fusion=self._fusion(self._handle("A", ["X", "Y"])))
+
+    def test_both_missing_returns_none(self):
+        from resolve_node_kit.fusion.dialog import bind_target
+        self.assertIsNone(bind_target(comp=None, fusion=None))
+
+    def test_pump_attempted_on_show(self):
+        from resolve_node_kit.fusion.dialog import show_busy_window
+        pumped = []
+
+        class FakeDisp:
+            def __init__(self, ui):
+                pass
+
+            def AddWindow(self, attrs, children):
+                class FakeWindow:
+                    def Show(self):
+                        pass
+
+                return FakeWindow()
+
+            def ProcessEvents(self):
+                pumped.append(True)
+
+        class FakeUi:
+            def Label(self, attrs):
+                return object()
+
+            def VGroup(self, children):
+                return list(children)
+
+        class FakeFusion:
+            UIManager = FakeUi()
+
+            def UIDispatcher(self, ui):
+                return FakeDisp(ui)
+
+        logged = []
+        handle = show_busy_window(FakeFusion(), log=logged.append)
+        self.assertIsNotNone(handle)
+        self.assertEqual(pumped, [True])
+        self.assertTrue(any("pumped=True" in message for message in logged))

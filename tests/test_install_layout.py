@@ -248,4 +248,8 @@ STUB_DIALOG = (
     + "    return None" + chr(10)
     + "def show_result(*args, **kwargs):" + chr(10)
     + "    return False" + chr(10)
+    + "class TargetMismatch(RuntimeError):" + chr(10)
+    + "    pass" + chr(10)
+    + "def bind_target(*args, **kwargs):" + chr(10)
+    + "    return None" + chr(10)
 )

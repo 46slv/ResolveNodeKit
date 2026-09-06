@@ -651,55 +651,62 @@ def arrange_comp(
     ):
         raise FusionHostError("required Fusion FlowView position API is unavailable")
 
-    snapshot = _snapshot(comp, flow)
-    if not snapshot.tools:
-        return {"node_count": 0, "edge_count": 0, "moved_count": 0, "scope_count": 0}
-    _note("snapshot tools=" + str(len(snapshot.tools)) + " edges=" + str(len(snapshot.edges)))
-
-    if selected_names is None:
-        selected_names = _read_selection(comp, set(snapshot.tools))
+    _note("snapshot begin")
     try:
-        scope = resolve_arrange_scope(snapshot.tools, selected_names, include_unselected)
-    except ArrangeError as exc:
-        raise FusionHostError(str(exc)) from exc
+        snapshot = _snapshot(comp, flow)
+        if not snapshot.tools:
+            return {"node_count": 0, "edge_count": 0, "moved_count": 0, "scope_count": 0}
+        _note("snapshot tools=" + str(len(snapshot.tools)) + " edges=" + str(len(snapshot.edges)))
 
-    scope = _expand_group_subtree(scope, snapshot.parents)
-    groups = _validate_hierarchy(snapshot.tools, snapshot.parents)
+        if selected_names is None:
+            selected_names = _read_selection(comp, set(snapshot.tools))
+        try:
+            scope = resolve_arrange_scope(snapshot.tools, selected_names, include_unselected)
+        except ArrangeError as exc:
+            raise FusionHostError(str(exc)) from exc
 
-    reg_ids = {name: _reg_id_of(snapshot.tools[name]) for name in snapshot.tools}
-    semantic = build_snapshot(
-        names=snapshot.tools,
-        edges=[SemanticEdge(e.source, e.target, e.kind) for e in snapshot.edges],
-        reg_ids=reg_ids,
-        parents=snapshot.parents,
-        group_names=groups,
-    )
-    layout = plan_layout(semantic, policy)
-    _note("plan scopes=" + str(len(layout.scopes)))
-    if layout.diagnostics["overlap_count"]:
-        raise FusionHostError("semantic plan has overlapping cells; refusing to write")
+        scope = _expand_group_subtree(scope, snapshot.parents)
+        groups = _validate_hierarchy(snapshot.tools, snapshot.parents)
 
-    desired: dict[str, tuple[float, float]] = {}
-    for _scope_id, scoped in layout.scopes.items():
-        members = [n for n in scoped.placements if n in scope]
-        if not members:
-            continue
-        # Canonical anchor: min-of-members drifts when branches sit above the
-        # backbone, so anchor to the backbone head (or first member) and snap
-        # the origin itself. Reruns then reproduce the origin exactly.
-        if scoped.backbone and scoped.backbone[0] in scope:
-            canon = scoped.backbone[0]
-        else:
-            canon = sorted(members)[0]
-        canon_grid = scoped.placements[canon]
-        canon_pos = snapshot.positions[canon]
-        origin = _snap_position(
-            canon_pos[0] - canon_grid.column * policy.cell_x,
-            canon_pos[1] - canon_grid.row * policy.cell_y,
+        reg_ids = {name: _reg_id_of(snapshot.tools[name]) for name in snapshot.tools}
+        semantic = build_snapshot(
+            names=snapshot.tools,
+            edges=[SemanticEdge(e.source, e.target, e.kind) for e in snapshot.edges],
+            reg_ids=reg_ids,
+            parents=snapshot.parents,
+            group_names=groups,
         )
-        for name in members:
-            desired[name] = _grid_to_host(scoped.placements[name], origin, policy)
-    desired = {name: _snap_position(x, y) for name, (x, y) in desired.items()}
+        _note("plan begin")
+        layout = plan_layout(semantic, policy)
+        _note("plan scopes=" + str(len(layout.scopes)))
+        if layout.diagnostics["overlap_count"]:
+            raise FusionHostError("semantic plan has overlapping cells; refusing to write")
+
+        desired: dict[str, tuple[float, float]] = {}
+        for _scope_id, scoped in layout.scopes.items():
+            members = [n for n in scoped.placements if n in scope]
+            if not members:
+                continue
+            # Canonical anchor: min-of-members drifts when branches sit above the
+            # backbone, so anchor to the backbone head (or first member) and snap
+            # the origin itself. Reruns then reproduce the origin exactly.
+            if scoped.backbone and scoped.backbone[0] in scope:
+                canon = scoped.backbone[0]
+            else:
+                canon = sorted(members)[0]
+            canon_grid = scoped.placements[canon]
+            canon_pos = snapshot.positions[canon]
+            origin = _snap_position(
+                canon_pos[0] - canon_grid.column * policy.cell_x,
+                canon_pos[1] - canon_grid.row * policy.cell_y,
+            )
+            for name in members:
+                desired[name] = _grid_to_host(scoped.placements[name], origin, policy)
+        desired = {name: _snap_position(x, y) for name, (x, y) in desired.items()}
+    except FusionHostError:
+        raise
+    except Exception as exc:
+        raise FusionHostError("arrange pre-write failed; nothing was changed: " + str(exc)) from exc
     start_undo, end_undo = getattr(comp, "StartUndo", None), getattr(comp, "EndUndo", None)
     undo = callable(start_undo) and callable(end_undo)
     if undo:
@@ -707,7 +714,7 @@ def arrange_comp(
     try:
         tools = {name: _find_tool(comp, name, snapshot.tools) for name in desired}
         writes = {name: pos for name, pos in desired.items() if not _close_enough(snapshot.positions[name], pos)}
-        _note("writes " + str(len(writes)))
+        _note("writes begin " + str(len(writes)))
         for name in sorted(writes):
             flow.SetPos(tools[name], *writes[name])
         mismatch = [
@@ -717,13 +724,13 @@ def arrange_comp(
         ]
         if mismatch:
             raise FusionHostError(f"position readback mismatch: " + ", ".join(mismatch[:12]))
-        _note("readback ok")
+        _note("readback begin")
         live_tools, live_parents = _collect_tools(comp)
         if set(live_tools) != set(snapshot.tools) or live_parents != snapshot.parents:
             raise FusionHostError("arrange changed the discovered hierarchy")
         if _edge_signature(_snapshot(comp, flow)) != _edge_signature(snapshot):
             raise FusionHostError("arrange changed node connections")
-        _note("verify ok")
+        _note("verify begin")
     except Exception as exc:
         position_failures = _restore_positions(comp, flow, snapshot)
         if undo:

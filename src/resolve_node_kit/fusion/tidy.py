@@ -66,14 +66,15 @@ def _iter_values(value: Any) -> list[Any]:
 
 
 def _call_list(obj, method):
-    """Call a host list getter tolerantly: missing, None, or non-callable yields []."""
+    """Call a host list getter. Missing, None, non-callable, or a None
+    result yields []. A callable getter that raises fails closed."""
     getter = getattr(obj, method, None)
-    if not callable(getter):
+    if getter is None or not callable(getter):
         return []
-    try:
-        return _iter_values(getter())
-    except Exception:
+    values = getter()
+    if values is None:
         return []
+    return _iter_values(values)
 
 
 def _attrs(obj: Any) -> dict[str, Any]:

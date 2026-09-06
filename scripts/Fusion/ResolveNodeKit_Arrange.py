@@ -174,7 +174,7 @@ _BOOTSTRAPPED_FROM = _bootstrap_package()
 try:
     from resolve_node_kit.fusion import ArrangeDialogState, FusionHostError, arrange_comp
     from resolve_node_kit.fusion import ask_arrange_options
-    from resolve_node_kit.fusion.dialog import BUSY_INITIAL_TEXT, show_busy_window, set_busy_text, hide_busy_window, show_result, stage_text
+    from resolve_node_kit.fusion.dialog import BUSY_INITIAL_TEXT, show_busy_window, set_busy_text, hide_busy_window, show_result, stage_text, bind_target, TargetMismatch
     _IMPORT_ERROR = ""
 except Exception as exc:
     ArrangeDialogState = None
@@ -186,6 +186,8 @@ except Exception as exc:
     set_busy_text = None
     hide_busy_window = None
     show_result = None
+    bind_target = None
+    TargetMismatch = RuntimeError
     stage_text = lambda phase: "..."
     _IMPORT_ERROR = repr(exc)
 
@@ -241,7 +243,17 @@ def _run():
         print("[ResolveNodeKit] Arrange: " + message)
         _write_log("import-error", _IMPORT_ERROR)
         return 4
-    composition = _current_comp()
+    try:
+        composition = bind_target(
+            _current_comp(),
+            globals().get("fusion") or globals().get("fu"),
+            globals().get("resolve"),
+            log=lambda message: _write_log("target", message),
+        )
+    except TargetMismatch as exc:
+        print("[ResolveNodeKit] Arrange: target mismatch between menu comp and live current; nothing changed.")
+        _write_log("target-mismatch", str(exc))
+        return 5
     if composition is None:
         print("[ResolveNodeKit] Arrange: no active Fusion composition. Open a comp and run again.")
         _write_log("no-comp", "")

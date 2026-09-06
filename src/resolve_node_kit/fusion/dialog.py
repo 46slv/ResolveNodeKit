@@ -120,11 +120,27 @@ def show_busy_window(fusion_obj, title=BUSY_TITLE, text=BUSY_INITIAL_TEXT, log=N
             note("busy unavailable: window has no Show")
             return None
         show()
-        note("busy shown")
+        pumped = _pump_display(disp)
+        note("busy shown pumped=" + str(pumped))
         return {"disp": disp, "window": window}
     except Exception as exc:
         note(f"busy unavailable: {exc!r}")
         return None
+
+
+def _pump_display(disp):
+    """Best-effort host-safe event pump; never blocks, never raises."""
+    if disp is None:
+        return False
+    for method in ("ProcessEvents", "Step"):
+        try:
+            action = getattr(disp, method, None)
+            if callable(action):
+                action()
+                return True
+        except Exception:
+            continue
+    return False
 
 
 def set_busy_text(handle, text, log=None):
@@ -139,6 +155,7 @@ def set_busy_text(handle, text, log=None):
         setter = getattr(label, "SetText", None)
         if callable(setter):
             setter(text)
+            _pump_display(handle.get("disp"))
             return True
         try:
             label.Text = text
@@ -188,3 +205,87 @@ def show_result(ask, title, message, log=None):
             continue
     note("result unavailable: all shapes failed")
     return False
+
+
+class TargetMismatch(RuntimeError):
+    pass
+
+
+def _identity_text(handle):
+    try:
+        describe = getattr(handle, "GetAttrs", lambda: {})()
+        name = ""
+        if isinstance(describe, dict):
+            for key in ("COMPS_Name", "COMPN_Name", "TOOLS_Name", "Name"):
+                value = describe.get(key)
+                if value:
+                    name = str(value)
+                    break
+        if not name:
+            for attr in ("Name",):
+                value = getattr(handle, attr, None)
+                if value and not callable(value):
+                    name = str(value)
+                    break
+    except Exception:
+        name = ""
+    try:
+        tool_list = handle.GetToolList()
+        if isinstance(tool_list, dict):
+            count = len(tool_list)
+        else:
+            count = len(list(tool_list))
+    except Exception:
+        count = -1
+    return name, count
+
+
+def bind_target(comp=None, fusion=None, resolve=None, log=None):
+    """Bind the live Fusion current comp with fail-closed mismatch handling."""
+    def note(message):
+        if log is not None:
+            try:
+                log(message)
+            except Exception:
+                pass
+
+    live = None
+    if fusion is not None:
+        try:
+            getter = getattr(fusion, "GetCurrentComp", None)
+            live = getter() if callable(getter) else None
+        except Exception:
+            live = None
+    if live is None and resolve is not None:
+        try:
+            live = resolve.Fusion().GetCurrentComp()
+        except Exception:
+            live = None
+    if live is not None and comp is not None and live is not comp:
+        live_name, live_count = _identity_text(live)
+        comp_name, comp_count = _identity_text(comp)
+        note(f"target live comp={live_name} tools={live_count} global comp={comp_name} tools={comp_count}")
+        comparable = bool(live_name) and bool(comp_name)
+        if not comparable:
+            raise TargetMismatch(
+                f"cannot prove global comp matches live current "
+                f"(live comp={live_name} tools={live_count}, "
+                f"global comp={comp_name} tools={comp_count})"
+            )
+        if live_name != comp_name or (live_count >= 0 and comp_count >= 0 and live_count != comp_count):
+            raise TargetMismatch(
+                f"global comp differs from live current "
+                f"(live comp={live_name} tools={live_count}, "
+                f"global comp={comp_name} tools={comp_count})"
+            )
+        note("target match; live current adopted")
+        return live
+    if live is not None:
+        live_name, live_count = _identity_text(live)
+        note(f"target live comp={live_name} tools={live_count}")
+        return live
+    if comp is not None:
+        comp_name, comp_count = _identity_text(comp)
+        note(f"target global comp={comp_name} tools={comp_count} (no live current)")
+        return comp
+    return None
