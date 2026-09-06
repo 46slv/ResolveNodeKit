@@ -167,13 +167,16 @@ A feature-local blocker must be checkpointed, then another independent ready lan
 9. `docs/checkpoints/2026-09-06-p5-transport-block.md`
 10. older checkpoints only as needed
 
-## Semantic Arrange v1 - A8 status (2026-09-06 JST) (gate 1 nested preserve PASS 2026-09-06 JST midday; gate 2 selection in flight)
+## Semantic Arrange v1 status (gate 1 nested PASS, gate 2 selection PASS 2026-09-06 JST)
 
 Flat-fixture preserve-mode Arrange is HOST-PASS (canaries 1-2, evidence in `docs/checkpoints/2026-09-06-semantic-arrange-a8-canary.md`). 
 A host-found anchor drift was fixed (canonical backbone-head anchor plus snapped origin) with regression tests that fail before and pass after. 
 Nested-Group preserve proof PASSED via the R1-recipe SaveSettings-derived Paste envelope (see gate 1 checkpoint); the hand-written single-Paste shape stays banned (single 8-tool Paste times out with `-32001` and drops session tools; retry with a split envelope, never identically). 
 Host is clean: timelines exactly `[Timeline 1]`, current Timeline 1, all comps unmodified, no save.
 
-Adjusted ready queue: (1) DONE nested preserve; (2) selection-only host proof or documented selection-API boundary (in flight); 
+Adjusted ready queue: (1) DONE nested preserve; (2) DONE selection-only (SetActiveTool setter proven, GetToolList(1) fallback removed as unsafe); 
 (3) dialog proof with the user at the machine (AskUser shape, Cancel zero-mutation, menu Run); (4) Comp Scripts install after gate 3; 
 (5) Ungroup stays fail-closed until exact restoration is proven on a disposable fixture.
+
+Gate 2 closeout: selection setter is `comp.SetActiveTool(tool)` with `GetToolList(True)` readback; `SetAttrs(TOOLB_Selected)` is a silent no-op; evidence in `docs/checkpoints/2026-09-06-semantic-arrange-gate2-selection.md`. 
+Next: adopt-with-guard cleanup of orphan RNK_NEST names from the stalled sibling run, then the dialog human gate (AskUser shape, Cancel, menu Run), then Comp Scripts install.
