@@ -249,6 +249,7 @@ def _run():
             globals().get("fusion") or globals().get("fu"),
             globals().get("resolve"),
             log=lambda message: _write_log("target", message),
+            require_live=True,
         )
     except TargetMismatch as exc:
         print("[ResolveNodeKit] Arrange: target mismatch between menu comp and live current; nothing changed.")
@@ -301,6 +302,8 @@ def _run():
             pass
 
     ask = getattr(composition, "AskUser", None)
+    outcome = None
+    exit_code = 1
     try:
         try:
             result = arrange_comp(
@@ -312,38 +315,35 @@ def _run():
         except FusionHostError as exc:
             print("[ResolveNodeKit] Arrange refused: " + str(exc))
             _write_log("refused", str(exc))
-            if callable(show_result):
-                show_result(
-                    ask, TITLE,
-                    "整列できませんでした。中止し、変更はありません。" + "\n" + str(exc),
-                    log=lambda message: _write_log("result", message),
-                )
-            return 3
-        diag = result.get("diagnostics", {})
-        template = "[ResolveNodeKit] Arrange: nodes=%s edges=%s moved=%s arranged=%s avoidable_diagonals=%s expanded_gaps=%s"
-        summary = template % (
-            result.get("node_count"),
-            result.get("edge_count"),
-            result.get("moved_count"),
-            result.get("arranged_count"),
-            diag.get("avoidable_diagonal_edge_count"),
-            diag.get("expanded_gap_count"),
-        )
-        print(summary)
-        _write_log("ok", summary)
-        if result.get("moved_count"):
-            visible = "整列しました。" + summary
+            outcome = "整列できませんでした。中止し、変更はありません。" + "\n" + str(exc)
+            exit_code = 3
         else:
-            visible = "すでに整列済みのため、移動はありませんでした。" + summary
-        if callable(show_result):
-            show_result(ask, TITLE, visible, log=lambda message: _write_log("result", message))
-        return 0
+            diag = result.get("diagnostics", {})
+            template = "[ResolveNodeKit] Arrange: nodes=%s edges=%s moved=%s arranged=%s avoidable_diagonals=%s expanded_gaps=%s"
+            summary = template % (
+                result.get("node_count"),
+                result.get("edge_count"),
+                result.get("moved_count"),
+                result.get("arranged_count"),
+                diag.get("avoidable_diagonal_edge_count"),
+                diag.get("expanded_gap_count"),
+            )
+            print(summary)
+            _write_log("ok", summary)
+            if result.get("moved_count"):
+                outcome = "整列しました。" + summary
+            else:
+                outcome = "すでに整列済みのため、移動はありませんでした。" + summary
+            exit_code = 0
     finally:
         if callable(hide_busy_window):
             try:
                 hide_busy_window(busy, log=lambda message: _write_log("busy", message))
             except Exception:
                 pass
+    if outcome is not None and callable(show_result):
+        show_result(ask, TITLE, outcome, log=lambda message: _write_log("result", message))
+    return exit_code
 
 
 

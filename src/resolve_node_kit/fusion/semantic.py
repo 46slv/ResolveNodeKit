@@ -717,6 +717,7 @@ def arrange_comp(
         _note("writes begin " + str(len(writes)))
         for name in sorted(writes):
             flow.SetPos(tools[name], *writes[name])
+        _note("readback begin")
         mismatch = [
             name
             for name in sorted(writes)
@@ -724,13 +725,12 @@ def arrange_comp(
         ]
         if mismatch:
             raise FusionHostError(f"position readback mismatch: " + ", ".join(mismatch[:12]))
-        _note("readback begin")
+        _note("verify begin")
         live_tools, live_parents = _collect_tools(comp)
         if set(live_tools) != set(snapshot.tools) or live_parents != snapshot.parents:
             raise FusionHostError("arrange changed the discovered hierarchy")
         if _edge_signature(_snapshot(comp, flow)) != _edge_signature(snapshot):
             raise FusionHostError("arrange changed node connections")
-        _note("verify begin")
     except Exception as exc:
         position_failures = _restore_positions(comp, flow, snapshot)
         if undo:

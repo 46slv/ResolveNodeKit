@@ -770,3 +770,172 @@ class BindTargetTests(unittest.TestCase):
         self.assertIsNotNone(handle)
         self.assertEqual(pumped, [True])
         self.assertTrue(any("pumped=True" in message for message in logged))
+
+
+class ArrangeRunOrderingTests(unittest.TestCase):
+    def _run_script(self, comp, ask=None, fusion=None):
+        import pathlib
+
+        script_path = pathlib.Path(__file__).resolve().parents[1] / "scripts" / "Fusion" / "ResolveNodeKit_Arrange.py"
+        source = script_path.read_text(encoding="utf-8")
+        namespace = {"__name__": "__main__", "comp": comp}
+        if fusion is not None:
+            namespace["fusion"] = fusion
+        try:
+            exec(compile(source, str(script_path), "exec"), namespace)
+        except SystemExit as ended:
+            return ended.code
+        return None
+
+    def test_result_dialog_after_busy_hidden(self):
+        events = []
+
+        class FakeLabel:
+            def SetText(self, text):
+                events.append("busy-text")
+
+        class FakeWindow:
+            def Show(self):
+                events.append("busy-show")
+
+            def Hide(self):
+                events.append("busy-hide")
+
+            def Find(self, name):
+                return FakeLabel()
+
+        class FakeDisp:
+            def __init__(self, ui):
+                pass
+
+            def AddWindow(self, attrs, children):
+                return FakeWindow()
+
+        class FakeUi:
+            def Label(self, attrs):
+                return FakeLabel()
+
+            def VGroup(self, children):
+                return list(children)
+
+        class FakeFusion:
+            UIManager = FakeUi()
+
+            def UIDispatcher(self, ui):
+                return FakeDisp(ui)
+
+            def GetCurrentComp(self):
+                return getattr(self, "_live", None)
+
+        a = MockTool("A")
+        b = MockTool("B")
+        connect(a, b, "Input")
+        flow = MockFlow({"A": (0.0, 0.0), "B": (9.0, 9.0)})
+        comp = MockComp([a, b], flow)
+
+        def fake_ask(title, controls):
+            events.append("ask")
+            return {"IncludeUnselected": 1, "UngroupFirst": 0}
+
+        comp.AskUser = fake_ask
+        fusion = FakeFusion()
+        fusion._live = comp
+        code = self._run_script(comp, fusion=fusion)
+        self.assertEqual(code, 0)
+        self.assertIn("busy-show", events)
+        self.assertIn("busy-hide", events)
+        first_ask = events.index("ask")
+        self.assertLess(events.index("busy-hide"), events.index("ask", first_ask + 1))
+        self.assertGreater(flow.positions["B"][0], 0.0)
+
+
+class ArrangeReview3FocusedTests(unittest.TestCase):
+    def test_live_unavailable_fails_closed_without_writes(self):
+        from resolve_node_kit.fusion.dialog import TargetMismatch, bind_target
+        a = MockTool("A")
+        flow = MockFlow({"A": (0.0, 0.0)})
+        comp = MockComp([a], flow)
+        class NoLive:
+            def GetCurrentComp(self):
+                return None
+        with self.assertRaises(TargetMismatch):
+            bind_target(comp=comp, fusion=NoLive(), require_live=True)
+        self.assertEqual(flow.calls, 0)
+        self.assertEqual(flow.positions, {"A": (0.0, 0.0)})
+
+    def test_begin_markers_ordered_before_work(self):
+        from resolve_node_kit.fusion import arrange_comp
+        a = MockTool("A")
+        b = MockTool("B")
+        connect(a, b, "Input")
+        flow = MockFlow({"A": (0.0, 0.0), "B": (9.0, 9.0)})
+        comp = MockComp([a, b], flow)
+        seen = []
+        arrange_comp(comp, include_unselected=True, progress=seen.append)
+        order = ["snapshot begin", "plan begin", "writes begin", "readback begin", "verify begin"]
+        idx = []
+        for marker in order:
+            pos = next(k for k, m in enumerate(seen) if m == marker or m.startswith(marker))
+            idx.append(pos)
+        self.assertEqual(idx, sorted(idx))
+
+    def test_refusal_hides_busy_before_result(self):
+        import pathlib
+        events = []
+        class FakeLabel:
+            def SetText(self, text):
+                events.append("busy-text")
+        class FakeWindow:
+            def Show(self):
+                events.append("busy-show")
+            def Hide(self):
+                events.append("busy-hide")
+            def Find(self, name):
+                return FakeLabel()
+        class FakeDisp:
+            def __init__(self, ui):
+                pass
+            def AddWindow(self, attrs, children):
+                return FakeWindow()
+        class FakeUi:
+            def Label(self, attrs):
+                return FakeLabel()
+            def VGroup(self, children):
+                return list(children)
+        class FakeFusion:
+            UIManager = FakeUi()
+            def __init__(self):
+                self._live = None
+            def UIDispatcher(self, ui):
+                return FakeDisp(ui)
+            def GetCurrentComp(self):
+                return getattr(self, "_live", None)
+        a = MockTool("A")
+        b = MockTool("B")
+        connect(a, b, "Input")
+        flow = MockFlow({"A": (0.0, 0.0), "B": (9.0, 9.0)})
+        comp = MockComp([a, b], flow)
+        fusion = FakeFusion()
+        fusion._live = comp
+        calls = []
+        def fake_ask(title, controls):
+            calls.append(controls)
+            events.append("ask")
+            if len(calls) == 1:
+                return {"IncludeUnselected": 1, "UngroupFirst": 1}
+            return {"Result": "ok"}
+        comp.AskUser = fake_ask
+        script_path = pathlib.Path(__file__).resolve().parents[1] / "scripts" / "Fusion" / "ResolveNodeKit_Arrange.py"
+        source = script_path.read_text(encoding="utf-8")
+        namespace = {"__name__": "__main__", "comp": comp, "fusion": fusion}
+        try:
+            exec(compile(source, str(script_path), "exec"), namespace)
+        except SystemExit as ended:
+            code = ended.code
+        self.assertEqual(code, 3)
+        self.assertIn("busy-show", events)
+        self.assertIn("busy-hide", events)
+        self.assertGreaterEqual(len(calls), 2)
+        first_ask = events.index("ask")
+        self.assertLess(events.index("busy-hide"), events.index("ask", first_ask + 1))
+        self.assertEqual(flow.calls, 0)

@@ -240,7 +240,7 @@ def _identity_text(handle):
     return name, count
 
 
-def bind_target(comp=None, fusion=None, resolve=None, log=None):
+def bind_target(comp=None, fusion=None, resolve=None, log=None, require_live=False):
     """Bind the live Fusion current comp with fail-closed mismatch handling."""
     def note(message):
         if log is not None:
@@ -280,6 +280,10 @@ def bind_target(comp=None, fusion=None, resolve=None, log=None):
             )
         note("target match; live current adopted")
         return live
+    if live is None and require_live:
+        comp_name, comp_count = _identity_text(comp) if comp is not None else ("", -1)
+        note("target unproven: no live current (global comp=" + comp_name + " tools=" + str(comp_count) + ")")
+        raise TargetMismatch("live current unavailable; refusing interactive write without proven target")
     if live is not None:
         live_name, live_count = _identity_text(live)
         note(f"target live comp={live_name} tools={live_count}")
