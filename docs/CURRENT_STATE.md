@@ -15,11 +15,11 @@ The mission-critical unresolved requirement remains runtime visual nested-group 
 ## Canonical repo state
 
 - repo: `46slv/ResolveNodeKit`
-- task branch: `feat/bootstrap-nodekit-20260905`
-- Draft PR: #1, open/draft
+- task branch: `feat/semantic-arrange-v1-20260906` (implements Semantic Arrange v1; design docs merged from PR #2)
+- Draft PR: #1 (bootstrap) plus #5 (Semantic Arrange v1, stacked on the bootstrap branch), both open/draft
 - branch locator immediately before this state normalization: `f974730f5952a6376feb443d482bbb571e71d59e`
 - reported worktree at latest run end: clean, remote in sync
-- offline suite: 36/36 unittest PASS + `compileall` PASS
+- offline suite: 100/100 unittest PASS + `compileall` PASS (36 baseline plus 29 semantic-arrange plus 7 install plus 4 dialog plus 2 host-context plus 6 bind-strict plus 5 busy plus 4 hostile-progress plus 1 ordering plus 3 review-3-focused plus 3 dialog-first)
 
 Fresh-read all locators on resume.
 
@@ -166,3 +166,21 @@ A feature-local blocker must be checkpointed, then another independent ready lan
 8. `docs/checkpoints/2026-09-06-tidy-nested-r1-pass.md`
 9. `docs/checkpoints/2026-09-06-p5-transport-block.md`
 10. older checkpoints only as needed
+
+## Semantic Arrange v1 status (gate 1 nested PASS, gate 2 selection PASS 2026-09-06 JST)
+
+Flat-fixture preserve-mode Arrange is HOST-PASS (canaries 1-2, evidence in `docs/checkpoints/2026-09-06-semantic-arrange-a8-canary.md`). 
+A host-found anchor drift was fixed (canonical backbone-head anchor plus snapped origin) with regression tests that fail before and pass after. 
+Nested-Group preserve proof PASSED via the R1-recipe SaveSettings-derived Paste envelope (see gate 1 checkpoint); the hand-written single-Paste shape stays banned (single 8-tool Paste times out with `-32001` and drops session tools; retry with a split envelope, never identically). 
+Host is clean: timelines exactly `[Timeline 1]`, current Timeline 1, all comps unmodified, no save.
+
+Adjusted ready queue: (1) DONE nested preserve; (2) DONE selection-only (SetActiveTool setter proven, GetToolList(1) fallback removed as unsafe); 
+(3) dialog proof with the user at the machine (AskUser shape, Cancel zero-mutation, menu Run); (4) Comp Scripts install after gate 3; 
+(5) Ungroup stays fail-closed until exact restoration is proven on a disposable fixture.
+
+Gate 2 closeout: selection setter is `comp.SetActiveTool(tool)` with `GetToolList(True)` readback; `SetAttrs(TOOLB_Selected)` is a silent no-op; evidence in `docs/checkpoints/2026-09-06-semantic-arrange-gate2-selection.md`. 
+Orphan RNK_NEST names adopted and deleted with guardrails 2026-09-06 JST afternoon; host clean ([Timeline 1] current, all comps unmodified, no save). Install PASS 2026-09-06 JST afternoon: user-scoped entry plus package plus manifest installed with verified hashes; Resolve-side import from installed tree proven read-only; Comp entry listed. Dialog cause proven 2026-09-06 JST evening from run log: menu exec provides no __file__, bootstrap found nothing, import-error exit 4, Console-only print. Fix installed (host-native root discovery via MapPath plus APPDATA, unconditional entry with run logging, shape-tolerant dialog). User clicks 16:20-16:24 JST: bootstrap fix verified, list-shape AskUser proven with Japanese keys, Ungroup correctly refused twice, then a live-comp selection run exposed a hostile parent structure plus a None GetInputList plus one silent stall. Hardened list getters, added phase progress plus target logging plus visible busy and result dialogs, reinstalled and verified. Next: one user menu press with nodes selected.
+
+Review-3 fixes installed 2026-09-06 JST evening (branch 1244721): busy is always hidden before the result dialog on success and refusal paths; readback and verify begin markers fire before their phase work; interactive writes require live current and fail closed with exit 5 when unproven. Locked by 4 focused tests. Suite 97/97 green, compileall PASS, reinstalled with entry and package hash match, manifest stamped 1244721. Next: one user click on the same 4 nodes.
+
+Dialog-first reorder installed 2026-09-06 JST midday (branch 7d971f2): setup dialog runs on the UI-owner comp before any target bind, Cancel exits with zero mutation, Run binds live current with require_live and shows a visible refusal on failure, then busy, arrange, busy close, result. Locked by 3 dialog-first tests. Suite 100/100 green, compileall PASS, reinstalled with entry and package hash match, manifest stamped 7d971f2. Next: one user click on the same 4 nodes.
