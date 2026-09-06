@@ -19,7 +19,7 @@ The mission-critical unresolved requirement remains runtime visual nested-group 
 - Draft PR: #1 (bootstrap) plus #5 (Semantic Arrange v1, stacked on the bootstrap branch), both open/draft
 - branch locator immediately before this state normalization: `f974730f5952a6376feb443d482bbb571e71d59e`
 - reported worktree at latest run end: clean, remote in sync
-- offline suite: 93/93 unittest PASS + `compileall` PASS (36 baseline plus 29 semantic-arrange plus 7 install plus 4 dialog plus 2 host-context plus 6 bind-strict plus 5 busy plus 4 hostile-progress)
+- offline suite: 97/97 unittest PASS + `compileall` PASS (36 baseline plus 29 semantic-arrange plus 7 install plus 4 dialog plus 2 host-context plus 6 bind-strict plus 5 busy plus 4 hostile-progress plus 1 ordering plus 3 review-3-focused)
 
 Fresh-read all locators on resume.
 
@@ -180,3 +180,5 @@ Adjusted ready queue: (1) DONE nested preserve; (2) DONE selection-only (SetActi
 
 Gate 2 closeout: selection setter is `comp.SetActiveTool(tool)` with `GetToolList(True)` readback; `SetAttrs(TOOLB_Selected)` is a silent no-op; evidence in `docs/checkpoints/2026-09-06-semantic-arrange-gate2-selection.md`. 
 Orphan RNK_NEST names adopted and deleted with guardrails 2026-09-06 JST afternoon; host clean ([Timeline 1] current, all comps unmodified, no save). Install PASS 2026-09-06 JST afternoon: user-scoped entry plus package plus manifest installed with verified hashes; Resolve-side import from installed tree proven read-only; Comp entry listed. Dialog cause proven 2026-09-06 JST evening from run log: menu exec provides no __file__, bootstrap found nothing, import-error exit 4, Console-only print. Fix installed (host-native root discovery via MapPath plus APPDATA, unconditional entry with run logging, shape-tolerant dialog). User clicks 16:20-16:24 JST: bootstrap fix verified, list-shape AskUser proven with Japanese keys, Ungroup correctly refused twice, then a live-comp selection run exposed a hostile parent structure plus a None GetInputList plus one silent stall. Hardened list getters, added phase progress plus target logging plus visible busy and result dialogs, reinstalled and verified. Next: one user menu press with nodes selected.
+
+Review-3 fixes installed 2026-09-06 JST evening (branch 1244721): busy is always hidden before the result dialog on success and refusal paths; readback and verify begin markers fire before their phase work; interactive writes require live current and fail closed with exit 5 when unproven. Locked by 4 focused tests. Suite 97/97 green, compileall PASS, reinstalled with entry and package hash match, manifest stamped 1244721. Next: one user click on the same 4 nodes.
