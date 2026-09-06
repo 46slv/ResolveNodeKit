@@ -481,3 +481,64 @@ class ArrangeSelectionReadTests(unittest.TestCase):
         self.assertEqual(flow.calls, 0)
         self.assertEqual(flow.positions, before)
         self.assertEqual(comp.undo, [])
+
+
+class ArrangeDialogInvokeTests(unittest.TestCase):
+    def test_first_shape_accepted(self):
+        from resolve_node_kit.fusion.dialog import ask_arrange_options
+        calls = []
+
+        def ask(title, controls):
+            calls.append((title, controls))
+            return {"LABEL_A": 1, "LABEL_B": 0}
+
+        logged = []
+        state = ask_arrange_options(ask, "T", "LABEL_A", "LABEL_B", log=logged.append)
+        assert state is not None
+        self.assertTrue(state.include_unselected)
+        self.assertFalse(state.ungroup)
+        self.assertEqual(len(calls), 1)
+        self.assertTrue(logged)
+
+    def test_none_then_dict_uses_second_shape(self):
+        from resolve_node_kit.fusion.dialog import ask_arrange_options
+        calls = []
+
+        def ask(title, controls):
+            calls.append(controls)
+            if len(calls) == 1:
+                return None
+            return {"LABEL_B": 1}
+
+        state = ask_arrange_options(ask, "T", "LABEL_A", "LABEL_B")
+        assert state is not None
+        self.assertFalse(state.include_unselected)
+        self.assertTrue(state.ungroup)
+        self.assertEqual(len(calls), 2)
+
+    def test_all_none_means_cancel(self):
+        from resolve_node_kit.fusion.dialog import ask_arrange_options
+        calls = []
+
+        def ask(title, controls):
+            calls.append(controls)
+            return None
+
+        self.assertIsNone(ask_arrange_options(ask, "T", "LABEL_A", "LABEL_B"))
+        self.assertEqual(len(calls), 2)
+
+    def test_exception_then_dict(self):
+        from resolve_node_kit.fusion.dialog import ask_arrange_options
+        calls = []
+
+        def ask(title, controls):
+            calls.append(controls)
+            if len(calls) == 1:
+                raise RuntimeError("bad shape")
+            return {"LABEL_A": 0, "LABEL_B": 0}
+
+        state = ask_arrange_options(ask, "T", "LABEL_A", "LABEL_B")
+        assert state is not None
+        self.assertFalse(state.include_unselected)
+        self.assertFalse(state.ungroup)
+        self.assertEqual(len(calls), 2)

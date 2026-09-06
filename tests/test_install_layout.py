@@ -119,6 +119,8 @@ STUB_FUSION = (
     "        return None\n"
     "def arrange_comp(*args, **kwargs):\n"
     "    raise AssertionError(\"arrange must not run without a comp\")\n"
+    "def ask_arrange_options(*args, **kwargs):\n"
+    "    raise AssertionError(\"dialog must not run without a comp\")\n"
 )
 
 
