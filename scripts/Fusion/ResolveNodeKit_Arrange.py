@@ -243,9 +243,31 @@ def _run():
         print("[ResolveNodeKit] Arrange: " + message)
         _write_log("import-error", _IMPORT_ERROR)
         return 4
+    ui_comp = _current_comp()
+    if ui_comp is None:
+        print("[ResolveNodeKit] Arrange: no active Fusion composition. Open a comp and run again.")
+        _write_log("no-comp", "")
+        return 2
+
+    if os.environ.get("RNK_ARRANGE_NO_UI", "0") == "1":
+        state = _state_from_env()
+    else:
+        ui_ask = getattr(ui_comp, "AskUser", None)
+        if not callable(ui_ask):
+            print("[ResolveNodeKit] Arrange: dialog is unavailable on this host; nothing changed.")
+            _write_log("no-dialog", "")
+            return 2
+        state = ask_arrange_options(
+            ui_ask, TITLE, LABEL_INCLUDE, LABEL_UNGROUP,
+            log=lambda message: _write_log("dialog", message),
+        )
+        if state is None:
+            print("[ResolveNodeKit] Arrange canceled; nothing changed.")
+            _write_log("cancel", "")
+            return 0
     try:
         composition = bind_target(
-            _current_comp(),
+            ui_comp,
             globals().get("fusion") or globals().get("fu"),
             globals().get("resolve"),
             log=lambda message: _write_log("target", message),
@@ -254,6 +276,13 @@ def _run():
     except TargetMismatch as exc:
         print("[ResolveNodeKit] Arrange: target mismatch between menu comp and live current; nothing changed.")
         _write_log("target-mismatch", str(exc))
+        ui_ask = getattr(ui_comp, "AskUser", None)
+        if callable(show_result) and callable(ui_ask):
+            show_result(
+                ui_ask, TITLE,
+                "整列できませんでした。中止し、変更はありません。" + "\n" + str(exc),
+                log=lambda message: _write_log("result", message),
+            )
         return 5
     if composition is None:
         print("[ResolveNodeKit] Arrange: no active Fusion composition. Open a comp and run again.")
@@ -270,22 +299,6 @@ def _run():
     except Exception:
         comp_tools = -1
     _write_log("target", "comp=" + str(comp_name) + " tools=" + str(comp_tools))
-    if os.environ.get("RNK_ARRANGE_NO_UI", "0") == "1":
-        state = _state_from_env()
-    else:
-        ask = getattr(composition, "AskUser", None)
-        if not callable(ask):
-            print("[ResolveNodeKit] Arrange: dialog is unavailable on this host; nothing changed.")
-            _write_log("no-dialog", "")
-            return 2
-        state = ask_arrange_options(
-            ask, TITLE, LABEL_INCLUDE, LABEL_UNGROUP,
-            log=lambda message: _write_log("dialog", message),
-        )
-        if state is None:
-            print("[ResolveNodeKit] Arrange canceled; nothing changed.")
-            _write_log("cancel", "")
-            return 0
     busy = None
     if callable(show_busy_window):
         busy = show_busy_window(
