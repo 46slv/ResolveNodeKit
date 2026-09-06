@@ -19,7 +19,7 @@ The mission-critical unresolved requirement remains runtime visual nested-group 
 - Draft PR: #1 (bootstrap) plus #5 (Semantic Arrange v1, stacked on the bootstrap branch), both open/draft
 - branch locator immediately before this state normalization: `f974730f5952a6376feb443d482bbb571e71d59e`
 - reported worktree at latest run end: clean, remote in sync
-- offline suite: 76/76 unittest PASS + `compileall` PASS (36 baseline plus 29 semantic-arrange plus 7 install plus 4 dialog)
+- offline suite: 78/78 unittest PASS + `compileall` PASS (36 baseline plus 29 semantic-arrange plus 7 install plus 4 dialog plus 2 host-context)
 
 Fresh-read all locators on resume.
 
@@ -179,4 +179,4 @@ Adjusted ready queue: (1) DONE nested preserve; (2) DONE selection-only (SetActi
 (5) Ungroup stays fail-closed until exact restoration is proven on a disposable fixture.
 
 Gate 2 closeout: selection setter is `comp.SetActiveTool(tool)` with `GetToolList(True)` readback; `SetAttrs(TOOLB_Selected)` is a silent no-op; evidence in `docs/checkpoints/2026-09-06-semantic-arrange-gate2-selection.md`. 
-Orphan RNK_NEST names adopted and deleted with guardrails 2026-09-06 JST afternoon; host clean ([Timeline 1] current, all comps unmodified, no save). Install PASS 2026-09-06 JST afternoon: user-scoped entry plus package plus manifest installed with verified hashes; Resolve-side import from installed tree proven read-only; Comp entry listed. Dialog gate in progress 2026-09-06 JST evening: menu press showed nothing; host evidence says AskUser never raises (silent None) and entry guard may no-op. Fix pushed (unconditional entry, run logging, shape-tolerant dialog helper) and reinstalled with backup. Next: one user menu press, then read the run log.
+Orphan RNK_NEST names adopted and deleted with guardrails 2026-09-06 JST afternoon; host clean ([Timeline 1] current, all comps unmodified, no save). Install PASS 2026-09-06 JST afternoon: user-scoped entry plus package plus manifest installed with verified hashes; Resolve-side import from installed tree proven read-only; Comp entry listed. Dialog cause proven 2026-09-06 JST evening from run log: menu exec provides no __file__, bootstrap found nothing, import-error exit 4, Console-only print. Fix installed (host-native root discovery via MapPath plus APPDATA, unconditional entry with run logging, shape-tolerant dialog). Next: one user menu press; the log now records dialog attempts.
