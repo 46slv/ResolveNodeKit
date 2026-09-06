@@ -45,14 +45,67 @@ def _script_file():
         return None
 
 
+def _walk_up_to_fusion(start):
+    try:
+        current = Path(start)
+    except Exception:
+        return None
+    for parent in [current.parent, *current.parents]:
+        try:
+            if parent.name == "Fusion":
+                return parent
+        except Exception:
+            continue
+    return None
+
+
+def _root_from_host_map(fusion_obj=None):
+    try:
+        target = fusion_obj or globals().get("fusion") or globals().get("fu")
+        if target is None:
+            resolver = globals().get("resolve")
+            if resolver is not None:
+                target = resolver.Fusion()
+        if target is None:
+            return None
+        mapper = getattr(target, "MapPath", None)
+        if not callable(mapper):
+            return None
+        for key in ("Scripts:", "Comp:"):
+            try:
+                mapped = mapper(key)
+            except Exception:
+                continue
+            if mapped:
+                root = _walk_up_to_fusion(Path(str(mapped)))
+                if root is not None:
+                    return root
+    except Exception:
+        pass
+    return None
+
+
+def _root_from_appdata():
+    try:
+        base = os.environ.get("APPDATA", "")
+        if not base:
+            return None
+        root = Path(base) / "Blackmagic Design" / "DaVinci Resolve" / "Support" / "Fusion"
+        return root if root.is_dir() else None
+    except Exception:
+        return None
+
+
 def _fusion_support_root(script_file=None):
     here = script_file or _script_file()
-    if here is None:
-        return None
-    for parent in [here.parent, *here.parents]:
-        if parent.name == "Fusion":
-            return parent
-    return None
+    if here is not None:
+        root = _walk_up_to_fusion(here)
+        if root is not None:
+            return root
+    root = _root_from_host_map()
+    if root is not None:
+        return root
+    return _root_from_appdata()
 
 
 def _candidate_src_dirs(script_file=None):

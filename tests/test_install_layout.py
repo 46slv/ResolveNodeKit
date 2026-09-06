@@ -167,3 +167,68 @@ class ScriptBootstrapTests(unittest.TestCase):
         self.assertEqual(result.returncode, 2, result.stderr)
         self.assertIn("STUB PACKAGE LOADED", result.stdout)
         self.assertIn("no active Fusion composition", result.stdout)
+
+
+class HostContextBootstrapTests(unittest.TestCase):
+    def setUp(self):
+        self.work = Path(tempfile.mkdtemp(prefix="rnk-hostctx-"))
+
+    def tearDown(self):
+        shutil.rmtree(self.work, ignore_errors=True)
+
+    def test_appdata_fallback_without_fusion_ancestor(self):
+        fake_appdata = self.work / "appdata"
+        write_stub_package(
+            fake_appdata / "Blackmagic Design" / "DaVinci Resolve" / "Support" / "Fusion" / "ResolveNodeKit" / "src"
+        )
+        neutral = self.work / "neutral"
+        neutral.mkdir()
+        copied = neutral / "ResolveNodeKit_Arrange.py"
+        shutil.copyfile(ENTRY_SOURCE, copied)
+        env = dict(os.environ)
+        env.pop("RNK_SUPPORT_ROOT", None)
+        env["APPDATA"] = str(fake_appdata)
+        result = subprocess.run(
+            [sys.executable, str(copied)],
+            capture_output=True, text=True, timeout=60, cwd=str(self.work), env=env,
+        )
+        self.assertEqual(result.returncode, 2, result.stderr)
+        self.assertIn("STUB PACKAGE LOADED", result.stdout)
+
+    def test_no_dunder_file_uses_host_map(self):
+        fake_fusion = self.work / "Fusion"
+        write_stub_package(fake_fusion / "ResolveNodeKit" / "src")
+        driver = self.work / "driver_probe.py"
+        driver.write_text(
+            "import os, sys" + chr(10)
+            + "class FakeFusion:" + chr(10)
+            + "    def __init__(self, root):" + chr(10)
+            + "        self._root = root" + chr(10)
+            + "    def MapPath(self, key):" + chr(10)
+            + "        return os.path.join(self._root, \"Scripts\")" + chr(10)
+            + "    def GetCurrentComp(self):" + chr(10)
+            + "        return None" + chr(10)
+            + "source = open(r\"@@SCRIPT@@\", encoding=\"utf-8\").read()" + chr(10)
+            + "g = {\"__name__\": \"__main__\", \"fusion\": FakeFusion(r\"@@ROOT@@\")}" + chr(10)
+            + "try:" + chr(10)
+            + "    exec(compile(source, \"<installed>\", \"exec\"), g)" + chr(10)
+            + "except SystemExit as ended:" + chr(10)
+            + "    raise SystemExit(ended.code)" + chr(10),
+            encoding="utf-8",
+        )
+        text = driver.read_text(encoding="utf-8")
+        text = text.replace("@@SCRIPT@@", str(ENTRY_SOURCE)).replace("@@ROOT@@", str(fake_fusion))
+        driver.write_text(text, encoding="utf-8")
+        env = dict(os.environ)
+        env.pop("RNK_SUPPORT_ROOT", None)
+        env["APPDATA"] = str(self.work / "empty-appdata")
+        result = subprocess.run(
+            [sys.executable, str(driver)],
+            capture_output=True, text=True, timeout=60, cwd=str(self.work), env=env,
+        )
+        self.assertEqual(result.returncode, 2, result.stderr)
+        self.assertIn("STUB PACKAGE LOADED", result.stdout)
+        self.assertIn("no active Fusion composition", result.stdout)
+        log_file = fake_fusion / "ResolveNodeKit" / "logs" / "arrange-run.log"
+        self.assertTrue(log_file.is_file())
+        self.assertIn("start name=__main__", log_file.read_text(encoding="utf-8"))
