@@ -753,7 +753,9 @@ def _read_selection(comp: Any, known: set[str]) -> set[str]:
     getter = getattr(comp, "GetToolList", None)
     if not callable(getter):
         return set()
-    calls = (lambda: getter(True), lambda: getter(1))
+    # Host-measured 2026-09-06: GetToolList(True) filters to selection, but
+    # GetToolList(1) returns every tool, so 1 must never be a fallback.
+    calls = (lambda: getter(True),)
     for call in calls:
         try:
             result = call()

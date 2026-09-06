@@ -455,3 +455,29 @@ class ArrangeAnchorTests(unittest.TestCase):
         rows_run1 = (flow.positions["M1"][1], flow.positions["M2"][1])
         arrange_comp(comp, include_unselected=True)
         self.assertEqual((flow.positions["M1"][1], flow.positions["M2"][1]), rows_run1)
+
+
+class ArrangeSelectionReadTests(unittest.TestCase):
+    def test_host_shape_true_filters_selection(self):
+        comp, flow, tools = serial_comp(["A", "B", "C"])
+        comp.selected = {"B"}
+        self.assertEqual(
+            sorted(t.Name for t in comp.GetToolList(True)),
+            ["B"],
+        )
+
+    def test_no_selection_api_fails_closed(self):
+        tools = [MockTool("A"), MockTool("B")]
+
+        class NoSelectComp(MockComp):
+            def GetToolList(self):
+                return list(self.tools)
+
+        flow = MockFlow({"A": (0.0, 0.0), "B": (1.0, 0.0)})
+        comp = NoSelectComp(tools, flow)
+        before = dict(flow.positions)
+        with self.assertRaises(FusionHostError):
+            arrange_comp(comp, include_unselected=False)
+        self.assertEqual(flow.calls, 0)
+        self.assertEqual(flow.positions, before)
+        self.assertEqual(comp.undo, [])
