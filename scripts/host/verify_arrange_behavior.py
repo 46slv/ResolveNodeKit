@@ -28,6 +28,7 @@ def build_handler_source(
     ungroup: bool = False,
     run_second: bool = True,
     undo_after_runs: bool = True,
+    show_result_dialog: bool = False,
 ) -> str:
     """Return an in-host Python source for one direct-handler evidence run."""
     config = {
@@ -35,6 +36,7 @@ def build_handler_source(
         "ungroup": bool(ungroup),
         "run_second": bool(run_second),
         "undo_after_runs": bool(undo_after_runs),
+        "show_result_dialog": bool(show_result_dialog),
         "title": TITLE,
         "schema": SCHEMA,
     }
@@ -75,6 +77,9 @@ def build_handler_source(
         "comp_obj = globals().get('comp')",
         "if comp_obj is None and fusion_obj is not None: comp_obj = fusion_obj.GetCurrentComp()",
         "if comp_obj is None: raise RuntimeError('no live current Fusion composition')",
+        "# run_inline may wrap the same live comp twice; let the production seam bind Fusion current",
+        "# rather than comparing wrapper identity, while retaining comp_obj for readback and AskUser.",
+        "handler_comp = None",
         "log_lines = []",
         "def log(message):",
         "    log_lines.append(str(message))",
@@ -84,20 +89,24 @@ def build_handler_source(
         "state = ArrangeDialogState(include_unselected=CONFIG['include_unselected'], ungroup=CONFIG['ungroup'])",
         "ask = getattr(comp_obj, 'AskUser', None)",
         "runs = []",
-        "runs.append(execute_arrange_request(comp_obj, fusion_obj, resolve_obj, state, result_ask=ask, title=CONFIG['title'], log=log))",
+        "runs.append(execute_arrange_request(handler_comp, fusion_obj, resolve_obj, state, result_ask=ask, title=CONFIG['title'], log=log, show_result_dialog=CONFIG['show_result_dialog']))",
         "post_first = snapshot(comp_obj)",
         "if CONFIG['run_second']:",
-        "    runs.append(execute_arrange_request(comp_obj, fusion_obj, resolve_obj, state, result_ask=ask, title=CONFIG['title'], log=log))",
+        "    runs.append(execute_arrange_request(handler_comp, fusion_obj, resolve_obj, state, result_ask=ask, title=CONFIG['title'], log=log, show_result_dialog=CONFIG['show_result_dialog']))",
         "post_second = snapshot(comp_obj)",
         "undo_snapshots = []",
         "if CONFIG['undo_after_runs']:",
-        "    for _ in range(3):",
+        "    # Two handler runs create at most two Arrange Undo entries; do not undo fixture construction.",
+        "    for _ in range(2):",
         "        undo = getattr(comp_obj, 'Undo', None)",
         "        if not callable(undo): break",
         "        try:",
         "            if undo() is False: break",
         "        except Exception: break",
         "        undo_snapshots.append(snapshot(comp_obj))",
+        "        restored = undo_snapshots[-1]",
+        "        if all(restored.get(key) == pre.get(key) for key in ('positions', 'connections', 'parents', 'groups', 'selected')):",
+        "            break",
         "payload = {'schema': CONFIG['schema'], 'state': {'include_unselected': state.include_unselected, 'ungroup': state.ungroup},",
         "           'pre': pre, 'runs': [item.to_dict() for item in runs], 'post_first': post_first,",
         "           'post_second': post_second, 'undo_snapshots': undo_snapshots, 'log': log_lines}",
@@ -219,6 +228,7 @@ def main(argv: list[str] | None = None) -> None:
     source.add_argument("--ungroup", action="store_true")
     source.add_argument("--no-second", action="store_true")
     source.add_argument("--no-undo", action="store_true")
+    source.add_argument("--show-result-dialog", action="store_true")
     classify = sub.add_parser("classify")
     classify.add_argument("--input", required=True)
     classify.add_argument("--output")
@@ -230,6 +240,7 @@ def main(argv: list[str] | None = None) -> None:
             ungroup=args.ungroup,
             run_second=not args.no_second,
             undo_after_runs=not args.no_undo,
+            show_result_dialog=args.show_result_dialog,
         )
         if args.source_file:
             Path(args.source_file).write_text(text, encoding="utf-8")

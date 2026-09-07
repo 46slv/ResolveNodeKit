@@ -1,0 +1,96 @@
+{
+  "schema": "resolve-node-kit.semantic-arrange-whole-comp-host-smoke/v1",
+  "timestamp": "2026-09-07T23:08:30+09:00",
+  "branch": "feat/arrange-uia-e2e-20260906",
+  "production_state": {
+    "include_unselected": true,
+    "ungroup": false,
+    "selection_only_release_gate": false
+  },
+  "INSTALLED_ENTRY": {
+    "status": "PASS",
+    "repo_commit_installed": "9b49b3f6f2c0de7e6eb803efc01299008d8d8e8",
+    "default_state": "ArrangeDialogState(include_unselected=True, ungroup=False)",
+    "whole_comp_confirmation_exported": true
+  },
+  "HOST_PRODUCT_BEHAVIOR": {
+    "status": "PASS",
+    "handler": "execute_arrange_request",
+    "B1_whole_comp": {
+      "status": "PASS",
+      "tool_count": 6,
+      "selected_count": 0,
+      "arranged_count": 6,
+      "first_moved": 5,
+      "second_moved": 0,
+      "scope_complete": true,
+      "connections_unchanged": true,
+      "tool_identities_unchanged": true,
+      "effective_include_unselected": "PASS_BEHAVIORAL"
+    },
+    "B2_whole_comp_group_preserve": {
+      "status": "PASS",
+      "tool_count": 7,
+      "group_count": 1,
+      "arranged_count": 7,
+      "first_moved": 6,
+      "second_moved": 0,
+      "scope_complete": true,
+      "group_operator_remains": true,
+      "group_membership_unchanged": true,
+      "connections_unchanged": true,
+      "effective_ungroup": "PASS_BEHAVIORAL",
+      "child_fixture": "empty_group; GroupOperator.AddTool unavailable on this host, so child-membership recursion is unexercised"
+    }
+  },
+  "HOST_INVARIANTS": {
+    "status": "PASS",
+    "connections_unchanged": true,
+    "tool_identities_unchanged": true,
+    "group_membership_unchanged": true,
+    "whole_comp_scope_complete": true
+  },
+  "UNDO": {
+    "status": "PASS",
+    "first_handler_owned_snapshot_exact": true,
+    "verifier_guard": "stop after the first snapshot matching positions/connections/parents/groups/selection"
+  },
+  "SECOND_RUN": {
+    "status": "PASS",
+    "B1_moved": 0,
+    "B2_moved": 0
+  },
+  "BUSY_RESULT": {
+    "status": "PARTIAL_HOST_LIMITED",
+    "busy": "UIDispatcher unavailable; no busy stage claim",
+    "result_dialog": "disabled for direct seam smoke; no UI ordering claim"
+  },
+  "RECOVERY": {
+    "initial_bridge_wrapper_mismatch": true,
+    "initial_route_writes": false,
+    "fix": "direct verifier passes ui_comp=None and binds Fusion current while retaining comp_obj for readback",
+    "repeated_same_failure": false
+  },
+  "FINAL_HOST_STATE": {
+    "status": "PASS",
+    "project": "PSD2Fusion",
+    "timeline": "Timeline 1",
+    "page": "Fusion",
+    "timeline_count": 1,
+    "valuable_comp_tool_count": 967,
+    "valuable_comp_modified": false,
+    "rnk_owned_projects": [],
+    "project_save": false
+  },
+  "ACCESSIBILITY_LIMITATION": {
+    "status": "BLOCKED_HOST_ACCESSIBILITY_HARD",
+    "ui_probe_repeated": false,
+    "does_not_invalidate_direct_behavior": true
+  },
+  "raw_evidence": [
+    "D:\\temp\\uia\\arrange_wholecomp_live_20260907_payload.json",
+    "D:\\temp\\uia\\arrange_wholecomp_live_20260907_classified.json",
+    "D:\\temp\\uia\\arrange_wholecomp_group_live_20260907_payload.json",
+    "D:\\temp\\uia\\arrange_wholecomp_group_live_20260907_classified.json"
+  ]
+}

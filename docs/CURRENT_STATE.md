@@ -338,6 +338,17 @@ not part of FIRST_USABLE UI.  `ungroup=True` remains fail-closed and is not
 exposed until exact structural restoration is host-proven.
 
 The offline/host verifier defaults and launcher fixture are aligned to this
-whole-comp contract.  Installed-entry real-host smoke and large-graph stress
-are the next acceptance lanes; no new UIA/MSAA probe is required for this scope
-change.  Durable decision: `docs/checkpoints/2026-09-07-semantic-arrange-first-usable-scope.md`.
+whole-comp contract.  Installed-entry real-host smoke then passed on
+disposable API fixtures: B1 used 6 tools / 3 edges and arranged all 6
+(`moved=5`); B2 used 7 tools / 1 preserved GroupOperator / 3 edges and
+arranged all 7 (`moved=6`).  Both second runs returned `moved=0`, graph/tool
+invariants held, and the first handler-owned Undo snapshot matched the
+pre-snapshot exactly.  `UIDispatcher` remains unavailable, so busy/result UI
+ordering is not claimed.  Final host state is PSD2Fusion / Timeline 1 / Fusion
+with 967 valuable tools, `COMPB_Modified=false`, no RNK-owned remnants, and no
+save.  Evidence: `docs/checkpoints/2026-09-07-semantic-arrange-whole-comp-host-smoke.json`.
+
+Large-graph stress remains the next acceptance lane; no new UIA/MSAA probe is
+required for this scope change.  Durable decisions:
+`docs/checkpoints/2026-09-07-semantic-arrange-first-usable-scope.md` and
+`docs/checkpoints/2026-09-07-semantic-arrange-whole-comp-host-smoke.md`.

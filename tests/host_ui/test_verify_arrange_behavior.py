@@ -14,6 +14,11 @@ class ArrangeBehaviorVerifierTests(unittest.TestCase):
         self.assertNotIn("InvokePattern", source)
         self.assertNotIn("menu-invoke", source)
 
+    def test_source_undo_guard_does_not_undo_fixture_construction(self):
+        source = build_handler_source(r"D:\temp\uia\seam.json")
+        self.assertIn("for _ in range(2)", source)
+        self.assertIn("restored.get(key) == pre.get(key)", source)
+
     def test_classifier_accepts_whole_comp_as_canonical_fixture(self):
         payload = {
             "state": {"include_unselected": True, "ungroup": False},
