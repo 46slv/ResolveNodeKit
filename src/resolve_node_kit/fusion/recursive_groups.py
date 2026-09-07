@@ -100,7 +100,6 @@ def _collect_edges(tools: dict[str, Any]) -> list[Edge]:
     # Output objects do not expose GetConnectedInputs; treating that as a
     # successful walk would silently turn a connected graph into an empty one.
     output_entries: list[tuple[str, Any]] = []
-    output_sources: set[str] = set()
     output_surface_complete = True
     for source_name, source in sorted(tools.items()):
         getter = getattr(source, "GetOutputList", None)
@@ -138,9 +137,10 @@ def _collect_edges(tools: dict[str, Any]) -> list[Edge]:
         # A mixed/partial host surface can expose the output API for only a
         # subset of tools.  In that case continue through the compatibility
         # input walk below to account for the remaining sources; its dedupe
-        # guard preserves the cheap output results already collected.
-        output_sources.update(source_name for source_name, _output in output_entries)
-        if output_surface_complete and output_sources == set(tools):
+        # guard preserves the cheap output results already collected.  Empty
+        # output lists are complete: that tool has no output endpoint whose
+        # connections could be missing from this walk.
+        if output_surface_complete:
             return edges
 
     # Compatibility path for minimal mocks and older Fusion surfaces that do
