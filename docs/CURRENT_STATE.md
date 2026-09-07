@@ -18,10 +18,10 @@ The mission-critical unresolved requirement remains runtime visual nested-group 
 - task branch: `feat/arrange-uia-e2e-20260906` (production seam continuation; do not merge to `main`)
 - current candidate code commit: `716d6a4506b021d27b82057b17e3ca589d579d6a`
 - PR #5 head branch: `feat/semantic-arrange-v1-20260906` (Draft; candidate head is kept aligned non-destructively)
-- latest published candidate ref: `1cbbeae1fff76f495d6b521a3f166117c5b3acb8` (docs-only after SAV1-80; no product code changed)
+- SAV1-80 predecessor ref: `1cbbeae1fff76f495d6b521a3f166117c5b3acb8` (docs-only; current branch/PR head is authoritative)
 - Draft PR: #1 (bootstrap) plus #5 (Semantic Arrange v1, stacked on the bootstrap branch), both open/draft
 - branch locator immediately before this state normalization: `716d6a4506b021d27b82057b17e3ca589d579d6a`
-- reported worktree at latest run end: clean; task and PR remote refs are in sync at the latest published candidate ref
+- reported worktree at latest run end: clean; task and PR remote refs are in sync
 - offline suite: 122/122 unittest PASS + `compileall` PASS
 
 Fresh-read all locators on resume.
