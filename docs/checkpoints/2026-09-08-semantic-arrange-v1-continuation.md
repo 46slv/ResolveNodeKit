@@ -4,6 +4,7 @@
 
 - Branch: `feat/arrange-uia-e2e-20260906`
 - Candidate code commit: `716d6a4506b021d27b82057b17e3ca589d579d6a`
+- Checkpoint candidate ref verified by SAV1-80: `6b0f1ece9bd5178a2efb36597d0b6d4632380a4d`
 - PR #5 head branch: `feat/semantic-arrange-v1-20260906`
 - Resolve: Studio `21.0.3.7`
 - Valuable final readback: `PSD2Fusion / Timeline 1 / Fusion`, 967 tools,
@@ -18,9 +19,9 @@ The continuation candidate has the shared production seam and the verifier's
 Resolve-handle fallback.  The focused/full offline checks at the integrated
 candidate were `python -m unittest discover -s tests -v` (`122/122 PASS`),
 `python -m compileall -q src scripts tests` (`PASS`), and `git diff --check`
-(`PASS`).  The per-user Resolve tree was reinstalled and its entry/package
-hashes matched the candidate tree; final-candidate reinstall qualification is
-rerun after the documentation checkpoint is committed.
+(`PASS`).  The per-user Resolve tree was reinstalled at the verified candidate
+ref and its entry/package hashes and byte counts matched the candidate tree;
+the manifest recorded the same candidate ref.
 
 ## SAV1-30 — small whole-comp host smoke: PASS
 
@@ -73,10 +74,13 @@ does not invalidate SAV1-30 or SAV1-40.
 
 ## Remaining autonomous route
 
-SAV1-70 reconciles the durable docs and Draft PR without changing the product
-contract.  SAV1-80 must independently inspect the fixed candidate, evidence,
-installer hashes, final host state, and PR head; it must not repair the
-candidate.  Only after that verifier passes does SAV1-90 remain as the one
-conditional human release smoke.  AskUser UIA/MSAA remains
+SAV1-70 reconciled the durable docs and Draft PR without changing the product
+contract.  SAV1-80 then independently inspected the fixed candidate, evidence,
+installer hashes, final host state, and PR head in a read-only pass.  It
+returned `PASS`: task/PR refs matched, the worktree was clean, the candidate
+was based on the bootstrap base, `main` was not merged, the PR was OPEN/Draft,
+offline/install/Resolve checks passed, and the final host was clean.  Only
+after that verifier does SAV1-90 remain as the one conditional human release
+smoke.  AskUser UIA/MSAA remains
 `BLOCKED_HOST_ACCESSIBILITY_HARD`, and the busy-stage `UIDispatcher` gap stays
 feature-local.

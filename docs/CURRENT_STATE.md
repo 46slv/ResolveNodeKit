@@ -387,3 +387,11 @@ and AskUser UIA/MSAA remains `BLOCKED_HOST_ACCESSIBILITY_HARD`; neither gates
 the autonomous continuation.  Durable details:
 `docs/checkpoints/2026-09-08-semantic-arrange-v1-continuation.md` and its JSON
 record.
+
+SAV1-80 fresh independent verification is `PASS` for candidate ref
+`6b0f1ece9bd5178a2efb36597d0b6d4632380a4d`: task/PR remote refs match, the
+worktree is clean, the candidate is based on the bootstrap base, `main` is not
+merged, PR #5 is OPEN/Draft, offline/install/Resolve checks pass, and the
+final host cleanup/no-save readback matches the checkpoint.  The verifier made
+no candidate edits.  SAV1-90 is now the only remaining conditional task: one
+human release smoke if the UI shell remains unautomatable.

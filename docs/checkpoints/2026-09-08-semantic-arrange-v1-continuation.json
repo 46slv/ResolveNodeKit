@@ -2,6 +2,7 @@
   "schema": "resolve-node-kit.semantic-arrange-v1.continuation/v1",
   "date": "2026-09-08",
   "candidate_code_sha": "716d6a4506b021d27b82057b17e3ca589d579d6a",
+  "candidate_ref_sha_verified": "6b0f1ece9bd5178a2efb36597d0b6d4632380a4d",
   "branch": "feat/arrange-uia-e2e-20260906",
   "pr": {
     "number": 5,
@@ -134,5 +135,24 @@
     "askuser_uia_msaa": "BLOCKED_HOST_ACCESSIBILITY_HARD; no repeat permitted",
     "sav1_90": "pending conditional final human release smoke only"
   },
-  "next": "SAV1-70 docs/PR reconciliation, then SAV1-80 fresh independent verifier; keep SAV1-60 blocker narrow"
+  "sav1_80": {
+    "status": "PASS",
+    "verified_candidate_ref": "6b0f1ece9bd5178a2efb36597d0b6d4632380a4d",
+    "checks": {
+      "task_and_pr_remote_refs_match": true,
+      "worktree_clean": true,
+      "pr_base_ancestor": true,
+      "head_not_merged_to_origin_main": true,
+      "pr_open_draft": true,
+      "offline_122_of_122": true,
+      "compileall": true,
+      "install_manifest_and_entry_package_hashes": true,
+      "resolve_side_import": true,
+      "final_host_cleanup_no_save": true,
+      "evidence_scope_consistent": true
+    },
+    "diff_file_count_vs_bootstrap_base": 54,
+    "verifier_mode": "fresh read-only parent verification; no candidate edits"
+  },
+  "next": "SAV1-90 conditional one-click human release smoke only; keep SAV1-60 blocker narrow"
 }
