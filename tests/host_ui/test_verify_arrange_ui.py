@@ -1,9 +1,26 @@
 import unittest
 
-from scripts.host.verify_arrange_ui import ARRANGE_LABELS, classify_window, parse_moved
+from scripts.host.verify_arrange_ui import (
+    ARRANGE_LABELS,
+    WHOLE_COMP_MESSAGE,
+    classify_window,
+    parse_moved,
+)
 
 
 class ArrangeUiAClassificationTests(unittest.TestCase):
+    def test_whole_comp_confirmation_is_the_first_usable_setup(self):
+        result = classify_window([
+            {"control": "ControlType.Text", "class": "QLabel", "name": WHOLE_COMP_MESSAGE},
+            {"control": "ControlType.Button", "class": "QPushButton", "name": "OK"},
+            {"control": "ControlType.Button", "class": "QPushButton", "name": "Cancel"},
+        ])
+
+        self.assertEqual(result["kind"], "setup")
+        self.assertTrue(result["scope_message_exposed"])
+        self.assertEqual(result["scope_mode"], "whole_comp")
+        self.assertEqual(result["checkbox_readback_status"], "NOT_APPLICABLE_WHOLE_COMP")
+
     def test_qt_group_checkboxes_without_labels_are_not_safe_to_invoke(self):
         nodes = [
             {"control": "ControlType.Group", "class": "Fusion::CheckBoxControl"},

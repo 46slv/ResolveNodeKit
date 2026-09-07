@@ -25,18 +25,20 @@ Therefore ResolveNodeKit should separate:
 
 ## Decision
 
-### 1. Manual Arrange dialog
+### 1. FIRST_USABLE Arrange dialog
 
-The first arrange UX is:
+The first usable product path arranges the entire active Fusion composition:
 
 ```text
-[ ] 選択されていないノードも整列
-[ ] グループ化を解除して整列
+ResolveNodeKit - Arrange
+現在のFusionコンポジション全体を整列します。
 
 [実行] [キャンセル]
 ```
 
-Both options default OFF.
+The production state is `include_unselected=True, ungroup=False`.  The former
+selection checkbox is retained only for regression/experimental coverage, not
+as a first-release gate.
 
 ### 2. Group preservation is default
 
@@ -46,14 +48,14 @@ When `Ungroup before arranging` is OFF:
 - recursively arrange their interiors;
 - do not create new Groups solely to show semantic regions.
 
-### 3. Ungroup is explicit
+### 3. Ungroup is not exposed in FIRST_USABLE
 
-When the option is ON:
+The existing `ungroup=True` request remains fail-closed:
 
-- flatten only Groups inside the explicit arrangement scope;
-- preserve connections and processing state;
-- verify structural readback and rollback;
-- then apply the same semantic-grid layout to the flattened graph.
+- no production UI control exposes it;
+- the direct experimental request refuses mutation until exact structural
+  restoration is host-proven;
+- preserve-mode recursive layout is the only release scope.
 
 ### 4. Semantic region != GroupOperator
 
@@ -82,7 +84,7 @@ Positive:
 Costs / risks:
 
 - ungroup mode changes structure and therefore requires stronger host validation than position-only tidy;
-- selection/Group scope semantics must be exact to avoid flattening unintended Groups;
+- selection-only and ungroup scope semantics remain future/experimental lanes;
 - some diagonals may remain unless routing nodes are introduced in a future explicit feature;
 - visually uniform cells need separate X/Y host calibration because Fusion snap units differ.
 

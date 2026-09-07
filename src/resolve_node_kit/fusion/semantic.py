@@ -563,9 +563,17 @@ def _diagnostics(
 
 @dataclass(frozen=True)
 class ArrangeDialogState:
-    """Mirrors ARRANGE_DIALOG.md: both checkboxes default OFF."""
+    """Immutable Arrange request state.
 
-    include_unselected: bool = False
+    The first usable product path is whole-composition preserve mode.  The
+    ``include_unselected=False`` shape remains available for the explicit
+    selection-only regression/experimental lane, while the production default
+    deliberately cannot widen a request from a partial selection by accident.
+    ``ungroup`` stays false and fail-closed until structural restoration is
+    host-proven.
+    """
+
+    include_unselected: bool = True
     ungroup: bool = False
 
     @classmethod
@@ -574,7 +582,7 @@ class ArrangeDialogState:
         if result is None or result is False:
             return None
         if isinstance(result, dict):
-            include = bool(result.get("IncludeUnselected", result.get("include_unselected", False)))
+            include = bool(result.get("IncludeUnselected", result.get("include_unselected", True)))
             ungroup = bool(result.get("UngroupFirst", result.get("ungroup", False)))
             return cls(include_unselected=include, ungroup=ungroup)
         raise SemanticError(f"unexpected dialog result: {result!r}")
@@ -607,7 +615,7 @@ def _grid_to_host(point: GridPoint, origin: tuple[float, float], policy: Semanti
 
 def arrange_comp(
     comp: Any,
-    include_unselected: bool = False,
+    include_unselected: bool = True,
     ungroup: bool = False,
     policy: SemanticPolicy | None = None,
     selected_names: Iterable[str] | None = None,

@@ -322,3 +322,22 @@ Final host readback: `PSD2Fusion` / `Timeline 1` / Fusion, exactly one timeline,
 967 valuable tools, `COMPB_Modified=false`, no RNK disposable remnants, no save.
 Details: `docs/checkpoints/2026-09-07-arrange-live-acceptance.md` and its JSON
 evidence file.
+
+## Semantic Arrange FIRST_USABLE scope — 2026-09-07
+
+Product direction has been simplified: the canonical v1 request is now
+`ArrangeDialogState(include_unselected=True, ungroup=False)`, meaning all nodes
+in the active Fusion composition are arranged recursively while every
+GroupOperator is preserved.  The former selection-only/fixed-obstacle path
+remains covered by regression tests and an explicit experimental verifier flag;
+it is no longer a release blocker.
+
+The production entry now shows only the whole-composition confirmation text
+`現在のFusionコンポジション全体を整列します。`; the two checkbox controls are
+not part of FIRST_USABLE UI.  `ungroup=True` remains fail-closed and is not
+exposed until exact structural restoration is host-proven.
+
+The offline/host verifier defaults and launcher fixture are aligned to this
+whole-comp contract.  Installed-entry real-host smoke and large-graph stress
+are the next acceptance lanes; no new UIA/MSAA probe is required for this scope
+change.  Durable decision: `docs/checkpoints/2026-09-07-semantic-arrange-first-usable-scope.md`.

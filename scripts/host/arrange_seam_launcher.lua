@@ -1,7 +1,7 @@
 -- One-shot Fusion-side launcher for the direct Arrange production seam.
 --
 -- This is not a UI probe.  It loads a disposable .comp, creates a small
--- selected/unselected fixture, and runs the installed Python evidence source
+-- whole-composition fixture, and runs the installed Python evidence source
 -- through Fusion's own RunScript route.  The result AskUser is intentionally
 -- left visible for the external busy/result watcher to observe and close.
 
@@ -62,16 +62,9 @@ if with_group then
 end
 
 assert(comp:SetActiveTool(nil) ~= false, "selection clear failed")
-for _, tool in ipairs({b1, b2, merge, output}) do
-    assert(flow:Select(tool, true) ~= false, "selection failed")
-end
-if with_group then
-    assert(flow:Select(group, true) ~= false, "group selection failed")
-end
 
-local selected_count = with_group and 5 or 4
 print("SEAM_FIXTURE=true TOOLS=" .. text(count_tools(comp)) ..
-    " SELECTED=" .. text(selected_count) .. " INCLUDE_UNSELECTED=false UNGROUP=" .. text(with_group))
+    " SELECTED=0 INCLUDE_UNSELECTED=true UNGROUP=false GROUP_FIXTURE=" .. text(with_group))
 local ok, result = pcall(function() return fusion:RunScript("Py", handler_path) end)
 print("SEAM_HANDLER_RETURN=" .. text(ok) .. " RESULT=" .. text(result))
 pcall(function() comp:Close() end)

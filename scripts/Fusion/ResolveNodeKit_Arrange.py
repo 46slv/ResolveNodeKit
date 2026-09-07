@@ -1,11 +1,11 @@
-"""ResolveNodeKit Fusion entrypoint: semantic Arrange with a small dialog.
+"""ResolveNodeKit Fusion entrypoint: whole-composition semantic Arrange.
 
 User flow on the Fusion page:
 
-1. optionally select nodes,
+1. open the active Fusion composition,
 2. run this script from Workspace -> Scripts -> Comp,
-3. set the two checkboxes (both default OFF),
-4. press OK to arrange or Cancel to change nothing.
+3. confirm the whole-composition message,
+4. press the host confirmation button or Cancel to change nothing.
 
 The script finds its package without a repo checkout:
 
@@ -20,7 +20,7 @@ directory for the repo fallback), so a silent menu press stays diagnosable.
 Automated canary override (no dialog click needed):
 
     RNK_ARRANGE_NO_UI=1
-    RNK_ARRANGE_INCLUDE_UNSELECTED=0|1 (default 0)
+    RNK_ARRANGE_INCLUDE_UNSELECTED=0|1 (default 1; 0 is experimental)
     RNK_ARRANGE_UNGROUP=0|1 (default 0; 1 stays fail-closed until host-proven)
 """
 from __future__ import annotations
@@ -33,8 +33,7 @@ from pathlib import Path
 
 
 TITLE = "ResolveNodeKit - Arrange"
-LABEL_INCLUDE = "選択されていないノードも整列"
-LABEL_UNGROUP = "グループ化を解除して整列"
+SCOPE_MESSAGE = "現在のFusionコンポジション全体を整列します。"
 RUN_LOG_NAME = "arrange-run.log"
 
 
@@ -173,11 +172,11 @@ _BOOTSTRAPPED_FROM = _bootstrap_package()
 
 try:
     from resolve_node_kit.fusion import ArrangeDialogState
-    from resolve_node_kit.fusion import ask_arrange_options
+    from resolve_node_kit.fusion import ask_arrange_confirmation
     _IMPORT_ERROR = ""
 except Exception as exc:
     ArrangeDialogState = None
-    ask_arrange_options = None
+    ask_arrange_confirmation = None
     _IMPORT_ERROR = repr(exc)
 
 try:
@@ -212,7 +211,7 @@ def _current_comp():
 
 def _state_from_env():
     return ArrangeDialogState(
-        include_unselected=os.environ.get("RNK_ARRANGE_INCLUDE_UNSELECTED", "0") == "1",
+        include_unselected=os.environ.get("RNK_ARRANGE_INCLUDE_UNSELECTED", "1") == "1",
         ungroup=os.environ.get("RNK_ARRANGE_UNGROUP", "0") == "1",
     )
 
@@ -232,7 +231,7 @@ def _fusion_handle():
 
 def _run():
     _write_log("start", "name=" + __name__ + " src=" + _BOOTSTRAPPED_FROM)
-    if _IMPORT_ERROR or ArrangeDialogState is None or ask_arrange_options is None:
+    if _IMPORT_ERROR or ArrangeDialogState is None or ask_arrange_confirmation is None:
         message = "package import failed: " + (_IMPORT_ERROR or "unknown")
         print("[ResolveNodeKit] Arrange: " + message)
         _write_log("import-error", _IMPORT_ERROR)
@@ -251,8 +250,8 @@ def _run():
             print("[ResolveNodeKit] Arrange: dialog is unavailable on this host; nothing changed.")
             _write_log("no-dialog", "")
             return 2
-        state = ask_arrange_options(
-            ui_ask, TITLE, LABEL_INCLUDE, LABEL_UNGROUP,
+        state = ask_arrange_confirmation(
+            ui_ask, TITLE, SCOPE_MESSAGE,
             log=lambda message: _write_log("dialog", message),
         )
         if state is None:

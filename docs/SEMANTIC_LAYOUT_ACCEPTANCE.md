@@ -19,6 +19,25 @@ Every semantic-layout command must preserve:
 
 A mismatch is a hard failure and triggers rollback/stop under existing host safety rules.
 
+## 1.1 FIRST_USABLE scope gate
+
+The first usable Semantic Arrange product path is the whole active Fusion
+composition in preserve mode:
+
+```text
+ArrangeDialogState(include_unselected=True, ungroup=False)
+```
+
+The canonical fixture must contain the complete active composition, including
+at least one node that is not selected, and acceptance must prove recursive
+Group preservation, connection/tool identity invariance, exact Undo, and a
+second identical run with `moved=0`.  Selection-only/fixed-obstacle behavior
+remains regression or experimental coverage and is not a release blocker.
+
+Ungrouping is not part of this gate.  The request remains fail-closed until
+exact structural restoration is host-proven, and the FIRST_USABLE UI does not
+expose an ungroup control.
+
 ## 2. Hard layout properties
 
 ### 2.1 Deterministic convergence

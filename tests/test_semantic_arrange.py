@@ -281,9 +281,9 @@ class SemanticGroupTests(unittest.TestCase):
 
 
 class ArrangeDialogTests(unittest.TestCase):
-    def test_defaults_are_off(self):
+    def test_defaults_are_whole_comp_preserve(self):
         state = ArrangeDialogState()
-        self.assertFalse(state.include_unselected)
+        self.assertTrue(state.include_unselected)
         self.assertFalse(state.ungroup)
 
     def test_cancel_yields_none(self):
@@ -292,6 +292,12 @@ class ArrangeDialogTests(unittest.TestCase):
 
     def test_checkbox_values_parse(self):
         state = ArrangeDialogState.from_askuser({"IncludeUnselected": 1, "UngroupFirst": 0})
+        assert state is not None
+        self.assertTrue(state.include_unselected)
+        self.assertFalse(state.ungroup)
+
+    def test_missing_scope_value_uses_whole_comp_default(self):
+        state = ArrangeDialogState.from_askuser({})
         assert state is not None
         self.assertTrue(state.include_unselected)
         self.assertFalse(state.ungroup)
@@ -358,6 +364,11 @@ class ArrangeCompTests(unittest.TestCase):
         result = arrange_comp(comp, include_unselected=True)
         self.assertEqual(result["arranged_count"], 3)
         self.assertEqual(result["diagnostics"]["overlap_count"], 0)
+
+    def test_default_arrange_scope_is_whole_comp(self):
+        comp, flow, tools = serial_comp(["A", "B", "C"])
+        result = arrange_comp(comp)
+        self.assertEqual(result["arranged_count"], 3)
 
     def test_ungroup_is_fail_closed(self):
         comp, flow, tools = serial_comp(["A", "B"])
@@ -485,6 +496,32 @@ class ArrangeSelectionReadTests(unittest.TestCase):
 
 
 class ArrangeDialogInvokeTests(unittest.TestCase):
+    def test_whole_comp_confirmation_returns_production_defaults(self):
+        from resolve_node_kit.fusion.dialog import WHOLE_COMP_MESSAGE, ask_arrange_confirmation
+        calls = []
+
+        def ask(title, controls):
+            calls.append((title, controls))
+            return {"Scope": "ok"}
+
+        state = ask_arrange_confirmation(ask, "T")
+        assert state is not None
+        self.assertEqual(state, ArrangeDialogState(True, False))
+        self.assertEqual(calls[0][0], "T")
+        self.assertIn(WHOLE_COMP_MESSAGE, repr(calls[0][1]))
+        self.assertNotIn("Checkbox", repr(calls[0][1]))
+
+    def test_whole_comp_confirmation_cancel_is_zero_state(self):
+        from resolve_node_kit.fusion.dialog import ask_arrange_confirmation
+        calls = []
+
+        def ask(title, controls):
+            calls.append(controls)
+            return None
+
+        self.assertIsNone(ask_arrange_confirmation(ask, "T"))
+        self.assertEqual(len(calls), 2)
+
     def test_first_shape_accepted(self):
         from resolve_node_kit.fusion.dialog import ask_arrange_options
         calls = []
@@ -922,23 +959,29 @@ class ArrangeReview3FocusedTests(unittest.TestCase):
         def fake_ask(title, controls):
             calls.append(controls)
             events.append("ask")
-            if len(calls) == 1:
-                return {"IncludeUnselected": 1, "UngroupFirst": 1}
             return {"Result": "ok"}
         comp.AskUser = fake_ask
         script_path = pathlib.Path(__file__).resolve().parents[1] / "scripts" / "Fusion" / "ResolveNodeKit_Arrange.py"
         source = script_path.read_text(encoding="utf-8")
         namespace = {"__name__": "__main__", "comp": comp, "fusion": fusion}
-        try:
-            exec(compile(source, str(script_path), "exec"), namespace)
-        except SystemExit as ended:
-            code = ended.code
+        with patch.dict(
+            "os.environ",
+            {
+                "RNK_ARRANGE_NO_UI": "1",
+                "RNK_ARRANGE_INCLUDE_UNSELECTED": "1",
+                "RNK_ARRANGE_UNGROUP": "1",
+            },
+            clear=False,
+        ):
+            try:
+                exec(compile(source, str(script_path), "exec"), namespace)
+            except SystemExit as ended:
+                code = ended.code
         self.assertEqual(code, 3)
         self.assertIn("busy-show", events)
         self.assertIn("busy-hide", events)
-        self.assertGreaterEqual(len(calls), 2)
-        first_ask = events.index("ask")
-        self.assertLess(events.index("busy-hide"), events.index("ask", first_ask + 1))
+        self.assertEqual(len(calls), 1)
+        self.assertLess(events.index("busy-hide"), events.index("ask"))
         self.assertEqual(flow.calls, 0)
 
 

@@ -34,6 +34,7 @@ ARRANGE_LABELS = (
     "選択されていないノードも整列",
     "グループ化を解除して整列",
 )
+WHOLE_COMP_MESSAGE = "現在のFusionコンポジション全体を整列します。"
 RUN_BUTTON_NAMES = ("Run", "OK", "実行", "適用")
 CANCEL_BUTTON_NAMES = ("Cancel", "キャンセル", "中止")
 
@@ -377,6 +378,11 @@ def classify_window(nodes):
         for value in (n.get("name"), n.get("value"))
         if value in ARRANGE_LABELS
     })
+    scope_message_exposed = any(
+        WHOLE_COMP_MESSAGE in str(n.get(field) or "")
+        for n in nodes
+        for field in ("name", "value", "help_text")
+    )
     has_check = len(checkbox_candidates) >= 2
     has_result = any(n.get("name") == "Result"
                      and "Text" in (n.get("control") or "") for n in nodes)
@@ -401,7 +407,7 @@ def classify_window(nodes):
                "control": n.get("control", ""),
                "toggle": n.get("toggle", "")}
               for n in checkbox_candidates]
-    if has_check:
+    if has_check or scope_message_exposed:
         kind = "setup"
     elif has_result:
         kind = "result"
@@ -410,6 +416,7 @@ def classify_window(nodes):
     else:
         kind = "busy-or-unknown"
     checkbox_status = (
+        "NOT_APPLICABLE_WHOLE_COMP" if scope_message_exposed and not has_check else
         "PASS" if len(exposed_labels) == len(ARRANGE_LABELS)
         and all(n.get("control") == "ControlType.CheckBox" for n in checkbox_candidates)
         and all("TogglePatternIdentifiers.Pattern" in (n.get("patterns") or "")
@@ -421,6 +428,9 @@ def classify_window(nodes):
         "buttons": buttons,
         "checkboxes": checks,
         "expected_labels": list(ARRANGE_LABELS),
+        "whole_comp_message": WHOLE_COMP_MESSAGE,
+        "scope_message_exposed": scope_message_exposed,
+        "scope_mode": "whole_comp" if scope_message_exposed else "legacy_checkbox",
         "exposed_labels": exposed_labels,
         "labels_exposed": len(exposed_labels) == len(ARRANGE_LABELS),
         "checkbox_readback_status": checkbox_status,

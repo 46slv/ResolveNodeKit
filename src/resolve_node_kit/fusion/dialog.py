@@ -12,6 +12,9 @@ from __future__ import annotations
 from typing import Any, Callable
 
 
+WHOLE_COMP_MESSAGE = "現在のFusionコンポジション全体を整列します。"
+
+
 def _map_result(result: Any, include_label: str, ungroup_label: str) -> dict[str, Any]:
     from .semantic import ArrangeDialogState
 
@@ -65,6 +68,48 @@ def ask_arrange_options(
         except ValueError as exc:
             note(f"dialog attempt {index + 1}/{len(shapes)} parse failed: {exc!r}")
             continue
+    return None
+
+
+def ask_arrange_confirmation(
+    ask: Callable[..., Any],
+    title: str,
+    message: str = WHOLE_COMP_MESSAGE,
+    log: Callable[[str], None] | None = None,
+) -> Any:
+    """Show the minimal FIRST_USABLE whole-comp confirmation dialog.
+
+    The old two-checkbox wire remains in :func:`ask_arrange_options` for the
+    selection-only/experimental lane.  Production Arrange deliberately uses a
+    text-only confirmation so the only supported request is the safe default:
+    whole active composition, preserve Groups.  Resolve supplies the modal
+    confirmation buttons for this AskUser shape; ``None``/``False`` remains
+    Cancel or an unsupported host shape.
+    """
+    from .semantic import ArrangeDialogState
+
+    def note(item: str) -> None:
+        if log is not None:
+            try:
+                log(item)
+            except Exception:
+                pass
+
+    shapes = [
+        [["Scope", "Text", {"Default": message, "Lines": 2, "Wrap": True}]],
+        {1: {1: "Scope", 2: "Text", 3: {"Default": message, "Lines": 2, "Wrap": True}}},
+    ]
+    for index, controls in enumerate(shapes):
+        try:
+            result = ask(title, controls)
+        except Exception as exc:
+            note(f"confirmation attempt {index + 1}/{len(shapes)} raised {exc!r}")
+            continue
+        if result is None or result is False:
+            note(f"confirmation attempt {index + 1}/{len(shapes)} returned None (Cancel or rejected)")
+            continue
+        note(f"confirmation attempt {index + 1}/{len(shapes)} accepted")
+        return ArrangeDialogState(include_unselected=True, ungroup=False)
     return None
 
 

@@ -1,10 +1,14 @@
 # Arrange dialog / execution UX — v1
 
-Status: design contract
+Status: FIRST_USABLE product contract
 
-This document defines the first user-facing execution flow for ResolveNodeKit arrangement commands.
+This document defines the first user-facing execution flow for ResolveNodeKit
+arrangement commands.  The FIRST_USABLE path arranges the active Fusion
+composition as a whole while preserving GroupOperators.  Selection-only and
+ungrouping remain explicit experimental lanes, not release gates.
 
-The tool is intended to be run manually from Resolve/Fusion, configured in a small modal dialog before any graph mutation occurs, and to show an explicit busy/progress state while arrangement is running.
+The tool is run from Resolve/Fusion with a small confirmation dialog before
+any graph mutation, followed by the existing visible busy/progress state.
 
 ## 1. User flow
 
@@ -15,10 +19,10 @@ Run ResolveNodeKit Arrange script
 +----------------------------------+
 | ResolveNodeKit - Arrange         |
 |                                  |
-| [ ] Include unselected nodes     |
-| [ ] Ungroup before arranging     |
+| 現在のFusionコンポジション全体を |
+| 整列します。                     |
 |                                  |
-|            [Run] [Cancel]        |
+|            [実行] [キャンセル]   |
 +----------------------------------+
         |
         | Run
@@ -39,11 +43,10 @@ Run ResolveNodeKit Arrange script
              then show a clear error/result message
 ```
 
-Japanese UI copy may use:
+Japanese UI copy is:
 
 ```text
-[ ] 選択されていないノードも整列
-[ ] グループ化を解除して整列
+現在のFusionコンポジション全体を整列します。
 
 [実行] [キャンセル]
 ```
@@ -58,62 +61,34 @@ Running-state copy may use:
 確認中…
 ```
 
-Both checkboxes are **OFF by default**.
+The production request is always `include_unselected=True` and
+`ungroup=False`.  Selection-only and ungroup controls are not exposed in the
+FIRST_USABLE setup dialog.
 
-The setup dialog is intentionally small. Spacing/style tuning should not become a wall of options in v1.
+## 2. Whole-composition scope (FIRST_USABLE)
 
-## 2. Scope checkbox
+The active Fusion composition is the arrangement scope.  The production
+handler receives:
 
-### `[ ] 選択されていないノードも整列`
+```text
+ArrangeDialogState(include_unselected=True, ungroup=False)
+```
 
-OFF:
+Every root/local Group scope is planned recursively.  Selection-only behavior
+(`include_unselected=False`) remains available to regression tests and a future
+experimental lane, but it is not part of the FIRST_USABLE release gate.
 
-- arrange only the current explicit selection;
-- if a selected item is a GroupOperator and Group preservation is active, its interior may be arranged recursively under the same policy;
-- nodes outside the selected arrangement scope are not moved;
-- if no usable selection exists, `Run` should fail closed with a clear visible message rather than silently arranging the whole comp.
+## 3. Group policy (FIRST_USABLE preserve mode)
 
-ON:
-
-- arrange the full active Fusion composition;
-- every root/local Group scope may be processed under the selected Group policy;
-- this is the explicit whole-comp mode.
-
-This checkbox makes scope obvious and prevents a one-click script from unexpectedly moving the entire composition.
-
-## 3. Group policy checkbox
-
-### `[ ] グループ化を解除して整列`
-
-OFF — default / preserve mode:
+The first usable path always preserves Groups:
 
 - preserve every existing GroupOperator;
 - preserve direct parent/child membership;
 - recursively arrange Group interiors using the same semantic/grid policy;
 - do not create new Groups merely for readability;
-- semantic regions may be expressed by spacing and alignment alone.
-
-ON — flatten mode:
-
-- ungroup only Groups that belong to the explicit arrangement scope;
-- preserve tool identities, connections, parameters, keyframes, and media state;
-- after flattening, arrange the resulting flat/local graph using the same semantic-grid policy;
-- the operation must be snapshot/readback/rollback protected;
-- the UI should display a concise warning because Group membership is a structural change.
-
-Recommended warning text:
-
-> グループ構造を変更します。接続と処理内容は維持したまま整列します。
-
-### Scope rule for ungrouping
-
-To avoid surprising structural changes:
-
-- selection mode: ungroup only GroupOperator nodes explicitly included in the selected arrangement scope;
-- whole-comp mode: all GroupOperators in the active comp are eligible;
-- selecting ordinary child nodes inside a Group does not implicitly ungroup their parent unless the parent Group itself is in the ungroup scope.
-
-This rule should be host-tested before release.
+- semantic regions may be expressed by spacing and alignment alone;
+- `ungroup=True` remains fail-closed and is not exposed by FIRST_USABLE UI until
+  exact structural restoration is host-proven.
 
 ## 4. Semantic regions are not the same as GroupOperators
 
@@ -138,15 +113,17 @@ This is important because heavy Group usage makes later manual insertion/editing
 
 Opening the setup dialog performs no layout writes.
 
-Before the user presses `Run`, the implementation may only perform bounded read-only inspection needed to:
+Before the user presses the confirmation button, the implementation may only
+perform bounded read-only inspection needed to:
 
-- inspect selection;
-- count affected nodes/Groups;
-- determine whether the requested mode is supported.
+- identify the active composition;
+- count nodes and Groups;
+- determine whether preserve-mode recursive layout is supported.
 
 `Cancel` performs zero graph mutation.
 
-If validation fails immediately after `Run` (for example: empty selection while whole-comp mode is OFF), show a clear visible message. Do not enter a silent no-op state.
+If validation fails immediately after confirmation, show a clear visible
+message. Do not enter a silent no-op state.
 
 ## 6. Running-state dialog
 
@@ -200,22 +177,19 @@ A user must never have to infer failure only from Console output or a hidden log
 
 After `Run`:
 
-1. validate immediate UI/scope preconditions;
+1. validate the active-composition and preserve-mode preconditions;
 2. show the running-state UI;
 3. bind exact project/timeline/comp;
 4. resolve arrangement scope;
 5. snapshot positions, membership, and structural invariants;
-6. if flatten mode: perform bounded ungroup operation and read back structure;
-7. build semantic snapshot;
-8. plan on the logical grid without host writes;
-9. apply bounded position writes;
-10. read back positions/structure;
-11. verify invariants;
-12. rollback on mismatch;
-13. commit one Undo event where the host path is proven;
-14. close the running-state UI and present completion/error state.
-
-Flatten mode must not be implemented as a blind `Ungroup -> hope -> Tidy` sequence.
+6. build the recursive semantic snapshot;
+7. plan on the logical grid without host writes;
+8. apply bounded position writes;
+9. read back positions/structure;
+10. verify invariants;
+11. rollback on mismatch;
+12. commit one Undo event where the host path is proven;
+13. close the running-state UI and present completion/error state.
 
 ## 8. Implementation boundary
 
@@ -258,4 +232,5 @@ Only after the basic modal is proven useful:
 - saved per-user defaults;
 - cooperative cancel after exact rollback semantics are host-proven.
 
-The initial product should remain: script -> two checkboxes -> Run/Cancel -> visible running state -> automatic finish/error.
+The initial product should remain: script -> whole-composition confirmation ->
+Run/Cancel -> visible running state -> automatic finish/error.

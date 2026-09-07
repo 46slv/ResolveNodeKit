@@ -2,9 +2,10 @@
 """Build and classify direct production-handler host evidence.
 
 This helper intentionally contains no UIA/MSAA probe and no control invoke.
-The generated source is run by Fusion on a disposable comp and imports the
-installed package, so it calls the same ``execute_arrange_request`` used by
-the menu script.
+The generated source is run by Fusion on a disposable whole-composition
+fixture by default and imports the installed package, so it calls the same
+``execute_arrange_request`` used by the menu script.  ``--selection-only`` is
+reserved for regression/experimental coverage.
 """
 from __future__ import annotations
 
@@ -23,7 +24,7 @@ SCHEMA = "resolve-node-kit.arrange-behavior/v1"
 def build_handler_source(
     output_path: str,
     *,
-    include_unselected: bool = False,
+    include_unselected: bool = True,
     ungroup: bool = False,
     run_second: bool = True,
     undo_after_runs: bool = True,
@@ -116,20 +117,34 @@ def classify_behavior(payload: dict[str, Any]) -> dict[str, Any]:
     selected = set(pre.get("selected") or [])
     positions = pre.get("positions") or {}
     unselected = set(positions) - selected
-    fixture_shape = len(selected) >= 4 and len(unselected) >= 1
+    state = payload.get("state") or {}
+    include_unselected = bool(state.get("include_unselected", True))
+    fixture_shape = len(positions) >= 4
+    selection_fixture_shape = len(selected) >= 4 and len(unselected) >= 1
     selected_moved = any(positions.get(name) != (post.get("positions") or {}).get(name) for name in selected)
     unselected_unchanged = all(positions.get(name) == (post.get("positions") or {}).get(name) for name in unselected)
     edges_unchanged = pre.get("connections") == post.get("connections")
     parents_unchanged = pre.get("parents") == post.get("parents")
+    tool_identities_unchanged = set(positions) == set(post.get("positions") or {})
     second_zero = bool(second) and second.get("result", {}).get("moved_count") == 0
     first_pass = first.get("status") == "success"
+    arranged_count = first.get("result", {}).get("arranged_count")
+    whole_comp_scope_complete = (
+        fixture_shape
+        and first_pass
+        and tool_identities_unchanged
+        and arranged_count == len(positions)
+    )
     undo_exact = any(
         item.get("positions") == pre.get("positions")
         and item.get("connections") == pre.get("connections")
         and item.get("parents") == pre.get("parents")
         for item in (payload.get("undo_snapshots") or [])
     )
-    behavior_status = "PASS" if fixture_shape and first_pass and selected_moved and unselected_unchanged else "UNVERIFIED"
+    if include_unselected:
+        behavior_status = "PASS" if whole_comp_scope_complete and first.get("result", {}).get("moved_count", 0) > 0 else "UNVERIFIED"
+    else:
+        behavior_status = "PASS" if selection_fixture_shape and first_pass and selected_moved and unselected_unchanged else "UNVERIFIED"
     invariant_status = (
         "PASS"
         if behavior_status == "PASS" and edges_unchanged and parents_unchanged and second_zero and undo_exact
@@ -144,8 +159,12 @@ def classify_behavior(payload: dict[str, Any]) -> dict[str, Any]:
         "HOST_PRODUCT_BEHAVIOR": {
             "status": behavior_status,
             "handler": "execute_arrange_request",
-            "state": payload.get("state"),
+            "state": state,
+            "scope_mode": "whole_comp" if include_unselected else "selection_only_experimental",
             "first_status": first.get("status"),
+            "first_moved": first.get("result", {}).get("moved_count") if first else None,
+            "arranged_count": arranged_count,
+            "whole_comp_scope_complete": whole_comp_scope_complete,
             "second_moved": second.get("result", {}).get("moved_count") if second else None,
             "effective_include_unselected": "PASS_BEHAVIORAL" if behavior_status == "PASS" else "UNVERIFIED",
             "effective_ungroup": (
@@ -158,6 +177,8 @@ def classify_behavior(payload: dict[str, Any]) -> dict[str, Any]:
             "status": invariant_status,
             "selected_only_movement": selected_moved,
             "unselected_unchanged": unselected_unchanged,
+            "whole_comp_scope_complete": whole_comp_scope_complete,
+            "tool_identities_unchanged": tool_identities_unchanged,
             "connections_unchanged": edges_unchanged,
             "group_membership_unchanged": parents_unchanged,
             "second_run_moved_zero": second_zero,
@@ -186,7 +207,15 @@ def main(argv: list[str] | None = None) -> None:
     source = sub.add_parser("source")
     source.add_argument("--output", required=True)
     source.add_argument("--source-file")
-    source.add_argument("--include-unselected", action="store_true")
+    scope = source.add_mutually_exclusive_group()
+    scope.add_argument(
+        "--include-unselected", dest="include_unselected", action="store_true",
+        default=True, help="arrange the whole active composition (default)",
+    )
+    scope.add_argument(
+        "--selection-only", dest="include_unselected", action="store_false",
+        help="experimental regression lane: arrange only the explicit selection",
+    )
     source.add_argument("--ungroup", action="store_true")
     source.add_argument("--no-second", action="store_true")
     source.add_argument("--no-undo", action="store_true")
