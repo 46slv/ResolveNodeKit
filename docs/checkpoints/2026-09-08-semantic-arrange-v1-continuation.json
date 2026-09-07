@@ -7,7 +7,7 @@
   "pr": {
     "number": 5,
     "head_branch": "feat/semantic-arrange-v1-20260906",
-    "head_sha": "716d6a4506b021d27b82057b17e3ca589d579d6a",
+    "head_sha": "6b0f1ece9bd5178a2efb36597d0b6d4632380a4d",
     "base_branch": "feat/bootstrap-nodekit-20260905",
     "state": "OPEN",
     "draft": true
