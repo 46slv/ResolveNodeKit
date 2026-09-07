@@ -16,14 +16,14 @@ The mission-critical unresolved requirement remains runtime visual nested-group 
 
 - repo: `46slv/ResolveNodeKit`
 - task branch: `feat/arrange-uia-e2e-20260906` (production seam continuation; do not merge to `main`)
-- current candidate product commit: `59eeffbce5efd0a73a0fed2a4f3418faf71d5852`
+- current candidate product commit: `59eeffbce5efd0a73a0fed2a4f3418faf71d5852` (publication/docs head: `d5b55bf78f85c65b8e7675d64460a087c651c4aa`)
 - PR #5 head branch: `feat/semantic-arrange-v1-20260906` (Draft; fast-forward aligned non-destructively)
 - SAV1-80 predecessor ref: `1cbbeae1fff76f495d6b521a3f166117c5b3acb8` (docs-only; current branch/PR head is authoritative)
 - Draft PR: #1 (bootstrap) plus #5 (Semantic Arrange v1, stacked on the bootstrap branch), both open/draft
 - branch locator immediately before this state normalization: `59eeffbce5efd0a73a0fed2a4f3418faf71d5852`
-- task and PR remote refs are aligned at the product candidate; docs checkpoint commit is pending in this working tree
+- task and PR remote refs are aligned at the publication/docs head; product evidence was executed from the unchanged `59eeffb` code parent
 - offline suite: 127/127 unittest PASS + `compileall` PASS + `git diff --check` PASS
-- per-user install: verified manifest/entry/package hashes at product candidate `59eeffb`
+- per-user install: verified manifest/entry/package hashes at publication head `d5b55bf`
 
 Fresh-read all locators on resume.
 
