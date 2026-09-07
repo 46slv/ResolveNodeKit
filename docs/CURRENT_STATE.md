@@ -1,6 +1,6 @@
 # ResolveNodeKit current state
 
-Updated: 2026-09-07 JST
+Updated: 2026-09-08 JST
 
 This file is the short-lived operational pointer for the next Codex run. Live local Git/worktree, remote Git/PR, and live Resolve state always outrank it. Historical detail belongs in `docs/checkpoints/`.
 
@@ -15,11 +15,13 @@ The mission-critical unresolved requirement remains runtime visual nested-group 
 ## Canonical repo state
 
 - repo: `46slv/ResolveNodeKit`
-- task branch: `feat/arrange-uia-e2e-20260906` (production seam continuation; do not merge to `main` or PR #5)
+- task branch: `feat/arrange-uia-e2e-20260906` (production seam continuation; do not merge to `main`)
+- current candidate code commit: `716d6a4506b021d27b82057b17e3ca589d579d6a`
+- PR #5 head branch: `feat/semantic-arrange-v1-20260906` (Draft; candidate head is kept aligned non-destructively)
 - Draft PR: #1 (bootstrap) plus #5 (Semantic Arrange v1, stacked on the bootstrap branch), both open/draft
-- branch locator immediately before this state normalization: `f974730f5952a6376feb443d482bbb571e71d59e`
-- reported worktree at latest run end: clean, remote in sync
-- offline suite: 115/115 unittest PASS + `compileall` PASS (108 existing tests plus 7 focused seam/verifier tests)
+- branch locator immediately before this state normalization: `716d6a4506b021d27b82057b17e3ca589d579d6a`
+- reported worktree at latest run end: continuation checkpoint edits pending commit; remote code ref is in sync
+- offline suite: 122/122 unittest PASS + `compileall` PASS
 
 Fresh-read all locators on resume.
 
@@ -354,3 +356,34 @@ Large-graph stress remains the next acceptance lane; no new UIA/MSAA probe is
 required for this scope change.  Durable decisions:
 `docs/checkpoints/2026-09-07-semantic-arrange-first-usable-scope.md` and
 `docs/checkpoints/2026-09-07-semantic-arrange-whole-comp-host-smoke.md`.
+
+## Semantic Arrange v1 continuation — 2026-09-08
+
+SAV1-00 through SAV1-40 are reconciled or freshly host-proven on the
+continuation candidate.  SAV1-50 established a compact 64-tool transport
+envelope: valuable 967-tool position and connection probes at 16/32/64 all
+returned successfully, and the disposable large pre-read completed all 16
+position and 16 connection chunks with parent-computed composite hashes.
+No full graph payload was returned through MCP.
+
+SAV1-60 is a narrow `BLOCKED_HOST` / `UNVERIFIED` product-stress gate.  One
+real production `execute_arrange_request` whole-comp call on disposable
+`_mcp_RNK_SAV1_60_20260908` timed out at the 300-second MCP limit without a
+structured result.  The representative processing/keyframe sample also timed
+out at 120 seconds, so processing preservation is explicitly unavailable for
+that large readback.  The same product route was not blindly retried.  The
+exact Resolve/fuscript recovery path was followed; a post-restart identity
+probe passed, the duplicate and generated archive were deleted, and the final
+valuable state is again `PSD2Fusion / Timeline 1 / Fusion`, 967 tools,
+`COMPB_Modified=false`, exactly one timeline, no save.  One compact duplicate
+position chunk differed after recovery, so no large first-run, second-run,
+invariant, or Undo PASS is claimed.
+
+Fresh small-host evidence remains PASS: SAV1-30 whole-comp (7 tools) and
+SAV1-40 nested non-empty Groups (8 tools, `InnerG` inside `OuterG`) both moved
+on run 1, returned `moved=0` on run 2, preserved structure, and restored exact
+Undo state.  Busy UI remains `BLOCKED_HOST_CAPABILITY` (`UIDispatcher` absent),
+and AskUser UIA/MSAA remains `BLOCKED_HOST_ACCESSIBILITY_HARD`; neither gates
+the autonomous continuation.  Durable details:
+`docs/checkpoints/2026-09-08-semantic-arrange-v1-continuation.md` and its JSON
+record.

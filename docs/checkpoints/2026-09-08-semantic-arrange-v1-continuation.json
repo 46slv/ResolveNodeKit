@@ -1,0 +1,138 @@
+{
+  "schema": "resolve-node-kit.semantic-arrange-v1.continuation/v1",
+  "date": "2026-09-08",
+  "candidate_code_sha": "716d6a4506b021d27b82057b17e3ca589d579d6a",
+  "branch": "feat/arrange-uia-e2e-20260906",
+  "pr": {
+    "number": 5,
+    "head_branch": "feat/semantic-arrange-v1-20260906",
+    "head_sha": "716d6a4506b021d27b82057b17e3ca589d579d6a",
+    "base_branch": "feat/bootstrap-nodekit-20260905",
+    "state": "OPEN",
+    "draft": true
+  },
+  "host": {
+    "resolve_version": "21.0.3.7",
+    "project": "PSD2Fusion",
+    "timeline": "Timeline 1",
+    "page": "fusion",
+    "tool_count": 967,
+    "comp_modified": false,
+    "timelines": ["Timeline 1"],
+    "project_save": false
+  },
+  "offline": {
+    "unit_tests": "122/122 PASS",
+    "compileall": "PASS",
+    "git_diff_check": "PASS"
+  },
+  "sav1_30": {
+    "status": "PASS",
+    "fixture_project": "_mcp_RNK_SAV1_probe_20260908",
+    "tool_count": 7,
+    "edge_count": 3,
+    "state": {"include_unselected": true, "ungroup": false},
+    "first_moved": 6,
+    "first_arranged": 7,
+    "second_moved": 0,
+    "invariants": {
+      "tool_identity": true,
+      "connections": true,
+      "selection_empty": true,
+      "undo_exact": true
+    },
+    "cleanup": "PASS; final valuable host restored"
+  },
+  "sav1_40": {
+    "status": "PASS",
+    "fixture_project": "_mcp_RNK_SAV1_40_20260908",
+    "fixture_timeline": "_mcp_RNK_SAV1_40_Timeline",
+    "tool_count": 8,
+    "groups": ["InnerG", "OuterG"],
+    "max_group_depth": 2,
+    "first_moved": 7,
+    "first_arranged": 8,
+    "second_moved": 0,
+    "parents_and_connections_unchanged": true,
+    "group_display_state_unchanged": true,
+    "undo_exact": true,
+    "cleanup": "PASS; final valuable host restored"
+  },
+  "sav1_50": {
+    "status": "PASS",
+    "envelope": {
+      "safe_chunk_size": 64,
+      "valuable_position_probes": [
+        {"chunk_size": 16, "row_count": 16, "hash": "009c269ec710b950d4ad33243e8706626de67f4a589bc8fa11a4ce9da1acbab3", "elapsed_ms": 329.693},
+        {"chunk_size": 32, "row_count": 32, "hash": "0e6a00dfdc1300f74b4033d510b9505d5c4e9775812366254092d631f9874e50", "elapsed_ms": 381.633},
+        {"chunk_size": 64, "row_count": 64, "hash": "2d92a56718f05ad98976695a5096b5323c7473bf6cd06ef9c621fd51a0976cad", "elapsed_ms": 415.903}
+      ],
+      "valuable_connection_probes": [
+        {"chunk_size": 16, "row_count": 15, "hash": "7261dd75b0e63ab671558ac7f0d4f96d9d6cd5b66af513a1a719c6044b4fb599", "elapsed_ms": 1310.604, "stable_endpoint_ids": true},
+        {"chunk_size": 32, "row_count": 31, "hash": "8d37bb2a731c5846f5814881cd67ff8988d6c4545b7d3bed5d1de67038df4a8d", "elapsed_ms": 2039.736, "stable_endpoint_ids": true},
+        {"chunk_size": 64, "row_count": 63, "hash": "a99e1867ec39d08de46d6ffe71a4b675d6a04c6f47dbd3cb7e5fd46965c38d75", "elapsed_ms": 2977.231, "stable_endpoint_ids": true}
+      ],
+      "aggregation": "parent ordered lines offset:chunk_size:row_count:chunk_hash, SHA-256 over LF-joined UTF-8 text",
+      "duplicate_pre_position_composite_hash": "605eff5aeeca5980b6831149fb28178cbbe145565a8006dea3b1a81bdcea0b18",
+      "duplicate_pre_connection_composite_hash": "f8721b5fe1df1f0dc3bc115051c441acaa4b51171cf698899a2446b8c9796289",
+      "duplicate_pre_tool_count": 967,
+      "duplicate_pre_group_count": 24,
+      "duplicate_pre_max_group_depth": 2,
+      "duplicate_pre_identity_status": "complete",
+      "duplicate_pre_connection_endpoint_ids": "stable"
+    }
+  },
+  "sav1_60": {
+    "status": "BLOCKED_HOST",
+    "product_execution_status": "UNVERIFIED",
+    "fixture_timeline": "_mcp_RNK_SAV1_60_20260908",
+    "pre": {
+      "tool_count": 967,
+      "group_count": 24,
+      "max_group_depth": 2,
+      "membership_hash": "98cf31e2e08f6669324c39c5d6dc2b44abf92046a7fc907d0c7d1df14e4c95b8",
+      "non_empty_group_count": 24,
+      "identity_status": "complete",
+      "position_composite_hash": "605eff5aeeca5980b6831149fb28178cbbe145565a8006dea3b1a81bdcea0b18",
+      "connection_composite_hash": "f8721b5fe1df1f0dc3bc115051c441acaa4b51171cf698899a2446b8c9796289",
+      "duplicate_coordinate_summary": {
+        "baseline_readback_after_recovery": true,
+        "duplicate_coordinate_groups": 5,
+        "duplicate_node_count": 10,
+        "max_bucket": 2
+      },
+      "processing_hash_status": "UNAVAILABLE_TRANSPORT",
+      "processing_probe_timeout_seconds": 120
+    },
+    "product_call": {
+      "route": "execute_arrange_request",
+      "state": {"include_unselected": true, "ungroup": false},
+      "attempts": 1,
+      "result": "no structured result; script_plugin call timed out after 300s",
+      "retry": "not performed; same long product route was not blind-retried"
+    },
+    "recovery": {
+      "normal_close_attempt": {"resolve_pid": 29244, "close_main_window": true, "responding": false, "still_running_after_20s": true},
+      "exact_tree_terminated": {"resolve_pid": 29244, "fuscript_pid": 92096, "paths_revalidated": true},
+      "relaunch": "PASS",
+      "post_restart_identity": {"project": "PSD2Fusion", "timeline": "Timeline 1", "tool_count": 967, "comp_modified": false}
+    },
+    "timeout_readback": {
+      "duplicate_modified": false,
+      "position_chunk_offset_0_before": "30cdede336a0d0bb2adceca878e170a2bf9110aeb3160e9d12b8f6da4aaf540d",
+      "position_chunk_offset_0_after_recovery": "c981422682085ce35a785542ffe9920d77d5d2ac8fd0f28f9ffc684050c02f08",
+      "mutation_outcome": "ambiguous; one compact position chunk differed, so no success/invariant/Undo claim is made"
+    },
+    "cleanup": {
+      "deleted_exact_timelines": ["_mcp_RNK_SAV1_60_20260908", "Timeline 1_archived_v04"],
+      "remaining_timelines": ["Timeline 1"],
+      "valuable_final_readback": {"project": "PSD2Fusion", "timeline": "Timeline 1", "tool_count": 967, "comp_modified": false, "save": false}
+    }
+  },
+  "ui_limitations": {
+    "busy_ui": "BLOCKED_HOST_CAPABILITY; UIDispatcher unavailable on direct Comp Script path",
+    "askuser_uia_msaa": "BLOCKED_HOST_ACCESSIBILITY_HARD; no repeat permitted",
+    "sav1_90": "pending conditional final human release smoke only"
+  },
+  "next": "SAV1-70 docs/PR reconciliation, then SAV1-80 fresh independent verifier; keep SAV1-60 blocker narrow"
+}
