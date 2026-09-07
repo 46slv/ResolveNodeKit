@@ -1,6 +1,6 @@
 # ResolveNodeKit current state
 
-Updated: 2026-09-06 JST
+Updated: 2026-09-07 JST
 
 This file is the short-lived operational pointer for the next Codex run. Live local Git/worktree, remote Git/PR, and live Resolve state always outrank it. Historical detail belongs in `docs/checkpoints/`.
 
@@ -19,7 +19,7 @@ The mission-critical unresolved requirement remains runtime visual nested-group 
 - Draft PR: #1 (bootstrap) plus #5 (Semantic Arrange v1, stacked on the bootstrap branch), both open/draft
 - branch locator immediately before this state normalization: `f974730f5952a6376feb443d482bbb571e71d59e`
 - reported worktree at latest run end: clean, remote in sync
-- offline suite: 100/100 unittest PASS + `compileall` PASS (36 baseline plus 29 semantic-arrange plus 7 install plus 4 dialog plus 2 host-context plus 6 bind-strict plus 5 busy plus 4 hostile-progress plus 1 ordering plus 3 review-3-focused plus 3 dialog-first)
+- offline suite: 103/103 unittest PASS + `compileall` PASS (100 existing tests plus 3 focused UIA verifier tests)
 
 Fresh-read all locators on resume.
 
@@ -184,3 +184,34 @@ Orphan RNK_NEST names adopted and deleted with guardrails 2026-09-06 JST afterno
 Review-3 fixes installed 2026-09-06 JST evening (branch 1244721): busy is always hidden before the result dialog on success and refusal paths; readback and verify begin markers fire before their phase work; interactive writes require live current and fail closed with exit 5 when unproven. Locked by 4 focused tests. Suite 97/97 green, compileall PASS, reinstalled with entry and package hash match, manifest stamped 1244721. Next: one user click on the same 4 nodes.
 
 Dialog-first reorder installed 2026-09-06 JST midday (branch 7d971f2): setup dialog runs on the UI-owner comp before any target bind, Cancel exits with zero mutation, Run binds live current with require_live and shows a visible refusal on failure, then busy, arrange, busy close, result. Locked by 3 dialog-first tests. Suite 100/100 green, compileall PASS, reinstalled with entry and package hash match, manifest stamped 7d971f2. Next: one user click on the same 4 nodes.
+
+## Arrange UIA E2E recovery — 2026-09-07
+
+The existing `feat/arrange-uia-e2e-20260906` branch was recovered at `bf42239`
+with the worker's two untracked host verifier files and its OpenCode/Muse UIA
+artifacts. The exact resume point was step 5: bind the real `UiMainWindowImp`,
+repair the transient-popup menu route, and continue from the existing
+`RNK_UIA_E2E` fixture. The identity-based menu Invoke now passes through
+`Workspace > Scripts > ResolveNodeKit_Arrange`; Resolve 21.0.3.7 does not expose
+the `Comp` category node, so the evidence records a direct identity entry route
+with `category_element_exposed=false`.
+
+The setup window is visible to UIA, but its four apparent checkbox nodes are
+Fusion Qt `ControlType.Group` elements with empty label/name/value metadata and
+no `TogglePattern`; the two required labels and OFF/OFF readback therefore cannot
+be proven safely. This is a narrow `BLOCKED_UIA_CAPABILITY` gate, not a reason to
+replay the menu/fixture work or guess by control order. The persistent QWidget
+provider also prevents claiming logical dialog absence from the tree alone.
+
+Fusion API readback showed no graph mutation, and the exact disposable timeline
+plus its two worker-created archive timelines were deleted under confirmation
+guardrails. Resolve was restored to Fusion page / `Timeline 1`, with no project
+save. Full machine-readable evidence is at
+`D:\temp\uia\arrange_uia_e2e_codex_20260907_final.json` (raw JSONL plus the
+full UIA dump are retained beside it); the durable checkpoint is
+`docs/checkpoints/2026-09-07-arrange-uia-recovery.md`.
+
+Smallest next gate: expose the AskUser labels and label-associated
+`ControlType.CheckBox`/`TogglePattern` through the Resolve/Fusion accessibility
+provider, then resume at setup step 7 only and continue Run/busy/result/Undo/
+second-run verification.
