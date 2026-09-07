@@ -11,6 +11,7 @@ class ArrangeBehaviorVerifierTests(unittest.TestCase):
         self.assertIn("include_unselected", source)
         self.assertIn('\\"include_unselected\\": true', source)
         self.assertIn("result_ask=ask", source)
+        self.assertIn("fusion_obj = resolve_obj.Fusion()", source)
         self.assertNotIn("InvokePattern", source)
         self.assertNotIn("menu-invoke", source)
 
