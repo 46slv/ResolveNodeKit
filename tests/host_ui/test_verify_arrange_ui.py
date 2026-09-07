@@ -55,6 +55,37 @@ class ArrangeUiAClassificationTests(unittest.TestCase):
         self.assertEqual(parse_moved("moved=0"), 0)
         self.assertIsNone(parse_moved("no movement field"))
 
+    def test_accessibility_and_behavioral_layers_are_separate(self):
+        result = classify_window([
+            {"control": "ControlType.Group", "class": "Fusion::CheckBoxControl"},
+            {"control": "ControlType.Group", "class": "Fusion::CustomCheckBox"},
+            {"control": "ControlType.Group", "class": "Fusion::CustomButton",
+             "patterns": "InvokePatternIdentifiers.Pattern"},
+        ])
+
+        self.assertEqual(result["checkbox_readback_status"], "BLOCKED_HOST_ACCESSIBILITY")
+        self.assertFalse(result["run_button_identity"])
+        self.assertFalse(result["cancel_button_identity"])
+        self.assertEqual(result["behavioral_default_status"], "UNVERIFIED")
+
+    def test_named_invoke_buttons_have_safe_identity_flags(self):
+        result = classify_window([
+            {"control": "ControlType.CheckBox", "class": "QCheckBox",
+             "name": ARRANGE_LABELS[0],
+             "patterns": "TogglePatternIdentifiers.Pattern"},
+            {"control": "ControlType.CheckBox", "class": "QCheckBox",
+             "name": ARRANGE_LABELS[1],
+             "patterns": "TogglePatternIdentifiers.Pattern"},
+            {"control": "ControlType.Button", "class": "QPushButton",
+             "name": "OK", "patterns": "InvokePatternIdentifiers.Pattern"},
+            {"control": "ControlType.Button", "class": "QPushButton",
+             "name": "Cancel", "patterns": "InvokePatternIdentifiers.Pattern"},
+        ])
+
+        self.assertTrue(result["run_button_identity"])
+        self.assertTrue(result["cancel_button_identity"])
+        self.assertEqual(result["checkbox_readback_status"], "PASS")
+
 
 if __name__ == "__main__":
     unittest.main()

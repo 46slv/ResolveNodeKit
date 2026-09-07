@@ -19,7 +19,7 @@ The mission-critical unresolved requirement remains runtime visual nested-group 
 - Draft PR: #1 (bootstrap) plus #5 (Semantic Arrange v1, stacked on the bootstrap branch), both open/draft
 - branch locator immediately before this state normalization: `f974730f5952a6376feb443d482bbb571e71d59e`
 - reported worktree at latest run end: clean, remote in sync
-- offline suite: 103/103 unittest PASS + `compileall` PASS (100 existing tests plus 3 focused UIA verifier tests)
+- offline suite: 105/105 unittest PASS + `compileall` PASS (100 existing tests plus 5 focused UIA verifier tests)
 
 Fresh-read all locators on resume.
 
@@ -211,7 +211,25 @@ save. Full machine-readable evidence is at
 full UIA dump are retained beside it); the durable checkpoint is
 `docs/checkpoints/2026-09-07-arrange-uia-recovery.md`.
 
-Smallest next gate: expose the AskUser labels and label-associated
-`ControlType.CheckBox`/`TogglePattern` through the Resolve/Fusion accessibility
-provider, then resume at setup step 7 only and continue Run/busy/result/Undo/
-second-run verification.
+The earlier checkpoint proposed exposing the AskUser labels through the provider;
+that route is intentionally not attempted in this continuation. The measured
+behavioral-default gate below uses the existing host as-is.
+
+## Behavioral-default continuation — 2026-09-07
+
+The step-5 menu Invoke evidence was reused without rerunning it. A direct
+Fusion `RunScript("Py", installed_entry)` route opened the production setup
+dialog in a fresh `_mcp_RNK_UIA_B1` project. This separates the contract into
+`UI_ACCESSIBILITY` and `PRODUCT_BEHAVIOR`: checkbox readback is explicitly
+`BLOCKED_HOST_ACCESSIBILITY`, while behavioral defaults are only
+`PASS_BEHAVIORAL` when a safe Run/Cancel identity and host invariant proof exist.
+
+On Resolve 21.0.3.7, the setup window exposed five button candidates with
+InvokePattern/ValuePattern but no Name, AutomationId, or label. Thus Run and
+Cancel could not be identity-bound without control-order guessing. B1 stopped
+before Run as `BLOCKED_HOST_ACCESSIBILITY`; B2–B5 behavior gates were not run.
+No checkbox or graph mutation was performed. The disposable project was deleted
+and `PSD2Fusion` / `Timeline 1` restored with `COMPB_Modified=false` and no save.
+
+Evidence: `D:\temp\uia\arrange_uia_behavior_20260907.json` (schema v2).
+Durable checkpoint: `docs/checkpoints/2026-09-07-arrange-uia-behavior-defaults.md`.

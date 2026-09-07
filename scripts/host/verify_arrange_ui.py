@@ -34,6 +34,8 @@ ARRANGE_LABELS = (
     "選択されていないノードも整列",
     "グループ化を解除して整列",
 )
+RUN_BUTTON_NAMES = ("Run", "OK", "実行", "適用")
+CANCEL_BUTTON_NAMES = ("Cancel", "キャンセル", "中止")
 
 PS_PRELUDE = (
     "Add-Type -AssemblyName UIAutomationClient\n"
@@ -380,6 +382,21 @@ def classify_window(nodes):
                      and "Text" in (n.get("control") or "") for n in nodes)
     buttons = sorted({n.get("name", "") for n in nodes
                       if n.get("control") == "ControlType.Button"})
+    button_candidates = [
+        n for n in nodes
+        if n.get("control") == "ControlType.Button"
+        or "Button" in (n.get("class") or "")
+    ]
+    named_invoke_buttons = [
+        n for n in button_candidates
+        if n.get("name") and "InvokePatternIdentifiers.Pattern" in (n.get("patterns") or "")
+    ]
+    run_identity = any(
+        n.get("name") in RUN_BUTTON_NAMES for n in named_invoke_buttons
+    )
+    cancel_identity = any(
+        n.get("name") in CANCEL_BUTTON_NAMES for n in named_invoke_buttons
+    )
     checks = [{"name": n.get("name", ""), "class": n.get("class", ""),
                "control": n.get("control", ""),
                "toggle": n.get("toggle", "")}
@@ -392,6 +409,13 @@ def classify_window(nodes):
         kind = "result-or-busy"
     else:
         kind = "busy-or-unknown"
+    checkbox_status = (
+        "PASS" if len(exposed_labels) == len(ARRANGE_LABELS)
+        and all(n.get("control") == "ControlType.CheckBox" for n in checkbox_candidates)
+        and all("TogglePatternIdentifiers.Pattern" in (n.get("patterns") or "")
+                 for n in checkbox_candidates[:2])
+        else "BLOCKED_HOST_ACCESSIBILITY"
+    )
     return {
         "kind": kind,
         "buttons": buttons,
@@ -399,6 +423,17 @@ def classify_window(nodes):
         "expected_labels": list(ARRANGE_LABELS),
         "exposed_labels": exposed_labels,
         "labels_exposed": len(exposed_labels) == len(ARRANGE_LABELS),
+        "checkbox_readback_status": checkbox_status,
+        "button_candidates": [
+            {"name": n.get("name", ""), "class": n.get("class", ""),
+             "control": n.get("control", ""),
+             "patterns": n.get("patterns", "")}
+            for n in button_candidates
+        ],
+        "named_invoke_buttons": [n.get("name", "") for n in named_invoke_buttons],
+        "run_button_identity": run_identity,
+        "cancel_button_identity": cancel_identity,
+        "behavioral_default_status": "UNVERIFIED",
     }
 
 
@@ -552,8 +587,24 @@ def cmd_assemble(args):
                     steps.append(json.loads(line))
                 except Exception:
                     steps.append({"parse_error": line[-300:]})
-    doc = {"schema": "resolve-node-kit.arrange-uia-e2e/v1",
-           "title": TITLE, "entry": ENTRY_NAME, "steps": steps}
+    layers = {"UI_ACCESSIBILITY": [], "PRODUCT_BEHAVIOR": []}
+    for step in steps:
+        layer = step.get("layer")
+        if layer in layers:
+            layers[layer].append(step.get("step"))
+    doc = {"schema": "resolve-node-kit.arrange-uia-e2e/v2",
+           "title": TITLE, "entry": ENTRY_NAME,
+           "verification_contract": {
+               "UI_ACCESSIBILITY": {
+                   "checkbox_direct_readback": "BLOCKED_HOST_ACCESSIBILITY",
+                   "run_cancel_identity_required": True,
+               },
+               "PRODUCT_BEHAVIOR": {
+                   "effective_defaults": "PASS_BEHAVIORAL",
+                   "requires_safe_run_cancel_identity": True,
+               },
+           },
+           "layers": layers, "steps": steps}
     with open(args.output, "w", encoding="utf-8") as fh:
         json.dump(doc, fh, ensure_ascii=False, indent=1)
     return _emit({"op": "assemble", "input": args.input,

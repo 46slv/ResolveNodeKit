@@ -69,11 +69,11 @@ contains only `Timeline 1`; no project save was performed.
 Offline verification: `103/103` unittest tests pass and `python -m compileall -q
 src scripts tests` passes.
 
-## Smallest next gate
+## Smallest next gate (historical boundary)
 
-Expose the AskUser checkbox labels and a label-associated `ControlType.CheckBox`
-or `TogglePattern` through the Resolve/Fusion accessibility provider (or provide a
-documented accessibility identity for those controls). Then resume at setup step
-7 only: verify OFF/OFF by label, invoke Cancel/Run, and continue busy/result,
-Undo, and second-run checks. Do not replay the recovered fixture/menu probes or
-use coordinates, blind keys, or control-order guesses.
+The measured label/Toggle limitation is retained as evidence; this continuation
+does not attempt to change the Resolve accessibility provider. The active gate is
+the separate behavioral-default contract in
+`2026-09-07-arrange-uia-behavior-defaults.md`: a semantic Run/Cancel identity
+must be available before any default-behavior proof can run. Do not replay the
+recovered menu probe or use coordinates, blind keys, or control-order guesses.
