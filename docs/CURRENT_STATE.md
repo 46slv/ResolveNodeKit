@@ -409,7 +409,12 @@ responsive, no RNK disposable/archive remnants, and no project save.
 ### Current route
 
 `SAV1-65` cannot be marked PASS without the measured host primitive and remains
-the narrow flatten host blocker.  `SAV1-70` docs/PR reconciliation and a fresh
-`SAV1-80` verifier are next.  `SAV1-90` remains last and is not requested while
-the amended flatten gate is open.  UIA/MSAA and busy-UI limitations remain
-separate feature-local capabilities and do not block this route.
+the narrow flatten host blocker.  `SAV1-70` docs/PR reconciliation is PASS, and
+the fresh independent `SAV1-80` verifier is PASS: it rechecked the candidate
+ancestor, clean/aligned refs, scoped diff, 127-test/compile/install results,
+checkpoint semantics, required host gates, final Resolve state, and PR #5
+readiness.  `SAV1-90` remains last and is not requested while the amended
+flatten gate is open.  UIA/MSAA and busy-UI limitations remain separate
+feature-local capabilities and do not block this route.
+
+Fresh verifier evidence: `docs/checkpoints/2026-09-08-semantic-arrange-v1-fresh-verifier.{md,json}`.

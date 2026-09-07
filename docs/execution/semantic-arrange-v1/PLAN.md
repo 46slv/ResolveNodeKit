@@ -205,9 +205,10 @@ Worker narration, exit code alone, or offline mocks are not sufficient host evid
 
 ## 9. Ready next
 
-The first execution task was `SAV1-00`; after the amended continuation evidence,
-the smallest next task is `SAV1-70` documentation/PR reconciliation followed by
-`SAV1-80` fresh independent verification.  `SAV1-65` remains unpassed when the
-host cannot expose an identity-preserving primitive.
+The first execution task was `SAV1-00`; the amended continuation has completed
+`SAV1-70` documentation/PR reconciliation and the fresh independent `SAV1-80`
+verification.  `SAV1-65` remains unpassed when the host cannot expose an
+identity-preserving primitive; `SAV1-90` is the only later human boundary and
+is not entered while that required host gate is open.
 
 The executor should continue through every ready task without returning for routine approval. Human interaction is reserved for `SAV1-90` or a true authority/safety boundary defined in the RUNBOOK.

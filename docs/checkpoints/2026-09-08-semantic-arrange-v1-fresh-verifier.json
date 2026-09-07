@@ -1,0 +1,63 @@
+{
+  "schema": "rnk.semantic-arrange.fresh-verifier.v1",
+  "date": "2026-09-08",
+  "candidate_product_sha": "59eeffbce5efd0a73a0fed2a4f3418faf71d5852",
+  "task_branch": "feat/arrange-uia-e2e-20260906",
+  "pr_branch": "feat/semantic-arrange-v1-20260906",
+  "result": "SAV1-80_PASS",
+  "git": {
+    "worktree_clean": true,
+    "task_remote_aligned_at_read": true,
+    "bootstrap_ancestor": true,
+    "main_merged": false
+  },
+  "offline": {
+    "unittest": "127/127 PASS",
+    "compileall": "PASS",
+    "diff_check": "PASS",
+    "evidence_json": "PASS",
+    "candidate_product_is_ancestor": true
+  },
+  "install": {
+    "manifest_commit_equals_publication_head": true,
+    "package_files": 13,
+    "package_hashes_match": true,
+    "entry_hash_match": true,
+    "flatten_installed": true
+  },
+  "pr": {
+    "number": 5,
+    "state": "open",
+    "draft": true,
+    "merged": false,
+    "base": "feat/bootstrap-nodekit-20260905",
+    "head_branch": "feat/semantic-arrange-v1-20260906",
+    "amendment_statuses_present": true
+  },
+  "host": {
+    "project": "PSD2Fusion",
+    "page": "Fusion",
+    "resolve": "DaVinci Resolve Studio 21.0.3.7",
+    "timeline_count": 1,
+    "timeline": "Timeline 1",
+    "tool_count": 967,
+    "modified": false,
+    "rendering": false,
+    "save": false,
+    "cleanup": "exact; no RNK disposable/archive remnants",
+    "endpoint": "responsive"
+  },
+  "required_gates": {
+    "sav1_55_56": "IMPLEMENTED_OFFLINE_PASS_HOST_BLOCKED_API",
+    "sav1_60r": "PASS_STRUCTURAL_AND_IDEMPOTENCE_977_AND_1110",
+    "sav1_65": "BLOCKED_HOST_API",
+    "sav1_70": "PASS",
+    "sav1_80": "PASS",
+    "sav1_90": "NOT_REACHED_HOST_API_GATE_OPEN",
+    "processing_hash_status": "NOT_COLLECTED_BY_HOST_ADAPTER"
+  },
+  "mutation": {
+    "verifier_candidate_mutation": false,
+    "project_save": false
+  }
+}
