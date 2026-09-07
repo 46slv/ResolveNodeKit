@@ -15,11 +15,11 @@ The mission-critical unresolved requirement remains runtime visual nested-group 
 ## Canonical repo state
 
 - repo: `46slv/ResolveNodeKit`
-- task branch: `feat/semantic-arrange-v1-20260906` (implements Semantic Arrange v1; design docs merged from PR #2)
+- task branch: `feat/arrange-uia-e2e-20260906` (production seam continuation; do not merge to `main` or PR #5)
 - Draft PR: #1 (bootstrap) plus #5 (Semantic Arrange v1, stacked on the bootstrap branch), both open/draft
 - branch locator immediately before this state normalization: `f974730f5952a6376feb443d482bbb571e71d59e`
 - reported worktree at latest run end: clean, remote in sync
-- offline suite: 108/108 unittest PASS + `compileall` PASS (100 existing tests plus 8 focused UIA verifier tests)
+- offline suite: 115/115 unittest PASS + `compileall` PASS (108 existing tests plus 7 focused seam/verifier tests)
 
 Fresh-read all locators on resume.
 
@@ -258,3 +258,18 @@ mutation into a common handler accepting explicit default state, then verify
 that handler through a disposable Fusion API behavior lane.  Keep AskUser/UIA/
 MSAA as a separate visibility-capability lane; its hard provider blocker must
 not gate the host behavior proof.
+
+## Arrange production seam — 2026-09-07
+
+The post-dialog mutation is now one shared `execute_arrange_request` handler
+used by the GUI script and the generated direct-host verifier.  It preserves
+live-target binding, fail-closed ungroup behavior, busy/result ordering, and
+the existing semantic snapshot/readback/Undo contract.  Cancel exits before
+the handler; GUI Run passes one explicit `ArrangeDialogState`.
+
+Offline verification is 115/115 with compileall PASS.  The direct host
+behavior lane is prepared but not accepted as PASS: the Resolve scripting
+endpoint became unresponsive after a disposable `LoadComp`/`Paste` route, so
+no host mutation or cleanup claim is made for that attempt.  The exact UIA /
+MSAA hard blocker remains narrow and separate.  Durable details:
+`docs/checkpoints/2026-09-07-arrange-production-seam.md`.

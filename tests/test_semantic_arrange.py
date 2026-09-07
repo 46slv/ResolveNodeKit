@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import patch
 
 from resolve_node_kit.fusion import (
     ArrangeDialogState,
@@ -1046,3 +1047,197 @@ class ArrangeDialogFirstTests(unittest.TestCase):
         self.assertLess(events.index("ask"), events.index("busy-show"))
         self.assertLess(events.index("busy-hide"), events.index("ask", events.index("ask") + 1))
         self.assertGreater(flow.positions["B"][0], 0.0)
+
+    def test_cancel_does_not_enter_production_handler(self):
+        events = []
+        comp, flow = self._flow_comp()
+        fusion = self._host(events, None)
+
+        def fake_ask(title, controls):
+            events.append("ask")
+            return None
+
+        comp.AskUser = fake_ask
+        with patch("resolve_node_kit.fusion.execute_arrange_request") as handler:
+            code = self._run_script(comp, fusion)
+        self.assertEqual(code, 0)
+        handler.assert_not_called()
+        self.assertEqual(flow.calls, 0)
+
+    def test_run_enters_production_handler_once_with_parsed_state(self):
+        events = []
+        comp, flow = self._flow_comp()
+        fusion = self._host(events, comp)
+        calls = []
+
+        def fake_ask(title, controls):
+            calls.append(controls)
+            return {"IncludeUnselected": 1, "UngroupFirst": 0}
+
+        comp.AskUser = fake_ask
+        from resolve_node_kit.fusion.arrange_request import ArrangeExecutionResult
+        with patch("resolve_node_kit.fusion.execute_arrange_request") as handler:
+            handler.return_value = ArrangeExecutionResult(
+                status="success", exit_code=0, message="synthetic handler result"
+            )
+            code = self._run_script(comp, fusion)
+        self.assertEqual(code, 0)
+        handler.assert_called_once()
+        args, kwargs = handler.call_args
+        self.assertIs(args[0], comp)
+        self.assertEqual(args[3], ArrangeDialogState(True, False))
+        self.assertEqual(flow.calls, 0)
+
+
+class ArrangeProductionSeamTests(unittest.TestCase):
+    """Focused contract tests for the shared GUI/host execution seam."""
+
+    class _NamedComp(MockComp):
+        def __init__(self, name, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self._name = name
+
+        def GetAttrs(self):
+            return {"COMPS_Name": self._name}
+
+    class _Ui:
+        def Label(self, attrs):
+            return self
+
+        def VGroup(self, children):
+            return list(children)
+
+    class _Window:
+        def __init__(self, events):
+            self.events = events
+
+        def Show(self):
+            self.events.append("busy-show")
+
+        def Hide(self):
+            self.events.append("busy-hide")
+
+        def Find(self, name):
+            return self
+
+        def SetText(self, text):
+            self.events.append("busy-text:" + str(text))
+
+    class _Dispatcher:
+        def __init__(self, ui, events):
+            self.events = events
+
+        def AddWindow(self, attrs, children):
+            return ArrangeProductionSeamTests._Window(self.events)
+
+    class _Fusion:
+        UIManager = None
+
+        def __init__(self, live, events):
+            self._live = live
+            self.events = events
+            self.UIManager = ArrangeProductionSeamTests._Ui()
+
+        def UIDispatcher(self, ui):
+            return ArrangeProductionSeamTests._Dispatcher(ui, self.events)
+
+        def GetCurrentComp(self):
+            return self._live
+
+    def _fixture(self):
+        a = MockTool("A")
+        b = MockTool("B")
+        c = MockTool("C")
+        connect(a, b, "Input")
+        flow = MockFlow({"A": (0.0, 0.0), "B": (23.0, 19.0), "C": (71.0, 41.0)})
+        comp = self._NamedComp("seam", [a, b, c], flow, selected={"A", "B"})
+        return comp, flow
+
+    def test_handler_is_single_execution_path_and_preserves_unselected(self):
+        from resolve_node_kit.fusion.arrange_request import execute_arrange_request
+
+        comp, flow = self._fixture()
+        events = []
+        fusion = self._Fusion(comp, events)
+        before_unselected = flow.positions["C"]
+        from resolve_node_kit.fusion import arrange_comp as real_arrange_comp
+        with patch(
+            "resolve_node_kit.fusion.arrange_request.arrange_comp",
+            wraps=real_arrange_comp,
+        ) as arrange:
+            result = execute_arrange_request(
+                comp,
+                fusion,
+                None,
+                ArrangeDialogState(False, False),
+                show_result_dialog=False,
+                log=events.append,
+            )
+        self.assertEqual(arrange.call_count, 1)
+        self.assertEqual(result.status, "success")
+        self.assertTrue(result.busy_shown)
+        self.assertTrue(result.busy_hidden)
+        self.assertEqual(flow.positions["C"], before_unselected)
+        self.assertLess(events.index("busy-hide"), len(events))
+
+    def test_target_bind_refusal_is_visible_and_has_zero_mutation(self):
+        from resolve_node_kit.fusion.arrange_request import execute_arrange_request
+
+        comp, flow = self._fixture()
+        other, _ = self._fixture()
+        other._name = "other"
+        events = []
+        fusion = self._Fusion(other, events)
+        calls = []
+
+        def result_ask(title, controls):
+            calls.append((title, controls))
+            return {"Result": "ack"}
+
+        before = dict(flow.positions)
+        result = execute_arrange_request(
+            comp,
+            fusion,
+            None,
+            ArrangeDialogState(False, False),
+            result_ask=result_ask,
+            log=events.append,
+        )
+        self.assertEqual(result.status, "target_mismatch")
+        self.assertEqual(result.exit_code, 5)
+        self.assertTrue(result.result_shown)
+        self.assertGreaterEqual(len(calls), 1)
+        self.assertEqual(flow.positions, before)
+        self.assertNotIn("busy-show", events)
+
+    def test_handler_exception_closes_busy_before_result(self):
+        from resolve_node_kit.fusion.arrange_request import execute_arrange_request
+
+        comp, _flow = self._fixture()
+        events = []
+        fusion = self._Fusion(comp, events)
+        calls = []
+
+        def result_ask(title, controls):
+            calls.append((title, controls))
+            events.append("result")
+            return {"Result": "ack"}
+
+        with patch(
+            "resolve_node_kit.fusion.arrange_request.arrange_comp",
+            side_effect=RuntimeError("synthetic handler failure"),
+        ):
+            result = execute_arrange_request(
+                comp,
+                fusion,
+                None,
+                ArrangeDialogState(False, False),
+                result_ask=result_ask,
+                log=events.append,
+            )
+        self.assertEqual(result.status, "failed")
+        self.assertTrue(result.busy_shown)
+        self.assertTrue(result.busy_hidden)
+        self.assertTrue(result.result_shown)
+        self.assertLess(events.index("busy-hide"), events.index("result"))
+        self.assertEqual(len(calls), 1)

@@ -172,24 +172,18 @@ def _write_log(status, detail=""):
 _BOOTSTRAPPED_FROM = _bootstrap_package()
 
 try:
-    from resolve_node_kit.fusion import ArrangeDialogState, FusionHostError, arrange_comp
+    from resolve_node_kit.fusion import ArrangeDialogState
     from resolve_node_kit.fusion import ask_arrange_options
-    from resolve_node_kit.fusion.dialog import BUSY_INITIAL_TEXT, show_busy_window, set_busy_text, hide_busy_window, show_result, stage_text, bind_target, TargetMismatch
     _IMPORT_ERROR = ""
 except Exception as exc:
     ArrangeDialogState = None
-    FusionHostError = RuntimeError
-    arrange_comp = None
     ask_arrange_options = None
-    BUSY_INITIAL_TEXT = "..."
-    show_busy_window = None
-    set_busy_text = None
-    hide_busy_window = None
-    show_result = None
-    bind_target = None
-    TargetMismatch = RuntimeError
-    stage_text = lambda phase: "..."
     _IMPORT_ERROR = repr(exc)
+
+try:
+    from resolve_node_kit.fusion import execute_arrange_request
+except Exception:
+    execute_arrange_request = None
 
 
 def _current_comp():
@@ -238,7 +232,7 @@ def _fusion_handle():
 
 def _run():
     _write_log("start", "name=" + __name__ + " src=" + _BOOTSTRAPPED_FROM)
-    if _IMPORT_ERROR or arrange_comp is None:
+    if _IMPORT_ERROR or ArrangeDialogState is None or ask_arrange_options is None:
         message = "package import failed: " + (_IMPORT_ERROR or "unknown")
         print("[ResolveNodeKit] Arrange: " + message)
         _write_log("import-error", _IMPORT_ERROR)
@@ -265,98 +259,22 @@ def _run():
             print("[ResolveNodeKit] Arrange canceled; nothing changed.")
             _write_log("cancel", "")
             return 0
-    try:
-        composition = bind_target(
-            ui_comp,
-            globals().get("fusion") or globals().get("fu"),
-            globals().get("resolve"),
-            log=lambda message: _write_log("target", message),
-            require_live=True,
-        )
-    except TargetMismatch as exc:
-        print("[ResolveNodeKit] Arrange: target mismatch between menu comp and live current; nothing changed.")
-        _write_log("target-mismatch", str(exc))
-        ui_ask = getattr(ui_comp, "AskUser", None)
-        if callable(show_result) and callable(ui_ask):
-            show_result(
-                ui_ask, TITLE,
-                "整列できませんでした。中止し、変更はありません。" + "\n" + str(exc),
-                log=lambda message: _write_log("result", message),
-            )
-        return 5
-    if composition is None:
-        print("[ResolveNodeKit] Arrange: no active Fusion composition. Open a comp and run again.")
-        _write_log("no-comp", "")
-        return 2
-    try:
-        describe = getattr(composition, "GetAttrs", lambda: {})()
-        comp_name = (describe or {}).get("COMPS_Name", "?")
-    except Exception:
-        comp_name = "?"
-    try:
-        tool_list = composition.GetToolList()
-        comp_tools = len(tool_list.values()) if isinstance(tool_list, dict) else len(list(tool_list))
-    except Exception:
-        comp_tools = -1
-    _write_log("target", "comp=" + str(comp_name) + " tools=" + str(comp_tools))
-    busy = None
-    if callable(show_busy_window):
-        busy = show_busy_window(
-            _fusion_handle(), TITLE, BUSY_INITIAL_TEXT,
-            log=lambda message: _write_log("busy", message),
-        )
-
-    def _on_progress(message):
-        _write_log("arrange", message)
-        try:
-            if callable(set_busy_text):
-                set_busy_text(busy, stage_text(message))
-        except Exception:
-            pass
-
-    ask = getattr(composition, "AskUser", None)
-    outcome = None
-    exit_code = 1
-    try:
-        try:
-            result = arrange_comp(
-                composition,
-                include_unselected=state.include_unselected,
-                ungroup=state.ungroup,
-                progress=_on_progress,
-            )
-        except FusionHostError as exc:
-            print("[ResolveNodeKit] Arrange refused: " + str(exc))
-            _write_log("refused", str(exc))
-            outcome = "整列できませんでした。中止し、変更はありません。" + "\n" + str(exc)
-            exit_code = 3
-        else:
-            diag = result.get("diagnostics", {})
-            template = "[ResolveNodeKit] Arrange: nodes=%s edges=%s moved=%s arranged=%s avoidable_diagonals=%s expanded_gaps=%s"
-            summary = template % (
-                result.get("node_count"),
-                result.get("edge_count"),
-                result.get("moved_count"),
-                result.get("arranged_count"),
-                diag.get("avoidable_diagonal_edge_count"),
-                diag.get("expanded_gap_count"),
-            )
-            print(summary)
-            _write_log("ok", summary)
-            if result.get("moved_count"):
-                outcome = "整列しました。" + summary
-            else:
-                outcome = "すでに整列済みのため、移動はありませんでした。" + summary
-            exit_code = 0
-    finally:
-        if callable(hide_busy_window):
-            try:
-                hide_busy_window(busy, log=lambda message: _write_log("busy", message))
-            except Exception:
-                pass
-    if outcome is not None and callable(show_result):
-        show_result(ask, TITLE, outcome, log=lambda message: _write_log("result", message))
-    return exit_code
+    if not callable(execute_arrange_request):
+        print("[ResolveNodeKit] Arrange: production handler is unavailable; nothing changed.")
+        _write_log("handler-missing", "")
+        return 4
+    execution = execute_arrange_request(
+        ui_comp,
+        globals().get("fusion") or globals().get("fu"),
+        globals().get("resolve"),
+        state,
+        result_ask=getattr(ui_comp, "AskUser", None),
+        title=TITLE,
+        log=lambda message: _write_log("handler", message),
+    )
+    if execution.message:
+        print(execution.message)
+    return execution.exit_code
 
 
 
