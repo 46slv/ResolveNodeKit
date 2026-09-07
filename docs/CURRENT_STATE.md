@@ -19,7 +19,7 @@ The mission-critical unresolved requirement remains runtime visual nested-group 
 - Draft PR: #1 (bootstrap) plus #5 (Semantic Arrange v1, stacked on the bootstrap branch), both open/draft
 - branch locator immediately before this state normalization: `f974730f5952a6376feb443d482bbb571e71d59e`
 - reported worktree at latest run end: clean, remote in sync
-- offline suite: 105/105 unittest PASS + `compileall` PASS (100 existing tests plus 5 focused UIA verifier tests)
+- offline suite: 108/108 unittest PASS + `compileall` PASS (100 existing tests plus 8 focused UIA verifier tests)
 
 Fresh-read all locators on resume.
 
