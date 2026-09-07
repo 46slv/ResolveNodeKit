@@ -81,6 +81,89 @@ def _collect_tools(comp: Any) -> tuple[dict[str, Any], dict[str, str | None]]:
     return tools, parents
 
 
+def _collect_edges(tools: dict[str, Any]) -> list[Edge]:
+    """Collect connected edges with the cheapest verified host direction.
+
+    Fusion exposes both an input-oriented API (``Input.GetConnectedOutput``)
+    and an output-oriented API (``Output.GetConnectedInputs``).  Walking every
+    input is prohibitively expensive on large comps because most tools expose
+    tens of unconnected inputs.  On hosts exposing the output API, enumerate
+    outputs and ask only connected outputs for their inputs; the input API is
+    retained as a compatibility fallback for the small in-memory test doubles
+    and older host surfaces.
+    """
+    edges: list[Edge] = []
+    seen: set[tuple[str, str, str]] = set()
+
+    # Do not select the output path merely because GetOutputList exists.  A
+    # partially implemented/older host may expose that method while its
+    # Output objects do not expose GetConnectedInputs; treating that as a
+    # successful walk would silently turn a connected graph into an empty one.
+    output_entries: list[tuple[str, Any]] = []
+    output_sources: set[str] = set()
+    output_surface_complete = True
+    for source_name, source in sorted(tools.items()):
+        getter = getattr(source, "GetOutputList", None)
+        if not callable(getter):
+            output_surface_complete = False
+            continue
+        for output in _call_list(source, "GetOutputList"):
+            if callable(getattr(output, "GetConnectedInputs", None)):
+                output_entries.append((source_name, output))
+            else:
+                output_surface_complete = False
+
+    if output_entries:
+        for source_name, output in output_entries:
+            for input_obj in _call_list(output, "GetConnectedInputs"):
+                target_getter = getattr(input_obj, "GetTool", None)
+                target = target_getter() if callable(target_getter) else None
+                if target is None:
+                    # Resolve can expose a comp output's viewer/preview sink
+                    # through GetConnectedInputs().  It has no owning Tool and
+                    # is outside the discovered composition, so it is not a
+                    # graph edge we may plan or verify.  Skip that external
+                    # boundary instead of guessing a name.
+                    continue
+                target_name = _tool_name(target)
+                if target_name not in tools:
+                    raise FusionHostError(
+                        f"connected target was not discovered: {target_name!r}"
+                    )
+                edge = Edge(source_name, target_name, _classify_input(input_obj))
+                key = (edge.source, edge.target, edge.kind)
+                if key not in seen:
+                    seen.add(key)
+                    edges.append(edge)
+        # A mixed/partial host surface can expose the output API for only a
+        # subset of tools.  In that case continue through the compatibility
+        # input walk below to account for the remaining sources; its dedupe
+        # guard preserves the cheap output results already collected.
+        output_sources.update(source_name for source_name, _output in output_entries)
+        if output_surface_complete and output_sources == set(tools):
+            return edges
+
+    # Compatibility path for minimal mocks and older Fusion surfaces that do
+    # not expose Output.GetConnectedInputs().
+    for target_name, target in sorted(tools.items()):
+        for input_obj in _call_list(target, "GetInputList"):
+            get_output = getattr(input_obj, "GetConnectedOutput", None)
+            output = get_output() if callable(get_output) else None
+            get_tool = getattr(output, "GetTool", None) if output is not None else None
+            source = get_tool() if callable(get_tool) else None
+            if source is None:
+                continue
+            source_name = _tool_name(source)
+            if source_name not in tools:
+                raise FusionHostError(f"connected source was not discovered: {source_name!r}")
+            edge = Edge(source_name, target_name, _classify_input(input_obj))
+            key = (edge.source, edge.target, edge.kind)
+            if key not in seen:
+                seen.add(key)
+                edges.append(edge)
+    return edges
+
+
 def _validate_hierarchy(tools: dict[str, Any], parents: dict[str, str | None]) -> tuple[str, ...]:
     groups = {name for name, tool in tools.items() if _reg_id(tool) == "GroupOperator"}
     for name, parent in parents.items():
@@ -107,19 +190,7 @@ def _snapshot(comp: Any, flow: Any) -> _Snapshot:
         return _Snapshot({}, {}, (), {}, ())
     groups = _validate_hierarchy(tools, parents)
     positions = {name: _xy_from_pos_table(flow.GetPosTable(tool)) for name, tool in sorted(tools.items())}
-    edges: list[Edge] = []
-    for target_name, target in sorted(tools.items()):
-        for input_obj in _call_list(target, "GetInputList"):
-            get_output = getattr(input_obj, "GetConnectedOutput", None)
-            output = get_output() if callable(get_output) else None
-            get_tool = getattr(output, "GetTool", None) if output is not None else None
-            source = get_tool() if callable(get_tool) else None
-            if source is None:
-                continue
-            source_name = _tool_name(source)
-            if source_name not in tools:
-                raise FusionHostError(f"connected source was not discovered: {source_name!r}")
-            edges.append(Edge(source_name, target_name, _classify_input(input_obj)))
+    edges = _collect_edges(tools)
     return _Snapshot(tools, positions, tuple(edges), parents, groups)
 
 

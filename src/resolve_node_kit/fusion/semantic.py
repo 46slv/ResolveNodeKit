@@ -7,9 +7,9 @@ Group-local scopes. The host adapter (arrange_comp) reuses the established
 safe write contract: snapshot, bounded write, readback, invariant comparison,
 rollback on mismatch.
 
-Ungroup mode is intentionally fail-closed: arrange_comp refuses any mutation
-while ungroup is True until exact structural restoration is host-proven on a
-disposable fixture.
+Flatten-all mode is intentionally fail-closed until an exact structural
+ungroup/Undo primitive is supplied by the host adapter.  The preserve path is
+independent and never changes GroupOperator membership.
 """
 from __future__ import annotations
 
@@ -620,6 +620,9 @@ def arrange_comp(
     policy: SemanticPolicy | None = None,
     selected_names: Iterable[str] | None = None,
     progress: Any = None,
+    *,
+    ungroup_primitive: Any = None,
+    manage_undo: bool = True,
 ) -> dict[str, Any]:
     """Arrange the resolved scope on the semantic orthogonal grid.
 
@@ -628,12 +631,14 @@ def arrange_comp(
     rollback on mismatch, inside one Undo group. Connections, parameters,
     keyframes, tools, media, and group membership are never changed here.
     """
+    import time
+
     from .recursive_groups import (
         FusionHostError,
         _close_enough,
         _collect_tools,
+        _collect_edges,
         _edge_signature,
-        _find_tool,
         _restore_positions,
         _snapshot,
         _validate_hierarchy,
@@ -641,11 +646,21 @@ def arrange_comp(
     from .tidy import _snap_position, _xy_from_pos_table
 
     if ungroup:
-        raise FusionHostError(
-            "Ungroup-before-arrange is fail-closed: exact structural restoration "
-            "is not yet host-proven on a disposable fixture, so no mutation ran"
+        from .flatten import flatten_all_comp
+
+        return flatten_all_comp(
+            comp,
+            policy=policy,
+            ungroup=ungroup_primitive,
+            progress=progress,
         )
     policy = policy or SemanticPolicy()
+
+    timings: dict[str, float] = {}
+
+    def _timed(name: str, started: float) -> None:
+        timings[name] = round((time.perf_counter() - started) * 1000.0, 1)
+
     def _note(message):
         if progress is not None:
             try:
@@ -661,21 +676,34 @@ def arrange_comp(
 
     _note("snapshot begin")
     try:
+        started = time.perf_counter()
         snapshot = _snapshot(comp, flow)
+        _timed("snapshot", started)
         if not snapshot.tools:
-            return {"node_count": 0, "edge_count": 0, "moved_count": 0, "scope_count": 0}
+            return {
+                "node_count": 0,
+                "edge_count": 0,
+                "moved_count": 0,
+                "scope_count": 0,
+                "stage_timings_ms": timings,
+            }
         _note("snapshot tools=" + str(len(snapshot.tools)) + " edges=" + str(len(snapshot.edges)))
 
-        if selected_names is None:
+        started = time.perf_counter()
+        if selected_names is None and not include_unselected:
             selected_names = _read_selection(comp, set(snapshot.tools))
         try:
             scope = resolve_arrange_scope(snapshot.tools, selected_names, include_unselected)
         except ArrangeError as exc:
             raise FusionHostError(str(exc)) from exc
+        _timed("selection_scope", started)
 
         scope = _expand_group_subtree(scope, snapshot.parents)
+        started = time.perf_counter()
         groups = _validate_hierarchy(snapshot.tools, snapshot.parents)
+        _timed("hierarchy_validation", started)
 
+        started = time.perf_counter()
         reg_ids = {name: _reg_id_of(snapshot.tools[name]) for name in snapshot.tools}
         semantic = build_snapshot(
             names=snapshot.tools,
@@ -684,12 +712,16 @@ def arrange_comp(
             parents=snapshot.parents,
             group_names=groups,
         )
+        _timed("semantic_snapshot", started)
         _note("plan begin")
+        started = time.perf_counter()
         layout = plan_layout(semantic, policy)
+        _timed("plan_fixed_point", started)
         _note("plan scopes=" + str(len(layout.scopes)))
         if layout.diagnostics["overlap_count"]:
             raise FusionHostError("semantic plan has overlapping cells; refusing to write")
 
+        started = time.perf_counter()
         desired: dict[str, tuple[float, float]] = {}
         for _scope_id, scoped in layout.scopes.items():
             members = [n for n in scoped.placements if n in scope]
@@ -711,21 +743,39 @@ def arrange_comp(
             for name in members:
                 desired[name] = _grid_to_host(scoped.placements[name], origin, policy)
         desired = {name: _snap_position(x, y) for name, (x, y) in desired.items()}
+        _timed("desired_positions", started)
     except FusionHostError:
         raise
     except Exception as exc:
         raise FusionHostError("arrange pre-write failed; nothing was changed: " + str(exc)) from exc
+    # Preserve-mode does not change membership, so the original tool handles
+    # are safe to reuse.  Reacquiring every node through FindTool() added a
+    # large avoidable host round-trip on 967+ tool compositions.
+    tools = {name: snapshot.tools[name] for name in desired}
+    writes = {name: pos for name, pos in desired.items() if not _close_enough(snapshot.positions[name], pos)}
     start_undo, end_undo = getattr(comp, "StartUndo", None), getattr(comp, "EndUndo", None)
-    undo = callable(start_undo) and callable(end_undo)
+    undo = manage_undo and bool(writes) and callable(start_undo) and callable(end_undo)
     if undo:
         start_undo("ResolveNodeKit: Arrange")
     try:
-        tools = {name: _find_tool(comp, name, snapshot.tools) for name in desired}
-        writes = {name: pos for name, pos in desired.items() if not _close_enough(snapshot.positions[name], pos)}
         _note("writes begin " + str(len(writes)))
-        for name in sorted(writes):
-            flow.SetPos(tools[name], *writes[name])
+        started = time.perf_counter()
+        queue_set_pos = getattr(flow, "QueueSetPos", None)
+        flush_set_pos = getattr(flow, "FlushSetPosQueue", None)
+        if writes and callable(queue_set_pos) and callable(flush_set_pos):
+            for name in sorted(writes):
+                result = queue_set_pos(tools[name], *writes[name])
+                if result is False:
+                    raise FusionHostError(f"position queue rejected {name!r}")
+            result = flush_set_pos()
+            if result is False:
+                raise FusionHostError("position queue flush was rejected")
+        else:
+            for name in sorted(writes):
+                flow.SetPos(tools[name], *writes[name])
+        _timed("writes", started)
         _note("readback begin")
+        started = time.perf_counter()
         mismatch = [
             name
             for name in sorted(writes)
@@ -733,12 +783,18 @@ def arrange_comp(
         ]
         if mismatch:
             raise FusionHostError(f"position readback mismatch: " + ", ".join(mismatch[:12]))
+        _timed("position_readback", started)
         _note("verify begin")
+        started = time.perf_counter()
         live_tools, live_parents = _collect_tools(comp)
         if set(live_tools) != set(snapshot.tools) or live_parents != snapshot.parents:
             raise FusionHostError("arrange changed the discovered hierarchy")
-        if _edge_signature(_snapshot(comp, flow)) != _edge_signature(snapshot):
+        _timed("hierarchy_readback", started)
+        started = time.perf_counter()
+        live_edges = tuple(sorted((e.source, e.target, e.kind) for e in _collect_edges(live_tools)))
+        if live_edges != _edge_signature(snapshot):
             raise FusionHostError("arrange changed node connections")
+        _timed("connection_verification", started)
     except Exception as exc:
         position_failures = _restore_positions(comp, flow, snapshot)
         if undo:
@@ -751,8 +807,10 @@ def arrange_comp(
             raise
         raise FusionHostError(f"arrange failed; original state restored: {exc}") from exc
     else:
+        started = time.perf_counter()
         if undo:
             end_undo(True)
+        _timed("undo_close", started)
     return {
         "node_count": len(snapshot.tools),
         "edge_count": len(snapshot.edges),
@@ -760,6 +818,7 @@ def arrange_comp(
         "scope_count": len(layout.scopes),
         "arranged_count": len(desired),
         "diagnostics": layout.diagnostics,
+        "stage_timings_ms": timings,
     }
 
 

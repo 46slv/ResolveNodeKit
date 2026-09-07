@@ -9,6 +9,7 @@ silently exercising a second Arrange implementation.
 from __future__ import annotations
 
 from dataclasses import dataclass
+import time
 from typing import Any, Callable
 
 from .dialog import (
@@ -130,6 +131,7 @@ def execute_arrange_request(
     title: str = "ResolveNodeKit - Arrange",
     log: Callable[[str], None] | None = None,
     show_result_dialog: bool = True,
+    ungroup_primitive: Any = None,
 ) -> ArrangeExecutionResult:
     """Execute one Arrange request through the production mutation path.
 
@@ -145,6 +147,7 @@ def execute_arrange_request(
     busy_shown = False
     busy_hidden = False
     result_shown = False
+    bind_started = time.perf_counter()
 
     def present(message: str) -> None:
         nonlocal result_shown
@@ -196,6 +199,7 @@ def execute_arrange_request(
             )
 
         target_name, target_tools = _identity(live_target)
+        bind_ms = round((time.perf_counter() - bind_started) * 1000.0, 1)
         _note(log, "target comp=" + target_name + " tools=" + str(target_tools))
         busy = show_busy_window(
             _fusion_handle(fusion, resolve),
@@ -217,6 +221,7 @@ def execute_arrange_request(
                 live_target,
                 include_unselected=state.include_unselected,
                 ungroup=state.ungroup,
+                ungroup_primitive=ungroup_primitive,
                 progress=on_progress,
             )
         except FusionHostError as exc:
@@ -234,6 +239,10 @@ def execute_arrange_request(
             error = repr(exc)
             arrange_result = None
         else:
+            arrange_result = dict(arrange_result)
+            stage_timings = dict(arrange_result.get("stage_timings_ms", {}))
+            stage_timings["bind"] = bind_ms
+            arrange_result["stage_timings_ms"] = stage_timings
             message = _message_for_result(arrange_result)
             _note(log, "ok " + message)
             status = "success"

@@ -1,6 +1,7 @@
 from .dialog import ask_arrange_confirmation, ask_arrange_options
 from .arrange_request import ArrangeExecutionResult, execute_arrange_request
 from .recursive_groups import GroupTidyResult, tidy_groups_comp, tidy_nested_comp
+from .flatten import flatten_all_comp, host_ungroup_capabilities
 from .semantic import ArrangeDialogState, ArrangeError, GridPoint, PlannedLayout, PlannedScope, SemanticEdge, SemanticError, SemanticNode, SemanticPolicy, SemanticSnapshot, arrange_comp, build_snapshot, plan_layout, plan_scope, resolve_arrange_scope
 from .tidy import FusionHostError, TidyResult, tidy_comp
 
@@ -30,4 +31,6 @@ __all__ = [
     "tidy_comp",
     "tidy_groups_comp",
     "tidy_nested_comp",
+    "flatten_all_comp",
+    "host_ungroup_capabilities",
 ]
