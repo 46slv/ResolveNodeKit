@@ -1,6 +1,6 @@
 # Semantic Arrange v1 — continuation plan
 
-Status: READY
+Status: READY / amended by `AMENDMENT_2026-09-08_LARGE_FLATTEN.md`
 Updated: 2026-09-08 JST
 Mission owner: ResolveNodeKit / Semantic Arrange v1
 Runtime state owner: `docs/CURRENT_STATE.md`
@@ -12,7 +12,7 @@ Fresh remote state at plan authoring:
 
 - repo: `46slv/ResolveNodeKit`
 - accepted continuation branch: `feat/arrange-uia-e2e-20260906`
-- accepted continuation HEAD: `8634b209ceef28c280d339ba80b6bef34e66c60c`
+- accepted continuation HEAD at plan authoring: `8634b209ceef28c280d339ba80b6bef34e66c60c`
 - PR #5 branch: `feat/semantic-arrange-v1-20260906`
 - PR #5 remote HEAD at plan authoring: `bf42239bbdca6903db2a48e38c01293ca32c7bf1`
 - whole-comp FIRST_USABLE contract: `ArrangeDialogState(include_unselected=True, ungroup=False)`
@@ -21,6 +21,11 @@ Fresh remote state at plan authoring:
 - current known valuable host baseline after accepted smoke: `PSD2Fusion / Timeline 1 / Fusion`, 967 tools, `COMPB_Modified=false`, no RNK disposable remnants, no save
 
 This plan is not the runtime state ledger. Before every task, fresh-read local Git/worktree, remote refs, `docs/CURRENT_STATE.md`, and live Resolve state as applicable.
+
+The dated large-flatten amendment is the latest user direction.  It
+supersedes the older optional-Ungroup and transport-only completion clauses
+below wherever they conflict; the preserve-mode FIRST_USABLE contract remains
+the regression baseline.
 
 ## 1. Mission outcome
 
@@ -42,7 +47,12 @@ Target delivery state:
 
 - PR #5 branch contains the accepted whole-comp production seam, tests, docs, installer state, and evidence references;
 - PR #5 candidate is reinstallable and host-smoked;
-- PSD2Fusion-scale large-host evidence is completed with transport-fitting compact signatures, or a narrow host/transport blocker is checkpointed without invalidating the already-passed FIRST_USABLE small-host path;
+- PSD2Fusion-scale whole-comp preserve evidence is completed with a bounded
+  production execution and compact signatures;
+- safe flatten-all is implemented behind an explicit host primitive and is
+  host-proven on nested small and >=1100-tool disposable fixtures, or a
+  specific host API blocker is checkpointed without weakening the preserve
+  baseline;
 - no merge to `main`;
 - human release smoke is deferred until all autonomous gates are complete and is at most one final action.
 
@@ -56,11 +66,12 @@ Target delivery state:
 | Second run stable / `moved=0` | true | true | Host-PASS on continuation branch |
 | PR #5 integration + reinstall + host smoke | false | true | Pending |
 | Non-empty nested Group revalidation on integrated candidate | true by product contract | true | Prior host proof exists; same-candidate revalidation preferred |
-| Large PSD2Fusion-scale stress | false | true | Pending; transport-limited historically |
+| Large PSD2Fusion-scale preserve stress | false | true | `SAV1-60R` host PASS at 977 and 1110 tools; processing hash status remains explicit |
+| Flatten-all small / nested / large | false | true | Required by the dated amendment; current Resolve host lacks a measured identity-preserving Ungroup primitive |
 | Busy stage UI | false | false | `UIDispatcher` unavailable on measured direct host path; feature-local blocker |
 | AskUser semantic UI automation | false | false | `BLOCKED_HOST_ACCESSIBILITY_HARD`; closed capability investigation |
 | Selection-only fixed-obstacle behavior | false | false | Experimental/regression lane; not a release blocker |
-| Ungroup mode | false | false | Fail-closed; not exposed by FIRST_USABLE UI |
+| Ungroup / flatten-all mode | false | true | Explicit primitive + exact structural readback/Undo required; current host is fail-closed and UI is not exposed |
 | Runtime visual Group expansion / fit-to-contents | false for this mission | true for overall ResolveNodeKit mission | Separate program lane; does not block this Semantic Arrange candidate |
 
 `PROGRAM_STATUS`, `FIRST_USABLE`, and this mission's candidate-completion state must remain separate.
@@ -74,7 +85,10 @@ SAV1-00 reconcile live refs
   -> SAV1-30 small integrated host smoke
        -> SAV1-40 nested non-empty Group evidence
        -> SAV1-50 large-host transport envelope
-            -> SAV1-60 PSD2Fusion-scale whole-comp stress
+            -> SAV1-55 flatten capability + small proof
+                 -> SAV1-56 nested flatten correctness
+            -> SAV1-60R large preserve optimization / host PASS
+                 -> SAV1-65 large flatten-all stress
   -> SAV1-70 docs / PR / evidence reconciliation
   -> SAV1-80 fresh independent verification
   -> SAV1-90 conditional one-click human release smoke
@@ -92,8 +106,11 @@ Independent feature-local lanes such as busy UI or accessibility must not stop r
 | **SAV1-30 — small integrated whole-comp host smoke** | SAV1-20 + healthy endpoint | Host Worker on disposable fixture only | exact current target bind; whole-comp OFF-selection semantics (`include_unselected=True`, `ungroup=False`); first run moves expected tools; connection/membership/tool identity invariant; Undo exact; second run `moved=0`; no save; exact cleanup; final valuable host restored | On scripting endpoint hang, one bounded read-only sanity then one authorized exact Resolve/fuscript restart path from RUNBOOK. Do not repeat known `LoadComp/Paste` timeout route |
 | **SAV1-40 — nested non-empty Group evidence on candidate** | SAV1-30 | Host Worker; proven nested-fixture route only | at least one GroupOperator with real child membership is exercised on the integrated candidate; Group remains GroupOperator; direct parent/child membership and connections unchanged; recursive local layout stable; Undo exact; run2 stable | Prefer the previously host-proven nested fixture recipe. Do not invent/repeat the banned hand-written single-Paste route. If fixture generation is unavailable, carry prior host evidence only when relevant recursion code is unchanged and record `CARRIED_EVIDENCE`; otherwise keep this task open |
 | **SAV1-50 — establish large-host transport envelope** | SAV1-30 | Coordinator + Host Worker; evidence tooling may be added under `scripts/host`/tests | medium/bounded graph probes establish safe call size/time; compact in-host counts/hashes are returned using `docs/EVIDENCE_PROTOCOL.md`; no whole-graph payload; envelope and timing recorded | Same materially unchanged timeout may be retried at most once. Then change payload/chunk/aggregation strategy. A transport blocker is local unless product mutation itself is disproven |
-| **SAV1-60 — PSD2Fusion-scale whole-comp stress** | SAV1-50 + candidate identity fixed | Host Worker; disposable duplicate / exact owned fixture, never valuable original | pre evidence includes target identity, tool/group counts, membership hash, connection hash, processing evidence status, position hash; production whole-comp Arrange runs; required hashes stay unchanged; intended position hash changes first run; second run position hash identical / `moved=0`; overlap diagnostics accepted; Undo/rollback evidence obtained where contract requires; bounded runtime; exact cleanup; no save | If evidence transport fails, shrink/chunk evidence without changing product semantics. If product mutation fails, rollback/stop writes and localize mismatch only. Do not dump 1000+ node rows through MCP |
-| **SAV1-70 — docs / PR reconciliation** | SAV1-20 and all completed host gates | Integration writer; docs + PR #5 metadata | `SEMANTIC_LAYOUT.md`, `SEMANTIC_LAYOUT_ACCEPTANCE.md`, `ARRANGE_DIALOG.md`, `CURRENT_STATE.md`, relevant checkpoints and PR #5 describe whole-comp preserve-mode accurately; selection-only marked experimental; Ungroup fail-closed/not exposed; accessibility/busy limitations narrow; latest tests/evidence/candidate SHA referenced | Do not lower a required gate to optional merely because it failed. Record exact blocker/resume condition and preserve FIRST_USABLE vs PROGRAM_STATUS distinction |
+| **SAV1-55 — implement safe flatten-all on small fixture** | SAV1-40 + amendment | Worker + Host Worker; code/tests plus disposable nested fixture | explicit host primitive only; full snapshot; all eligible Groups removed; non-Group identity/processing/edges accounted for; semantic Arrange; one owned Undo; exact rollback; no guessed UI/delete-recreate path | If no measured primitive exists, keep the code fail-closed and record the exact host API blocker; do not expose a checkbox |
+| **SAV1-56 — nested/recursive flatten correctness** | SAV1-55 | Host Worker on disposable nested fixture | deterministic deepest-first (or measured equivalent), crossing boundaries preserved, exact topology/Undo, run2 `moved=0` | Same host API blocker remains feature-local; preserve and large-preserve lanes continue |
+| **SAV1-60R — optimized PSD2Fusion-scale preserve stress** | SAV1-50 + candidate identity fixed | Host Worker; disposable duplicate / exact owned fixture | compact stage timings for bind through Undo close; installed production seam completes at ~967 and >=1100 tools; first run moves, run2 `moved=0`, structural hashes exact, endpoint stays healthy, Undo exact where exercised; no save/cleanup exact | Adapt product execution and evidence route; do not replay the old oversized call |
+| **SAV1-65 — large flatten-all stress** | SAV1-55 + SAV1-56 + SAV1-60R | Host Worker; largest safe disposable + >=1100 fixture | `group_count_post=0`, non-Group identity preserved, connections/processing evidence accounted for, overlap-free Arrange, exact grouped Undo restoration, run2 stable, endpoint healthy, no save | Stop only at a specific host primitive/Undo/restoration blocker after bounded alternatives; do not mark PASS from transport alone |
+| **SAV1-70 — docs / PR reconciliation** | SAV1-20 and all completed host gates | Integration writer; docs + PR #5 metadata | all feature docs describe preserve PASS, large-preserve evidence, flatten implementation and exact host blocker/PASS, processing evidence status, accessibility/busy limitations, latest candidate SHA and cleanup; amendment precedence is explicit | Do not lower a required gate to optional. Record exact blocker/resume condition and preserve FIRST_USABLE vs PROGRAM_STATUS distinction |
 | **SAV1-80 — fresh independent verifier** | SAV1-70 | Fresh verifier context; read-only on candidate except disposable host actions explicitly required | verifier independently checks candidate SHA, diff scope, tests, installer hashes, evidence consistency, required host gates, final host state, and PR readiness; it does not fix its own candidate during verification | On FAIL, return issue to a Worker, produce new candidate/evidence, then run a fresh verifier again. Verifier PASS is not main merge authority |
 | **SAV1-90 — conditional human release smoke** | SAV1-80 PASS and only if UI shell remains unautomatable | User at machine; one normal product invocation | user performs one real `Workspace -> Scripts -> Comp -> ResolveNodeKit_Arrange -> Run` on a safe target; setup UI appears and whole-comp result matches the accepted contract; run log makes any failure diagnosable in one attempt | Do not ask early. If automated installed-entry proof becomes sufficient under the repo contract, Coordinator may mark this `NOT_REQUIRED` with evidence. Otherwise return exactly one smoke instruction and resume point |
 
@@ -139,7 +156,7 @@ This mission is complete when all items below are true or explicitly classified 
 2. Integrated candidate passes the complete offline/install qualification.
 3. Integrated candidate passes a small real-host whole-comp preserve smoke with exact Undo and stable run2.
 4. Nested non-empty Group behavior is fresh-host proven on the candidate, or prior proof is explicitly carried only under unchanged relevant recursion code with justification.
-5. PSD2Fusion-scale whole-comp stress passes compact structural evidence and stable second run; if only evidence transport remains blocked after the bounded adaptation budget, candidate status must say so and must not fabricate a PASS.
+5. PSD2Fusion-scale whole-comp preserve stress passes compact structural evidence and stable second run; the amended flatten-all small/nested/large gates are either host-PASS or carry a specific measured host API blocker without fabricating a PASS.
 6. Final Resolve state is read back and safe: valuable project/timeline restored, `COMPB_Modified=false`, no RNK disposable remnants, no project save.
 7. PR #5 docs/body and current state are consistent with the actual candidate/evidence.
 8. Fresh independent verifier accepts the candidate.
@@ -166,7 +183,7 @@ Do not expand this mission into:
 - merge to `main` or release publication;
 - fixing Resolve's UIA/MSAA accessibility provider;
 - selection-only fixed-obstacle redesign;
-- automatic ungroup implementation unless separately authorized as a later feature;
+- guessed/UI-driven ungroup implementation; flatten-all is allowed only through the dated amendment's explicit host primitive and rollback gates;
 - visual Group expand/collapse or fit-to-contents completion;
 - Color-page feature work;
 - generic repo-wide refactoring unrelated to the acceptance path.
@@ -188,6 +205,9 @@ Worker narration, exit code alone, or offline mocks are not sufficient host evid
 
 ## 9. Ready next
 
-The first execution task is `SAV1-00`, immediately followed by `SAV1-10` if live refs match the authored starting point.
+The first execution task was `SAV1-00`; after the amended continuation evidence,
+the smallest next task is `SAV1-70` documentation/PR reconciliation followed by
+`SAV1-80` fresh independent verification.  `SAV1-65` remains unpassed when the
+host cannot expose an identity-preserving primitive.
 
 The executor should continue through every ready task without returning for routine approval. Human interaction is reserved for `SAV1-90` or a true authority/safety boundary defined in the RUNBOOK.

@@ -7,11 +7,14 @@ Runtime state: `docs/CURRENT_STATE.md`
 
 ## 1. Authority and boundaries
 
-Current user direction for this continuation:
+Current user direction for this continuation (the dated amendment below is
+latest when it conflicts with older wording):
 
 - proceed autonomously through the documented ready tasks;
 - whole active Fusion composition is the FIRST_USABLE arrangement scope;
-- preserve GroupOperators; Ungroup is not part of FIRST_USABLE;
+- preserve GroupOperators for the default FIRST_USABLE path; the amended
+  continuation separately requires safe flatten-all behind a measured
+  identity-preserving host primitive;
 - DaVinci Resolve operation, script execution, normal exit, restart, and exact Resolve/fuscript recovery are authorized for this development/test lane;
 - use disposable fixtures for mutations; do not save the valuable project;
 - task-branch code/tests/docs edits, commits, pushes, and Draft PR updates are authorized;
@@ -78,6 +81,8 @@ Hard requirements:
 - no global shortcut mutation;
 - no unrelated process termination;
 - no reuse of known-bad hand-written single-Paste / long full-graph evidence route;
+- no guessed `DoAction`/`QueueAction` action is an Ungroup primitive; no
+  delete/recreate or settings reconstruction may substitute for it;
 - ambiguous side effect means read back first; do not blindly resend.
 
 Expected final valuable host state after each host phase:
@@ -161,9 +166,27 @@ If `UIDispatcher`/native modeless busy capability remains unavailable on the rel
 
 Selection-only/fixed-obstacle semantics are experimental/regression coverage and not a release blocker for this mission.
 
-### Ungroup
+### Ungroup / flatten-all (amended continuation)
 
-Ungroup remains fail-closed and outside FIRST_USABLE. Do not implement structural flattening opportunistically inside this mission.
+The default preserve-mode UI remains unchanged and does not expose a checkbox
+while the host capability is unproven.  The amended flatten path is a separate
+structural command contract:
+
+```text
+explicit measured host primitive
+-> full snapshot
+-> deterministic deepest-first Group removal
+-> flat topology/identity readback
+-> semantic Arrange in the same Undo transaction
+-> exact grouped Undo restoration on any failure
+```
+
+Only an adapter callback with that contract may be supplied to
+`flatten_all_comp`.  Generic `DoAction`/`QueueAction`, blind UI operations,
+delete/recreate, and guessed settings transformations are not accepted.  If
+the host exposes no such primitive, `ungroup=True` refuses before mutation and
+the gate is recorded as `BLOCKED_HOST_API`; this is independent of the UIA/MSAA
+accessibility blocker.
 
 ## 10. Failure handling table
 

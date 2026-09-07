@@ -2,13 +2,18 @@
 
 This document defines what counts as a successful implementation of `docs/SEMANTIC_LAYOUT.md`.
 
+The 2026-09-08 large-flatten amendment adds a separate structural acceptance
+lane. It does not weaken the preserve-mode FIRST_USABLE gate.
+
 It separates **hard correctness requirements** from **soft visual preferences** so the project does not accidentally reject a readable layout merely because spacing is wider than average.
 
 ## 1. Hard invariants
 
 Every semantic-layout command must preserve:
 
-- tool count, unless the command explicitly owns tool creation/removal (semantic tidy does not);
+- tool count, unless the command explicitly owns tool creation/removal (the
+  preserve-mode semantic tidy does not; flatten-all explicitly owns eligible
+  Group removal);
 - `GroupOperator` membership / parent chain;
 - every connection and connected input/output identity available to the host;
 - processing parameters;
@@ -34,9 +39,32 @@ Group preservation, connection/tool identity invariance, exact Undo, and a
 second identical run with `moved=0`.  Selection-only/fixed-obstacle behavior
 remains regression or experimental coverage and is not a release blocker.
 
-Ungrouping is not part of this gate.  The request remains fail-closed until
-exact structural restoration is host-proven, and the FIRST_USABLE UI does not
-expose an ungroup control.
+Ungrouping is not part of the preserve-mode gate. The request remains
+fail-closed until exact structural restoration is host-proven, and the
+FIRST_USABLE UI does not expose an ungroup control. The amendment separately
+requires `SAV1-55`/`56`/`65` flatten-all gates; those gates accept only an
+explicit measured host primitive, not a guessed action or delete/recreate path.
+
+## 1.2 Flatten-all structural gate (amended continuation)
+
+When the explicit flatten-all command is host-supported, acceptance must prove:
+
+- every eligible `GroupOperator` is removed in deterministic deepest-first (or
+  otherwise host-measured) order;
+- every non-Group child identity remains present exactly once;
+- former Group-boundary endpoints are mapped explicitly and the connection
+  signature is preserved;
+- processing parameters, keyframes/expressions, media, grades, and render
+  state are preserved at the evidence level available to the host;
+- the flat graph has no unintended overlap and is semantically arranged;
+- one owned Undo restores the original hierarchy, membership, connections, and
+  positions exactly;
+- a second flatten+Arrange run reports `group_count=0` and `moved=0`;
+- the host endpoint stays healthy and no project save occurs.
+
+If any item cannot be proven, the request must refuse before mutation or roll
+back exactly. The current Resolve build has no measured primitive, so the live
+gate is recorded as `BLOCKED_HOST_API` and the UI remains preserve-only.
 
 ## 2. Hard layout properties
 

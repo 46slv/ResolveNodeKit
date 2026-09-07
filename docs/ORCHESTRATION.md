@@ -524,7 +524,7 @@ Not autonomous:
 
 For an explicitly authorized currently-open target, autonomous writes are limited to the phase being validated and its safety contract, including node positions and measured Group display state/geometry. Rewiring is authorized only during its dedicated phase after snapshot/readback/rollback exists.
 
-Do not autonomously switch/save/close/reload projects, alter media/grades during Fusion layout work, change global shortcuts, ungroup/flatten graphs, or install desktop automation/watchers/services.
+Do not autonomously switch/save/close/reload projects, alter media/grades during Fusion layout work, change global shortcuts, or install desktop automation/watchers/services. The dated `AMENDMENT_2026-09-08_LARGE_FLATTEN.md` is the explicit exception for this continuation's disposable flatten lane: it may ungroup/flatten only through a measured identity-preserving host primitive with exact snapshot/readback/Undo and cleanup; guessed UI/actions remain forbidden.
 
 ## 14. Checkpoint/resume contract
 

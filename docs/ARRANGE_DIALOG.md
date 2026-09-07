@@ -4,11 +4,16 @@ Status: FIRST_USABLE product contract
 
 This document defines the first user-facing execution flow for ResolveNodeKit
 arrangement commands.  The FIRST_USABLE path arranges the active Fusion
-composition as a whole while preserving GroupOperators.  Selection-only and
-ungrouping remain explicit experimental lanes, not release gates.
+composition as a whole while preserving GroupOperators. Selection-only remains
+an experimental lane. Flatten-all is a separate amendment-required,
+host-capability-gated lane and is not exposed by this default dialog.
 
 The tool is run from Resolve/Fusion with a small confirmation dialog before
 any graph mutation, followed by the existing visible busy/progress state.
+The default UI is preserve-mode. The 2026-09-08 continuation amendment adds
+flatten-all as a separate host-gated structural lane; it is not shown until
+the host supplies an identity-preserving Ungroup primitive and exact Undo
+evidence.
 
 ## 1. User flow
 
@@ -88,7 +93,24 @@ The first usable path always preserves Groups:
 - do not create new Groups merely for readability;
 - semantic regions may be expressed by spacing and alignment alone;
 - `ungroup=True` remains fail-closed and is not exposed by FIRST_USABLE UI until
-  exact structural restoration is host-proven.
+  exact structural restoration is host-proven. The current measured host has
+  no such primitive, so the installed product intentionally remains
+  preserve-only.
+
+### 3.1 Amended flatten-all lane
+
+The production API now contains a guarded `flatten_all_comp` seam for a host
+adapter to supply an explicit primitive. Its contract is:
+
+```text
+snapshot -> deepest-first ungroup -> flat readback
+-> semantic Arrange in one Undo transaction -> exact grouped Undo/rollback
+```
+
+Generic `DoAction`/`QueueAction`, blind UI, delete/recreate, and guessed
+settings transformations are not accepted. The live Resolve 21.0.3.7
+capability probe found no callable primitive and `ungroup=True` refused with
+zero writes; therefore no checkbox is exposed and no flatten PASS is claimed.
 
 ## 4. Semantic regions are not the same as GroupOperators
 

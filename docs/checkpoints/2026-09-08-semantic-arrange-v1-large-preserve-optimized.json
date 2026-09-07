@@ -1,0 +1,164 @@
+{
+  "schema": "rnk.semantic-arrange.large-preserve.v1",
+  "date": "2026-09-08",
+  "candidate_sha": "59eeffbce5efd0a73a0fed2a4f3418faf71d5852",
+  "task_branch": "feat/arrange-uia-e2e-20260906",
+  "pr_branch": "feat/semantic-arrange-v1-20260906",
+  "host": {
+    "project": "PSD2Fusion",
+    "resolve": "DaVinci Resolve Studio 21.0.3.7",
+    "page": "Fusion",
+    "endpoint": "healthy after bounded read-only probes",
+    "save": false
+  },
+  "route": {
+    "production_seam": "execute_arrange_request",
+    "package": "per-user installed ResolveNodeKit tree",
+    "scope": "ArrangeDialogState(include_unselected=True, ungroup=False)",
+    "edge_collection": "Output.GetConnectedInputs with empty output lists treated as complete no-edge surfaces",
+    "evidence": "compact in-host counts/hashes; no full graph rows returned"
+  },
+  "fixtures": [
+    {
+      "timeline": "_mcp_RNK_SAV1_55_20260908",
+      "tool_count": 977,
+      "group_count": 28,
+      "max_group_depth": 2,
+      "pre": {
+        "edge_count": 1180,
+        "non_group_identity_hash": "cfc6064e40ed23705572e80683c443f2ca6183415ee3e11bc5da46ee458df9ec",
+        "parent_hash": "9eaa590783e4cb2f4e4fe74d270dd3ae4fc03b398718d7e40fc3a08002cf2175",
+        "connection_hash": "453c69f703b2d2716d1e7c7426d9dd223f77fc16803c74d017e5c6c4f1f3d77b",
+        "position_hash": "01948167eededcb5bbbeb368ec7c55d822adbc41f24cb9469c873892f96e9ae6"
+      },
+      "run1": {
+        "status": "success",
+        "moved": 4,
+        "arranged": 977,
+        "wall_ms": 16867.2,
+        "post_position_hash": "5bd68a3e405570bca7a3acb808c2fa6cecceb95728898b0e876508e6626f3c1a",
+        "structure_unchanged": true,
+        "overlap_count": 0,
+        "stage_timings_ms": {
+          "bind": 39.0,
+          "snapshot": 8845.8,
+          "selection_scope": 0.1,
+          "hierarchy_validation": 580.6,
+          "semantic_snapshot": 546.9,
+          "plan_fixed_point": 213.0,
+          "desired_positions": 1.0,
+          "writes": 5.6,
+          "position_readback": 31.7,
+          "hierarchy_readback": 3128.2,
+          "connection_verification": 3465.7,
+          "undo_close": 0.7
+        }
+      },
+      "run2": {
+        "status": "success",
+        "moved": 0,
+        "arranged": 977,
+        "wall_ms": 15385.6,
+        "position_hash": "5bd68a3e405570bca7a3acb808c2fa6cecceb95728898b0e876508e6626f3c1a",
+        "structure_unchanged": true,
+        "overlap_count": 0,
+        "stage_timings_ms": {
+          "bind": 17.8,
+          "snapshot": 7389.7,
+          "selection_scope": 0.1,
+          "hierarchy_validation": 667.8,
+          "semantic_snapshot": 562.2,
+          "plan_fixed_point": 210.5,
+          "desired_positions": 0.9,
+          "writes": 0.4,
+          "position_readback": 0.0,
+          "hierarchy_readback": 3160.2,
+          "connection_verification": 3370.1,
+          "undo_close": 0.0
+        }
+      },
+      "undo": {
+        "called_once_after_successful_run2": true,
+        "exact": true,
+        "restored_position_hash": "01948167eededcb5bbbeb368ec7c55d822adbc41f24cb9469c873892f96e9ae6",
+        "restored_tool_count": 977,
+        "restored_group_count": 28
+      }
+    },
+    {
+      "timeline": "_mcp_RNK_SAV1_60R_20260908",
+      "tool_count": 1110,
+      "group_count": 28,
+      "max_group_depth": 2,
+      "pre": {
+        "edge_count": 1180,
+        "non_group_identity_hash": "87ccb28e76e7cf23842ea0b9ad9fc02b388abfc589b62d017c99c58e36dccf47",
+        "parent_hash": "abf3a5a6c8e1d271318e65d90b38eb3ccb7f13f09286f1da8ac1ac97c634fc85",
+        "connection_hash": "453c69f703b2d2716d1e7c7426d9dd223f77fc16803c74d017e5c6c4f1f3d77b",
+        "position_hash": "380f9f7cca5ca8a8654b39db705772e77bf4facc96b578b024427883c788422d"
+      },
+      "run1": {
+        "status": "success",
+        "moved": 992,
+        "arranged": 1110,
+        "wall_ms": 17209.0,
+        "post_position_hash": "223c7ee2e3d7600bd7300846584b80bca55418031c54414007351faf8be012ee",
+        "structure_unchanged": true,
+        "overlap_count": 0,
+        "stage_timings_ms": {
+          "bind": 34.2,
+          "snapshot": 7658.5,
+          "selection_scope": 0.1,
+          "hierarchy_validation": 600.2,
+          "semantic_snapshot": 690.5,
+          "plan_fixed_point": 181.0,
+          "desired_positions": 1.6,
+          "writes": 425.6,
+          "position_readback": 669.0,
+          "hierarchy_readback": 3345.2,
+          "connection_verification": 3593.3,
+          "undo_close": 1.7
+        }
+      },
+      "run2": {
+        "status": "success",
+        "moved": 0,
+        "arranged": 1110,
+        "wall_ms": 17172.2,
+        "position_hash": "223c7ee2e3d7600bd7300846584b80bca55418031c54414007351faf8be012ee",
+        "structure_unchanged": true,
+        "overlap_count": 0,
+        "stage_timings_ms": {
+          "bind": 20.3,
+          "snapshot": 8889.8,
+          "selection_scope": 0.1,
+          "hierarchy_validation": 633.0,
+          "semantic_snapshot": 680.0,
+          "plan_fixed_point": 185.9,
+          "desired_positions": 1.4,
+          "writes": 0.4,
+          "position_readback": 0.0,
+          "hierarchy_readback": 3266.0,
+          "connection_verification": 3490.0,
+          "undo_close": 0.0
+        }
+      },
+      "undo": {
+        "called_once_after_successful_run2": true,
+        "exact": true,
+        "restored_position_hash": "380f9f7cca5ca8a8654b39db705772e77bf4facc96b578b024427883c788422d",
+        "restored_tool_count": 1110,
+        "restored_group_count": 28
+      }
+    }
+  ],
+  "conclusion": {
+    "large_preserve": "PASS_STRUCTURAL_AND_IDEMPOTENCE",
+    "processing_hash_status": "NOT_COLLECTED_BY_HOST_ADAPTER",
+    "first_run_position_changed": true,
+    "second_run_moved_zero": true,
+    "endpoint_loss": false,
+    "no_save": true,
+    "cleanup": "PASS; all four disposable/archive timelines deleted; Timeline 1 restored"
+  }
+}

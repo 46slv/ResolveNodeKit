@@ -16,13 +16,14 @@ The mission-critical unresolved requirement remains runtime visual nested-group 
 
 - repo: `46slv/ResolveNodeKit`
 - task branch: `feat/arrange-uia-e2e-20260906` (production seam continuation; do not merge to `main`)
-- current candidate code commit: `716d6a4506b021d27b82057b17e3ca589d579d6a`
-- PR #5 head branch: `feat/semantic-arrange-v1-20260906` (Draft; candidate head is kept aligned non-destructively)
+- current candidate product commit: `59eeffbce5efd0a73a0fed2a4f3418faf71d5852`
+- PR #5 head branch: `feat/semantic-arrange-v1-20260906` (Draft; fast-forward aligned non-destructively)
 - SAV1-80 predecessor ref: `1cbbeae1fff76f495d6b521a3f166117c5b3acb8` (docs-only; current branch/PR head is authoritative)
 - Draft PR: #1 (bootstrap) plus #5 (Semantic Arrange v1, stacked on the bootstrap branch), both open/draft
-- branch locator immediately before this state normalization: `716d6a4506b021d27b82057b17e3ca589d579d6a`
-- reported worktree at latest run end: clean; task and PR remote refs are in sync
-- offline suite: 122/122 unittest PASS + `compileall` PASS
+- branch locator immediately before this state normalization: `59eeffbce5efd0a73a0fed2a4f3418faf71d5852`
+- task and PR remote refs are aligned at the product candidate; docs checkpoint commit is pending in this working tree
+- offline suite: 127/127 unittest PASS + `compileall` PASS + `git diff --check` PASS
+- per-user install: verified manifest/entry/package hashes at product candidate `59eeffb`
 
 Fresh-read all locators on resume.
 
@@ -358,41 +359,56 @@ required for this scope change.  Durable decisions:
 `docs/checkpoints/2026-09-07-semantic-arrange-first-usable-scope.md` and
 `docs/checkpoints/2026-09-07-semantic-arrange-whole-comp-host-smoke.md`.
 
-## Semantic Arrange v1 continuation — 2026-09-08
+## Semantic Arrange v1 amended continuation — 2026-09-08
 
-SAV1-00 through SAV1-40 are reconciled or freshly host-proven on the
-continuation candidate.  SAV1-50 established a compact 64-tool transport
-envelope: valuable 967-tool position and connection probes at 16/32/64 all
-returned successfully, and the disposable large pre-read completed all 16
-position and 16 connection chunks with parent-computed composite hashes.
-No full graph payload was returned through MCP.
+The dated `AMENDMENT_2026-09-08_LARGE_FLATTEN.md` supersedes the older
+transport-only/optional-Ungroup wording.  SAV1-00 through SAV1-50 remain
+reconciled or passed; the active product candidate is `59eeffb`.
 
-SAV1-60 is a narrow `BLOCKED_HOST` / `UNVERIFIED` product-stress gate.  One
-real production `execute_arrange_request` whole-comp call on disposable
-`_mcp_RNK_SAV1_60_20260908` timed out at the 300-second MCP limit without a
-structured result.  The representative processing/keyframe sample also timed
-out at 120 seconds, so processing preservation is explicitly unavailable for
-that large readback.  The same product route was not blindly retried.  The
-exact Resolve/fuscript recovery path was followed; a post-restart identity
-probe passed, the duplicate and generated archive were deleted, and the final
-valuable state is again `PSD2Fusion / Timeline 1 / Fusion`, 967 tools,
-`COMPB_Modified=false`, exactly one timeline, no save.  One compact duplicate
-position chunk differed after recovery, so no large first-run, second-run,
-invariant, or Undo PASS is claimed.
+### SAV1-55 / SAV1-56 — flatten lane
 
-Fresh small-host evidence remains PASS: SAV1-30 whole-comp (7 tools) and
-SAV1-40 nested non-empty Groups (8 tools, `InnerG` inside `OuterG`) both moved
-on run 1, returned `moved=0` on run 2, preserved structure, and restored exact
-Undo state.  Busy UI remains `BLOCKED_HOST_CAPABILITY` (`UIDispatcher` absent),
-and AskUser UIA/MSAA remains `BLOCKED_HOST_ACCESSIBILITY_HARD`; neither gates
-the autonomous continuation.  Durable details:
-`docs/checkpoints/2026-09-08-semantic-arrange-v1-continuation.md` and its JSON
-record.
+`src/resolve_node_kit/fusion/flatten.py` implements the safe production seam:
+an explicit host-native primitive is required, Groups are processed
+deepest-first, every structural step is read back, semantic Arrange runs in
+the same outer Undo transaction, and failures must prove exact restoration.
+Offline nested fixtures pass deterministic order, endpoint/parent/connection
+checks, exact Undo, and run2 `moved=0`.
 
-SAV1-80 fresh independent verification is `PASS` for candidate ref
-`6b0f1ece9bd5178a2efb36597d0b6d4632380a4d`: task/PR remote refs match, the
-worktree is clean, the candidate is based on the bootstrap base, `main` is not
-merged, PR #5 is OPEN/Draft, offline/install/Resolve checks pass, and the
-final host cleanup/no-save readback matches the checkpoint.  The verifier made
-no candidate edits.  SAV1-90 is now the only remaining conditional task: one
-human release smoke if the UI shell remains unautomatable.
+Resolve Studio `21.0.3.7` exposes no measured identity-preserving Ungroup
+callable.  Group/Comp/Flow action surfaces only expose generic
+`DoAction`/`QueueAction`; bounded candidate action probes returned false with
+children unchanged.  The installed `ungroup=True` request refused before
+mutation on a 1111-tool disposable comp, with identical pre/post hashes.  The
+host gate is therefore `BLOCKED_HOST_API`, not UIA/MSAA, and flatten remains
+unexposed.
+
+Evidence: `docs/checkpoints/2026-09-08-semantic-arrange-v1-flatten-capability.{md,json}`.
+
+### SAV1-60R — large preserve PASS
+
+The optimized installed production seam now reuses snapshot handles, batches
+FlowView position writes, and uses the verified output-oriented edge walk.  A
+977-tool disposable run completed in `16.867s` / `15.386s` (run1/run2), with
+`moved=4` then `0`, overlap=0, exact structure hashes, and exact Undo.  A
+1110-tool disposable run completed in `17.209s` / `17.172s`, with
+`moved=992` then `0`, overlap=0, exact structure hashes, and exact Undo.  The
+Resolve endpoint stayed healthy and no MCP full-row dump was used.
+
+`processing_hash_status=NOT_COLLECTED_BY_HOST_ADAPTER` is retained explicitly;
+no processing PASS is inferred from structural evidence alone.
+
+Evidence: `docs/checkpoints/2026-09-08-semantic-arrange-v1-large-preserve-optimized.{md,json}`.
+
+### Final host state after exact cleanup
+
+Fresh readback: project `PSD2Fusion`, current `Timeline 1`, Fusion page,
+exactly one timeline, 967 valuable tools, `COMPB_Modified=false`, Resolve
+responsive, no RNK disposable/archive remnants, and no project save.
+
+### Current route
+
+`SAV1-65` cannot be marked PASS without the measured host primitive and remains
+the narrow flatten host blocker.  `SAV1-70` docs/PR reconciliation and a fresh
+`SAV1-80` verifier are next.  `SAV1-90` remains last and is not requested while
+the amended flatten gate is open.  UIA/MSAA and busy-UI limitations remain
+separate feature-local capabilities and do not block this route.

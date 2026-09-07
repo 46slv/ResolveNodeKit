@@ -4,6 +4,12 @@ Status: design contract / implementation-ready architecture
 
 This document defines the next layout-quality direction for ResolveNodeKit Fusion graphs. It is intentionally separate from the currently host-verified generic `Tidy Graph` / `Tidy Nested` behavior. Existing proven commands remain the safety baseline until this semantic policy is independently tested and host-verified.
 
+The dated continuation amendment
+[`AMENDMENT_2026-09-08_LARGE_FLATTEN.md`](execution/semantic-arrange-v1/AMENDMENT_2026-09-08_LARGE_FLATTEN.md)
+adds an explicit flatten-all command lane. The preserve-mode rules below
+remain the default; flatten-all may remove Groups only when a measured host
+primitive and exact structural Undo contract are supplied.
+
 ## 1. Design decision
 
 ResolveNodeKit should optimize for **semantic readability before uniform density**.
@@ -39,7 +45,7 @@ It must not:
 - change keyframes/expressions;
 - create/delete tools merely to improve layout;
 - alter media, render state, or grade state;
-- flatten or ungroup `GroupOperator`s;
+- flatten or ungroup `GroupOperator`s in preserve mode;
 - alter parent/child Group membership;
 - silently change Group expanded/collapsed state unless the explicit command owns that display mutation;
 - rely on blind UI automation.
@@ -47,6 +53,11 @@ It must not:
 Host writes still follow:
 
 `target bind -> snapshot -> pure planning -> bounded write -> readback -> invariant comparison -> rollback on mismatch`
+
+The explicit flatten-all lane is the exception that owns Group removal. It
+must use the separate `flatten_all_comp` structural contract, never a guessed
+UI action, generic `DoAction`/`QueueAction`, delete/recreate shortcut, or
+settings reconstruction that cannot prove child identity and exact Undo.
 
 ## 3. Layout model: local scopes, not one flat graph
 
@@ -352,6 +363,11 @@ Places child Group boxes within the parent scope while preserving local layouts.
 
 Owns only Fusion-specific mutation safety, host grid snapping, readback tolerance, Undo, and rollback. Semantic layout logic must not be hidden in host calls.
 
+For flatten-all, the adapter additionally accepts only an explicit measured
+Ungroup primitive. If that callable is absent, the request refuses before
+mutation and the product remains preserve-mode; see the 2026-09-08 amendment
+and capability checkpoint.
+
 ## 12. Determinism and fixed-point requirement
 
 The current project has measured host coordinate readback offsets. Therefore semantic layout is accepted only when it converges to a stable fixed point under the current host quantization policy.
@@ -416,6 +432,20 @@ This protects the current host-verified baseline while allowing aggressive layou
 - transport-fitting chunked evidence;
 - compare structural hashes and position stability.
 
+The continuation evidence records a 977-tool and a 1110-tool installed
+whole-comp preserve run with stage timings, run2 `moved=0`, exact structural
+hashes, and Undo restoration. Processing-hash collection remains explicit
+`NOT_COLLECTED_BY_HOST_ADAPTER` for that pass.
+
+### S5F — explicit flatten-all lane
+
+- discover a host-native identity-preserving Ungroup primitive;
+- snapshot hierarchy, connections, positions, and non-Group identity;
+- ungroup deepest-first with readback after every step;
+- arrange the resulting flat graph in the same owned Undo transaction;
+- prove exact grouped Undo restoration and run2 stability;
+- keep the command fail-closed and unexposed when the host primitive is absent.
+
 ### S6 — visual Group integration
 
 After real runtime Group expansion / fit-to-contents is solved, replace logical Group box estimates with measured visible boxes.
@@ -446,6 +476,7 @@ v1 does not require:
 - solving runtime visual Group expansion through undocumented guesses;
 - Color-page XY layout;
 - automatic rewiring;
+- exposing flatten-all before the host primitive and exact Undo proof exist;
 - background daemon/watchers;
 - shortcut replacement.
 

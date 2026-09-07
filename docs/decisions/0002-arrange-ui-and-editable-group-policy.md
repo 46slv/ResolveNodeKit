@@ -1,6 +1,6 @@
 # ADR-0002: Arrange UI, editable Group policy, and orthogonal grid
 
-Status: proposed
+Status: proposed; flatten-all continuation amended 2026-09-08
 Date: 2026-09-06
 
 ## Context
@@ -50,12 +50,21 @@ When `Ungroup before arranging` is OFF:
 
 ### 3. Ungroup is not exposed in FIRST_USABLE
 
-The existing `ungroup=True` request remains fail-closed:
+The default UI `ungroup=True` request remains fail-closed:
 
 - no production UI control exposes it;
-- the direct experimental request refuses mutation until exact structural
-  restoration is host-proven;
+- the direct request now delegates to the amended `flatten_all_comp` seam, but
+  refuses mutation until an explicit host-native primitive and exact
+  structural restoration are host-proven;
 - preserve-mode recursive layout is the only release scope.
+
+The 2026-09-08 amendment makes flatten-all a required continuation gate rather
+than an optional future behavior. It must remove only eligible Groups,
+preserve non-Group identity and endpoint mappings, arrange in the same owned
+Undo transaction, and restore the original hierarchy exactly on failure. The
+current Resolve Studio 21.0.3.7 host exposes no measured primitive, so the
+capability is `BLOCKED_HOST_API`, not a UIA/MSAA blocker, and the checkbox
+remains hidden.
 
 ### 4. Semantic region != GroupOperator
 

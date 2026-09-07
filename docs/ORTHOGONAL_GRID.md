@@ -192,16 +192,19 @@ A child Group's local `(column,row)` coordinates are local to that Group. Parent
 
 This gives visual consistency without flattening hierarchy.
 
-## 11. Ungroup mode
+## 11. Ungroup / flatten-all mode (amended, host-gated)
 
-If the Arrange dialog's `Ungroup before arranging` option is enabled:
+If the explicit flatten-all command is enabled only after its measured host
+primitive is available:
 
 - the resulting flattened nodes are reclassified into semantic rails/regions;
 - they are then placed on the same logical orthogonal grid;
 - previous Group boundaries do not force spacing unless retained as semantic-region hints;
 - graph invariants must be verified before and after flattening.
 
-Ungrouping should make later manual insertion easier while preserving the same visual grammar.
+Ungrouping should make later manual insertion easier while preserving the same
+visual grammar. The current Resolve host has no proven primitive, so the
+request refuses before mutation and the default dialog exposes no control.
 
 ## 12. Acceptance summary
 
