@@ -1,0 +1,85 @@
+{
+  "schema": "resolve-node-kit.arrange-live-host/v1",
+  "timestamp": "2026-09-07T20:03:32+09:00",
+  "branch": "feat/arrange-uia-e2e-20260906",
+  "head_at_probe": "abe53f62328d1c1cc5802a1167ee1dcaf620d0b7",
+  "ENDPOINT_RECOVERY": {
+    "status": "BLOCKED_HOST",
+    "first_probe": {
+      "route": "davinci_resolve.script_plugin.run_inline",
+      "language": "py",
+      "read_only": true,
+      "bounded_timeout_seconds": 15,
+      "requested_fields": ["current_project", "current_timeline", "current_comp", "tool_count", "page"],
+      "result": "NO_RESPONSE",
+      "observed_over_seconds": 60,
+      "repeated": false
+    },
+    "resolve": {
+      "pid": 23240,
+      "responding": true,
+      "window_title": "DaVinci Resolve Studio - _mcp_RNK_SEAM_20260907"
+    },
+    "fuscript": {
+      "pid": 8636,
+      "parent_pid": 23240,
+      "responding": true,
+      "embedded_server": true
+    },
+    "endpoint_recovered": false,
+    "resolve_restart_required": true,
+    "resolve_restart_performed": false
+  },
+  "PRIOR_CLEANUP": {
+    "status": "NOT_RUN_BLOCKED_ENDPOINT",
+    "known_exact_owned_remnant": "_mcp_RNK_SEAM_20260907",
+    "cleanup_performed": false,
+    "valuable_project_touched": false,
+    "save_performed": false,
+    "restore_verified": false
+  },
+  "HOST_PRODUCT_BEHAVIOR": {
+    "status": "NOT_RUN",
+    "handler": "execute_arrange_request",
+    "fixture_created_in_this_attempt": false,
+    "reason": "read-only endpoint recovery did not return"
+  },
+  "BUSY_RESULT": {
+    "status": "NOT_RUN",
+    "observed_busy_texts": [],
+    "busy_hidden_before_result": false,
+    "result_dialog_observed": false
+  },
+  "HOST_INVARIANTS": {
+    "status": "NOT_RUN",
+    "selected_only_movement": null,
+    "unselected_unchanged": null,
+    "connections_unchanged": null,
+    "tool_identities_unchanged": null,
+    "group_membership_unchanged": null,
+    "unexpected_tools": null,
+    "no_save": true
+  },
+  "UNDO": {
+    "status": "NOT_RUN"
+  },
+  "SECOND_RUN": {
+    "status": "NOT_RUN",
+    "moved": null
+  },
+  "FINAL_HOST_STATE": {
+    "status": "UNVERIFIED",
+    "current_project_or_title_observation": "_mcp_RNK_SEAM_20260907",
+    "current_timeline": "UNAVAILABLE",
+    "current_comp": "UNAVAILABLE",
+    "valuable_comp_modified": "UNVERIFIED",
+    "timeline_1_restored": false,
+    "cleanup_claim": false
+  },
+  "ACCESSIBILITY_LIMITATION": {
+    "status": "BLOCKED_HOST_ACCESSIBILITY_HARD",
+    "run_identity": "BLOCKED_HOST_ACCESSIBILITY_HARD",
+    "cancel_identity": "BLOCKED_HOST_ACCESSIBILITY_HARD",
+    "checkbox_identity": "BLOCKED_HOST_ACCESSIBILITY_HARD"
+  }
+}

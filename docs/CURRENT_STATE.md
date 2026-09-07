@@ -273,3 +273,24 @@ endpoint became unresponsive after a disposable `LoadComp`/`Paste` route, so
 no host mutation or cleanup claim is made for that attempt.  The exact UIA /
 MSAA hard blocker remains narrow and separate.  Durable details:
 `docs/checkpoints/2026-09-07-arrange-production-seam.md`.
+
+## Arrange live host acceptance recovery — 2026-09-07
+
+The first and only fresh read-only scripting connection after `abe53f6` was a
+bounded `script_plugin.run_inline` probe for current project/timeline/comp/tool
+count/page.  It returned no response for more than 60 seconds, materially
+matching the prior blocked endpoint.  Resolve (`PID 23240`) and its embedded
+`fuscript.exe` (`PID 8636`) remained process-responsive, but the scripting
+endpoint did not return readback.
+
+This gate is `BLOCKED_HOST`.  Resolve/embedded Fusion scripting endpoint restart
+is operationally required for the next acceptance attempt; no restart was
+performed.  No cleanup, fixture mutation, handler run, busy/result observation,
+Undo, second run, or restore claim was made, and no save occurred.  The exact
+current title still identifies the disposable project
+`_mcp_RNK_SEAM_20260907`; its cleanup remains pending and must not be claimed as
+complete.
+
+Machine-readable evidence and the bounded stop record are in
+`docs/checkpoints/2026-09-07-arrange-live-host-blocked.json` and
+`docs/checkpoints/2026-09-07-arrange-live-host-recovery.md`.
