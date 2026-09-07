@@ -1,0 +1,169 @@
+{
+  "schema": "resolve-node-kit.arrange-live-acceptance/v1",
+  "timestamp": "2026-09-07T21:26:32+09:00",
+  "branch": "feat/arrange-uia-e2e-20260906",
+  "head_before_evidence": "d9c501bc5b07654f9aff360bef765f4ece25181c",
+  "RESOLVE_RESTART": {
+    "status": "PASS",
+    "normal_attempt": {
+      "resolve_pid": 23240,
+      "close_main_window_returned": false,
+      "bounded_wait_seconds": 10,
+      "still_running_after_wait": true,
+      "save_performed": false
+    },
+    "forced_exact_cleanup": {
+      "resolve_path": "C:\\Program Files\\Blackmagic Design\\DaVinci Resolve\\Resolve.exe",
+      "resolve_pid": 23240,
+      "child_fuscript_path": "C:\\Program Files\\Blackmagic Design\\DaVinci Resolve\\fuscript.exe",
+      "child_fuscript_pid": 8636,
+      "unrelated_processes_touched": false,
+      "result": "old_process_tree_gone"
+    },
+    "new_process": {
+      "resolve_pid": 29244,
+      "fuscript_pid": 92096,
+      "fuscript_parent_pid": 29244,
+      "resolve_responding": true,
+      "fuscript_responding": true,
+      "window_title": "DaVinci Resolve Studio - PSD2Fusion"
+    },
+    "pc_reboot": false,
+    "project_save": false
+  },
+  "ENDPOINT_RECOVERY": {
+    "status": "PASS",
+    "first_post_restart_call": {
+      "route": "davinci_resolve.script_plugin.run_inline",
+      "read_only": true,
+      "endpoint_response": "immediate",
+      "script_error": "resolve.GetFusion is not a callable API on this host; corrected route is resolve.Fusion()"
+    },
+    "identity_readback": {
+      "project_after_restore": "PSD2Fusion",
+      "timeline_after_restore": "Timeline 1",
+      "comp_tool_count": 967,
+      "comp_modified": false
+    },
+    "repeated_hang": false
+  },
+  "PRIOR_CLEANUP": {
+    "status": "PASS",
+    "deleted_exact_projects": [
+      "_mcp_RNK_SEAM_20260907",
+      "_mcp_RNK_SEAM_ACCEPT_20260907"
+    ],
+    "leftover_owned_projects": [],
+    "valuable_project_touched": false,
+    "save_performed": false
+  },
+  "HOST_PRODUCT_BEHAVIOR": {
+    "status": "PASS",
+    "handler": "execute_arrange_request",
+    "state": {
+      "include_unselected": false,
+      "ungroup": false
+    },
+    "B1_selected_only": {
+      "status": "PASS",
+      "tool_count": 6,
+      "selected_count": 4,
+      "unselected_count": 2,
+      "first_status": "success",
+      "first_moved": 4,
+      "second_moved": 0,
+      "selected_moved": true,
+      "unselected_unchanged": true,
+      "connections_unchanged": true,
+      "tool_identities_unchanged": true,
+      "effective_include_unselected": "PASS_BEHAVIORAL"
+    },
+    "B2_group_preserve": {
+      "status": "PASS",
+      "tool_count": 5,
+      "selected_count": 5,
+      "first_status": "success",
+      "first_moved": 5,
+      "second_moved": 0,
+      "group_operator": "RNK_B2_Group",
+      "group_remains": true,
+      "groups_pre": ["RNK_B2_Group"],
+      "groups_post": ["RNK_B2_Group"],
+      "parents_unchanged": true,
+      "connections_unchanged": true,
+      "effective_ungroup": "PASS_BEHAVIORAL",
+      "child_fixture": "empty_group; GroupOperator.AddTool is unavailable on this host, so membership proof is vacuous but exact"
+    }
+  },
+  "BUSY_RESULT": {
+    "status": "PARTIAL_HOST_LIMITED",
+    "busy": {
+      "status": "UNAVAILABLE_HOST_UI",
+      "log": "busy unavailable: no UIDispatcher",
+      "observed_stage_texts": []
+    },
+    "result": {
+      "status": "OBSERVED",
+      "title": "ResolveNodeKit - Arrange",
+      "observed_texts": ["Result|"],
+      "close_method": "identity WindowPattern.Close",
+      "closed": true,
+      "correlation": "first UI-enabled attempt timed out; not claimed as same-run proof for the successful no-result-dialog diagnostic"
+    },
+    "ordering": "not accepted as live busy-hidden-before-result proof because UIDispatcher was unavailable"
+  },
+  "HOST_INVARIANTS": {
+    "status": "PASS",
+    "B1": {
+      "selected_only_movement": true,
+      "unselected_unchanged": true,
+      "connections_unchanged": true,
+      "group_membership_unchanged": true,
+      "tool_identities_unchanged": true
+    },
+    "B2": {
+      "connections_unchanged": true,
+      "group_membership_unchanged": true,
+      "group_operator_remains": true
+    }
+  },
+  "UNDO": {
+    "status": "PASS",
+    "B1_exact_pre_snapshot": true,
+    "B2_exact_pre_snapshot": true,
+    "note": "The first handler-owned Undo snapshot matches positions, connections, parents, groups, and selection pre-state. Disposable fixtures were deleted afterward."
+  },
+  "SECOND_RUN": {
+    "status": "PASS",
+    "B1_moved": 0,
+    "B2_moved": 0
+  },
+  "FINAL_HOST_STATE": {
+    "status": "PASS",
+    "project": "PSD2Fusion",
+    "timeline": "Timeline 1",
+    "page": "Fusion",
+    "timelines": ["Timeline 1"],
+    "valuable_comp_tool_count": 967,
+    "valuable_comp_modified": false,
+    "rnk_owned_projects": [],
+    "project_save": false
+  },
+  "ACCESSIBILITY_LIMITATION": {
+    "status": "BLOCKED_HOST_ACCESSIBILITY_HARD",
+    "run_identity": "BLOCKED_HOST_ACCESSIBILITY_HARD",
+    "cancel_identity": "BLOCKED_HOST_ACCESSIBILITY_HARD",
+    "checkbox_identity": "BLOCKED_HOST_ACCESSIBILITY_HARD",
+    "does_not_invalidate_direct_host_behavior": true
+  },
+  "NORMAL_DEV_HUMAN_CLICK_REQUIRED": "NO",
+  "RELEASE_SMOKE_HUMAN_CLICK_REQUIRED": "YES",
+  "raw_evidence": [
+    "D:\\temp\\uia\\arrange_live_b1_payload.json",
+    "D:\\temp\\uia\\arrange_live_b1_classified.json",
+    "D:\\temp\\uia\\arrange_live_b2_payload.json",
+    "D:\\temp\\uia\\arrange_live_b2_classified.json",
+    "D:\\temp\\uia\\arrange_live_busy_result2.jsonl",
+    "D:\\temp\\uia\\arrange_live_busy_result_b2.jsonl"
+  ]
+}

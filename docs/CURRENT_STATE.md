@@ -294,3 +294,31 @@ complete.
 Machine-readable evidence and the bounded stop record are in
 `docs/checkpoints/2026-09-07-arrange-live-host-blocked.json` and
 `docs/checkpoints/2026-09-07-arrange-live-host-recovery.md`.
+
+## Arrange live host acceptance — 2026-09-07
+
+After one authorized Resolve restart, the scripting endpoint recovered.  The
+old exact Resolve/fuscript tree was terminated only after the bounded normal
+close failed; the new Resolve/fuscript pair is responsive.  Exact disposable
+projects `_mcp_RNK_SEAM_20260907` and `_mcp_RNK_SEAM_ACCEPT_20260907` were
+deleted without saving.
+
+The direct production seam is now host-proven on fresh bounded AddTool/API
+fixtures.  B1 passed selected-only movement, unselected preservation,
+connection/tool identity preservation, exact Undo, and second-run `moved=0`.
+B2 passed with an explicit GroupOperator in scope: success with `ungroup=false`,
+GroupOperator retained, membership/connections unchanged, exact Undo, and
+second-run `moved=0`.  The host does not expose `GroupOperator.AddTool`, so the
+group membership proof uses an empty GroupOperator and is documented as
+vacuous.
+
+The host UI layer remains limited: `UIDispatcher` was unavailable to the direct
+handler, so busy stage text and same-run busy/result ordering were not accepted.
+A result window was observed and closed by identity; this does not invalidate
+the direct host behavior proof.  UIA/MSAA remains
+`BLOCKED_HOST_ACCESSIBILITY_HARD`.
+
+Final host readback: `PSD2Fusion` / `Timeline 1` / Fusion, exactly one timeline,
+967 valuable tools, `COMPB_Modified=false`, no RNK disposable remnants, no save.
+Details: `docs/checkpoints/2026-09-07-arrange-live-acceptance.md` and its JSON
+evidence file.
