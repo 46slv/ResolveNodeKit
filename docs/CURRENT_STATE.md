@@ -233,3 +233,28 @@ and `PSD2Fusion` / `Timeline 1` restored with `COMPB_Modified=false` and no save
 
 Evidence: `D:\temp\uia\arrange_uia_behavior_20260907.json` (schema v2).
 Durable checkpoint: `docs/checkpoints/2026-09-07-arrange-uia-behavior-defaults.md`.
+
+## MSAA / IAccessible continuation — 2026-09-07
+
+The one permitted semantic-accessibility probe was completed from `c04a58b`.
+The existing step-5 menu evidence was reused and OpenCode/Muse were not called.
+The earlier 4 checkbox and 5 button candidates were inspected once for
+`LegacyIAccessiblePattern`; the host PowerShell UIAutomationClient did not
+expose that type for any candidate.  A direct `oleacc.dll` fallback obtained
+the dialog's `IAccessible` root (`S_OK`, `ROLE_SYSTEM_CLIENT`, `ChildId=0`) but
+`AccessibleChildren` exposed no Run, Cancel, or checkbox semantic rows.
+
+The evidence therefore closes desktop identity exploration as
+`BLOCKED_HOST_ACCESSIBILITY_HARD` for Run, Cancel, and both checkboxes.  No
+`accDoDefaultAction`, UIA Invoke, checkbox operation, graph mutation, Undo, or
+project save was attempted.  Cleanup and final host readback preserved
+`PSD2Fusion` / `Timeline 1`, 967 tools, and `COMPB_Modified=false`.
+
+Evidence: `D:\temp\uia\arrange_msaa_20260907.json`.
+Durable checkpoint: `docs/checkpoints/2026-09-07-arrange-uia-msaa-blocker.md`.
+
+The recommended next implementation is to extract the post-dialog Arrange
+mutation into a common handler accepting explicit default state, then verify
+that handler through a disposable Fusion API behavior lane.  Keep AskUser/UIA/
+MSAA as a separate visibility-capability lane; its hard provider blocker must
+not gate the host behavior proof.
