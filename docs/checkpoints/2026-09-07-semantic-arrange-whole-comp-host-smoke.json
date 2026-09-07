@@ -11,7 +11,8 @@
     "status": "PASS",
     "repo_commit_installed": "9b49b3f6f2c0de7e6eb803efc01299008d8d8e8",
     "default_state": "ArrangeDialogState(include_unselected=True, ungroup=False)",
-    "whole_comp_confirmation_exported": true
+    "whole_comp_confirmation_exported": true,
+    "mutation_binding": "Fusion.GetCurrentComp via the production seam; menu wrapper retained only for AskUser"
   },
   "HOST_PRODUCT_BEHAVIOR": {
     "status": "PASS",

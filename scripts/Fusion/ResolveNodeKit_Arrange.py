@@ -262,8 +262,13 @@ def _run():
         print("[ResolveNodeKit] Arrange: production handler is unavailable; nothing changed.")
         _write_log("handler-missing", "")
         return 4
+    # AskUser belongs to the menu-owned wrapper, but the production seam must
+    # bind its mutation target from Fusion.GetCurrentComp().  Resolve can
+    # expose two wrappers for the same composition with non-identical Python
+    # identity; passing the UI wrapper would fail closed before the handler
+    # can use the proven live target.
     execution = execute_arrange_request(
-        ui_comp,
+        None,
         globals().get("fusion") or globals().get("fu"),
         globals().get("resolve"),
         state,

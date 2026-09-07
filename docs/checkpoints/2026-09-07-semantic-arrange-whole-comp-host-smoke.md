@@ -25,7 +25,9 @@ recursion remains a separate host capability limitation.
 ## Host/UI boundary
 
 The updated installed tree imported successfully and reported the new default
-state plus `ask_arrange_confirmation`.  The direct handler still logs
+state plus `ask_arrange_confirmation`.  The installed menu entry now keeps its
+composition wrapper only for AskUser and lets the production seam bind the
+mutation target from `Fusion.GetCurrentComp()`.  The direct handler still logs
 `busy unavailable: no UIDispatcher`; busy/result UI ordering was therefore not
 claimed.  No UIA/MSAA, menu Invoke, LoadComp/Paste, or project save was used.
 

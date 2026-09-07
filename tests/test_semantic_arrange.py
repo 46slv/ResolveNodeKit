@@ -1127,7 +1127,10 @@ class ArrangeDialogFirstTests(unittest.TestCase):
         self.assertEqual(code, 0)
         handler.assert_called_once()
         args, kwargs = handler.call_args
-        self.assertIs(args[0], comp)
+        # The menu-owned wrapper is only the AskUser owner.  The seam binds
+        # the mutation target from Fusion.GetCurrentComp() to avoid Resolve's
+        # non-identical composition wrappers.
+        self.assertIsNone(args[0])
         self.assertEqual(args[3], ArrangeDialogState(True, False))
         self.assertEqual(flow.calls, 0)
 

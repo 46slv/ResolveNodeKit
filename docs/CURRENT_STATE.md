@@ -346,7 +346,9 @@ invariants held, and the first handler-owned Undo snapshot matched the
 pre-snapshot exactly.  `UIDispatcher` remains unavailable, so busy/result UI
 ordering is not claimed.  Final host state is PSD2Fusion / Timeline 1 / Fusion
 with 967 valuable tools, `COMPB_Modified=false`, no RNK-owned remnants, and no
-save.  Evidence: `docs/checkpoints/2026-09-07-semantic-arrange-whole-comp-host-smoke.json`.
+save.  The installed entry keeps its comp wrapper for AskUser but binds the
+mutation target from `Fusion.GetCurrentComp()` through the same seam.  Evidence:
+`docs/checkpoints/2026-09-07-semantic-arrange-whole-comp-host-smoke.json`.
 
 Large-graph stress remains the next acceptance lane; no new UIA/MSAA probe is
 required for this scope change.  Durable decisions:
