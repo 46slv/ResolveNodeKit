@@ -2,13 +2,19 @@
 
 Updated: 2026-09-08 JST. Statusは[acceptance.json](acceptance.json)を初期契約とし、実行開始後の進捗はCoordinatorだけが更新する。旧gateを再度全部走らせるのではなく、変わったsurfaceと新しい必須証明に集中する。
 
+## Bootstrapからの受け渡し
+
+AstraのAP-10/20/30/40は[HANDOFF.md](HANDOFF.md)に定義する。製品Doneではなく、現状確認・計画の差分監査・限定probe・保存・Sol受領・所有移行・最初の着手が初期Done。既存設計を白紙に戻さず、重大な未知は根拠/未確定/最初の検証を明示する。Solは受領後SO-00から進め、Astraの同じprobeを無条件に再実行しない。
+
+Goalと必須G01–G14を不変にして、Solがtaskの追加/分割/順序変更を理由付きで行ってよい。required_task_idsの変更は、元task→新task→保全するgateのmappingを記録して契約検査する。Done/権限の緩和や別missionの追加はこの裁量に含まれない。通常失敗やtask再編にAstraの逐次承認は不要。
+
 ## Task graph
 
 SO-00 → SO-10(source/schema) → SO-11(host snapshot)。SO-20(planner)とSO-30(view)はSO-10後、SO-50(UI)はSO-00後に独立進行できる。SO-40(flatten)の構造writeはSO-11を待つ。ただしResolve hostは必ずsingle-writer/one lease。SO-60/70はpreserveの統合/large、SO-61/71はflattenの統合/large。flattenが局所blockでもstrict preserveの実機完成を止めない。SO-80が耐障害、SO-90が最終独立検証。
 
 | ID / 完成させるもの | Depends | Owner / 書込scope | Done / evidence | 失敗時・再開 |
 |---|---|---|---|---|
-| SO-00 実行基盤と正本を固定 | none | Sol Coordinator / state, isolated worktree, runtime binding | local/remote/installed candidate、AGENTS、host PIDとcurrent target、既存run lease、利用可能なSol/Worker/Verifier経路を確認。actual採用ID/権限/再開方法を記録。既存127はbaseline記録で新run PASSではない | dirty work保全、leaseを奪わない。runtimeが無ければ利用可能laneで独立offlineを進め、認証/課金は人間境界 |
+| SO-00 実行基盤と正本を固定 | none | Sol Coordinator / state, isolated worktree, runtime binding | 受領したhandoff_id/plan revision/ownershipを照合し、local/remote/installed candidate、実効instruction chain、host PIDとcurrent target、既存run lease、利用可能なWorker/Verifier経路を確認。actual採用ID/権限/再開方法を記録。既存127はbaseline記録で新run PASSではない | dirty work保全、leaseを奪わない。runtimeが無ければ利用可能laneで独立offlineを進め、認証/課金は人間境界 |
 | SO-10 ソース全件解釈とsnapshot契約 | SO-00 | Data Worker / schema, pure fixtures, source audit | repo JSONを実parseしunique node/parent/cycle/count/grid/merge inputを全件検算。unknown入力はunknownのまま。完全snapshot schemaと人工complete fixtureを固定し、source由来との違いを明記 | 旧JSONの欠落を埋めたことにしない。hostの未提供能力はSO-11へ分離し、offline planner/UIを止めない |
 | SO-11 完全host snapshot adapter | SO-10 | Host Worker / adapter, coverage tests | 非空nested disposableと安全な実データreadからport/proxy/処理stateを取得し、complete/unsupported/errorを機械判別。unknownを含むsnapshotへの構造writeは拒否。最終実データcoverageはSO-70でも検査 | bounded API/serialization readへ切替。host read不足はSO-40/60の依存blockerだがSO-20/30/50は継続 |
 | SO-20 参考profileを持つstrict planner | SO-10 | Layout Worker / semantic planner, geometry, tests | multiedge保存、role/continuity分離、recursive bounds、rectangle非重複、整数pitch、rail/feeder/region/reduction、stable run2。O01–O18の対応fixturesで反例を先に固定。plan出力にmotifとall-edge coverageを残す | 衝突はmodule移動/gap拡張、shared sourceは複製しない。budget超過は性能課題として局所化。reference座標hashにfitしない |

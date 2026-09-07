@@ -1,4 +1,4 @@
-# Sol orchestration / recovery contract
+# Astra bootstrap / Sol orchestration / recovery contract
 
 Updated: 2026-09-08 JST. This file owns execution authority; DESIGN owns product constraints; acceptance.json owns required gate IDs.
 
@@ -14,7 +14,9 @@ no-saveは検証中のProject Saveを意味する。バックアップ/fixture�
 
 ## 2. Roles and routing
 
-Sol Coordinator: goal解釈、task選択、契約整合、リスク判断、唯一のshared state/integration writer。通常のtiny debugを全件自分でやり直さない。
+役割移行とAdvisorの正本は[HANDOFF.md](HANDOFF.md)。Astraは初期のGoal/Done/主要設計/実行可能性を差分監査し、Solのread-only受領→排他的所有移行→最初の着手を確認して初期担当を閉じる。以後Astraは設計前提の反証・進展しない試行・重大な証拠矛盾等の限定Advisor。単独の実行管理者を二人にしない。
+
+Sol Coordinator: 受領後のtask選択、契約整合、リスク判断、唯一のshared state/integration writer。Goal/Done/権限内のtask追加・分割・順序変更は理由を記録して自律判断する。通常のtiny debugを全件自分でやり直さず、通常判断をAstra待ちにしない。Advisor案の採否/理由と検証はSolが所有する。
 
 Execution Worker: current work packageのみを実装/検証しcompact evidenceを返す。既存で使えるLuna Max等をroutine laneとし、Sol自身を必要なbounded workへ使うのも可。model名/CLI flags/価格は固定せず現runtimeからbindする。OpenCode/Museは必須でなく旧rate-limited runを再起動しない。
 
@@ -24,9 +26,11 @@ Fresh Verifier: independent contextでexact candidateを検査する。Worker説
 
 ## 3. Opening and durable state
 
+開始/再開時は先にhandoff/active ownerを照合する。作成/起動のtimeoutは失敗を保証しないため既存thread/requestを照会し、二重起動・leaseの無断奪取をしない。Astraは移管後read-only、Solが以後のstateを更新する。
+
 開始順: Git status/remote → AGENTS/CURRENT → latest strict contract → relevant evidence → active runtime/host lease。既存作業を保全するまでpull/checkout/rebaseしない。PR5 headをcanonical integrationへ一本化し、旧task branchとのforward/divergenceを照合する。
 
-CoordinatorはCURRENT_STATEとacceptance.jsonのstatus、exact candidate、stage、evidence location、next_ready、active writer/host leaseをcheckpointする。raw会話全文をWorkerへ転送しない。Task packetはgoal、owned paths、Done、必要refs、authority、compact返却だけ。
+移管前は初期担当/既存Harnessのsingle-writer、移管後はSolがCURRENT_STATEとacceptance.jsonのhandoff_state/status、exact candidate、stage、evidence location、next_ready、active writer/host leaseをcheckpointする。raw会話全文をWorkerへ転送しない。Task packetはgoal、owned paths、Done、必要refs、authority、compact返却だけ。
 
 一つのouter invocationで複数goalを進める。checkpointは終了条件ではない。context rolloverはdurable stateからfresh contextへ移り、済みgateを全面再演しない。
 
@@ -74,3 +78,9 @@ HumanNeedはデフォルトNOという報告定数ではない。通常の開発
 required host gapが残っても独立ready taskは進める。全部のready workを尽くした時はCHECKPOINTED_WITH_TECHNICAL_GAP。全required gate PASS時だけSTRICT_LAYOUT_RELEASE_CANDIDATE、human release smokeは自動UI proofが成立すればNOT_REQUIRED。残る場合は最後の一件だけ具体的に提示する。
 
 最終報告は exact candidate / required gate matrix / same-run UI proof / 1100+ preserve+flatten timings / processing+Undo+run2 / final host / installed+remote hash / real blockers / human-only action。plan publicationや監査PASSを実装完了と混ぜない。
+
+## 8. Evidence-based advice and initial Done
+
+Astra相談にraw全会話を送らず、consult_id・candidate/plan・反証された前提・試行結果・判断点・候補と最小検証を渡す。返答は助言でありwrite/権限変更の許可ではない。Solがadopt/reject/needs-user-decisionを記録し、独立ready workを続行する。Advisorが不在でも通常修正は進める。危険な前提だけ保留し、人間判断が必要な理由を特定する。
+
+初期DoneはHANDOFFのEXECUTION_CONFIRMED、製品Doneは既存全gateの最終証明。thread作成だけ、Astraが計画を保存しただけ、Solの自己申告だけでは前者も閉じない。App Server等の具体syntaxは導入済みschemaを確認し、存在未確認のlaunch tool/IDを作らない。実機未接続ならその限定境界を報告する。

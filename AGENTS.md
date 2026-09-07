@@ -27,7 +27,7 @@ Layout design: `docs/design/strict-orthogonal/DESIGN.md` and `SOURCES.md`. Execu
 
 Task-branch code/tests/docs, local backup-backed install, commit/push and PR #5 updates are authorized. Resolve operations and bounded exact Resolve/fuscript restart are authorized under RUNBOOK safety. No project save, main merge, release, force-push shared history, unrelated deletion/process kill, PC reboot, credential bypass, global shortcuts, permanent services/startup or unsupported blind UI operations.
 
-Current work uses Sol coordination with qualified independent Worker/Verifier contexts. Reuse existing local Skills/Harness; do not build a general orchestrator merely to run this project. No mandatory Muse/OpenCode delegation or old 429 retry.
+Role/model assignments belong to the active mission entry, not this durable rule file. An execution handoff requires receiver readback and exclusive ownership; publishing a plan or creating a task alone is insufficient. An Advisor never becomes a second queue/state writer. Reuse existing local Skills/Harness; do not build a general orchestrator merely to run this project.
 
 ## Completion and learning
 
