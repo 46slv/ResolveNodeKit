@@ -84,3 +84,29 @@ required host gapが残っても独立ready taskは進める。全部のready wo
 Astra相談にraw全会話を送らず、consult_id・candidate/plan・反証された前提・試行結果・判断点・候補と最小検証を渡す。返答は助言でありwrite/権限変更の許可ではない。Solがadopt/reject/needs-user-decisionを記録し、独立ready workを続行する。Advisorが不在でも通常修正は進める。危険な前提だけ保留し、人間判断が必要な理由を特定する。
 
 初期DoneはHANDOFFのEXECUTION_CONFIRMED、製品Doneは既存全gateの最終証明。thread作成だけ、Astraが計画を保存しただけ、Solの自己申告だけでは前者も閉じない。App Server等の具体syntaxは導入済みschemaを確認し、存在未確認のlaunch tool/IDを作らない。実機未接続ならその限定境界を報告する。
+
+## 9. Current invocation grant — AS-BOOTSTRAP-20260908-1
+
+User request began at 2026-09-08T01:07:27Z (10:07:27 JST). This invocation,
+including the independent Sol continuation, has a hard deadline of
+2026-09-08T02:07:27Z (11:07:27 JST). Complete within that hour if possible;
+otherwise Sol writes a handoff report to the existing checkpoints directory,
+updates CURRENT_STATE/acceptance/PR #5 with actual evidence and remaining gates,
+leaves no ambiguous owned mutation, and ends this invocation at the deadline.
+Do not start a new host operation that cannot safely settle before the deadline.
+The deadline does not waive G01–G14 or permit a product completion claim.
+
+The current user routing requires all live Resolve observation/control through
+the personal `resolve_operator` custom agent. Sol remains the sole execution
+Coordinator; it delegates bounded live work to that agent and retains queue,
+integration and evidence acceptance ownership. Read the installed
+`C:/Users/shiro/.agents/skills/resolve-operator/SKILL.md` before the first live
+delegation. Other active tasks may use the same Resolve instance: acquire an
+exclusive host owner only after checking their live ownership. Their presence
+does not block independent offline work and is not permission to interrupt them.
+
+This grant retains full Resolve operation/restart authority, no project save,
+no main merge, and all existing data-preservation boundaries. Normal failures
+and checkpoints are not stop conditions before completion, a true boundary, or
+this deadline. Astra's Bootstrap role ends after verified Sol receipt, transfer
+and first action; subsequent normal progress belongs to Sol alone.

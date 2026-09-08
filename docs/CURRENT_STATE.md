@@ -33,4 +33,17 @@ The earlier long current-state document is preserved byte-for-byte at [pre-stric
 
 ## Scope boundary
 
+## Live Bootstrap — 2026-09-08 10:07 JST invocation
+
+`AS-BOOTSTRAP-20260908-1` / handoff `RNK-SO-20260908T010727Z-01a07e8e`:
+PLAN_READY, receiver launch/receipt/ownership/start still pending. Differential
+audit and normalized plan hashes are in
+[Bootstrap checkpoint](checkpoints/2026-09-08-astra-sol-bootstrap.md) and its JSON.
+The old checkout is preserved. Product source is unchanged; all G01–G14 remain
+PENDING. The current invocation deadline, including Sol continuation, is
+2026-09-08 11:07:27 JST. RUNBOOK section 9 records the user grant and required
+Resolve Operator route. On receipt/transfer Sol becomes the only progress writer.
+
+## Scope boundary (unchanged)
+
 Strict Arrange preserve/flatten is the current completion target. Runtime Group-preserving expansion/fit-to-contents, Color work and generic helpers remain separate unresolved/product lanes where applicable. Do not claim wider MISSION_COMPLETE from this milestone.

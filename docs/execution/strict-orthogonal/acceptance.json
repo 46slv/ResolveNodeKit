@@ -389,7 +389,7 @@
     "whole_project_mission_complete": false
   },
   "authoring_proof_is_not_product_proof": true,
-  "authoring_revision": "AS-HANDOFF-1",
+  "authoring_revision": "AS-BOOTSTRAP-20260908-1",
   "authoring_baseline_sha": "dc074981bc01d1df618c2dc09cc703f58b7bf164",
   "handoff_policy": {
     "revision": "AS-HANDOFF-1",
@@ -436,9 +436,9 @@
     "task_replanning": "SOL_MAY_REPLAN_WITH_GOAL_GATES_AUTHORITY_UNCHANGED_AND_MAPPING_RECORDED"
   },
   "handoff_state": {
-    "phase": "NOT_STARTED",
-    "handoff_id": null,
-    "planner_thread_id": null,
+    "phase": "PLAN_READY",
+    "handoff_id": "RNK-SO-20260908T010727Z-01a07e8e",
+    "planner_thread_id": "01a07e8e-41f3-7d30-b190-3f621b5cdb64",
     "sol_thread_id": null,
     "sol_turn_id": null,
     "expected": null,
