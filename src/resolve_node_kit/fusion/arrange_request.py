@@ -13,6 +13,7 @@ import time
 from typing import Any, Callable
 
 from .dialog import (
+    ArrangeUiSession,
     BUSY_INITIAL_TEXT,
     TargetMismatch,
     bind_target,
@@ -40,6 +41,9 @@ class ArrangeExecutionResult:
     busy_hidden: bool = False
     result_shown: bool = False
     error: str = ""
+    run_id: str = ""
+    ui_state: str = ""
+    ui_events: tuple[dict[str, Any], ...] = ()
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -53,6 +57,9 @@ class ArrangeExecutionResult:
             "busy_hidden": self.busy_hidden,
             "result_shown": self.result_shown,
             "error": self.error,
+            "run_id": self.run_id,
+            "ui_state": self.ui_state,
+            "ui_events": [dict(item) for item in self.ui_events],
         }
 
 
@@ -132,6 +139,7 @@ def execute_arrange_request(
     log: Callable[[str], None] | None = None,
     show_result_dialog: bool = True,
     ungroup_primitive: Any = None,
+    ui_session: ArrangeUiSession | None = None,
 ) -> ArrangeExecutionResult:
     """Execute one Arrange request through the production mutation path.
 
@@ -141,6 +149,19 @@ def execute_arrange_request(
     """
     if not isinstance(state, ArrangeDialogState):
         raise TypeError("state must be ArrangeDialogState")
+
+    session = ui_session or ArrangeUiSession()
+    if not session.begin():
+        # A setup Cancel is a complete, zero-mutation request.  Keep this
+        # return path visible to the UI shell without binding a host target.
+        return ArrangeExecutionResult(
+            status="cancelled",
+            exit_code=0,
+            message="整列をキャンセルしました。変更はありません。",
+            run_id=session.run_id,
+            ui_state=session.state,
+            ui_events=tuple(dict(item) for item in session.events),
+        )
 
     live_target = None
     busy = None
@@ -178,6 +199,7 @@ def execute_arrange_request(
             message = "整列できませんでした。中止し、変更はありません。\n" + str(exc)
             _note(log, "target mismatch " + str(exc))
             present(message)
+            session.terminal("target_mismatch")
             return ArrangeExecutionResult(
                 status="target_mismatch",
                 exit_code=5,
@@ -185,17 +207,24 @@ def execute_arrange_request(
                 result=None,
                 result_shown=result_shown,
                 error=str(exc),
+                run_id=session.run_id,
+                ui_state=session.state,
+                ui_events=tuple(dict(item) for item in session.events),
             )
 
         if live_target is None:
             message = "整列できませんでした。アクティブな Fusion composition がありません。"
             _note(log, "no active composition")
             present(message)
+            session.terminal("no_comp")
             return ArrangeExecutionResult(
                 status="no_comp",
                 exit_code=2,
                 message=message,
                 result_shown=result_shown,
+                run_id=session.run_id,
+                ui_state=session.state,
+                ui_events=tuple(dict(item) for item in session.events),
             )
 
         target_name, target_tools = _identity(live_target)
@@ -208,9 +237,11 @@ def execute_arrange_request(
             log=lambda item: _note(log, "busy " + str(item)),
         )
         busy_shown = bool(busy)
+        session.emit("busy_shown", visible=busy_shown)
 
         def on_progress(phase: str) -> None:
             _note(log, "arrange " + str(phase))
+            session.emit("progress", phase=str(phase))
             try:
                 set_busy_text(busy, stage_text(phase))
             except Exception:
@@ -251,15 +282,17 @@ def execute_arrange_request(
         finally:
             if busy is not None:
                 try:
-                    hide_busy_window(
+                    busy_hidden = bool(hide_busy_window(
                         busy,
                         log=lambda item: _note(log, "busy " + str(item)),
-                    )
-                    busy_hidden = True
+                    ))
                 except Exception as exc:
                     _note(log, "busy hide failed " + repr(exc))
+                session.emit("busy_hidden", visible=not busy_hidden)
 
         present(message)
+        session.emit("result_shown", visible=result_shown)
+        session.terminal(status)
         return ArrangeExecutionResult(
             status=status,
             exit_code=exit_code,
@@ -271,21 +304,26 @@ def execute_arrange_request(
             busy_hidden=busy_hidden,
             result_shown=result_shown,
             error=error,
+            run_id=session.run_id,
+            ui_state=session.state,
+            ui_events=tuple(dict(item) for item in session.events),
         )
     except Exception as exc:
         # The seam must still close a busy window before exposing a failure.
         if busy is not None and not busy_hidden:
             try:
-                hide_busy_window(
+                busy_hidden = bool(hide_busy_window(
                     busy,
                     log=lambda item: _note(log, "busy " + str(item)),
-                )
-                busy_hidden = True
+                ))
             except Exception:
                 pass
+            session.emit("busy_hidden", visible=not busy_hidden)
         message = "整列に失敗しました。変更を確認してください。\n" + repr(exc)
         _note(log, "handler failed " + repr(exc))
         present(message)
+        session.emit("result_shown", visible=result_shown)
+        session.terminal("failed")
         return ArrangeExecutionResult(
             status="failed",
             exit_code=1,
@@ -294,4 +332,7 @@ def execute_arrange_request(
             busy_hidden=busy_hidden,
             result_shown=result_shown,
             error=repr(exc),
+            run_id=session.run_id,
+            ui_state=session.state,
+            ui_events=tuple(dict(item) for item in session.events),
         )

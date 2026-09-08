@@ -9,10 +9,66 @@ optional logger so silent rejections stay debuggable.
 """
 from __future__ import annotations
 
+from dataclasses import dataclass, field
+import uuid
 from typing import Any, Callable
 
 
 WHOLE_COMP_MESSAGE = "現在のFusionコンポジション全体を整列します。"
+
+
+@dataclass
+class ArrangeUiSession:
+    """Small host-independent observability seam for one UI-owned run.
+
+    The session does not drive Resolve or claim OS accessibility.  It only
+    provides an explicit ``run_id`` and a monotonic event/state stream that a
+    UI shell or focused test can observe.  Cancellation is deliberately
+    accepted only before the production controller starts; an in-flight host
+    mutation must use the controller's rollback boundary instead of a second
+    thread or an unsafe interrupt.
+    """
+
+    run_id: str = field(default_factory=lambda: uuid.uuid4().hex)
+    state: str = "setup"
+    events: list[dict[str, Any]] = field(default_factory=list)
+    cancel_requested: bool = False
+
+    def __post_init__(self) -> None:
+        self.emit("setup")
+
+    def emit(self, event: str, **detail: Any) -> dict[str, Any]:
+        item = {"run_id": self.run_id, "event": str(event), **detail}
+        self.events.append(item)
+        return item
+
+    def begin(self) -> bool:
+        if self.state != "setup" or self.cancel_requested:
+            return False
+        self.state = "running"
+        self.emit("started")
+        return True
+
+    def cancel(self) -> bool:
+        if self.state != "setup":
+            self.emit("cancel_rejected", state=self.state)
+            return False
+        self.cancel_requested = True
+        self.state = "cancelled"
+        self.emit("cancelled")
+        return True
+
+    def terminal(self, status: str) -> None:
+        self.state = "terminal"
+        self.emit("terminal", status=str(status))
+
+    def snapshot(self) -> dict[str, Any]:
+        return {
+            "run_id": self.run_id,
+            "state": self.state,
+            "cancel_requested": self.cancel_requested,
+            "events": [dict(item) for item in self.events],
+        }
 
 
 def _map_result(result: Any, include_label: str, ungroup_label: str) -> dict[str, Any]:
@@ -213,15 +269,17 @@ def set_busy_text(handle, text, log=None):
 
 def hide_busy_window(handle, log=None):
     if not handle:
-        return
+        return False
     try:
         hider = getattr(handle.get("window"), "Hide", None)
         if callable(hider):
             hider()
-        if log is not None:
-            log("busy hidden")
+            if log is not None:
+                log("busy hidden")
+            return True
     except Exception:
-        pass
+        return False
+    return False
 
 
 def show_result(ask, title, message, log=None):

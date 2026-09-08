@@ -179,6 +179,14 @@ except Exception as exc:
     ask_arrange_confirmation = None
     _IMPORT_ERROR = repr(exc)
 
+# The entry may temporarily coexist with an older backup-backed installed
+# package during upgrade/bootstrap tests.  Observability is additive; its
+# absence must not turn an otherwise usable package into an import failure.
+try:
+    from resolve_node_kit.fusion.dialog import ArrangeUiSession
+except Exception:
+    ArrangeUiSession = None
+
 try:
     from resolve_node_kit.fusion import execute_arrange_request
 except Exception:
@@ -242,6 +250,10 @@ def _run():
         _write_log("no-comp", "")
         return 2
 
+    ui_session = ArrangeUiSession() if ArrangeUiSession is not None else None
+    if ui_session is not None:
+        _write_log("ui", "run_id=" + ui_session.run_id + " state=" + ui_session.state)
+
     if os.environ.get("RNK_ARRANGE_NO_UI", "0") == "1":
         state = _state_from_env()
     else:
@@ -255,6 +267,9 @@ def _run():
             log=lambda message: _write_log("dialog", message),
         )
         if state is None:
+            if ui_session is not None:
+                ui_session.cancel()
+                _write_log("ui", "run_id=" + ui_session.run_id + " event=cancelled")
             print("[ResolveNodeKit] Arrange canceled; nothing changed.")
             _write_log("cancel", "")
             return 0
@@ -275,6 +290,7 @@ def _run():
         result_ask=getattr(ui_comp, "AskUser", None),
         title=TITLE,
         log=lambda message: _write_log("handler", message),
+        ui_session=ui_session,
     )
     if execution.message:
         print(execution.message)
