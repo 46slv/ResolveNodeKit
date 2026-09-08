@@ -27,18 +27,18 @@ AS-HANDOFF-1 updates execution design and a read-only contract checker. Product 
 
 ## New status
 
-Plan: READY_FOR_RUNTIME_PREFLIGHT. Sol handoff: RECEIPT_VERIFIED, ownership transfer
-and first task not yet performed. Strict/flatten/installed-UI product acceptance:
-NOT_YET_PROVEN. All 13 tasks and G01–G14 remain PENDING. HumanNeed elimination is
-not yet proven. The current handoff record contains authenticated runtime/receipt
-evidence; Astra initial completion remains NOT_YET until Sol starts after transfer.
+Plan: EXECUTION_IN_PROGRESS. Sol handoff: EXECUTION_CONFIRMED at program owner
+epoch 1; SO-00 is RUNNING. Strict/flatten/installed-UI product acceptance remains
+NOT_YET_PROVEN. G01–G14 remain PENDING. HumanNeed elimination is not yet proven.
+The verified receipt, successful CAS, Sol owner readback and first bounded action
+are recorded in [execution checkpoint](checkpoints/2026-09-08-astra-sol-execution.json).
 
 The earlier long current-state document is preserved byte-for-byte at [pre-strict archive](checkpoints/2026-09-08-pre-strict-current-state.md); previous AGENTS at [instruction archive](checkpoints/2026-09-08-pre-strict-AGENTS.md). Read historical sections only for relevant evidence.
 
 ## Live Bootstrap — 2026-09-08 10:07 JST invocation
 
 `AS-BOOTSTRAP-20260908-1` / handoff `RNK-SO-20260908T010727Z-01a07e8e`:
-RECEIPT_VERIFIED, corrected receiver completed; ownership/start still pending. Differential
+EXECUTION_CONFIRMED, corrected receiver owns epoch 1 and SO-00 has started. Differential
 audit and normalized plan hashes are in
 [Bootstrap checkpoint](checkpoints/2026-09-08-astra-sol-bootstrap.md) and its JSON.
 The old checkout is preserved. Product source is unchanged; all G01–G14 remain
@@ -57,11 +57,10 @@ unchanged. The updated Resolve Operator instruction hash was explicitly accepted
 See [verified receipt](checkpoints/2026-09-08-astra-sol-receipt.json) and
 [runtime events](checkpoints/2026-09-08-astra-sol-receiver-runtime.json).
 Plan digest is `ebc124049dbb1dfa863cd499c13c2cd1a232774ae754a26edc30ee14668dbc20`.
-Shared owner remains Astra/epoch0 until the single CAS of the durable
-`D:/Documents/ResolveNodeKit/.git/rnk-strict-orthogonal-owner.json` under its sibling
-`.lock` file. After CAS to Sol/epoch1, Astra performs no shared state/Git/PR writes;
-Sol records owner readback, SO-00 first-action evidence and the resulting
-EXECUTION_CONFIRMED state. Product gates cannot be promoted by this transition.
+The durable program lease at
+`D:/Documents/ResolveNodeKit/.git/rnk-strict-orthogonal-owner.json` completed its
+single CAS from Astra/epoch0 to Sol/epoch1 with the old writer fenced. Sol is the
+only shared state/integration writer. This transition promotes no product gate.
 
 ## Scope boundary (unchanged)
 

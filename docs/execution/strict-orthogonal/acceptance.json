@@ -2,8 +2,8 @@
   "schema": "resolve-node-kit.strict-continuation/v2",
   "program": "RNK-STRICT-ORTHOGONAL",
   "updated": "2026-09-08",
-  "status": "READY_FOR_RUNTIME_PREFLIGHT",
-  "execution_started": false,
+  "status": "EXECUTION_IN_PROGRESS",
+  "execution_started": true,
   "baseline_sha": "562405079aa6bffa6d25668b294a26ac4142a680",
   "candidate_sha": null,
   "canonical_branch": "feat/semantic-arrange-v1-20260906",
@@ -92,8 +92,10 @@
       "id": "SO-00",
       "depends_on": [],
       "owner": "coordinator",
-      "status": "PENDING",
-      "evidence": []
+      "status": "RUNNING",
+      "evidence": [
+        "docs/checkpoints/2026-09-08-astra-sol-execution.json#so_00"
+      ]
     },
     {
       "id": "SO-10",
@@ -436,7 +438,7 @@
     "task_replanning": "SOL_MAY_REPLAN_WITH_GOAL_GATES_AUTHORITY_UNCHANGED_AND_MAPPING_RECORDED"
   },
   "handoff_state": {
-    "phase": "RECEIPT_VERIFIED",
+    "phase": "EXECUTION_CONFIRMED",
     "handoff_id": "RNK-SO-20260908T010727Z-01a07e8e",
     "planner_thread_id": "01a07e8e-41f3-7d30-b190-3f621b5cdb64",
     "sol_thread_id": "01a07e95-b55e-70a1-8366-b80d785bbaa4",
@@ -480,15 +482,37 @@
       "read_only": true,
       "record": "docs/checkpoints/2026-09-08-astra-sol-receipt.json"
     },
-    "ownership": null,
-    "first_task_start": null,
+    "ownership": {
+      "previous_owner": "01a07e8e-41f3-7d30-b190-3f621b5cdb64",
+      "owner": "01a07e95-b55e-70a1-8366-b80d785bbaa4",
+      "active_writers": [
+        "01a07e95-b55e-70a1-8366-b80d785bbaa4"
+      ],
+      "previous_epoch": 0,
+      "epoch": 1,
+      "cas_success": true,
+      "old_writer_fenced": true,
+      "sol_readback_epoch": 1,
+      "record": "D:/Documents/ResolveNodeKit/.git/rnk-strict-orthogonal-owner.json"
+    },
+    "first_task_start": {
+      "task_id": "SO-00",
+      "thread_id": "01a07e95-b55e-70a1-8366-b80d785bbaa4",
+      "owner_epoch": 1,
+      "event_started": "D:/Documents/ResolveNodeKit/.git/rnk-so-execution-events.jsonl#line=8,item=item_3",
+      "event_completed": "D:/Documents/ResolveNodeKit/.git/rnk-so-execution-events.jsonl#line=12,item=item_3",
+      "record": "docs/checkpoints/2026-09-08-astra-sol-execution.json#first_task_start"
+    },
     "evidence": {
       "thread_created": "docs/checkpoints/2026-09-08-astra-sol-receiver-runtime.json#native_create_client_id",
       "turn_started": "docs/checkpoints/2026-09-08-astra-sol-receipt.json#runtime_metadata",
       "receipt_verified": "docs/checkpoints/2026-09-08-astra-sol-receipt.json",
+      "ownership_transfer": "D:/Documents/ResolveNodeKit/.git/rnk-strict-orthogonal-owner.json#epoch=1",
+      "owner_readback": "docs/checkpoints/2026-09-08-astra-sol-execution.json#program_lease",
+      "first_task_started": "D:/Documents/ResolveNodeKit/.git/rnk-so-execution-events.jsonl#line=8,item=item_3",
       "independent_lifetime": "docs/checkpoints/2026-09-08-astra-sol-receipt.json#independent_lifetime"
     },
-    "initial_planner_done": false,
+    "initial_planner_done": true,
     "mode": "NEW_OWNER"
   }
 }
