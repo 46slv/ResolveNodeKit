@@ -1,0 +1,103 @@
+{
+  "schema": "resolve-node-kit.luna-continuation/v1",
+  "revision": "LM-TAKEOVER-20260908-1",
+  "program": "RNK-STRICT-ORTHOGONAL",
+  "policy_status": "READY_FOR_LOCAL_TAKEOVER",
+  "canonical_branch": "feat/semantic-arrange-v1-20260906",
+  "canonical_pr": 5,
+  "runbook": "LUNA_RUNBOOK.md",
+  "product_acceptance": "acceptance.json",
+  "history_handoff": "HANDOFF.md",
+  "precedence": {
+    "current_roles": "this policy",
+    "current_runtime": "actual lease and new receipt",
+    "product_gates": "acceptance.json",
+    "previous_handoff": "immutable historical record",
+    "old_deadline": "previous_invocation_only"
+  },
+  "roles": {
+    "coordinator": "new Luna Max task",
+    "worker": "independent Luna Max context",
+    "verifier": "fresh independent Luna Max context; no repair",
+    "host": "current qualified resolve_operator; all live access leased",
+    "max_parallel_workers": 2,
+    "shared_writers": 1,
+    "host_owners": 1
+  },
+  "routing": {
+    "requested_model_family": "Luna",
+    "requested_reasoning_effort": "max",
+    "runtime_binding_required": true,
+    "automatic_astra_sol_muse_opencode": false,
+    "preserve_qualified_operator_model_and_isolation": true,
+    "parent_direct_resolve": false
+  },
+  "last_observed": {
+    "publication": "853c6b18596559d7e6dd6ea3a18662b24a471e77",
+    "product": "dd0069abde35526b8164beae2c5753b95a1e12af",
+    "coordinator_thread_id": "01a07e95-b55e-70a1-8366-b80d785bbaa4",
+    "owner_epoch": 1,
+    "offline_pass": [
+      "SO-10",
+      "SO-20"
+    ],
+    "reported_product_tests": 158,
+    "host_calls": 0,
+    "host_surface": "UNAVAILABLE_TO_RESOLVE_OPERATOR_AFTER_LEASE_ACQUIRE",
+    "evidence": "docs/checkpoints/2026-09-08-luna-so30-offline.json",
+    "prepublication_head": "853c6b18596559d7e6dd6ea3a18662b24a471e77",
+    "newer_code_qualification": "158/158_REPORTED_NOT_REEXECUTED_BY_AUTHORING",
+    "host_recheck_evidence": "docs/checkpoints/2026-09-08-luna-host-recheck.json",
+    "partial_offline": [
+      "SO-30_VIEW_EVIDENCE_CONTRACT"
+    ],
+    "host_unverified_gates": [
+      "G02",
+      "G03"
+    ]
+  },
+  "takeover": {
+    "status": "NOT_STARTED",
+    "new_task_id": null,
+    "actual_model": null,
+    "actual_effort": null,
+    "observed_previous_owner": null,
+    "observed_previous_epoch": null,
+    "new_epoch": null,
+    "plan_digest": null,
+    "old_owner_quiescence_evidence": [],
+    "lease_transfer_evidence": [],
+    "new_owner_readback_evidence": [],
+    "first_work_evidence": []
+  },
+  "invocation": {
+    "new_user_deadline": null,
+    "inherit_expired_deadline": false,
+    "runtime_limits": "discover current limits, checkpoint safely",
+    "background_execution_claimed": false
+  },
+  "requirements": {
+    "preserve_all_existing_task_results": true,
+    "preserve_all_existing_gate_definitions": true,
+    "required_gate_ids": [
+      "G01",
+      "G02",
+      "G03",
+      "G04",
+      "G05",
+      "G06",
+      "G07",
+      "G08",
+      "G09",
+      "G10",
+      "G11",
+      "G12",
+      "G13",
+      "G14"
+    ],
+    "main_merge_authorized": false,
+    "project_save_authorized": false
+  },
+  "normal_development_human_click_elimination": "NOT_YET_PROVEN",
+  "authoring_is_runtime_evidence": false
+}

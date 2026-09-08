@@ -1,41 +1,32 @@
-# Strict Orthogonal Arrange — Astra → Sol continuation
+# Strict Orthogonal Arrange — 新規 Luna Max task の入口
 
-Updated: 2026-09-08 JST / AS-HANDOFF-1  
-Program: RNK-STRICT-ORTHOGONAL  
-Plan: READY_FOR_RUNTIME_PREFLIGHT  
-Runtime handoff / product execution: NOT_STARTED_BY_THIS_PUBLICATION
+Revision: LM-TAKEOVER-20260908-1  
+Authoring: READY_FOR_LOCAL_TAKEOVER / runtime takeover not executed here
 
-## Goalと変えない完成条件
+## 今回の指示
 
-参考資料の水平主列・縦枝・上部region・実topologyに沿う右側reduction・余白を再構成し、実配線も水平垂直にする。whole-comp preserveと非空nested Groupの全解除を、実データおよび1100+ original non-Group toolsで実証する。処理保存、Undo、run2=0、実UIと同一runのbusy/result、性能・復旧・cleanupは必須のまま。
+新しいLuna MaxのCodex taskが、既存ResolveNodeKitの成果と同じPR #5を引き継ぎ、実装・導入・実機検証を進める。AstraでBootstrapをやり直さず、旧Sol threadを再開することを既定にしない。新規taskは新規開発や進捗初期化を意味しない。
 
-## 入口と責任
+最初にlive Git、AGENTS、[CURRENT_STATE](../../CURRENT_STATE.md)、[LUNA_RUNBOOK](LUNA_RUNBOOK.md)を読む。製品のGoal/Doneは[DESIGN](../../design/strict-orthogonal/DESIGN.md)、[PLAN](PLAN.md)、[acceptance.json](acceptance.json)を継続する。
 
-Astraで初期計画・実行可能性の差分監査 → 独立Solが受領 → 単独実行所有権と最初の着手を確認 → Astra初期担当終了。以後はSolだけが進行管理し、Astraは限定Advisor。手順と二重起動対策の正本は[HANDOFF.md](HANDOFF.md)。計画保存だけで引き継ぎDoneにしない。
+現在の役割・新規所有移行・期限の正本はLUNA_RUNBOOKと[luna_execution.json](luna_execution.json)。旧HANDOFF/RUNBOOK/acceptance.rolesに残るAstra→Sol起動、Sol固定名、旧invocationの11:07:27 JST期限より、この限定変更を優先する。処理保存・専任Operator・排他・no-save・main未merge・G01–G14は緩和しない。
 
-新しいAstraはlive Git → AGENTS → CURRENT_STATE → HANDOFFを読み、[DESIGN](../../design/strict-orthogonal/DESIGN.md)、[SOURCES](../../design/strict-orthogonal/SOURCES.md)、[PLAN](PLAN.md)、[RUNBOOK](RUNBOOK.md)、[acceptance.json](acceptance.json)を必要箇所から点検する。Solは同じ契約をexact revisionで受領する。過去会話やLibraryを実行時の必須入力にしない。
+## 取り戻す現在地
 
-Repo: 46slv/ResolveNodeKit。統合正本はPR #5の`feat/semantic-arrange-v1-20260906`。元設計publicationは`dc074981bc01d1df618c2dc09cc703f58b7bf164`。実行時はremote HEAD/local worktree/installed sourceをfresh-readし、旧`feat/arrange-uia-e2e-20260906`の変更を保全する。既存Sol ownerがいる場合はamendment受領で継続し、新Coordinatorを二重起動しない。
+保存直前に確認したpublicationは`853c6b18596559d7e6dd6ea3a18662b24a471e77`、productは`dd0069abde35526b8164beae2c5753b95a1e12af`。SO-10/SO-20はoffline PASS、SO-30もoffline契約の成果あり、158/158 reported。ただしG02/G03のhost部分は未証明。これらはlocatorであり起動時のlive refが優先。
 
-## 実行原則
+最新host記録は「専任Operatorがleaseを取得・解放したが、MCP callable surfaceがなかった」。単なるFREE待ちやResolve再起動から始めない。具体的な分岐はLUNA_RUNBOOK §4。
 
-SolはGoal・Done・権限を変えない範囲でtaskを追加/分割/並べ替えできる。通常修正や次工程をAstra返答待ちにしない。Workerは分離context、fresh Verifierは修正しない、shared writerとResolve操作担当は各一人。既存のSkills/Harnessを使い、新規汎用orchestrator構築を前提にしない。
-
-旧SAV1の任意扱い・繰り返しblocker・当然のhuman smoke待ちより、このscopeの最新契約を優先する。独立したready workを進め、checkpointやWorker完了で全programを止めない。要件を削ってHumanNeed=NOにしない。認証・費用・保全不能なデータ・所有権等の真の境界だけ人間へ上げる。技術未達は完成ではない。
-
-## 最小起動指示 — Astraへ
+## 新規Luna Max taskへ渡す短い指示
 
 ```text
-ResolveNodeKit PR #5をAstra Bootstrapとして継続する。
-Start: live repoとAGENTSを確認し、docs/execution/strict-orthogonal/README.mdから最新契約を読む。
-Goal: 既存設計を差分監査し、Solへ完成までの実行管理を引き継ぐ。
-Done: HANDOFF.mdに従い、Solの実効設定・計画受領・単独所有・最初の着手を証拠で確認して初期担当を閉じる。その後はAdvisorのみ。
-Authority: RUNBOOKの範囲で自律実行。Resolveの全面操作・スクリプト実行・起動・終了・再起動を事前確認なしで許可する。main merge・project saveは禁止。
-Evidence: 計画revision、受領/所有/着手証拠、製品gate状態。起動不明時に二重作成せず、未実行を引き継ぎ完了としない。
+ResolveNodeKit PR #5を、新規Luna Max Coordinatorとして引き継いで進める。
+Start: live GitとAGENTSを確認し、docs/execution/strict-orthogonal/README.mdから最新契約を読む。
+Goal: 既存strict配置・1100個以上・全Group解除の完成条件まで実装と実機検証を進める。
+Scope: 旧taskの停止/未完operationを照合し、既存leaseを正規移管する。成果・証拠を維持し、Astra/Solの起動手順を繰り返さない。
+Execution: Luna Maxの独立Worker/Verifierを使い、live Resolveは専任resolve_operatorのみ。checkpointで終えず、実行可能な工程を継続する。
+Authority: Resolveの全面操作、スクリプト実行、起動、終了、再起動を事前確認なしで許可する。その他はRUNBOOKに従い、project save・main mergeは禁止。
+Done/Evidence: 既存必須gateを実証し、最終candidate・installed実体・実機証拠・PR状態を整合。未達を削って完了扱いにしない。
 ```
 
-Solへの短いpacketは、実行時に確定したhandoff_id、repo/cwd、plan revision、最初のtask、検証入口、HANDOFF/RUNBOOK参照だけを中心に作る。表の全工程や過去failureをpromptへ再掲しない。
-
-## 完了状態
-
-BOOTSTRAP_DONEとSTRICT_LAYOUT_RELEASE_CANDIDATEは別。後者は全G01–G14の実証とfresh Verifierが必要。main未merge、広いResolveNodeKit全体のMISSION_COMPLETEとは別。今回の公開は資料と契約検査のみで、Sol/Resolveは起動していない。
+今回の公開は手順書のみ。新規task/lease/Resolve操作は開始していない。詳細のLibrary根拠と今回の適用変更は[SOURCES_LUNA](SOURCES_LUNA.md)。
