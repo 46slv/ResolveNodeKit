@@ -27,11 +27,12 @@ AS-HANDOFF-1 updates execution design and a read-only contract checker. Product 
 
 ## New status
 
-Plan: EXECUTION_IN_PROGRESS. Sol handoff: EXECUTION_CONFIRMED at program owner
-epoch 1; SO-00 is RUNNING. Strict/flatten/installed-UI product acceptance remains
-NOT_YET_PROVEN. G01–G14 remain PENDING. HumanNeed elimination is not yet proven.
-The verified receipt, successful CAS, Sol owner readback and first bounded action
-are recorded in [execution checkpoint](checkpoints/2026-09-08-astra-sol-execution.json).
+Plan: CHECKPOINTED_WITH_TECHNICAL_GAP at candidate `8c667e6`. Sol handoff is
+EXECUTION_CONFIRMED at program owner epoch 1. SO-10 is offline PASS; SO-00 and
+SO-50 retain host/UI technical gaps. Strict/flatten/installed-UI product
+acceptance remains NOT_YET_PROVEN and G01–G14 remain PENDING. See the
+[execution checkpoint](checkpoints/2026-09-08-astra-sol-execution.json) and
+[deadline handoff](checkpoints/2026-09-08-sol-deadline-handoff.json).
 
 The earlier long current-state document is preserved byte-for-byte at [pre-strict archive](checkpoints/2026-09-08-pre-strict-current-state.md); previous AGENTS at [instruction archive](checkpoints/2026-09-08-pre-strict-AGENTS.md). Read historical sections only for relevant evidence.
 

@@ -9,8 +9,10 @@
   "execution_turn_evidence": "D:/Documents/ResolveNodeKit/.git/rnk-so-execution-events.jsonl",
   "observed_at_utc": "2026-09-08T01:42:50.8104611Z",
   "phase": "EXECUTION_CONFIRMED",
+  "invocation_status": "CHECKPOINTED_WITH_TECHNICAL_GAP",
   "publication_at_start": "00f44858eaf5ec9c8e50de9f1e89b49357ab37c2",
   "product_source_revision": "59eeffbce5efd0a73a0fed2a4f3418faf71d5852",
+  "current_candidate": "8c667e6c50b20753657e9c3d36a641d60d0c08e3",
   "program_lease": {
     "path": "D:/Documents/ResolveNodeKit/.git/rnk-strict-orthogonal-owner.json",
     "lock_path": "D:/Documents/ResolveNodeKit/.git/rnk-strict-orthogonal-owner.lock",
@@ -43,7 +45,7 @@
     "authenticated_by": "docs/checkpoints/2026-09-08-astra-sol-receipt.json#runtime_metadata"
   },
   "so_00": {
-    "status": "RUNNING",
+    "status": "BLOCKED_TECHNICAL",
     "git": {
       "root": "C:/Users/shiro/.codex/worktrees/c22a/ResolveNodeKit",
       "absolute_git_dir": "D:/Documents/ResolveNodeKit/.git/worktrees/ResolveNodeKit",
@@ -66,9 +68,16 @@
       "coordinator_direct_resolve_access": false,
       "required_agent": "resolve_operator",
       "lease_wrapper": "C:/Users/shiro/.agents/skills/resolve-operator/scripts/resolve_lease.py",
-      "host_observation": "NOT_YET_DELEGATED",
+      "host_observation": "resolve_operator returned FREE; zero Resolve calls",
       "host_lease": "NOT_ACQUIRED"
     }
+  },
+  "work_results": {
+    "SO-10": "PASS_OFFLINE",
+    "SO-50": "OFFLINE_SEAM_COMPLETE_HOST_GATES_PENDING",
+    "full_tests": "136/136 PASS with canonical PYTHONPATH",
+    "installed_candidate": "8c667e6c50b20753657e9c3d36a641d60d0c08e3",
+    "deadline_report": "docs/checkpoints/2026-09-08-sol-deadline-handoff.json"
   },
   "instruction_chain": {
     "receipt_digest": "c7e421e8a06ce432272a160044701c4cb97f74e8769162f19be84aed0bd88933",

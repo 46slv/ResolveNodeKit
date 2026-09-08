@@ -2,10 +2,10 @@
   "schema": "resolve-node-kit.strict-continuation/v2",
   "program": "RNK-STRICT-ORTHOGONAL",
   "updated": "2026-09-08",
-  "status": "EXECUTION_IN_PROGRESS",
+  "status": "CHECKPOINTED_WITH_TECHNICAL_GAP",
   "execution_started": true,
   "baseline_sha": "562405079aa6bffa6d25668b294a26ac4142a680",
-  "candidate_sha": null,
+  "candidate_sha": "8c667e6c50b20753657e9c3d36a641d60d0c08e3",
   "canonical_branch": "feat/semantic-arrange-v1-20260906",
   "canonical_pr": 5,
   "required_policy": "ALL_REQUIRED_GATES_PASS; blocked/refused/not-collected is not success",
@@ -92,9 +92,10 @@
       "id": "SO-00",
       "depends_on": [],
       "owner": "coordinator",
-      "status": "RUNNING",
+      "status": "BLOCKED_TECHNICAL",
       "evidence": [
-        "docs/checkpoints/2026-09-08-astra-sol-execution.json#so_00"
+        "docs/checkpoints/2026-09-08-astra-sol-execution.json#so_00",
+        "docs/checkpoints/2026-09-08-sol-deadline-handoff.json#host"
       ]
     },
     {
@@ -103,8 +104,10 @@
         "SO-00"
       ],
       "owner": "data-offline",
-      "status": "PENDING",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "docs/checkpoints/2026-09-08-sol-deadline-handoff.json#completed_feasible_work.SO-10"
+      ]
     },
     {
       "id": "SO-11",
@@ -112,8 +115,10 @@
         "SO-10"
       ],
       "owner": "snapshot-host",
-      "status": "PENDING",
-      "evidence": []
+      "status": "BLOCKED_TECHNICAL",
+      "evidence": [
+        "docs/checkpoints/2026-09-08-sol-deadline-handoff.json#host"
+      ]
     },
     {
       "id": "SO-20",
@@ -148,8 +153,10 @@
         "SO-00"
       ],
       "owner": "ui",
-      "status": "PENDING",
-      "evidence": []
+      "status": "BLOCKED_TECHNICAL",
+      "evidence": [
+        "docs/checkpoints/2026-09-08-sol-deadline-handoff.json#completed_feasible_work.SO-50"
+      ]
     },
     {
       "id": "SO-60",
