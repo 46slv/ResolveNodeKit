@@ -1,0 +1,45 @@
+{
+  "schema": "resolve-node-kit.host-recheck/v1",
+  "program": "RNK-STRICT-ORTHOGONAL",
+  "handoff_id": "RNK-SO-20260908T010727Z-01a07e8e",
+  "coordinator_thread_id": "01a07e95-b55e-70a1-8366-b80d785bbaa4",
+  "owner_epoch": 1,
+  "recorded_at_utc": "2026-09-08T06:01:00Z",
+  "model": "gpt-5.6-luna",
+  "effort": "max",
+  "skill_sha256": "42bf71936531bff62420a9cde1bd695f6e16ee00716cc8fe205d8da89632bc61",
+  "owner": "01a07e95-b55e-70a1-8366-b80d785bbaa4",
+  "lease": {
+    "acquire": "ACQUIRED",
+    "token_prefix": "55d1702a",
+    "holder_pid": 75520,
+    "holder_process_start": "134333208598470205",
+    "acquired_at_utc": "2026-09-08T06:01:00.055Z",
+    "held_readback": {
+      "result": "HELD",
+      "mutex_state": "owned",
+      "owner_process_exact_live": true,
+      "owner_role": "resolve_operator",
+      "owner_task": "/root/so11_host_recheck_luna",
+      "owner_thread": "01a07e95-b55e-70a1-8366-b80d785bbaa4"
+    },
+    "release": "RELEASED",
+    "final": "FREE"
+  },
+  "runtime": {
+    "mcp_surface": "UNAVAILABLE_TO_RESOLVE_OPERATOR",
+    "resolve_calls": 0,
+    "runtime_identity": "NOT_OBSERVED",
+    "target_binding": "NOT_ATTEMPTED",
+    "mutation": false,
+    "save": false,
+    "restart": false,
+    "cleanup": "exact lease released; no Resolve object created"
+  },
+  "decision": {
+    "so11": "BLOCKED_TECHNICAL",
+    "g01": "PENDING",
+    "g03_plus": "unchanged; host evidence unavailable",
+    "reason": "No callable davinci-resolve MCP surface was available after valid lease acquisition; skill requires zero Resolve calls in this condition."
+  }
+}

@@ -117,7 +117,9 @@
       "owner": "snapshot-host",
       "status": "BLOCKED_TECHNICAL",
       "evidence": [
-        "docs/checkpoints/2026-09-08-sol-deadline-handoff.json#host"
+        "docs/checkpoints/2026-09-08-sol-deadline-handoff.json#host",
+        "docs/checkpoints/2026-09-08-luna-host-recheck.json#lease",
+        "docs/checkpoints/2026-09-08-luna-host-recheck.json#runtime"
       ]
     },
     {
@@ -232,7 +234,9 @@
       "evidence_class": "source_and_host",
       "status": "PENDING",
       "candidate_sha": null,
-      "evidence": []
+      "evidence": [
+        "docs/checkpoints/2026-09-08-luna-host-recheck.json#runtime"
+      ]
     },
     {
       "id": "G02",
