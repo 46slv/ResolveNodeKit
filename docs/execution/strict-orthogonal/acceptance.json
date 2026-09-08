@@ -436,19 +436,57 @@
     "task_replanning": "SOL_MAY_REPLAN_WITH_GOAL_GATES_AUTHORITY_UNCHANGED_AND_MAPPING_RECORDED"
   },
   "handoff_state": {
-    "phase": "RECEIPT_MISMATCH",
+    "phase": "RECEIPT_VERIFIED",
     "handoff_id": "RNK-SO-20260908T010727Z-01a07e8e",
     "planner_thread_id": "01a07e8e-41f3-7d30-b190-3f621b5cdb64",
     "sol_thread_id": "01a07e95-b55e-70a1-8366-b80d785bbaa4",
-    "sol_turn_id": "01a07e95-b80a-7983-8e06-cf13b4244e30",
-    "expected": null,
-    "observed": null,
-    "receipt": null,
+    "sol_turn_id": "01a07ea1-c26e-7940-b8d5-2ca970191cd8",
+    "expected": {
+      "repository": "46slv/ResolveNodeKit",
+      "cwd": "C:/Users/shiro/.codex/worktrees/c22a/ResolveNodeKit",
+      "worktree_identity": "D:/Documents/ResolveNodeKit/.git/worktrees/ResolveNodeKit",
+      "branch": "feat/semantic-arrange-v1-20260906",
+      "source_revision": "4b9c8d33a1168e019f935655231d279a05661195",
+      "product_source_revision": "59eeffbce5efd0a73a0fed2a4f3418faf71d5852",
+      "dirty_fingerprint": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "plan_digest": "ebc124049dbb1dfa863cd499c13c2cd1a232774ae754a26edc30ee14668dbc20",
+      "model": "gpt-5.6-sol",
+      "effort": "max",
+      "permissions_digest": "fac84c32139b1f990555df39c0eddf9fb29a827b3b012633f035a604246189c1",
+      "instruction_digest": "c7e421e8a06ce432272a160044701c4cb97f74e8769162f19be84aed0bd88933",
+      "first_task": "SO-00",
+      "verification_entry": "python docs/execution/strict-orthogonal/check_contract.py"
+    },
+    "observed": {
+      "repository": "46slv/ResolveNodeKit",
+      "cwd": "C:/Users/shiro/.codex/worktrees/c22a/ResolveNodeKit",
+      "worktree_identity": "D:/Documents/ResolveNodeKit/.git/worktrees/ResolveNodeKit",
+      "branch": "feat/semantic-arrange-v1-20260906",
+      "source_revision": "4b9c8d33a1168e019f935655231d279a05661195",
+      "product_source_revision": "59eeffbce5efd0a73a0fed2a4f3418faf71d5852",
+      "dirty_fingerprint": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "plan_digest": "ebc124049dbb1dfa863cd499c13c2cd1a232774ae754a26edc30ee14668dbc20",
+      "model": "gpt-5.6-sol",
+      "effort": "max",
+      "permissions_digest": "fac84c32139b1f990555df39c0eddf9fb29a827b3b012633f035a604246189c1",
+      "instruction_digest": "c7e421e8a06ce432272a160044701c4cb97f74e8769162f19be84aed0bd88933",
+      "first_task": "SO-00",
+      "verification_entry": "python docs/execution/strict-orthogonal/check_contract.py"
+    },
+    "receipt": {
+      "handoff_id": "RNK-SO-20260908T010727Z-01a07e8e",
+      "thread_id": "01a07e95-b55e-70a1-8366-b80d785bbaa4",
+      "turn_id": "01a07ea1-c26e-7940-b8d5-2ca970191cd8",
+      "read_only": true,
+      "record": "docs/checkpoints/2026-09-08-astra-sol-receipt.json"
+    },
     "ownership": null,
     "first_task_start": null,
     "evidence": {
-      "thread_created": "docs/checkpoints/2026-09-08-astra-sol-runtime-amendment.json#native_create_client_id",
-      "turn_started": "docs/checkpoints/2026-09-08-astra-sol-runtime-amendment.json#observed_initial"
+      "thread_created": "docs/checkpoints/2026-09-08-astra-sol-receiver-runtime.json#native_create_client_id",
+      "turn_started": "docs/checkpoints/2026-09-08-astra-sol-receipt.json#runtime_metadata",
+      "receipt_verified": "docs/checkpoints/2026-09-08-astra-sol-receipt.json",
+      "independent_lifetime": "docs/checkpoints/2026-09-08-astra-sol-receipt.json#independent_lifetime"
     },
     "initial_planner_done": false,
     "mode": "NEW_OWNER"

@@ -27,14 +27,18 @@ AS-HANDOFF-1 updates execution design and a read-only contract checker. Product 
 
 ## New status
 
-Plan: READY_FOR_RUNTIME_PREFLIGHT. Sol/runtime launch: NOT_STARTED_BY_THIS_PUBLICATION. New strict/flatten/installed-UI acceptance: NOT_YET_PROVEN. HumanNeed elimination is a goal, not a value to report before qualification. All 13 existing tasks and G01–G14 retain their pending status. The added handoff_state is NOT_STARTED: no actual runtime/thread/model/owner/receipt is asserted. Astra initial completion remains NOT_YET; after verified ownership transfer Sol alone owns progress updates.
+Plan: READY_FOR_RUNTIME_PREFLIGHT. Sol handoff: RECEIPT_VERIFIED, ownership transfer
+and first task not yet performed. Strict/flatten/installed-UI product acceptance:
+NOT_YET_PROVEN. All 13 tasks and G01–G14 remain PENDING. HumanNeed elimination is
+not yet proven. The current handoff record contains authenticated runtime/receipt
+evidence; Astra initial completion remains NOT_YET until Sol starts after transfer.
 
 The earlier long current-state document is preserved byte-for-byte at [pre-strict archive](checkpoints/2026-09-08-pre-strict-current-state.md); previous AGENTS at [instruction archive](checkpoints/2026-09-08-pre-strict-AGENTS.md). Read historical sections only for relevant evidence.
 
 ## Live Bootstrap — 2026-09-08 10:07 JST invocation
 
 `AS-BOOTSTRAP-20260908-1` / handoff `RNK-SO-20260908T010727Z-01a07e8e`:
-RECEIPT_MISMATCH, receiver created and started but ownership/start still pending. Differential
+RECEIPT_VERIFIED, corrected receiver completed; ownership/start still pending. Differential
 audit and normalized plan hashes are in
 [Bootstrap checkpoint](checkpoints/2026-09-08-astra-sol-bootstrap.md) and its JSON.
 The old checkout is preserved. Product source is unchanged; all G01–G14 remain
@@ -42,12 +46,22 @@ PENDING. The current invocation deadline, including Sol continuation, is
 2026-09-08 11:07:27 JST. RUNBOOK section 9 records the user grant and required
 Resolve Operator route. On receipt/transfer Sol becomes the only progress writer.
 
-Sol thread `01a07e95-b55e-70a1-8366-b80d785bbaa4` was actually created with
-`gpt-5.6-sol/max`, but native App creation used on-request/workspace-write rather
-than the expected local execution settings. The existing Resolve Operator owner
-also updated its skill during receipt. Runtime binding amendment 2 records the
-observed settings and new instruction digest. No lease was granted; supported
-same-thread correction/read-only receipt is the next step. No second Sol exists.
+Sol thread `01a07e95-b55e-70a1-8366-b80d785bbaa4` / corrected receipt turn
+`01a07ea1-c26e-7940-b8d5-2ca970191cd8` is authenticated as
+`gpt-5.6-sol/max`, approval `never`, sandbox `danger-full-access`, cwd
+`C:/Users/shiro/.codex/worktrees/c22a/ResolveNodeKit`. The native creation mismatch
+was repaired through the same persisted thread, with its idle App writer released
+by archive/restore before CLI resume. No second Sol exists and global config is
+unchanged. The updated Resolve Operator instruction hash was explicitly accepted.
+
+See [verified receipt](checkpoints/2026-09-08-astra-sol-receipt.json) and
+[runtime events](checkpoints/2026-09-08-astra-sol-receiver-runtime.json).
+Plan digest is `ebc124049dbb1dfa863cd499c13c2cd1a232774ae754a26edc30ee14668dbc20`.
+Shared owner remains Astra/epoch0 until the single CAS of the durable
+`D:/Documents/ResolveNodeKit/.git/rnk-strict-orthogonal-owner.json` under its sibling
+`.lock` file. After CAS to Sol/epoch1, Astra performs no shared state/Git/PR writes;
+Sol records owner readback, SO-00 first-action evidence and the resulting
+EXECUTION_CONFIRMED state. Product gates cannot be promoted by this transition.
 
 ## Scope boundary (unchanged)
 

@@ -1,0 +1,139 @@
+{
+  "schema": "resolve-node-kit.receiver-runtime-evidence/v1",
+  "handoff_id": "RNK-SO-20260908T010727Z-01a07e8e",
+  "thread_id": "01a07e95-b55e-70a1-8366-b80d785bbaa4",
+  "native_create_client_id": "client-new-thread:661bf39a-53b4-4fa0-83fd-cfef09f3da8a",
+  "session_path": "C:\\Users\\shiro\\.codex\\sessions\\2026\\09\\08\\rollout-2026-09-08T10-15-35-01a07e95-b55e-70a1-8366-b80d785bbaa4.jsonl",
+  "initial_receipt": {
+    "line": 187,
+    "timestamp": "2026-09-08T01:25:15.098Z",
+    "turn_id": "01a07e95-b80a-7983-8e06-cf13b4244e30",
+    "receipt": {
+      "receipt_state": "RECEIPT_MISMATCH",
+      "handoff_id": "RNK-SO-20260908T010727Z-01a07e8e",
+      "plan_revision": "AS-BOOTSTRAP-20260908-1",
+      "runtime_binding": {
+        "evidence": "Bootstrap-side receiver turn_context readback",
+        "model": "gpt-5.6-sol",
+        "effort": "max",
+        "model_effort_match": true,
+        "approval_policy": "on-request",
+        "sandbox_policy": "workspace-write",
+        "network_access": false,
+        "permissions_match": false
+      },
+      "git": {
+        "repository": "46slv/ResolveNodeKit",
+        "origin": "https://github.com/46slv/ResolveNodeKit.git",
+        "cwd": "C:\\Users\\shiro\\.codex\\worktrees\\c22a\\ResolveNodeKit",
+        "worktree": "C:/Users/shiro/.codex/worktrees/c22a/ResolveNodeKit",
+        "git_common_dir": "D:/Documents/ResolveNodeKit/.git",
+        "git_dir": "D:/Documents/ResolveNodeKit/.git/worktrees/ResolveNodeKit",
+        "branch": "feat/semantic-arrange-v1-20260906",
+        "upstream": "origin/feat/semantic-arrange-v1-20260906",
+        "detached": false,
+        "head": "8934307d533894f41f72cc865e0dabd8288206cf",
+        "plan_publication_match": true,
+        "status_porcelain_v1_bytes": 0,
+        "status_porcelain_v1_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "digests": {
+        "plan": {
+          "observed": "ebc124049dbb1dfa863cd499c13c2cd1a232774ae754a26edc30ee14668dbc20",
+          "expected": "ebc124049dbb1dfa863cd499c13c2cd1a232774ae754a26edc30ee14668dbc20",
+          "match": true
+        },
+        "permissions_contract": {
+          "observed": "fac84c32139b1f990555df39c0eddf9fb29a827b3b012633f035a604246189c1",
+          "expected": "fac84c32139b1f990555df39c0eddf9fb29a827b3b012633f035a604246189c1",
+          "match": true
+        },
+        "permissions_runtime": {
+          "observed": "1427e58a4e81a5c3a75c5397d455e445c37ebdc86c4f01a95772385a82d7473e",
+          "match_expected_contract": false
+        },
+        "instruction": {
+          "observed": "c7e421e8a06ce432272a160044701c4cb97f74e8769162f19be84aed0bd88933",
+          "expected": "1ca5dc9d451a68b9af1528b0e81678b17c8238f719d36ce4ea0f1d48a8cd56f6",
+          "match": false
+        }
+      },
+      "instruction_manifest": {
+        "AGENTS.md": "7e271c57e63715dcbf086dcb2d7aec271904c964932baa683f839d0a6c9f261a",
+        "docs/execution/strict-orthogonal/RUNBOOK.md": "9f7be23965717f2433a0b82aebe31359e455283d730f6f9e0a14acaa7355f847",
+        "C:/Users/shiro/.agents/skills/resolve-operator/SKILL.md": {
+          "observed": "79a8a70758f0927e8cb6efa95dd64b0684f060d83918e7b8d6a810a537dbbde8",
+          "expected": "1697b135dcfbc49568a70aebd242c77829d3112c5cb5116ef8980b526db7d65b",
+          "match": false
+        }
+      },
+      "next": {
+        "first_task": "SO-00",
+        "verification_entry": "python docs/execution/strict-orthogonal/check_contract.py",
+        "started": false
+      },
+      "ownership": {
+        "epoch": 0,
+        "owner": "Astra",
+        "lease_acquired": false
+      },
+      "mutations": {
+        "shared_state": false,
+        "git": false,
+        "product": false,
+        "host": false,
+        "worker_started": false,
+        "new_thread_created": false
+      }
+    },
+    "event_sha256": "2178733705a5823570dddd1bb17d45392ec069638653d467dc8f27566a6b9d25"
+  },
+  "actual_turn_metadata": [
+    {
+      "line": 8,
+      "timestamp": "2026-09-08T01:15:37.696Z",
+      "turn_id": "01a07e95-b80a-7983-8e06-cf13b4244e30",
+      "cwd": "C:\\Users\\shiro\\.codex\\worktrees\\c22a\\ResolveNodeKit",
+      "model": "gpt-5.6-sol",
+      "effort": "max",
+      "approval_policy": "on-request",
+      "sandbox_policy": {
+        "type": "workspace-write",
+        "writable_roots": [
+          "C:\\Users\\shiro\\.codex\\visualizations\\2026\\09\\08\\01a07e95-b55e-70a1-8366-b80d785bbaa4"
+        ],
+        "network_access": false,
+        "exclude_tmpdir_env_var": false,
+        "exclude_slash_tmp": false
+      },
+      "event_sha256": "1d51130efc09bedee921a1412d58a475a80a81406a106cc188c80ec069eb123f"
+    },
+    {
+      "line": 193,
+      "timestamp": "2026-09-08T01:28:46.950Z",
+      "turn_id": "01a07ea1-c26e-7940-b8d5-2ca970191cd8",
+      "cwd": "C:\\Users\\shiro\\.codex\\worktrees\\c22a\\ResolveNodeKit",
+      "model": "gpt-5.6-sol",
+      "effort": "max",
+      "approval_policy": "never",
+      "sandbox_policy": {
+        "type": "danger-full-access"
+      },
+      "event_sha256": "536d02c544dcb3d05fe04e9a2634c1cbd3c5b5b69398ea8abe5c47c3dc621114"
+    }
+  ],
+  "correction": {
+    "first_cli_attempt_pid": 76352,
+    "first_cli_outcome": "FAILED_BEFORE_TURN: persisted thread active writer retained by idle native App thread",
+    "native_archive": true,
+    "native_unarchive": true,
+    "same_thread_preserved": true,
+    "second_cli_pid": 92856,
+    "second_cli_start_utc": "2026-09-08T01:28:44.5363204Z",
+    "second_cli_thread_started": "01a07e95-b55e-70a1-8366-b80d785bbaa4",
+    "second_cli_turn_id": "01a07ea1-c26e-7940-b8d5-2ca970191cd8",
+    "global_config_changed": false,
+    "lease_granted": false
+  },
+  "current_receipt": "docs/checkpoints/2026-09-08-astra-sol-receipt.json"
+}
