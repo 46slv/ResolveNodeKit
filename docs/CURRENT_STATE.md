@@ -10,7 +10,7 @@ Entry: [strict continuation](execution/strict-orthogonal/README.md). Initial rou
 
 ## Git authority
 
-Canonical integration branch: `feat/semantic-arrange-v1-20260906`, PR #5 OPEN/Draft, based on `feat/bootstrap-nodekit-20260905`. Current product candidate is `d7a1610726171c08ad5617c55e4cc04def786a6b`; prior publication locator was `74a497f454ae1416a55b9bfb8e0c74ce19b2b75a`. Earlier product/design evidence remains historical. Read the actual new remote HEAD before work. Older task branch `feat/arrange-uia-e2e-20260906` may hold local work: preserve and reconcile it, never reset blindly. main merge/release remains unauthorized.
+Canonical integration branch: `feat/semantic-arrange-v1-20260906`, PR #5 OPEN/Draft, based on `feat/bootstrap-nodekit-20260905`. Current product candidate is `dd0069abde35526b8164beae2c5753b95a1e12af`; prior publication locator was `17aa6f1783418a1810f58163e3a04874ab27182f`. Earlier product/design evidence remains historical. Read the actual new remote HEAD before work. Older task branch `feat/arrange-uia-e2e-20260906` may hold local work: preserve and reconcile it, never reset blindly. main merge/release remains unauthorized.
 
 AS-HANDOFF-1 updates execution design and a read-only contract checker. Product source/installer and live host are not changed or retested. Existing product evidence is not reset or promoted by this publication.
 
@@ -27,14 +27,15 @@ AS-HANDOFF-1 updates execution design and a read-only contract checker. Product 
 
 ## New status
 
-Plan: CHECKPOINTED_WITH_TECHNICAL_GAP at product candidate `d7a1610`. Sol handoff is
+Plan: CHECKPOINTED_WITH_TECHNICAL_GAP at product candidate `dd0069a`. Sol handoff is
 EXECUTION_CONFIRMED at program owner epoch 1. SO-10 and SO-20 are offline PASS;
-G02 is BLOCKED_TECHNICAL because its host portion is unproven. SO-00, SO-11,
-SO-30, SO-50 and all downstream host gates retain technical gaps. Strict/flatten/
+G02 and G03 are BLOCKED_TECHNICAL because their host portions are unproven. SO-00,
+SO-11, SO-30, SO-50 and all downstream host gates retain technical gaps. Strict/flatten/
 installed-UI product acceptance remains NOT_YET_PROVEN. See the
 [execution checkpoint](checkpoints/2026-09-08-astra-sol-execution.json) and
 [deadline handoff](checkpoints/2026-09-08-sol-deadline-handoff.json), plus the
-[Luna SO-20 checkpoint](checkpoints/2026-09-08-luna-so20-offline.json).
+[Luna SO-20 checkpoint](checkpoints/2026-09-08-luna-so20-offline.json) and
+[Luna SO-30 checkpoint](checkpoints/2026-09-08-luna-so30-offline.json).
 
 The earlier long current-state document is preserved byte-for-byte at [pre-strict archive](checkpoints/2026-09-08-pre-strict-current-state.md); previous AGENTS at [instruction archive](checkpoints/2026-09-08-pre-strict-AGENTS.md). Read historical sections only for relevant evidence.
 
@@ -70,13 +71,28 @@ only shared state/integration writer. This transition promotes no product gate.
 The same persisted Coordinator thread resumed as `gpt-5.6-luna/max` under the
 unchanged owner epoch 1 and canonical worktree. The SO-20 candidate was
 independently reviewed against the current strict contracts, then hardened and
-published as product candidate `d7a1610`: exact port-labelled multiedges,
+published as the SO-20 product candidate `d7a1610`: exact port-labelled multiedges,
 role/continuity separation, recursive bounds, rectangle validation, explicit
 SO-10 state mapping, fail-closed omitted coverage, O01–O18 coverage split, and
 1101-node/29-group offline stress are covered by 146/146 canonical tests.
 Resolve was not queried in this lane. The prior dedicated operator acquired and
 released its exact lease but had no callable `davinci-resolve` MCP surface, so
 host identity and G02 host evidence remain unobserved.
+
+## Luna SO-30 offline continuation — 2026-09-08 15:15 JST
+
+The pure view-realization seam was independently reviewed and published as
+product candidate `dd0069a`. It requires an explicit contract schema, native mode
+raw value/name/source/scope, same-run pre/post/restored stages, canonical
+port-complete edge IDs, endpoint port positions with directional roles, node/group
+rectangles, per-edge coverage and sample linkage, mask/boundary/multiedge/all-edge
+coverage, an overview plus difficult-region zoom, and JSON-safe output. Focused
+view tests are 12/12 and the canonical suite is 158/158, with compile/import and
+diff checks passing. This is host-agnostic evidence normalization only; no Resolve
+API or runtime call was made. SO-30 and G03 therefore remain BLOCKED_TECHNICAL
+until the dedicated Resolve Operator can observe and qualify the installed native
+renderer on the exact target view. The latest exact host lease was released and
+the runtime surface was unavailable (`docs/checkpoints/2026-09-08-luna-host-recheck.json`).
 
 ## Scope boundary (unchanged)
 
