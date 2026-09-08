@@ -10,7 +10,7 @@ Entry: [strict continuation](execution/strict-orthogonal/README.md). Initial rou
 
 ## Git authority
 
-Canonical integration branch: `feat/semantic-arrange-v1-20260906`, PR #5 OPEN/Draft, based on `feat/bootstrap-nodekit-20260905`. Latest authoring baseline remote HEAD: `dc074981bc01d1df618c2dc09cc703f58b7bf164`; earlier product/design evidence remains historical. Read the actual new remote HEAD before work. Older task branch `feat/arrange-uia-e2e-20260906` may hold local work: preserve and reconcile it, never reset blindly. main merge/release remains unauthorized.
+Canonical integration branch: `feat/semantic-arrange-v1-20260906`, PR #5 OPEN/Draft, based on `feat/bootstrap-nodekit-20260905`. Current product candidate is `d7a1610726171c08ad5617c55e4cc04def786a6b`; prior publication locator was `74a497f454ae1416a55b9bfb8e0c74ce19b2b75a`. Earlier product/design evidence remains historical. Read the actual new remote HEAD before work. Older task branch `feat/arrange-uia-e2e-20260906` may hold local work: preserve and reconcile it, never reset blindly. main merge/release remains unauthorized.
 
 AS-HANDOFF-1 updates execution design and a read-only contract checker. Product source/installer and live host are not changed or retested. Existing product evidence is not reset or promoted by this publication.
 
@@ -27,12 +27,14 @@ AS-HANDOFF-1 updates execution design and a read-only contract checker. Product 
 
 ## New status
 
-Plan: CHECKPOINTED_WITH_TECHNICAL_GAP at candidate `8c667e6`. Sol handoff is
-EXECUTION_CONFIRMED at program owner epoch 1. SO-10 is offline PASS; SO-00 and
-SO-50 retain host/UI technical gaps. Strict/flatten/installed-UI product
-acceptance remains NOT_YET_PROVEN and G01–G14 remain PENDING. See the
+Plan: CHECKPOINTED_WITH_TECHNICAL_GAP at product candidate `d7a1610`. Sol handoff is
+EXECUTION_CONFIRMED at program owner epoch 1. SO-10 and SO-20 are offline PASS;
+G02 is BLOCKED_TECHNICAL because its host portion is unproven. SO-00, SO-11,
+SO-30, SO-50 and all downstream host gates retain technical gaps. Strict/flatten/
+installed-UI product acceptance remains NOT_YET_PROVEN. See the
 [execution checkpoint](checkpoints/2026-09-08-astra-sol-execution.json) and
-[deadline handoff](checkpoints/2026-09-08-sol-deadline-handoff.json).
+[deadline handoff](checkpoints/2026-09-08-sol-deadline-handoff.json), plus the
+[Luna SO-20 checkpoint](checkpoints/2026-09-08-luna-so20-offline.json).
 
 The earlier long current-state document is preserved byte-for-byte at [pre-strict archive](checkpoints/2026-09-08-pre-strict-current-state.md); previous AGENTS at [instruction archive](checkpoints/2026-09-08-pre-strict-AGENTS.md). Read historical sections only for relevant evidence.
 
@@ -62,6 +64,19 @@ The durable program lease at
 `D:/Documents/ResolveNodeKit/.git/rnk-strict-orthogonal-owner.json` completed its
 single CAS from Astra/epoch0 to Sol/epoch1 with the old writer fenced. Sol is the
 only shared state/integration writer. This transition promotes no product gate.
+
+## Luna execution continuation — 2026-09-08 14:56 JST
+
+The same persisted Coordinator thread resumed as `gpt-5.6-luna/max` under the
+unchanged owner epoch 1 and canonical worktree. The SO-20 candidate was
+independently reviewed against the current strict contracts, then hardened and
+published as product candidate `d7a1610`: exact port-labelled multiedges,
+role/continuity separation, recursive bounds, rectangle validation, explicit
+SO-10 state mapping, fail-closed omitted coverage, O01–O18 coverage split, and
+1101-node/29-group offline stress are covered by 146/146 canonical tests.
+Resolve was not queried in this lane. The prior dedicated operator acquired and
+released its exact lease but had no callable `davinci-resolve` MCP surface, so
+host identity and G02 host evidence remain unobserved.
 
 ## Scope boundary (unchanged)
 

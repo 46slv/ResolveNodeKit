@@ -5,7 +5,7 @@
   "status": "CHECKPOINTED_WITH_TECHNICAL_GAP",
   "execution_started": true,
   "baseline_sha": "562405079aa6bffa6d25668b294a26ac4142a680",
-  "candidate_sha": "8c667e6c50b20753657e9c3d36a641d60d0c08e3",
+  "candidate_sha": "d7a1610726171c08ad5617c55e4cc04def786a6b",
   "canonical_branch": "feat/semantic-arrange-v1-20260906",
   "canonical_pr": 5,
   "required_policy": "ALL_REQUIRED_GATES_PASS; blocked/refused/not-collected is not success",
@@ -126,8 +126,12 @@
         "SO-10"
       ],
       "owner": "layout",
-      "status": "PENDING",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "docs/checkpoints/2026-09-08-luna-so20-offline.json#review",
+        "docs/checkpoints/2026-09-08-luna-so20-offline.json#verification",
+        "d7a1610726171c08ad5617c55e4cc04def786a6b"
+      ]
     },
     {
       "id": "SO-30",
@@ -236,9 +240,13 @@
       "required": true,
       "criterion": "All-node coverage, reference motifs, integer grid and rectangle nonoverlap",
       "evidence_class": "offline_and_host",
-      "status": "PENDING",
-      "candidate_sha": null,
-      "evidence": []
+      "status": "BLOCKED_TECHNICAL",
+      "candidate_sha": "d7a1610726171c08ad5617c55e4cc04def786a6b",
+      "evidence": [
+        "docs/checkpoints/2026-09-08-luna-so20-offline.json#review",
+        "docs/checkpoints/2026-09-08-luna-so20-offline.json#verification",
+        "docs/checkpoints/2026-09-08-luna-so20-offline.json#host"
+      ]
     },
     {
       "id": "G03",
