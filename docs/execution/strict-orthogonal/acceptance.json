@@ -436,17 +436,20 @@
     "task_replanning": "SOL_MAY_REPLAN_WITH_GOAL_GATES_AUTHORITY_UNCHANGED_AND_MAPPING_RECORDED"
   },
   "handoff_state": {
-    "phase": "PLAN_READY",
+    "phase": "RECEIPT_MISMATCH",
     "handoff_id": "RNK-SO-20260908T010727Z-01a07e8e",
     "planner_thread_id": "01a07e8e-41f3-7d30-b190-3f621b5cdb64",
-    "sol_thread_id": null,
-    "sol_turn_id": null,
+    "sol_thread_id": "01a07e95-b55e-70a1-8366-b80d785bbaa4",
+    "sol_turn_id": "01a07e95-b80a-7983-8e06-cf13b4244e30",
     "expected": null,
     "observed": null,
     "receipt": null,
     "ownership": null,
     "first_task_start": null,
-    "evidence": {},
+    "evidence": {
+      "thread_created": "docs/checkpoints/2026-09-08-astra-sol-runtime-amendment.json#native_create_client_id",
+      "turn_started": "docs/checkpoints/2026-09-08-astra-sol-runtime-amendment.json#observed_initial"
+    },
     "initial_planner_done": false,
     "mode": "NEW_OWNER"
   }

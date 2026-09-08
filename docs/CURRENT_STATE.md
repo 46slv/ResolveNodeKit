@@ -31,18 +31,23 @@ Plan: READY_FOR_RUNTIME_PREFLIGHT. Sol/runtime launch: NOT_STARTED_BY_THIS_PUBLI
 
 The earlier long current-state document is preserved byte-for-byte at [pre-strict archive](checkpoints/2026-09-08-pre-strict-current-state.md); previous AGENTS at [instruction archive](checkpoints/2026-09-08-pre-strict-AGENTS.md). Read historical sections only for relevant evidence.
 
-## Scope boundary
-
 ## Live Bootstrap — 2026-09-08 10:07 JST invocation
 
 `AS-BOOTSTRAP-20260908-1` / handoff `RNK-SO-20260908T010727Z-01a07e8e`:
-PLAN_READY, receiver launch/receipt/ownership/start still pending. Differential
+RECEIPT_MISMATCH, receiver created and started but ownership/start still pending. Differential
 audit and normalized plan hashes are in
 [Bootstrap checkpoint](checkpoints/2026-09-08-astra-sol-bootstrap.md) and its JSON.
 The old checkout is preserved. Product source is unchanged; all G01–G14 remain
 PENDING. The current invocation deadline, including Sol continuation, is
 2026-09-08 11:07:27 JST. RUNBOOK section 9 records the user grant and required
 Resolve Operator route. On receipt/transfer Sol becomes the only progress writer.
+
+Sol thread `01a07e95-b55e-70a1-8366-b80d785bbaa4` was actually created with
+`gpt-5.6-sol/max`, but native App creation used on-request/workspace-write rather
+than the expected local execution settings. The existing Resolve Operator owner
+also updated its skill during receipt. Runtime binding amendment 2 records the
+observed settings and new instruction digest. No lease was granted; supported
+same-thread correction/read-only receipt is the next step. No second Sol exists.
 
 ## Scope boundary (unchanged)
 
