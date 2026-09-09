@@ -116,6 +116,31 @@
     "product_gate_movement": [],
     "status": "PASS_OFFLINE_ADAPTER;HOST_QUALIFICATION_PENDING"
   },
+  "r1_disposable_operator_attempt": {
+    "task": "SO-11 disposable-target qualification after semantic target change",
+    "launch_id": "48da83da-041f-493b-80fe-26414f52f0d0",
+    "operator_thread": "01a08803-9bbe-7d01-a391-436133101be7",
+    "attempt_count": 1,
+    "result": "FAIL_TIMEOUT",
+    "failure_fingerprint": "HOST_QUALIFICATION_TIMEOUT:operator_started_against_stale_installed_candidate",
+    "started_before_install_readback": true,
+    "stale_installed_candidate": "3315bc72c09fd10f7672a605cbef76e1d7a1a63c; host_snapshot module absent",
+    "current_installed_candidate_after_recovery": "d6fab45c02b77b5579f18f4ee79b97440b918ef8",
+    "driver_identity": "third-party (Operator selected)",
+    "lease": {
+      "acquired": true,
+      "held_exact_live": true,
+      "cleanup": "stale holder recovered and released",
+      "final": "FREE"
+    },
+    "agent_observation": "installed processing_snapshot existed but host_snapshot did not; scratch cleanup/final Resolve readback was not returned before timeout",
+    "valuable_project_save": 0,
+    "parent_direct_host_fallback": 0,
+    "human_intervention": 0,
+    "product_gate_movement": [],
+    "restore_status": "UNVERIFIED_AFTER_TIMEOUT",
+    "next_decision": "Operator-owned recovery inventory/cleanup, then one requalification only after exact candidate install is confirmed"
+  },
   "takeover": {
     "status": "EXECUTION_CONFIRMED",
     "new_task_id": "01a087e9-0cb8-77f3-908d-e0163103ac50",
