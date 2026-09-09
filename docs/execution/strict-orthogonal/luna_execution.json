@@ -88,6 +88,33 @@
     "resolve_calls": 0,
     "status": "PASS_INSTALL_READBACK"
   },
+  "r1_offline_adapter": {
+    "task": "SO-11/R1 offline Fusion host snapshot adapter",
+    "commit": "c8da5cfcf87075a9438a777e83222f3a25c9a1be",
+    "worker": "host_snapshot_adapter",
+    "worker_model": "gpt-5.6-luna",
+    "worker_effort": "max",
+    "owned_files": [
+      "src/resolve_node_kit/fusion/host_snapshot.py",
+      "tests/test_host_snapshot.py",
+      "src/resolve_node_kit/fusion/__init__.py"
+    ],
+    "changed": "read-only host object adapter to ProcessingSnapshot with explicit unsupported/error states; no SO-20/SO-30 redesign",
+    "independent_tests": {
+      "focused": "38/38 PASS",
+      "canonical": "165/165 PASS",
+      "source_import": "C:/Users/shiro/.codex/worktrees/c22a/ResolveNodeKit/src",
+      "host_access": "NOT_RUN"
+    },
+    "mutation_guard": [
+      "no SetPos",
+      "no LoadSettings",
+      "no Undo",
+      "no save"
+    ],
+    "product_gate_movement": [],
+    "status": "PASS_OFFLINE_ADAPTER;HOST_QUALIFICATION_PENDING"
+  },
   "takeover": {
     "status": "EXECUTION_CONFIRMED",
     "new_task_id": "01a087e9-0cb8-77f3-908d-e0163103ac50",
