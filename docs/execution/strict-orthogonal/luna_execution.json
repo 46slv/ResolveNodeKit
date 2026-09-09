@@ -208,6 +208,46 @@
     "restore_status": "UNVERIFIED_AFTER_TIMEOUT",
     "next_decision": "recover scratch residue; no third identical qualification; continue offline integration and require a materially different qualified fixture route"
   },
+  "r1_nested_fixture_recovery": {
+    "task": "cleanup after nested-fixture capability-gap timeout",
+    "launch_id": "c0a721b8-da1b-4712-b180-415456770d61",
+    "operator_thread": "01a08819-8c85-7963-a0f5-aa6a0481654d",
+    "result": "PASS",
+    "driver_identity": "compatibility Resolve MCP lane (Operator selected)",
+    "resolve": {
+      "edition": "DaVinci Resolve Studio",
+      "version": "21.1.0.14",
+      "process": "C:/Program Files/Blackmagic Design/DaVinci Resolve/Resolve.exe",
+      "gui_instances": 1
+    },
+    "residue": {
+      "identified": "_mcp_RNK_SO11_9b291a91",
+      "ownership_basis": "operation-ID prefix and creation timestamp",
+      "cleanup": "safe_project_delete succeeded",
+      "post_readback": "absent from project list and attributes"
+    },
+    "valuable_state": {
+      "current_project": "Untitled Project",
+      "current_project_id": "b4c37b66-5d7d-4021-bbdb-2ad5809f9f86",
+      "timelines": 0,
+      "unchanged": true
+    },
+    "counts": {
+      "scratch_mutations": 1,
+      "project_save": 0,
+      "qualification_runs": 0,
+      "new_fixtures": 0
+    },
+    "lease": {
+      "acquired": true,
+      "held_exact_live": true,
+      "final": "FREE"
+    },
+    "human_intervention": 0,
+    "parent_direct_host_fallback": 0,
+    "product_gate_movement": [],
+    "remaining": "nested fixture capability remains unqualified; no third identical qualification"
+  },
   "takeover": {
     "status": "EXECUTION_CONFIRMED",
     "new_task_id": "01a087e9-0cb8-77f3-908d-e0163103ac50",
