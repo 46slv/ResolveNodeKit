@@ -1,6 +1,6 @@
 {
-  "schema": "resolve-node-kit.luna-continuation/v1",
-  "revision": "LM-TAKEOVER-20260908-1",
+  "schema": "resolve-node-kit.luna-continuation/v2",
+  "revision": "LM-TAKEOVER-20260910-2",
   "program": "RNK-STRICT-ORTHOGONAL",
   "policy_status": "READY_FOR_LOCAL_TAKEOVER",
   "canonical_branch": "feat/semantic-arrange-v1-20260906",
@@ -8,18 +8,21 @@
   "runbook": "LUNA_RUNBOOK.md",
   "product_acceptance": "acceptance.json",
   "history_handoff": "HANDOFF.md",
+  "prompt_trial": "PROMPT_ORCHESTRATION_TRIAL.md",
+  "resolve_operator_canary": "docs/checkpoints/2026-09-10-resolve-operator-canary-prompt.md",
   "precedence": {
     "current_roles": "this policy",
-    "current_runtime": "actual lease and new receipt",
+    "current_runtime": "actual takeover lease and current Resolve Operator result",
     "product_gates": "acceptance.json",
     "previous_handoff": "immutable historical record",
-    "old_deadline": "previous_invocation_only"
+    "old_deadline": "previous_invocation_only",
+    "live_resolve_routing": "external Resolve Operator automatic delegation"
   },
   "roles": {
     "coordinator": "new Luna Max task",
     "worker": "independent Luna Max context",
     "verifier": "fresh independent Luna Max context; no repair",
-    "host": "current qualified resolve_operator; all live access leased",
+    "host": "current qualified external Resolve Operator; all live access leased",
     "max_parallel_workers": 2,
     "shared_writers": 1,
     "host_owners": 1
@@ -29,32 +32,23 @@
     "requested_reasoning_effort": "max",
     "runtime_binding_required": true,
     "automatic_astra_sol_muse_opencode": false,
-    "preserve_qualified_operator_model_and_isolation": true,
-    "parent_direct_resolve": false
+    "parent_direct_resolve": false,
+    "resolve_operator_trigger": "live Resolve operation, host validation, restart/reconnect validation, or Resolve-side readback",
+    "parent_passes": ["objective", "target", "done", "restore_policy", "evidence"],
+    "operator_owns": ["inventory", "exclusive_lease", "driver_selection", "launch_quit_restart", "operation", "independent_readback", "cleanup_recovery", "final_readback", "lease_release", "structured_evidence"],
+    "qualified_driver_choice_internal": true,
+    "same_session_role_local_mcp_is_current_path": false,
+    "external_operator_shared_authority": "46slv/CodexOperations PR #5 @ 9958e78e382ba5a312cd0a6cc4887aaab2fe4a08"
   },
   "last_observed": {
-    "publication": "853c6b18596559d7e6dd6ea3a18662b24a471e77",
-    "product": "dd0069abde35526b8164beae2c5753b95a1e12af",
-    "coordinator_thread_id": "01a07e95-b55e-70a1-8366-b80d785bbaa4",
-    "owner_epoch": 1,
-    "offline_pass": [
-      "SO-10",
-      "SO-20"
-    ],
+    "rnkit_publication_before_routing_correction": "06c85f5e80f86c594ae8c35a49b275bcf15ff7b8",
+    "product_checkpoint_candidate": "dd0069abde35526b8164beae2c5753b95a1e12af",
+    "offline_pass": ["SO-10", "SO-20"],
+    "partial_offline": ["SO-30_VIEW_EVIDENCE_CONTRACT"],
     "reported_product_tests": 158,
-    "host_calls": 0,
-    "host_surface": "UNAVAILABLE_TO_RESOLVE_OPERATOR_AFTER_LEASE_ACQUIRE",
-    "evidence": "docs/checkpoints/2026-09-08-luna-so30-offline.json",
-    "prepublication_head": "853c6b18596559d7e6dd6ea3a18662b24a471e77",
-    "newer_code_qualification": "158/158_REPORTED_NOT_REEXECUTED_BY_AUTHORING",
-    "host_recheck_evidence": "docs/checkpoints/2026-09-08-luna-host-recheck.json",
-    "partial_offline": [
-      "SO-30_VIEW_EVIDENCE_CONTRACT"
-    ],
-    "host_unverified_gates": [
-      "G02",
-      "G03"
-    ]
+    "old_rnk_host_calls": 0,
+    "old_rnk_host_surface": "UNAVAILABLE_TO_OLD_OPERATOR_ROUTE",
+    "current_interpretation": "historical RNK checkpoint is not current external Resolve Operator capability authority"
   },
   "takeover": {
     "status": "NOT_STARTED",
@@ -70,6 +64,15 @@
     "new_owner_readback_evidence": [],
     "first_work_evidence": []
   },
+  "first_live_host_package": {
+    "delegate_to": "Resolve Operator",
+    "objective": "current RNK candidate SO-11 host preflight",
+    "restore_policy": "restore",
+    "mutation_allowed": false,
+    "project_save_allowed": false,
+    "driver_specified_by_parent": false,
+    "result_expected": ["resolve_version", "driver_identity", "lease", "target_identity", "capability_inventory", "independent_readback", "final_state"]
+  },
   "invocation": {
     "new_user_deadline": null,
     "inherit_expired_deadline": false,
@@ -79,24 +82,15 @@
   "requirements": {
     "preserve_all_existing_task_results": true,
     "preserve_all_existing_gate_definitions": true,
-    "required_gate_ids": [
-      "G01",
-      "G02",
-      "G03",
-      "G04",
-      "G05",
-      "G06",
-      "G07",
-      "G08",
-      "G09",
-      "G10",
-      "G11",
-      "G12",
-      "G13",
-      "G14"
-    ],
+    "required_gate_ids": ["G01", "G02", "G03", "G04", "G05", "G06", "G07", "G08", "G09", "G10", "G11", "G12", "G13", "G14"],
     "main_merge_authorized": false,
     "project_save_authorized": false
+  },
+  "trial": {
+    "exact_research_source_found": true,
+    "source": "/AI Operating Context/Coding Intelligence/CODEX_PROMPT_ORCHESTRATION_RESEARCH_2026-08-28.md",
+    "resolve_operator_automatic_delegation": "PROVISIONAL_CANARY",
+    "runtime_trial_started": false
   },
   "normal_development_human_click_elimination": "NOT_YET_PROVEN",
   "authoring_is_runtime_evidence": false
