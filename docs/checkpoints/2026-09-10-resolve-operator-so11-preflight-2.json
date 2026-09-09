@@ -1,0 +1,54 @@
+{
+  "schema": "resolve-node-kit.resolve-operator-evidence/v1",
+  "recorded_at_utc": "2026-09-09T21:03:34Z",
+  "task": "SO-11 host preflight requalification",
+  "semantic_status": "BLOCKED",
+  "blocker_class": "capability",
+  "failure_fingerprint": "CAPABILITY_GAP:NO_ACTIVE_TIMELINE_OR_COMP_WEDGED_RUNTIME",
+  "attempt_count": 2,
+  "new_evidence_since_attempt_1": [
+    "exact Resolve version DaVinci Resolve Studio 21.1.0.14",
+    "compatibility MCP v2.203.0 observed",
+    "project identity Untitled Project / 8f2d80d4-a15c-40a9-a2e7-65b574b5ecb8",
+    "current timeline and Fusion comp are both absent",
+    "bounded MCP launch/quit recovery completed; no alternate driver was safe"
+  ],
+  "transport_envelope": {
+    "result": "PASS",
+    "launcher": "external Resolve Operator",
+    "launch_id": "2600da3b-5faa-48b1-8e8f-7315a4fc46c5",
+    "operator_thread": "01a087f8-2cc9-72d3-9ff7-72f4d0790ff6",
+    "codex_version": "codex-cli 0.153.4",
+    "cwd": "C:/Users/shiro/.codex/worktrees/c22a/ResolveNodeKit",
+    "timed_out": false,
+    "exit_code": 0
+  },
+  "host_evidence": {
+    "resolve_version": "DaVinci Resolve Studio 21.1.0.14",
+    "driver_identity": "compatibility MCP v2.203.0; one GUI Resolve.exe",
+    "runtime": {"running": true, "instances": 1, "database_attached": false},
+    "target_identity": {"project": "Untitled Project", "project_id": "8f2d80d4-a15c-40a9-a2e7-65b574b5ecb8", "timeline": null, "comp": null, "page": null},
+    "so_11_processing_port_snapshot": "NOT_QUALIFIED: no active timeline or Fusion composition",
+    "independent_readback": "same project identity; no current timeline; one GUI Resolve instance"
+  },
+  "lease": {
+    "initial": "FREE",
+    "held": true,
+    "owner_process_exact_live": true,
+    "owner_task_matches_launch_id": true,
+    "holder_pid": 75888,
+    "token_prefix": "e22c2db7",
+    "final": "FREE",
+    "release": "launcher release/recovery completed"
+  },
+  "mutation": {"graph_project_mutation": 0, "project_save": 0, "recovery": "MCP launch once, then MCP quit"},
+  "remaining": [
+    "qualify SO-11 on an owned disposable timeline/Fusion comp or classify the host capability gap",
+    "do not bind the historical PSD2Fusion target implicitly",
+    "do not promote G01/G02/SO-11 from this result"
+  ],
+  "next_decision": "change semantic target to a disposable fixture under Operator-owned restore, or continue independent install/offline work",
+  "same_fingerprint_retry_guard": "no third identical preflight; attempt 2 added new evidence",
+  "parent_direct_host_fallback": 0,
+  "human_intervention": 0
+}
