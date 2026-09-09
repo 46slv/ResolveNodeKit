@@ -1,7 +1,7 @@
 {
   "schema": "resolve-node-kit.strict-continuation/v2",
   "program": "RNK-STRICT-ORTHOGONAL",
-  "updated": "2026-09-08",
+  "updated": "2026-09-10",
   "status": "CHECKPOINTED_WITH_TECHNICAL_GAP",
   "execution_started": true,
   "baseline_sha": "562405079aa6bffa6d25668b294a26ac4142a680",
@@ -72,7 +72,7 @@
     "shared_writers": 1,
     "host_owners": 1,
     "max_parallel_workers_default": 2,
-    "coordinator": "Sol / sole execution owner after verified handoff",
+    "coordinator": "Luna Max Coordinator / current owner epoch 2",
     "routine_worker": "qualified current lane; Luna Max preferred where available",
     "verifier": "fresh independent context; no repair",
     "bootstrap": "Astra / actual configured runtime must be verified",

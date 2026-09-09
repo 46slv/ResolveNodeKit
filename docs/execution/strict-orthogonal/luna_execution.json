@@ -67,19 +67,20 @@
     "installed_manifest": "8c667e6c50b20753657e9c3d36a641d60d0c08e3 (stale; read-only audit)"
   },
   "install_readback": {
-    "observed_at_utc": "2026-09-09T21:41:08.4629361Z",
-    "repo_head": "fc5c9638d59ac536b91fb9c58edcd5966541eee1",
+    "observed_at_utc": "2026-09-09T21:58:00.0000000Z",
+    "repo_head": "bd2b6294293e1f0664249cd3c327830ed688309d",
     "branch": "feat/semantic-arrange-v1-20260906",
     "installer": "scripts/install_resolve_user.ps1",
     "manifest_path": "%APPDATA%/Blackmagic Design/DaVinci Resolve/Support/Fusion/ResolveNodeKit/install_manifest.json",
     "entry_path": "%APPDATA%/Blackmagic Design/DaVinci Resolve/Support/Fusion/Scripts/Comp/ResolveNodeKit_Arrange.py",
-    "manifest_repo_commit": "fc5c9638d59ac536b91fb9c58edcd5966541eee1",
-    "manifest_file_count": 17,
-    "entry_plus_manifest_files": 18,
+    "manifest_repo_commit": "bd2b6294293e1f0664249cd3c327830ed688309d",
+    "manifest_file_count": 18,
+    "entry_plus_manifest_files": 19,
     "source_installed_manifest_hash_mismatches": 0,
     "import_readback": {
       "package": "resolve_node_kit",
       "host_snapshot": "imported from installed Support/Fusion/ResolveNodeKit/src",
+      "strict_request": "imported from installed Support/Fusion/ResolveNodeKit/src",
       "strict_planner": "imported from installed Support/Fusion/ResolveNodeKit/src",
       "view_realization": "imported from installed Support/Fusion/ResolveNodeKit/src",
       "processing_snapshot": "imported from installed Support/Fusion/ResolveNodeKit/src"
