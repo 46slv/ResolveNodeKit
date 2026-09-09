@@ -50,6 +50,12 @@ from .host_snapshot import (
     read_processing_snapshot,
     snapshot_comp,
 )
+from .strict_request import (
+    StrictPreparation,
+    StrictPreparationError,
+    prepare_strict_plan,
+    prepare_strict_plan_from_processing,
+)
 from .tidy import FusionHostError, TidyResult, tidy_comp
 
 __all__ = [
@@ -83,6 +89,8 @@ __all__ = [
     "StrictEdge",
     "StrictNode",
     "StrictPlan",
+    "StrictPreparation",
+    "StrictPreparationError",
     "StrictPlannerError",
     "StrictPolicy",
     "StrictSnapshot",
@@ -109,6 +117,8 @@ __all__ = [
     "fixture_catalogue",
     "plan_layout",
     "plan_strict",
+    "prepare_strict_plan",
+    "prepare_strict_plan_from_processing",
     "plan_scope",
     "resolve_arrange_scope",
     "read_processing_snapshot",
