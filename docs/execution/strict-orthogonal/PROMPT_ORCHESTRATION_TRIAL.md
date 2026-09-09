@@ -1,72 +1,62 @@
 # Prompt orchestration trial — Luna Max continuation
 
-Revision: PO-TRIAL-20260910-1  
+Revision: PO-TRIAL-20260910-2  
 Mission: RNK-STRICT-ORTHOGONAL / PR #5  
 Status: READY / prospective operational trial, not product evidence
 
-## 0. Source status
+## 0. Primary research source
 
-User requested `/AI Operating Context/Coding Intelligence/CODEX_PROMPT_ORCHESTRATION_RESEARCH_2026-08-28.md` as the research basis and wants the continuation itself to serve as a test.
+Requested source is now retrievable from ChatGPT Library:
 
-ChatGPT Library search in the authoring session did **not** return that exact filename. The closest same-date current source that was retrievable was `CODEX_PROMPT_AUTHORING_LUNA_FIRST_REFERENCE.md` (2026-08-28), plus the current `CODEX_OPERATIONS_INDEX.md` and `CODEX_ORCHESTRATION.md`. Do not claim the retrievable file is byte-identical to the requested research file.
+`/AI Operating Context/Coding Intelligence/CODEX_PROMPT_ORCHESTRATION_RESEARCH_2026-08-28.md`
 
-Therefore the trial begins with a source-retrieval check:
+Relevant current section: **Provisional prompt candidate — Resolve Operator automatic delegation (2026-09-10)**, status `PROVISIONAL / CANARY`.
 
-1. New Luna task attempts to read the requested exact Library path if its environment exposes it.
-2. If exact content is available, record path/version/hash and use it as the primary research source.
-3. If unavailable, record `EXACT_RESEARCH_SOURCE=UNAVAILABLE` and use the retrievable same-date prompt-authoring reference as the fallback operational source. This is not a blocker for product work.
-4. If the exact source later becomes available, compare it with the fallback and record only decision-relevant deltas before changing the trial.
+The candidate says that when live DaVinci Resolve operation, host validation, restart/reconnect validation, or Resolve-side readback is materially required, the parent Agent/Orchestrator should delegate the host work to the dedicated Resolve Operator. Parent passes only high-level objective, target/scope, observable Done, restore expectation, required evidence. Resolve Operator owns inventory, exclusive lease, driver selection, launch/quit/restart, operation, independent readback, cleanup/recovery, final readback, lease release, and structured evidence return.
 
-## 1. What is being tested
+Current detailed operational truth remains in the Resolve Operator package/domain owner rather than this trial memo. Shared package authority checked while authoring: `46slv/CodexOperations` PR #5, branch `docs/resolve-operator-package-20260908`, head `9958e78e382ba5a312cd0a6cc4887aaab2fe4a08`, `FIRST_USABLE: PASS`, `FULL_QUALIFICATION: PARTIAL_PASS`.
 
-The research/reference proposes that prompt/orchestration quality comes primarily from **short task contracts + durable repo knowledge + bounded Work Packages + compact Evidence Packets**, not from repeatedly sending project-wide prompts.
+## 1. Hypotheses under test
 
-This continuation tests the following hypotheses without weakening any product gate:
+Product truth outranks the experiment. G01–G14 are unchanged.
 
-- **H1 — Short top-level prompt is sufficient.** The user-facing/new-task prompt contains only Goal/Done/Constraints/Start/Evidence. Durable rules stay in AGENTS/docs/Skill/Harness.
-- **H2 — Bounded Work Packages improve execution clarity.** Each Worker receives one coherent outcome with owned scope, explicit validation, and return schema. No project transcript dump.
-- **H3 — Compact Evidence Packets are sufficient for coordination.** Worker returns only current state, changed surface, verified behavior, tests/host evidence, exact blocker/fingerprint, and next bounded decision.
-- **H4 — Routine work stays with Luna.** Repository read, implementation, debugging, tests and host checks remain Luna work. Stronger-model consultation is not sticky.
-- **H5 — Escalation is evidence-triggered, not frustration-triggered.** If the **same failure fingerprint** occurs twice with **no new evidence**, do not blindly perform the third same attempt. Change route or, if a higher-level ambiguity genuinely remains and an authorized Sol advisor lane is available, use one bounded Sol diagnostic/adjudication turn, then return implementation to Luna.
-- **H6 — Important repeated rules should migrate to mechanical enforcement.** A verified recurring defect should become a test/validator/Skill/Harness guard where appropriate, not another permanent prompt paragraph.
+- **H1 short top-level contract**: Goal/Done/Start/Execution/Evidence/Authorityだけで継続できる。
+- **H2 bounded Work Package**: Workerへ一つのcoherent outcome、owned scope、validation、return schemaだけを渡す。
+- **H3 compact Evidence Packet**: raw transcriptなしでCoordinatorが次判断できる。
+- **H4 Luna stays primary**: routine implementation/debug/testはLuna Max。上位diagnosisはevidence-triggered/non-sticky。
+- **H5 same-evidence retry guard**: 同じfailure fingerprintが2回かつ新証拠なしなら同じ3回目を禁止しrouteを変える。
+- **H6 mechanical promotion**: 再発するprose ruleはtest/validator/Skill/Harness等へ昇格する。
+- **H7 Resolve Operator automatic delegation CANARY**: live Resolveが必要になった時、親Lunaがdriver/lease/GUI/MCP手順を書かずhigh-level objectiveだけを渡し、Operatorが自動で正しいqualified routeを選び、lease、readback、cleanup/recovery、evidence returnまで閉じられる。
 
-### Explicit deviation under test
-
-The accessible 2026-08-28 reference's standard preference is `Sol supervisor -> Luna worker`. The current user instruction instead requests a **new Luna Max Coordinator**. This trial intentionally keeps Luna Max as Coordinator and Worker/Verifier family, while retaining only the research's **conditional, non-sticky Sol escalation rule**. This is a project-specific experiment, not a claim that the source recommends Luna-only coordination.
+今回のLuna Max Coordinatorはユーザー明示方針であり、研究文書の一般的な`Luna executes; Sol decides` preferenceをLuna-only普遍則へ変更する試験ではない。
 
 ## 2. Trial invariants
 
-The experiment is secondary to product truth. It may not:
+このtrialは次を変更できない。
 
-- change G01–G14, product Done, authority, no-save, no-main-merge, exclusive host ownership, or processing-preservation rules;
-- relabel a host blocker as PASS;
-- force a Sol escalation merely to generate experiment data;
-- keep Sol as implementer after a bounded consultation;
-- re-run a harmful/ambiguous write just to count attempts;
-- make prompts artificially tiny by omitting necessary references or validation;
-- make prompts artificially long to improve the comparison baseline.
+- G01–G14 / product Done / no-save / no-main-merge / processing preservation
+- parent Resolve MCP visibility 0というcurrent isolation intent
+- user-wide exclusive Resolve lease
+- Resolve Operatorのqualified capability boundary
+- missing host evidenceをPASSへ昇格しないこと
 
-Current/live repo, runtime, tests and host evidence outrank Library research.
+研究のために余分なhost mutation、Sol呼出し、人間操作、fake retryを作らない。
 
-## 3. Work Package schema
+## 3. Worker package / Evidence Packet
 
-Every delegated Luna Worker packet should fit this shape unless the task genuinely needs less:
+Worker package:
 
 ```text
 Task: <single coherent outcome>
 Owned: <files/subsystem/worktree or host lane>
-Read/Start: <1-4 authoritative references>
+Read/Start: <1-4 authoritative refs>
 Do: <necessary actions>
-Do not: <only task-relevant hard boundaries>
+Do not: <task-specific boundaries>
 Validation: <observable checks>
-Return: <Evidence Packet fields>
+Return: <Evidence Packet>
 ```
 
-Do not include the Coordinator transcript, old successful cycles, generic coding rules, full PLAN text, or raw host logs when references are enough.
-
-## 4. Evidence Packet schema
-
-Worker/Verifier returns:
+Evidence Packet:
 
 ```text
 TASK
@@ -82,112 +72,110 @@ ATTEMPT_COUNT
 NEXT_DECISION
 ```
 
-Raw transcripts are artifacts, not the packet itself.
+## 4. Resolve Operator CANARY package — first live-host package
 
-## 5. Trial instrumentation
-
-For each meaningful Work Package, append a compact record under a task-owned local evidence file/checkpoint with:
-
-- package id and goal;
-- Coordinator model/context id and Worker/Verifier context ids when available;
-- top-level task prompt bytes/chars if measurable;
-- references read count;
-- Work Package bytes/chars if measurable;
-- Evidence Packet bytes/chars if measurable;
-- wall time if available;
-- changed files count;
-- tests/host result;
-- failure fingerprint and attempt count;
-- escalation event: none / changed-route-Luna / Sol-diagnostic / human;
-- human intervention count;
-- meaningful new evidence produced: yes/no;
-- resulting product task/gate movement.
-
-Do not fabricate metrics when the harness does not expose them. Use `NOT_COLLECTED`.
-
-### Minimum trial sample
-
-Use at least **three real Work Packages** if the mission runs long enough:
-
-1. a host/operator recovery or complete snapshot package;
-2. a product implementation/integration package;
-3. an independent verification/host qualification package.
-
-If the product completes or reaches a genuine stop before three packages, preserve the smaller sample and do not create fake work.
-
-## 6. First Work Package for this continuation
-
-The first useful package should attack the current host boundary, not reimplement the already-passed offline planner.
+このtrialでは、旧RNK checkpointのsame-session tool visibility修復を親Lunaの仕事にしない。current external Resolve Operatorを代表taskで呼ぶ。
 
 ```text
-Task: Restore the qualified resolve_operator tool path far enough to prove one read-only Resolve identity call for the current RNK candidate.
+Task:
+Resolve Operatorへ委譲し、current RNK candidateのSO-11 host preflightをread-onlyで実行する。
 
-Owned: resolve_operator binding/session/tool-visibility diagnosis and its run-scoped evidence. Product files remain read-only unless an evidence-contract defect is actually found.
-
-Read/Start:
-- docs/execution/strict-orthogonal/LUNA_RUNBOOK.md §4
-- docs/checkpoints/2026-09-08-luna-host-recheck.json
-- current personal resolve-operator Skill/config actually loaded by the new operator
-- current PR #5 / live Git state
-
-Do:
-- distinguish lease ownership, MCP tool exposure, transport connection, and host responsiveness;
-- inspect the actual child/operator role binding and tool list;
-- repair only the smallest current task/agent-local binding/configuration surface allowed by the Skill;
-- acquire the exclusive lease with exact PID/start identity;
-- when and only when the callable surface exists, perform one short read-only identity/getter call and record project/timeline/comp plus process/runtime identity;
-- release/retain the lease exactly according to the operation boundary and record final state.
-
-Do not:
-- enable Resolve MCP directly on the parent Coordinator;
-- bypass the dedicated Operator or lease;
-- restart Resolve merely to fix tool visibility before proving the failure is host-side;
-- mutate product graph/project or save the project;
-- repeat the same unavailable-tool route more than once without new evidence;
-- rewrite global agent/MCP policy broadly to make this test pass.
-
-Validation:
-- actual operator identity and effective model/capability binding recorded;
-- lease HELD readback with exact owner identity;
-- davinci-resolve callable tool list observed;
-- one read-only host call returns current runtime/target identity;
-- zero graph/project mutation and zero save;
-- final lease/host state explicit.
-
-Return:
-- compact Evidence Packet from §4;
-- exact failure fingerprint if not PASS;
-- whether next route is SO-11 host snapshot, task-local operator binding repair, or technical stop.
+Parent envelope:
+objective: "current RNK candidateのstrict host qualificationを開始できるよう、current Resolve runtime/targetと必要snapshot capabilityをinventoryする"
+target:
+  project: "current valuable targetはinventoryで確定。暗黙の旧project名へbindしない"
+  timeline: "current-policy"
+  comp: "current-policy"
+done:
+  - "exact Resolve version/edition/process identityがreadbackされる"
+  - "project/timeline/comp target identityがreadbackされる"
+  - "SO-11に必要なread-only processing/port snapshot capabilityの可否が判定される"
+  - "graph/project mutation=0、project save=0"
+restore_policy: "restore"
+evidence:
+  - resolve_version
+  - driver_identity
+  - lease
+  - target_identity
+  - capability_inventory
+  - independent_readback
+  - final_state
 ```
 
-## 7. Escalation experiment
+親Lunaはdriverを指定しない。Operatorがcurrent qualified surfaceからnative MCP / compatibility MCP / scripting / GUIを選ぶ。launcher、lease、quit/restart、MCP reconnect、readback、cleanupはOperator内部手順。
 
-Track failure by semantic fingerprint, not just error text. Different failures such as `LEASE_BUSY`, `MCP_TOOL_NOT_EXPOSED`, `MCP_DISCONNECTED`, `HOST_GETTER_TIMEOUT`, and `HOST_API_ABSENT` are not one counter.
+Operatorが`BUSY`なら親はhostへ迂回せずoffline ready workを進める。`BLOCKED` / `INTEGRATION_GAP`なら`routing / launcher / lease / driver / capability / restore / evidence`のどこで止まったかをEvidence Packetとして受け、Operator package側のrepair候補へ送る。
 
-When the same fingerprint repeats:
+## 5. Automatic delegation promotion test
 
-- attempt 1: ordinary Luna diagnosis/repair;
-- attempt 2: Luna must use a materially different distinguishing probe or route and state what new evidence is expected;
-- if attempt 2 yields no new evidence: do **not** run the same third attempt;
-- choose a different safe route. If the remaining problem is architectural/acceptance ambiguity rather than a simple capability repair, and an authorized Sol diagnostic lane exists, send one compact Evidence Packet + one question to Sol;
-- after the decision, return implementation/verification to Luna. Sol does not keep the Worker role.
+CANARYで記録する。
 
-If Sol is not available, use a fresh Luna diagnosis context rather than stopping solely because the research preferred a supervisor.
+- parent promptにResolve実装手順が何行入ったか
+- Operatorがon-demandで起動したか
+- parent Resolve tool visibilityが0のままか
+- selected driverと、その選択がqualified surface内か
+- exclusive lease acquire/final state
+- independent readback
+- cleanup/recovery
+- user confirmation count
+- parent direct-host fallback count（期待0）
+- structured evidence completeness
+- product gate movement
 
-## 8. Trial result and Learning Gate
+Representative real taskで安定して成立すれば、trial resultでdurable routingへの昇格候補を提案する。昇格先は長いtask promptではなくglobal/repo AGENTSの短いrouting、Resolve Operator Skill、launcher/Harness等を優先する。
 
-At a meaningful milestone or mission close, write `PROMPT_ORCHESTRATION_TRIAL_RESULT.{md,json}` containing:
+一回の失敗で方式を廃止しない。まずfailureを`routing / launcher / lease / driver / capability / restore / evidence`へ分類し、Operator procedure/script/Skill/Harnessを修復する。修復後に同じsemantic taskで再qualificationする。親が直接Resolveへ入る恒久fallbackは禁止。
 
-- exact research source used (requested exact file vs fallback);
-- sample Work Packages and Evidence Packet sizes/refs where measurable;
-- completion/gate movement;
-- same-fingerprint retries and route changes;
-- Sol escalation count and whether it was useful;
-- human interventions;
-- false-completion/duplicate-work incidents;
-- what was NOT measured;
-- source-supported conclusions vs project-specific inference.
+## 6. General trial instrumentation
 
-Do not infer causality from one project. Record this as a bounded field test.
+各meaningful Work Packageで取得可能なら記録する。
 
-Run the Mandatory Learning Gate before closeout. If a reusable finding is verified, prefer a test/validator/Skill/Harness or the existing CodexOperations owner over adding more RNK-specific prose. If there is no reusable delta, record `NO_REUSABLE_DELTA` in the trial result.
+- package id / goal
+- Coordinator / Worker / Verifier model+context IDs
+- top-level prompt size
+- references count
+- Work Package size
+- Evidence Packet size
+- wall time
+- changed files
+- tests/host result
+- failure fingerprint / attempt count
+- escalation: none / changed-route-Luna / Sol-diagnostic / Resolve-Operator-repair / human
+- human intervention count
+- meaningful new evidence yes/no
+- resulting product task/gate movement
+
+計測不能は`NOT_COLLECTED`。
+
+最低sampleは、missionが続くなら (1) Resolve Operator/SO-11 host package、(2) product integration package、(3) independent verification/host qualification package。完成/真の停止が先ならfake workを作らない。
+
+## 7. Failure escalation
+
+semantic fingerprintで数える。`OPERATOR_ROUTING_MISSING`、`OPERATOR_LAUNCH_FAIL`、`LEASE_BUSY`、`DRIVER_CAPABILITY_GAP`、`RESTORE_UNQUALIFIED`、`EVIDENCE_INCOMPLETE`、`HOST_GETTER_TIMEOUT`は別fingerprint。
+
+- attempt 1: Luna/Operatorの通常repair
+- attempt 2: materially different distinguishing probe/route、新しいevidence expectationを明示
+- same fingerprint x2 + no new evidence: 同じ3回目は禁止
+- Resolve固有問題ならまずOperator package側のrepairへ
+- architecture/acceptance ambiguityが残り、authorized Sol diagnostic laneが有効なら一回のbounded diagnosisを使ってよい
+- 実装/検証はLunaへ戻す。escalationをstickyにしない
+
+## 8. Trial result / Learning Gate
+
+meaningful milestoneまたはmission closeで`PROMPT_ORCHESTRATION_TRIAL_RESULT.{md,json}`を作る。
+
+最低項目:
+- exact research source: `CODEX_PROMPT_ORCHESTRATION_RESEARCH_2026-08-28.md`
+- Resolve Operator package authority revision
+- Work Package/Evidence Packet sample
+- automatic delegation CANARY result
+- routing/driver/lease/readback/cleanup/restart evidence coverage
+- same-fingerprint retry/route change
+- Sol diagnostic count/usefulness
+- human interventions
+- product gate movement
+- false completion/duplicate work incidents
+- NOT_COLLECTED
+- source-supported conclusion vs RNK-specific inference
+
+一案件から因果を一般化しない。Mandatory Learning Gateを実施し、verified reusable deltaは既存CodexOperations/Resolve Operator ownerまたは機械的guardへ昇格する。再利用deltaがなければ`NO_REUSABLE_DELTA`。
