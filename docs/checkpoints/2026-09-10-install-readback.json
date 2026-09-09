@@ -1,10 +1,10 @@
 {
   "schema": "resolve-node-kit.strict-install-readback/v1",
-  "observed_at_utc": "2026-09-09T21:05:22.3213715Z",
+  "observed_at_utc": "2026-09-09T21:19:32.7991348Z",
   "task": "R1 exact per-user install and import provenance",
   "candidate": {
     "branch": "feat/semantic-arrange-v1-20260906",
-    "commit": "3315bc72c09fd10f7672a605cbef76e1d7a1a63c",
+    "commit": "d6fab45c02b77b5579f18f4ee79b97440b918ef8",
     "pr": 5,
     "source_root": "C:/Users/shiro/.codex/worktrees/c22a/ResolveNodeKit"
   },
@@ -12,15 +12,16 @@
     "script": "scripts/install_resolve_user.ps1",
     "manifest": "%APPDATA%/Blackmagic Design/DaVinci Resolve/Support/Fusion/ResolveNodeKit/install_manifest.json",
     "entry": "%APPDATA%/Blackmagic Design/DaVinci Resolve/Support/Fusion/Scripts/Comp/ResolveNodeKit_Arrange.py",
-    "manifest_repo_commit": "3315bc72c09fd10f7672a605cbef76e1d7a1a63c",
-    "manifest_package_files": 16,
-    "entry_plus_manifest_files": 17,
+    "manifest_repo_commit": "d6fab45c02b77b5579f18f4ee79b97440b918ef8",
+    "manifest_package_files": 17,
+    "entry_plus_manifest_files": 18,
     "source_installed_manifest_hash_mismatches": 0
   },
   "import_readback": {
     "package_root": "%APPDATA%/Blackmagic Design/DaVinci Resolve/Support/Fusion/ResolveNodeKit/src",
     "modules": [
       "resolve_node_kit",
+      "resolve_node_kit.fusion.host_snapshot",
       "resolve_node_kit.fusion.strict_planner",
       "resolve_node_kit.fusion.view_realization",
       "resolve_node_kit.fusion.processing_snapshot"

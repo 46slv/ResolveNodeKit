@@ -112,7 +112,7 @@ The second canary attempt used materially different Operator evidence and is rec
 
 ## Luna exact install readback — 2026-09-10
 
-The backup-backed per-user installer was run from the canonical candidate `3315bc72c09fd10f7672a605cbef76e1d7a1a63c` after the two Operator preflight attempts. The installed manifest reports the same repository commit, 16 package files plus the menu entry (17 total), and a source/installed SHA-256 comparison with zero mismatches. Installed imports for `resolve_node_kit`, `fusion.strict_planner`, `fusion.view_realization`, and `fusion.processing_snapshot` resolve from the intended `%APPDATA%/Blackmagic Design/DaVinci Resolve/Support/Fusion/ResolveNodeKit/src` root. This is an install/provenance PASS only; it does not promote any Resolve host or G01–G14 gate. Evidence is in `docs/execution/strict-orthogonal/luna_execution.json#install_readback` and the dated install checkpoint.
+The backup-backed per-user installer was rerun from the integrated candidate `d6fab45c02b77b5579f18f4ee79b97440b918ef8` after the R1 adapter landed. The installed manifest reports the same repository commit, 17 package files plus the menu entry (18 total), and a source/installed SHA-256 comparison with zero mismatches. Installed imports for `resolve_node_kit`, `fusion.host_snapshot`, `fusion.strict_planner`, `fusion.view_realization`, and `fusion.processing_snapshot` resolve from the intended `%APPDATA%/Blackmagic Design/DaVinci Resolve/Support/Fusion/ResolveNodeKit/src` root. This is an install/provenance PASS only; it does not promote any Resolve host or G01–G14 gate. Evidence is in `docs/execution/strict-orthogonal/luna_execution.json#install_readback` and the dated install checkpoint.
 
 ## R1 offline adapter — 2026-09-10
 
