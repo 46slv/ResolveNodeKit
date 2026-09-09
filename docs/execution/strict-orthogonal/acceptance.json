@@ -5,7 +5,7 @@
   "status": "CHECKPOINTED_WITH_TECHNICAL_GAP",
   "execution_started": true,
   "baseline_sha": "562405079aa6bffa6d25668b294a26ac4142a680",
-  "candidate_sha": "dd0069abde35526b8164beae2c5753b95a1e12af",
+  "candidate_sha": "55119cd8b20e227284516b95f77a4b3e05384438",
   "canonical_branch": "feat/semantic-arrange-v1-20260906",
   "canonical_pr": 5,
   "required_policy": "ALL_REQUIRED_GATES_PASS; blocked/refused/not-collected is not success",
@@ -119,7 +119,10 @@
       "evidence": [
         "docs/checkpoints/2026-09-08-sol-deadline-handoff.json#host",
         "docs/checkpoints/2026-09-08-luna-host-recheck.json#lease",
-        "docs/checkpoints/2026-09-08-luna-host-recheck.json#runtime"
+        "docs/checkpoints/2026-09-08-luna-host-recheck.json#runtime",
+        "docs/checkpoints/2026-09-10-r1-host-snapshot-adapter.json",
+        "docs/checkpoints/2026-09-10-resolve-operator-disposable-requalification-timeout.json",
+        "docs/checkpoints/2026-09-10-resolve-operator-nested-recovery.json"
       ]
     },
     {
@@ -236,10 +239,13 @@
       "required": true,
       "criterion": "Complete source audit and port-labelled snapshot",
       "evidence_class": "source_and_host",
-      "status": "PENDING",
+      "status": "BLOCKED_TECHNICAL",
       "candidate_sha": null,
       "evidence": [
-        "docs/checkpoints/2026-09-08-luna-host-recheck.json#runtime"
+        "docs/checkpoints/2026-09-08-luna-host-recheck.json#runtime",
+        "docs/checkpoints/2026-09-10-r1-host-snapshot-adapter.json",
+        "docs/checkpoints/2026-09-10-resolve-operator-disposable-requalification-timeout.json",
+        "docs/checkpoints/2026-09-10-resolve-operator-nested-recovery.json"
       ]
     },
     {

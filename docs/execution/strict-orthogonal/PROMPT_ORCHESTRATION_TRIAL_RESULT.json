@@ -1,0 +1,152 @@
+{
+  "schema": "resolve-node-kit.prompt-orchestration-trial-result/v1",
+  "trial_revision": "PO-TRIAL-20260910-2",
+  "program": "RNK-STRICT-ORTHOGONAL",
+  "status": "PARTIAL_PASS_INTEGRATION_GAP",
+  "exact_research_source": "/AI Operating Context/Coding Intelligence/CODEX_PROMPT_ORCHESTRATION_RESEARCH_2026-08-28.md",
+  "resolve_operator_package_authority": {
+    "repository": "46slv/CodexOperations",
+    "pr": 5,
+    "branch": "docs/resolve-operator-package-20260908",
+    "head": "9958e78e382ba5a312cd0a6cc4887aaab2fe4a08",
+    "first_usable": "PASS",
+    "full_qualification": "PARTIAL_PASS"
+  },
+  "candidate_context": {
+    "repository": "46slv/ResolveNodeKit",
+    "branch": "feat/semantic-arrange-v1-20260906",
+    "product_source_candidate": "55119cd8b20e227284516b95f77a4b3e05384438",
+    "pr_head_at_trial_readback": "35d27fe",
+    "parent_direct_resolve_visibility": 0
+  },
+  "work_packages": [
+    {
+      "id": "R1-OFFLINE-HOST-SNAPSHOT",
+      "owner": "host_snapshot_adapter",
+      "model": "gpt-5.6-luna/max",
+      "outcome": "read-only host snapshot adapter with explicit unsupported/error states",
+      "evidence_packet": {
+        "tests": "focused 38/38 PASS; canonical 165/165 PASS",
+        "host_evidence": "NOT_RUN",
+        "product_gate_movement": []
+      }
+    },
+    {
+      "id": "R1-STRICT-PREPARATION",
+      "owner": "Coordinator",
+      "outcome": "pure fail-closed ProcessingSnapshot to existing strict planner seam",
+      "evidence_packet": {
+        "tests": "dedicated 28/28 PASS; canonical 169/169 PASS",
+        "host_evidence": "NOT_RUN",
+        "product_gate_movement": []
+      }
+    },
+    {
+      "id": "RO-SO11-PREFLIGHT",
+      "owner": "external Resolve Operator",
+      "parent_envelope": "objective/target/done/restore_policy/evidence only",
+      "attempts": 2,
+      "outcome": "launcher/lease PASS; semantic BLOCKED; current target lacked timeline/comp",
+      "evidence_refs": [
+        "docs/checkpoints/2026-09-10-resolve-operator-so11-preflight-1.json",
+        "docs/checkpoints/2026-09-10-resolve-operator-so11-preflight-2.json"
+      ]
+    },
+    {
+      "id": "RO-DISPOSABLE-TARGET",
+      "owner": "external Resolve Operator",
+      "route_change": "owned disposable scratch target",
+      "attempts": 1,
+      "outcome": "FAIL_TIMEOUT after new evidence: stale installed candidate lacked host_snapshot",
+      "evidence_refs": ["docs/checkpoints/2026-09-10-resolve-operator-disposable-timeout.json"]
+    },
+    {
+      "id": "RO-DISPOSABLE-RECOVERY-1",
+      "owner": "external Resolve Operator",
+      "outcome": "PASS_NO_OWNED_RESIDUE; final lease FREE; save/mutation 0",
+      "evidence_refs": ["docs/checkpoints/2026-09-10-resolve-operator-disposable-recovery.json"]
+    },
+    {
+      "id": "RO-DISPOSABLE-REQUALIFICATION",
+      "owner": "external Resolve Operator",
+      "route_change": "exact installed candidate and explicit non-empty nested fixture target",
+      "attempts": 1,
+      "outcome": "FAIL_TIMEOUT after new evidence: GroupOperator.AddTool and nested Paste refused",
+      "evidence_refs": ["docs/checkpoints/2026-09-10-resolve-operator-disposable-requalification-timeout.json"]
+    },
+    {
+      "id": "RO-DISPOSABLE-RECOVERY-2",
+      "owner": "external Resolve Operator",
+      "outcome": "PASS; operation-owned scratch project deleted and absent on readback; final lease FREE",
+      "evidence_refs": ["docs/checkpoints/2026-09-10-resolve-operator-nested-recovery.json"]
+    }
+  ],
+  "automatic_delegation_canary": {
+    "automatic_launch": {
+      "count": 6,
+      "successful_transport_envelopes": 4,
+      "timeouts": 2,
+      "human_intervention": 0
+    },
+    "driver_routing": {
+      "parent_specified": false,
+      "operator_selected": "third-party/compatibility lane",
+      "qualified_surface_claim": "Operator-selected compatibility route was observed; product capability remained separately gated"
+    },
+    "lease": {
+      "all_attempts_acquired": true,
+      "exact_owner_held_observed": true,
+      "all_final_states": "FREE",
+      "stale_holder_recovery": 2
+    },
+    "readback": {
+      "exact_resolve_identity": "PASS on attempts 2, recovery-1, recovery-2",
+      "target_identity": "PASS for current Untitled Project; disposable nested target incomplete",
+      "independent_readback": "PASS where semantic package completed; timeout packages explicitly incomplete",
+      "processing_snapshot_capability": "NOT_QUALIFIED"
+    },
+    "cleanup_recovery": {
+      "recovery_1": "PASS_NO_OWNED_RESIDUE",
+      "recovery_2": "PASS scratch project deleted and post-readback absent",
+      "project_save": 0,
+      "valuable_project_mutation": 0
+    },
+    "parent_direct_host_fallback_count": 0,
+    "product_gate_movement": []
+  },
+  "retry_guard": {
+    "same_fingerprint_twice_without_new_evidence": false,
+    "identical_third_attempt": "FORBIDDEN",
+    "route_changes": [
+      "current Untitled Project preflight -> owned disposable target",
+      "stale-installed target -> exact installed candidate after reinstall",
+      "qualification -> cleanup-only recovery"
+    ]
+  },
+  "escalation": {
+    "sol_diagnostic_count": 0,
+    "sol_diagnostic_usefulness": "NOT_USED",
+    "human_count": 0,
+    "parent_direct_host_fallback": 0,
+    "operator_repair_or_recovery": "used for stale lease/owned scratch cleanup"
+  },
+  "product_gate_movement": {
+    "changed": [],
+    "G01": "BLOCKED_TECHNICAL",
+    "G02_G14": "not all PASS; remain required",
+    "false_completion": false
+  },
+  "not_collected": [
+    "parent runtime metadata beyond user-directed Luna Max model/effort binding",
+    "exact Worker/Verifier prompt and wall-time instrumentation",
+    "complete adapter readback on a non-empty nested host fixture",
+    "native strict wire/view qualification",
+    "large 1100+ preserve/flatten qualification"
+  ],
+  "learning_gate": {
+    "source_supported_conclusion": "High-level parent envelope plus external Operator lifecycle can automatically launch, lease, recover, and return structured evidence without parent direct-host fallback.",
+    "rnk_specific_inference": "Current Resolve 21.1.0.14 route could not create the required nested Group fixture through the observed AddTool/Paste surfaces; SO-11 remains blocked.",
+    "reusable_delta": "Keep the short parent envelope, exact installed-candidate precondition, and mechanical no-identical-third-retry guard.",
+    "global_policy_promotion": "NO; one RNK case is insufficient for permanent global policy"
+  }
+}

@@ -116,6 +116,24 @@
     "product_gate_movement": [],
     "status": "PASS_OFFLINE_ADAPTER;HOST_QUALIFICATION_PENDING"
   },
+  "r1_strict_preparation": {
+    "task": "R1 pure strict planner integration seam",
+    "commit": "55119cd8b20e227284516b95f77a4b3e05384438",
+    "owner": "Luna Max Coordinator",
+    "changed": [
+      "src/resolve_node_kit/fusion/strict_request.py",
+      "src/resolve_node_kit/fusion/__init__.py",
+      "tests/test_strict_request.py"
+    ],
+    "behavior": "complete ProcessingSnapshot -> existing strict planner -> independent validation; fail closed before any host write",
+    "tests": {
+      "focused": "28/28 PASS",
+      "canonical": "169/169 PASS",
+      "host_access": "NOT_RUN"
+    },
+    "product_gate_movement": [],
+    "status": "PASS_OFFLINE_INTEGRATION;HOST_MUTATION_PENDING"
+  },
   "r1_disposable_operator_attempt": {
     "task": "SO-11 disposable-target qualification after semantic target change",
     "launch_id": "48da83da-041f-493b-80fe-26414f52f0d0",
@@ -327,6 +345,14 @@
       "product_gate_movement": [],
       "same_fingerprint_retry_guard": "attempts used materially different evidence; no third identical preflight",
       "next": "change semantic target to an owned disposable fixture or continue independent install/offline work"
+      ,"extended_attempts": {
+        "disposable_stale_install": "FAIL_TIMEOUT",
+        "disposable_recovery": "PASS_NO_OWNED_RESIDUE",
+        "exact_candidate_nested_fixture": "FAIL_TIMEOUT; GroupOperator.AddTool and nested Paste refused",
+        "nested_fixture_recovery": "PASS; scratch deleted and absent",
+        "identical_third_qualification": "FORBIDDEN",
+        "product_gate_movement": []
+      }
     }
   },
   "normal_development_human_click_elimination": "NOT_YET_PROVEN",
