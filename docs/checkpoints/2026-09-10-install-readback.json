@@ -1,10 +1,10 @@
 {
   "schema": "resolve-node-kit.strict-install-readback/v1",
-  "observed_at_utc": "2026-09-09T21:19:32.7991348Z",
+  "observed_at_utc": "2026-09-09T21:41:08.4629361Z",
   "task": "R1 exact per-user install and import provenance",
   "candidate": {
     "branch": "feat/semantic-arrange-v1-20260906",
-    "commit": "d6fab45c02b77b5579f18f4ee79b97440b918ef8",
+    "commit": "fc5c9638d59ac536b91fb9c58edcd5966541eee1",
     "pr": 5,
     "source_root": "C:/Users/shiro/.codex/worktrees/c22a/ResolveNodeKit"
   },
@@ -12,7 +12,7 @@
     "script": "scripts/install_resolve_user.ps1",
     "manifest": "%APPDATA%/Blackmagic Design/DaVinci Resolve/Support/Fusion/ResolveNodeKit/install_manifest.json",
     "entry": "%APPDATA%/Blackmagic Design/DaVinci Resolve/Support/Fusion/Scripts/Comp/ResolveNodeKit_Arrange.py",
-    "manifest_repo_commit": "d6fab45c02b77b5579f18f4ee79b97440b918ef8",
+    "manifest_repo_commit": "fc5c9638d59ac536b91fb9c58edcd5966541eee1",
     "manifest_package_files": 17,
     "entry_plus_manifest_files": 18,
     "source_installed_manifest_hash_mismatches": 0
