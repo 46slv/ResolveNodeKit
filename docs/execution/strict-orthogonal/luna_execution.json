@@ -2,7 +2,7 @@
   "schema": "resolve-node-kit.luna-continuation/v2",
   "revision": "LM-TAKEOVER-20260910-2",
   "program": "RNK-STRICT-ORTHOGONAL",
-  "policy_status": "READY_FOR_LOCAL_TAKEOVER",
+  "policy_status": "EXECUTION_CONFIRMED",
   "canonical_branch": "feat/semantic-arrange-v1-20260906",
   "canonical_pr": 5,
   "runbook": "LUNA_RUNBOOK.md",
@@ -50,19 +50,58 @@
     "old_rnk_host_surface": "UNAVAILABLE_TO_OLD_OPERATOR_ROUTE",
     "current_interpretation": "historical RNK checkpoint is not current external Resolve Operator capability authority"
   },
+  "live_takeover_readback": {
+    "observed_at_utc": "2026-09-09T20:49:59.2899111Z",
+    "cwd": "C:/Users/shiro/.codex/worktrees/c22a/ResolveNodeKit",
+    "branch": "feat/semantic-arrange-v1-20260906",
+    "head": "c590d8d7e617be76b44ad577cebd89082369f3fe",
+    "remote_head": "c590d8d7e617be76b44ad577cebd89082369f3fe",
+    "dirty": false,
+    "pr": {
+      "number": 5,
+      "state": "OPEN",
+      "draft": true,
+      "head": "c590d8d7e617be76b44ad577cebd89082369f3fe"
+    },
+    "product_candidate": "dd0069abde35526b8164beae2c5753b95a1e12af",
+    "installed_manifest": "8c667e6c50b20753657e9c3d36a641d60d0c08e3 (stale; read-only audit)"
+  },
   "takeover": {
-    "status": "NOT_STARTED",
-    "new_task_id": null,
-    "actual_model": null,
-    "actual_effort": null,
-    "observed_previous_owner": null,
-    "observed_previous_epoch": null,
-    "new_epoch": null,
-    "plan_digest": null,
-    "old_owner_quiescence_evidence": [],
-    "lease_transfer_evidence": [],
-    "new_owner_readback_evidence": [],
-    "first_work_evidence": []
+    "status": "EXECUTION_CONFIRMED",
+    "new_task_id": "01a087e9-0cb8-77f3-908d-e0163103ac50",
+    "actual_model": "gpt-5.6-luna",
+    "actual_effort": "max",
+    "runtime_binding_evidence": "user-directed Luna Max task; parent runtime metadata is not exposed by the current native tools",
+    "handoff_id": "RNK-LUNA-20260909T204822Z-01a087e9",
+    "observed_previous_owner": "01a07e95-b55e-70a1-8366-b80d785bbaa4",
+    "observed_previous_epoch": 1,
+    "new_epoch": 2,
+    "plan_digest": "ebc124049dbb1dfa863cd499c13c2cd1a232774ae754a26edc30ee14668dbc20",
+    "old_owner_quiescence_evidence": [
+      "old owner thread readback status=notLoaded and absent from live active task listing",
+      "old owner process IDs 97328 and 97492 absent",
+      "owner lock acquired with FileShare=None",
+      "previous deadline expired 2026-09-08T02:07:27Z"
+    ],
+    "lease_transfer_evidence": [
+      "D:/Documents/ResolveNodeKit/.git/rnk-strict-orthogonal-owner.json#epoch=2",
+      "owner_sha256=88a3f9b307de9c44979fc0234c9069a042de5153aad00e1cf19b04131aa516a8",
+      "pre-takeover backup=D:/Documents/ResolveNodeKit/.git/rnk-strict-orthogonal-owner.json.pre-luna-epoch2.bak"
+    ],
+    "new_owner_readback_evidence": [
+      "owner=01a087e9-0cb8-77f3-908d-e0163103ac50",
+      "epoch=2",
+      "old_writer_fenced=true"
+    ],
+    "first_work_evidence": [
+      "R1-OFFLINE-INTEGRATION-AUDIT / worker offline_integration_audit / gpt-5.6-luna max",
+      "canonical import provenance fixed to C:/Users/shiro/.codex/worktrees/c22a/ResolveNodeKit/src",
+      "contract checker consistent=true; product completion=false; runtime evidence authenticated=false",
+      "strict contract tests 30/30 PASS; canonical suite 158/158 PASS; focused strict/snapshot/view/UI 31/31 PASS",
+      "disposable install verified 17 files at c590d8d; foreign file preserved; owned uninstall exact",
+      "real user install read-only: old 8c667e6 14-file manifest; strict_planner.py and view_realization.py missing; installed package stale",
+      "no Resolve calls, no user install mutation, no worker edits or commit"
+    ]
   },
   "first_live_host_package": {
     "delegate_to": "Resolve Operator",

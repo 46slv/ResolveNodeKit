@@ -97,3 +97,11 @@ the runtime surface was unavailable (`docs/checkpoints/2026-09-08-luna-host-rech
 ## Scope boundary (unchanged)
 
 Strict Arrange preserve/flatten is the current completion target. Runtime Group-preserving expansion/fit-to-contents, Color work and generic helpers remain separate unresolved/product lanes where applicable. Do not claim wider MISSION_COMPLETE from this milestone.
+
+## New Luna Max takeover — 2026-09-10
+
+The prior Sol owner was fresh-read as quiescent: its task readback is `notLoaded`, its recorded process IDs are absent, the durable owner lock is acquirable, and its 2026-09-08 deadline is expired. A mechanical CAS transferred the owner record to the current Luna task `01a087e9-0cb8-77f3-908d-e0163103ac50` at epoch 2, with `old_writer_fenced=true`. The immutable Sol receipt and epoch 1 remain historical; they were not overwritten. Evidence is in `docs/checkpoints/2026-09-10-luna-takeover.json` and the external owner record.
+
+The canonical worktree was fast-forwarded to remote PR #5 head `c590d8d7e617be76b44ad577cebd89082369f3fe`; the product source candidate remains `dd0069abde35526b8164beae2c5753b95a1e12af`, and PR #5 is still OPEN/Draft. The bounded R1 offline worker used explicit import provenance (`c22a/src`): contract 30/30, canonical 158/158, and focused strict/snapshot/view/UI 31/31 passed. A disposable install verified 17 files without deleting a foreign file. The real per-user install was only read: it is stale at `8c667e6c`, 14 files, missing `strict_planner.py` and `view_realization.py`; no install mutation occurred.
+
+The first live package is delegated to the external Resolve Operator as the SO-11 read-only preflight. Parent direct Resolve visibility remains zero. Until the Operator returns independent target/capability readback, no host gate is promoted and no user project is saved.
