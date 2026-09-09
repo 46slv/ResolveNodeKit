@@ -179,6 +179,35 @@
     "product_gate_movement": [],
     "remaining": "SO-11 disposable fixture qualification still required"
   },
+  "r1_disposable_requalification_attempt": {
+    "task": "SO-11 disposable nested-fixture qualification on exact installed candidate",
+    "launch_id": "9b291a91-2b9d-469c-bd89-1a751de69934",
+    "operator_thread": "01a08811-ab94-7e41-8189-fed5f8867b85",
+    "attempt_count": 1,
+    "result": "FAIL_TIMEOUT",
+    "failure_fingerprint": "HOST_CAPABILITY_GAP:NESTED_GROUP_CREATION_REFUSED_WITH_TIMEOUT",
+    "exact_installed_candidate": "bce01df2b37aee22079e00f60aeca36999ba171c",
+    "driver_identity": "third-party (Operator selected)",
+    "lease": {
+      "acquired": true,
+      "held_exact_live": true,
+      "cleanup": "launcher recovered stale holder",
+      "final": "FREE"
+    },
+    "new_host_evidence": [
+      "operation-owned scratch project, timeline, and Fusion item were created",
+      "GroupOperator.AddTool was refused",
+      "valid nested Paste was refused",
+      "non-empty nested fixture could not be created"
+    ],
+    "agent_message": "nested group member creation failed on current host; final adapter readback and scratch cleanup were not returned before timeout",
+    "valuable_project_save": 0,
+    "parent_direct_host_fallback": 0,
+    "human_intervention": 0,
+    "product_gate_movement": [],
+    "restore_status": "UNVERIFIED_AFTER_TIMEOUT",
+    "next_decision": "recover scratch residue; no third identical qualification; continue offline integration and require a materially different qualified fixture route"
+  },
   "takeover": {
     "status": "EXECUTION_CONFIRMED",
     "new_task_id": "01a087e9-0cb8-77f3-908d-e0163103ac50",
