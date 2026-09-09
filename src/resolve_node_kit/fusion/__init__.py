@@ -44,6 +44,12 @@ from .view_realization import (
     qualify_view_evidence,
     require_qualified_view_evidence,
 )
+from .host_snapshot import (
+    HostSnapshotError,
+    build_host_processing_snapshot,
+    read_processing_snapshot,
+    snapshot_comp,
+)
 from .tidy import FusionHostError, TidyResult, tidy_comp
 
 __all__ = [
@@ -57,6 +63,7 @@ __all__ = [
     "FusionHostError",
     "GridPoint",
     "GroupTidyResult",
+    "HostSnapshotError",
     "LayoutModule",
     "PlannedLayout",
     "PlannedScope",
@@ -95,6 +102,7 @@ __all__ = [
     "ask_arrange_options",
     "ask_arrange_confirmation",
     "build_snapshot",
+    "build_host_processing_snapshot",
     "build_strict_snapshot",
     "build_strict_snapshot_from_processing",
     "canonical_edge_id",
@@ -103,11 +111,13 @@ __all__ = [
     "plan_strict",
     "plan_scope",
     "resolve_arrange_scope",
+    "read_processing_snapshot",
     "qualify_view_evidence",
     "require_qualified_view_evidence",
     "tidy_comp",
     "tidy_groups_comp",
     "tidy_nested_comp",
+    "snapshot_comp",
     "flatten_all_comp",
     "host_ungroup_capabilities",
     "validate_strict_plan",
