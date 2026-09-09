@@ -129,7 +129,19 @@
     "exact_research_source_found": true,
     "source": "/AI Operating Context/Coding Intelligence/CODEX_PROMPT_ORCHESTRATION_RESEARCH_2026-08-28.md",
     "resolve_operator_automatic_delegation": "PROVISIONAL_CANARY",
-    "runtime_trial_started": false
+    "runtime_trial_started": true,
+    "canary": {
+      "package": "SO-11 host preflight",
+      "attempts": 1,
+      "transport": "PASS",
+      "semantic_result": "BLOCKED",
+      "failure_fingerprint": "DRIVER_CAPABILITY_GAP:scripting_unavailable_and_database_unattached",
+      "operator_result": "driver/capability gap; target unavailable; mutation=0; save=0; final lease FREE",
+      "parent_direct_host_fallback": 0,
+      "human_intervention": 0,
+      "product_gate_movement": [],
+      "next": "operator-side bounded recovery/qualified fallback, then same semantic task requalification"
+    }
   },
   "normal_development_human_click_elimination": "NOT_YET_PROVEN",
   "authoring_is_runtime_evidence": false
