@@ -1,208 +1,205 @@
-# Luna Max オーケストレーションと新規task引き継ぎ
+# Luna Max orchestration — Direct Guarded Resolve runbook
 
-Revision: LM-TAKEOVER-20260910-2 / RO-CANARY-20260910-1  
+Revision: DIRECT-GUARDED-RESET-20260911-1
 Mission: RNK-STRICT-ORTHOGONAL / 46slv/ResolveNodeKit / PR #5
 
-## Requirements-first migration overlay — current
+## 1. Operating model
 
-The old external-Operator-always interpretation is retired for new work. The
-external Operator remains the rollback baseline and a qualified specialist
-route, while the Coordinator selects the minimum sufficient execution locus
-per requirement:
+RNK product development no longer uses a dedicated/external Resolve Operator as a mandatory route.
 
-| Mode | Use when | Current qualification boundary |
-|---|---|---|
-| D / direct guarded | product context already has the required host-local capability | candidate only; every live write still uses Host Guard |
-| S / dedicated Resolve Worker | host work is separable and independent host evidence earns the boundary | promoted for structural fixture readback only |
-| H / host-local executor | CurrentComp, Comp Script, FlowView, Undo, or GUI-local context is required | candidate; semantic receipt qualification is the next WP1 route |
-
-The Host Guard is topology-independent and mandatory for every mutable path:
-exclusive user-wide lease, exact target identity, owned disposable state,
-no-blind-retry after ambiguous calls, reversible/discardable mutation,
-independent readback, cleanup/recovery, and terminal receipt with final `FREE`.
-Raw comp/FlowView/Undo handles never cross the boundary; host-local code must
-convert them to detached JSON-safe semantic evidence.
-
-The source contracts are CodexOperations PR #10 at
-`93b2e8008d27fa5c3afbf6dc94bd26c0d2d097b5` and PR #11 at
-`e6b9c1f7e0db7504d53a56a4901eb034684a999e`. The matched readback and current
-next-ready item are in
-`docs/checkpoints/2026-09-11-requirements-first-topology.json`.
-
-This overlay does not change G01–G14, downgrade a required gate, authorize a
-project save, or authorize main merge.
-
-## 1. Goal / completion boundary
-
-新しいLuna Max Coordinatorが既存成果を引き継ぎ、参考profileに沿うwhole-comp整列、全ノードと実配線の水平垂直、非空nestedを含む全Group解除、実データ規模と元non-Group >=1100、処理保存、Undo exact、run2 moved=0、installed UI / same-run busy-result、性能、cleanupまで進める。
-
-SO-10/SO-20/SO-30等の既存成果を再実装しない。G01–G14、no-save、main未merge、processing preservationは維持する。旧invocationの期限やAstra→Sol Bootstrapを新規taskへ自動継承しない。
-
-## 2. Roles
-
-| Lane | Owner | Contract |
-|---|---|---|
-| Coordinator | new Luna Max task | canonical queue/state/integrationの唯一のwriter。Goal選択、bounded委譲、証拠受領、統合、次工程へ進む |
-| Worker | independent Luna Max context | 一つのcoherent outcomeだけを実装。focused testとEvidence Packetを返す |
-| Verifier | fresh independent Luna Max context | exact candidateを反証的に判定。候補を修正しない |
-| Resolve Host Owner | selected D/S/H lane; external Operator remains qualified fallback | live Resolveの唯一のHost Guard owner。driver/lease/host lifecycle/readback/cleanup/evidenceを所有 |
-
-Coordinator/Worker/Verifierはruntime metadataで実model/effortを確認する。promptの自己申告だけでLuna Maxと判定しない。選択されたResolve Host Ownerは要件に必要な実行境界を所有し、既にqualification済みのexternal Operator profile/modelを名前合わせのため変更しない。
-
-## 3. New-task takeover
-
-1. live Git/common-dir/worktree/HEAD/dirty、remote PR、installed manifest、最新checkpoint、現在のprogram ownerと未完operationを読む。
-2. 旧taskが実行中なら、勝手にownerを奪わずsafe checkpoint/停止を確認する。別missionは止めない。
-3. 新task自身のpersisted IDとLuna Max runtime bindingを確認する。
-4. current owner/epochを再読し、既存mechanical lease/owner contractでcompare-and-setする。epochを決め打ちしない。
-5. old writer fenced、新owner readback、first bounded work startまで確認してtakeover成立。
-6. takeover記録だけを成果にせず、そのまま次のready Goalへ進む。
-
-既存`handoff_state`のAstra/Sol receiptは歴史的証拠として保存する。新Luna IDを`sol_thread_id`へ上書きしない。今回のownerは`luna_execution.json`とactual lease/readbackで記録する。
-
-## 4. Guarded host execution — current route
-
-### 4.1 Trigger
-
-live DaVinci Resolveの状態観測、実機validation、Fusion/Timeline等のhost behavior、Resolve-side readback、restart/reconnect、host-only acceptanceが必要になった時だけ、Requirement Briefに基づくD/S/H Host Ownerを選ぶ。静的コード読解、unit test、docsだけなら起動しない。
-
-### 4.2 Parent -> Host Owner envelope
-
-親Lunaは「どう操作するか」ではなく「何を成立させるか」だけを渡す。
-
-```yaml
-objective: <Resolve上で成立させる目的>
-target:
-  project: <known identity or current-policy>
-  timeline: <optional>
-  comp: <optional>
-done:
-  - <observable condition>
-restore_policy: restore | keep_requested_changes | scratch_disposable
-evidence:
-  - resolve_version
-  - driver
-  - lease
-  - before_after
-  - verification
-```
-
-通常parent promptへMCP tool名、driver指定、Python method、GUI sequence、lease手順、restart手順を書かない。
-
-### 4.3 Selected Host Owner owns the lifecycle
-
-選択されたHost Ownerが次を一つのcapabilityとして閉じる。external Operatorを使う場合はそのpackageがこの責務を持つ。
+Default:
 
 ```text
-RECEIVE
- -> INVENTORY
- -> ACQUIRE_LEASE
- -> SELECT_DRIVER
- -> CAPTURE_PRE_STATE
- -> ACT
- -> VERIFY
- -> CLEANUP_OR_COMMIT_REQUESTED_CHANGE
- -> FINAL_READBACK
- -> RELEASE_LEASE
- -> RETURN_EVIDENCE
+Luna Max Coordinator / Product Worker
+  -> direct current Resolve capability
+  -> minimal mechanical Host Guard
+  -> DaVinci Resolve
 ```
 
-Operator内部のdriver候補は、current qualified surfaceに基づくBlackmagic native MCP、qualified compatibility MCP、scripting、GUI。driver選択はOperator内部責務。21.1 native MCPはqualified surfaceでは優先候補だが、未保存/default projectや未qualified workflowで無条件primaryにしない。
+The historical external Operator, D/S/H matrix, Transactional HostSession and HostLocalSemanticReceipt remain research/legacy assets. They are not prerequisites for SO/G gates and must not be repaired merely to continue RNK.
 
-### 4.4 Current implementation boundary
+## 2. Goal and completion boundary
 
-Codex 0.153.4では `global MCP disabled + same-session child role enables MCP` を正規経路にしない。parent Resolve MCP visibility 0は維持し、external Resolve Operatorはrollback/capability baselineとして保持する。
+Keep the existing product goal and G01–G14 acceptance unchanged: strict horizontal/vertical layout, actual orthogonal wires, safe preserve and flatten-all, processing preservation, exact Undo/rollback, run2 stability, installed UI flow, 1100+ qualification, performance, recovery, cleanup and fresh independent final verification.
 
-概念経路:
+Do not reinterpret `BLOCKED` historical Operator evidence as product impossibility. Do not mark a required gate PASS from offline mocks or worker narration.
+
+## 3. Opening protocol
+
+At the start of a continuation:
+
+1. inspect live Git/common-dir/worktrees/HEAD/dirty and remote PR #5;
+2. preserve unknown dirty work and active ownership; do not reset blindly;
+3. read `AGENTS.md`, `docs/CURRENT_STATE.md`, strict `README.md`, `PLAN.md`, `acceptance.json` and relevant latest product checkpoint;
+4. verify source/install/publication identities;
+5. inspect current Resolve version and the direct capabilities actually visible to the current Luna task;
+6. choose the highest-value ready product gate.
+
+Historical SHAs, process IDs, project IDs, model sessions and tool counts are locators only.
+
+## 4. Direct capability reset
+
+Parent/direct Resolve capability visibility is allowed and expected when the task needs Resolve.
+
+If old configuration intentionally disabled Resolve MCP/tool access to enforce Operator isolation, change the local runtime/profile/config so the active Luna Max Product Worker can use the required Resolve surface directly. Preserve rollback of the config change, but do not preserve `parent visibility = 0` as an invariant.
+
+Control-surface selection is pragmatic:
+
+1. inspect the current available capability;
+2. prefer the simplest documented/qualified path that performs the exact task;
+3. use Blackmagic native MCP where it exposes the needed operation;
+4. use current Python/Lua scripting or GUI when they are the shorter correct path;
+5. do not build another transport/agent bridge merely to keep a historical architecture alive.
+
+Host-local Comp/FlowView/Undo/UI objects may remain local live objects in the current execution context. They do not need a detached semantic receipt just to permit development.
+
+## 5. Host Guard
+
+Apply safety proportional to the operation. For live mutation or possible concurrent writers, retain:
+
+- one shared integration/state writer;
+- one live Resolve writer or equivalent user-wide serialization;
+- exact target identity before valuable writes;
+- owned/disposable scratch targets for experiments;
+- no blind retry after an ambiguous mutation/timeout;
+- reversible mutation, Undo, or discardable fixture where practical;
+- before/after readback;
+- cleanup/recovery and final state check;
+- no valuable project save unless explicitly authorized for that task.
+
+Do not turn these invariants back into a dedicated-agent requirement.
+
+Read-only inventory does not need artificial transaction infrastructure beyond what is necessary to avoid racing a concurrent mutable operation.
+
+## 6. Minimum useful host smoke
+
+Before more infrastructure work, establish the direct product-worker path with one bounded real-host smoke.
+
+Use an owned disposable or otherwise safe current Fusion context and demonstrate, as applicable:
 
 ```text
-Luna Coordinator
- -> selected D/S/H Host Guard owner
- -> exclusive user-wide lease
- -> capability router or host-local executor
- -> native MCP / qualified compatibility MCP / scripting / GUI
- -> Resolve
+bind target
+ -> observe comp identity/current context
+ -> read relevant FlowView/position state
+ -> invoke actual RNK/product seam or one tiny owned reversible mutation
+ -> read back
+ -> Undo/restore or discard owned fixture
+ -> verify cleanup
 ```
 
-RNKの古いcheckpointでsame-session系Operatorに`davinci-resolve` surfaceが見えなかったことを、current Operator方式の失敗やResolve API不存在へ一般化しない。新規taskはまずRequirement BriefとAG-V2を通し、選択したHost Ownerにdriver選択を任せる。external Operatorを使う場合は既存package/launcherを通常通り呼ぶ。
+This smoke is not final G01–G14 qualification. Its purpose is to prove that the product worker can actually operate the host and resume product development.
 
-### 4.5 If automatic delegation fails
+If it succeeds, move immediately to the next product gate. Do not respond by creating a broader generic execution framework.
 
-一回の失敗で経路を捨てない。`routing / launcher / lease / driver / capability / restore / evidence / boundary` に分類し、同一failure fingerprintを新証拠なしで再実行しない。
+## 7. What not to retry
 
-- `routing`: parentからexternal Operatorへ入れていない。Operator package/launcher routingを修復。
-- `launcher`: external runtimeが開始/継続できない。launcher/actual configを限定修復。
-- `lease`: BUSYならhostへ触れずqueue/offline継続。lease機構を迂回しない。
-- `driver`: selected driverが必要capabilityを持たない。Operator内部でqualified fallbackを選択。
-- `capability`: qualifiedな安全routeがない。materially differentなD/S/H probeへ切り替えるか、`BLOCKED` / `INTEGRATION_GAP`を返す。parent direct accessへの恒久fallbackはしない。
-- `restore`: restoration boundaryを満たせない。writeを拡張しない。
-- `evidence`:操作はできても独立readbackが不足。PASSにしない。
+The following are historical research paths and are closed for product work unless explicitly studying the Operator architecture:
 
-修復後は同じsemantic taskで再qualificationする。同一route・同一evidence stateの無意味なretryを増やさない。
+- compatibility WP1 host-local semantic receipt route;
+- native WP1 semantic receipt route;
+- constructor-local opaque-table receipt route;
+- matched D/S/H qualification solely to choose an agent topology;
+- parent-isolated external-Operator routing as a prerequisite to host access.
 
-### 4.6 Result contract
+Their evidence remains useful for research. Their failure fingerprints do not need to be defeated before RNK continues.
 
-```yaml
-status: PASS | PARTIAL_PASS | BLOCKED | FAIL | BUSY
-resolve_version: <exact>
-driver:
-  type: native_mcp | third_party_mcp | scripting | gui
-  identity: <observed>
-lease:
-  acquired: true|false
-  final: FREE|HELD|UNKNOWN
-operations: []
-verification: []
-restore:
-  status: exact | equivalent | partial | not_required | failed
-remaining_boundary: []
-evidence: []
-```
+## 8. Product execution route
 
-親Lunaはこのsemantic resultを製品gateへ照合し、driver detailをRNK側へ複製しない。
+Use the existing task graph in `PLAN.md`.
 
-## 5. RNK execution route
+Recommended continuation priority after direct-host smoke:
 
-| Stage | Outcome | Existing tasks |
-|---|---|---|
-| R0 takeover | 新Luna owner、旧writer不在、canonical source/install把握 | execution-only、product gate昇格なし |
-| R1 host preflight + offline integration | Resolve OperatorへSO-11相当のread-only objectiveを委譲。並行してsnapshot adapter / planner integration / UI glue | SO-11, SO-50。SO-20/30を再実装しない |
-| R2 strict preserve E2E | small non-empty nested compでsnapshot -> strict plan -> native view -> readback、installed UI Run/Cancel/busy/result | SO-30, SO-50, SO-60 |
-| R3 flatten | non-empty nested/cross-boundaryを全Group=0、non-Group/processing意味保存、Undo exact | SO-40, SO-61 |
-| R4 large | real-scale duplicate + >=1100 original non-Group fixtureでpreserve/flatten、3 real-changing runs、run2、performance、all-edge/rectangle/processing | SO-70, SO-71 |
-| R5 finish | recovery/cancel/timeout、final install、fresh Verifier、PR/readback、exact cleanup | SO-80, SO-90, G01–G14 |
+| Stage | Outcome |
+|---|---|
+| R2 preserve | SO-30 view realization + SO-50 installed UI + SO-60 small preserve E2E |
+| R3 flatten | SO-40 actual flatten + SO-61 processing-preserving small E2E |
+| R4 large | SO-70 preserve and SO-71 flatten at real/1100+ scale, including run2/performance |
+| R5 finish | SO-80 recovery/fault cases + SO-90 exact-candidate fresh verifier and remote readback |
 
-OperatorがBUSY/BLOCKEDでも独立offline作業を進める。flatten blockerがあってもpreserve laneを進める。ただし最終Doneで必須gateをoptionalへ下げない。
+G01 already has qualified evidence; carry it unless product changes invalidate it. G02/G03 remain blocked until direct product-host evidence closes them. G04–G14 remain required and pending until their actual criteria pass.
 
-## 6. Luna orchestration loop
+A flatten blocker must not stop an independent preserve/UI/recovery task. A view blocker must not trigger another orchestration redesign if another product-level route can be tested.
 
-```text
-OBSERVE live state
- -> choose next coherent Goal
- -> bounded Luna Worker
- -> deterministic validation
- -> fresh Luna Verifier where warranted
- -> integrate/evidence/state
- -> choose next ready Goal
-```
+## 9. Worker / verifier topology
 
-Worker packetは`Task / Owned / Read-Start / Do / Do not / Validation / Return`。Coordinator transcriptや全PLANを貼らない。返却はcompact Evidence Packet。
+Do not spawn agents by default.
 
-同じfailure fingerprintが2回かつ新証拠なしなら、同じ3回目をしない。routeを変える。上位判断が本当に必要な時だけbounded diagnosisへescalateし、実装責任はLunaへ戻す。Resolve固有のrouting/driver/lease問題はまずResolve Operator package側で閉じる。
+- Coordinator may implement directly when the scope is coherent.
+- Use one bounded Worker only when scope separation clearly saves time or protects ownership.
+- Use parallel Workers only for genuinely independent write scopes.
+- Use a fresh independent Verifier for final/high-risk acceptance where independence adds real evidence.
+- The old Resolve Operator is not a Worker default; use only for explicit research/comparison or a task-specific demonstrated advantage.
 
-## 7. Evidence / install / safety
+The fastest correct topology is usually one capable Product Worker plus deterministic tests and final independent verification.
 
-- offline testはcanonical worktreeのimport provenanceを記録する。
-- source candidate / publication / installed manifestを分ける。
-- direct controller、actual widget、native view、wire display、processing state/renderは別proof。
-- live writeはResolve Operatorのlease内、disposable target、before/after/readback、Undo/cleanupで行う。
-- project save、main merge/release、force push、unrelated deletion、credential bypass、PC reboot、global shortcut変更は禁止。
-- Resolve launch/quit/restart、normal operation、reversible validation mutationは既存standing authority内で、Operatorが必要時に自律実行する。
+## 10. Failure handling
 
-## 8. Prompt orchestration CANARY
+Classify the smallest failing layer: product logic, host API, runtime, current context, UI, transport, install/provenance, restore, or evidence.
 
-`PROMPT_ORCHESTRATION_TRIAL.md`を同時に実地テストする。特に`Resolve Operator automatic delegation` candidateを代表taskで検証する。
+After a failure:
 
-成功条件は、親Lunaがhigh-level objectiveだけを渡し、Operatorが余計な確認を増やさず、自動起動、正しいdriver routing、exclusive lease、independent readback、cleanup/recovery、structured evidence returnまで閉じること。
+- first reconcile actual state;
+- retry only when the next attempt changes hypothesis or expected evidence;
+- do not create a new agent/process boundary just because the direct attempt failed once;
+- if a public API is missing, consider a documented host-local script or GUI route before infrastructure work;
+- keep blocked gates explicit and continue independent ready product work.
 
-この一案件だけでglobal durable routingへ昇格しない。結果を`PROMPT_ORCHESTRATION_TRIAL_RESULT.{md,json}`へ記録し、Learning Gateで再利用価値を判定する。
+Complexity-inversion trigger:
+
+> If the proposed safety/proof/orchestration repair is harder than the underlying guarded Resolve action, stop and simplify the boundary.
+
+## 11. Evidence discipline
+
+Keep proof surfaces separate:
+
+- source/unit/offline result;
+- installed package provenance;
+- direct controller execution;
+- real Resolve host state;
+- actual widget/user flow;
+- FlowView/displayed-wire observation;
+- processing state/render invariance;
+- Undo/restore;
+- large-scale/performance;
+- fresh independent final verification.
+
+For every gate, record only the evidence its criterion needs. Do not force all host observations through one universal receipt schema.
+
+Source candidate, publication/docs HEAD, installed candidate and evidence candidate must remain distinguishable.
+
+## 12. Authority
+
+Authorized without repeated confirmation inside this project scope:
+
+- task-branch code/tests/docs changes;
+- backup-backed local install/update;
+- commits/pushes/Draft PR #5 updates;
+- direct Resolve native MCP/scripting/GUI operation;
+- Resolve launch/quit/restart when needed;
+- owned scratch/disposable project/timeline/comp creation and cleanup;
+- reversible validation mutations and Undo/restore.
+
+Not authorized by this runbook:
+
+- valuable project save unless separately required/authorized;
+- main merge/release;
+- force-push shared history;
+- credential bypass/change;
+- unrelated deletion/process kill/OS destructive action;
+- PC reboot;
+- global shortcut mutation;
+- permanent service/startup installation.
+
+## 13. Closeout
+
+After meaningful product progress:
+
+1. run focused validation and required canonical checks;
+2. perform gate-specific host readback where applicable;
+3. run the Mandatory Learning Gate;
+4. update durable checkpoint/state without rewriting history;
+5. commit/push authorized branch changes;
+6. fresh-read remote PR/head and installed provenance when relevant;
+7. continue to the next ready product task instead of stopping after infrastructure success.
+
+Completion means the existing product acceptance is met. A successfully configured direct Resolve path is only an unlock, not product completion.
