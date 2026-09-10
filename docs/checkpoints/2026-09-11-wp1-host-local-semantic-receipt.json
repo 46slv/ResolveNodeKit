@@ -1,0 +1,52 @@
+{
+  "schema": "resolve-node-kit.wp1-host-local-semantic-receipt/v1",
+  "captured_at": "2026-09-11",
+  "program": "RNK-STRICT-ORTHOGONAL",
+  "status": "BLOCKED",
+  "target": "disposable nested_group_v1 standalone Fusion.LoadComp",
+  "routes": [
+    {
+      "transport": "compatibility",
+      "launch_id": "24a6c95d-a58b-4f24-9535-25ab99227db5",
+      "status": "BLOCKED_RUNTIME_NO_PROGRESS",
+      "observed": {
+        "resolve_version": "21.1.0.14",
+        "runtime_mode": {"running": false, "instances": 0},
+        "project": {"name": "Untitled Project", "timeline": null, "page": null},
+        "semantic_receipt": "NOT_OBSERVED",
+        "fixture_load": 0,
+        "mutation": 0,
+        "save": 0,
+        "final_lease": "FREE"
+      },
+      "failure_fingerprint": "RUNTIME_MCP_NO_PROGRESS_AFTER_IDENTITY"
+    },
+    {
+      "transport": "native",
+      "launch_id": "d8b91508-d447-450d-a24b-f0e639c480c6",
+      "status": "BLOCKED_SEMANTIC_RECEIPT_TIMEOUT",
+      "observed": {
+        "native_mcp": "connected",
+        "resolve_status_before": {"running": false, "version": "21.1"},
+        "launch_resolve": "DaVinci Resolve is running",
+        "api_surface": ["Fusion.LoadComp", "FlowView.GetPosTable", "Composition.StartUndo", "Composition.EndUndo", "Composition.Undo", "Composition.Close"],
+        "semantic_receipt": "NOT_OBSERVED",
+        "fixture_load": 0,
+        "mutation": 0,
+        "timeout_seconds": 180,
+        "cleanup": "lease cleanup recovered exact stale token; no project save",
+        "final_lease": "FREE"
+      },
+      "failure_fingerprint": "NATIVE_LAUNCH_API_DISCOVERY_TIMEOUT_BEFORE_SEMANTIC_RECEIPT"
+    }
+  ],
+  "invariants": {
+    "raw_handles_cross_boundary": false,
+    "blind_retry": false,
+    "graph_mutation": 0,
+    "project_save": 0,
+    "required_gate_promotion": false
+  },
+  "decision": "WP1 remains BLOCKED; both materially different transports are closed until new runtime/driver evidence exists",
+  "next_ready": "independent offline/structural work; do not replay compatibility or native route"
+}

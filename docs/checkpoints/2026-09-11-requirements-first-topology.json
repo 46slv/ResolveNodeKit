@@ -6,7 +6,7 @@
   "rnK": {
     "repository": "46slv/ResolveNodeKit",
     "pr": 5,
-    "remote_head": "191f9a2749e680ff38ce419468fa85f416854ae0",
+    "remote_head": "be4fe286fd544f16874a721ac5457b80a99673c9",
     "branch": "feat/semantic-arrange-v1-20260906",
     "worktree_for_update": "migration/requirements-first-minimum-topology-v2-20260911",
     "product_status": "CHECKPOINTED_WITH_TECHNICAL_GAP",
@@ -54,14 +54,36 @@
       "dedicated_resolve_worker": "NOT_QUALIFIED",
       "host_local_executor": "INTEGRATION_GAP",
       "required_capabilities": ["CurrentComp", "Comp Script", "FlowView/GetPosTable", "owned Undo", "GUI-local semantics"],
-      "next_probe": "WP1 host-local semantic receipt with in-host conversion to JSON-safe evidence"
+      "next_probe": "none on the closed compatibility/native transport attempts; require genuinely new runtime/driver evidence"
     }
+  },
+  "wp1_probe_readback": {
+    "compatibility_transport": {
+      "launch_id": "24a6c95d-a58b-4f24-9535-25ab99227db5",
+      "status": "BLOCKED_RUNTIME_NO_PROGRESS",
+      "runtime": {"version": "21.1.0.14", "runtime_mode_running": false, "instances": 0, "project": "Untitled Project", "timeline": "absent", "page": null},
+      "semantic_calls": 0,
+      "mutation_count": 0,
+      "final_lease": "FREE"
+    },
+    "native_transport": {
+      "launch_id": "d8b91508-d447-450d-a24b-f0e639c480c6",
+      "status": "BLOCKED_SEMANTIC_RECEIPT_TIMEOUT",
+      "native_surface": "connected",
+      "runtime_before": {"running": false, "version": "21.1"},
+      "new_evidence": ["launch_resolve returned DaVinci Resolve is running", "installed Fusion API exposes LoadComp, FlowView.GetPosTable, StartUndo/EndUndo/Undo/Close"],
+      "semantic_calls": 0,
+      "mutation_count": 0,
+      "cleanup": "launcher timeout cleanup; no fixture receipt observed",
+      "final_lease": "FREE"
+    },
+    "decision": "WP1 remains BLOCKED; do not replay either route without genuinely new runtime evidence"
   },
   "authoring_gate": {
     "id": "AG-V2",
     "status": "PASS_FOR_CONTRACT_UPDATE",
-    "next_safe_action": "commit/push the contract amendment, fresh-read remote PR #5, then run one materially different WP1 host-local probe",
-    "alternate_on_failure": "record failure fingerprint; continue independent SO-10/SO-20/offline or structural-ready work; do not replay a closed context route",
+    "next_safe_action": "continue independent SO-10/SO-20/offline or structural-ready work; reopen WP1 only after a genuinely new runtime/driver capability input",
+    "alternate_on_failure": "record the exact runtime/semantic timeout fingerprint; do not replay the closed compatibility or native transport routes",
     "product_gate_promotion": false
   },
   "completion": {

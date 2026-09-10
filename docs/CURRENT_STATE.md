@@ -451,3 +451,29 @@ qualified external Operator remains the rollback baseline.
 Current execution status remains `CHECKPOINTED_WITH_TECHNICAL_GAP`; product
 completion is false, main merge/release/project save remain unauthorized, and
 the exact next route is recorded in the migration checkpoint.
+
+## WP1 host-local semantic receipt qualification — 2026-09-11
+
+The first materially different compatibility `Fusion.LoadComp` route
+(`24a6c95d-a58b-4f24-9535-25ab99227db5`) reached fresh runtime identity only:
+Resolve `21.1.0.14`, `runtime_mode.running=false`, zero instances, Untitled
+Project, no timeline/page. No fixture load, semantic receipt, mutation, or
+save occurred; launcher final lease was `FREE`. Fingerprint:
+`RUNTIME_MCP_NO_PROGRESS_AFTER_IDENTITY`.
+
+A second materially different native-MCP route
+(`d8b91508-d447-450d-a24b-f0e639c480c6`) connected to the native surface,
+observed Resolve `running=false`, invoked one `launch_resolve`, and read the
+installed Fusion API. The API documentation exposes `Fusion.LoadComp`,
+`FlowView.GetPosTable`, and `Composition.StartUndo/EndUndo/Undo/Close`, which
+is new capability-discovery evidence. The operator timed out after 180 seconds
+before the semantic fixture receipt; fixture load and mutation remained zero.
+Launcher stale-token cleanup recovered the lease and final state is `FREE`.
+Fingerprint: `NATIVE_LAUNCH_API_DISCOVERY_TIMEOUT_BEFORE_SEMANTIC_RECEIPT`.
+
+WP1 remains `BLOCKED`; neither route is a product gate PASS. Both routes are
+closed against replay without genuinely new runtime/driver evidence. Exact
+machine-readable evidence is in
+[`2026-09-11-wp1-host-local-semantic-receipt.json`](checkpoints/2026-09-11-wp1-host-local-semantic-receipt.json).
+Independent offline/structural work remains ready; G02/G03/G04/G06–G08 are
+not promoted and the external Operator rollback baseline remains intact.
