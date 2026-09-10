@@ -1,0 +1,70 @@
+{
+  "schema": "resolve-node-kit.comp-local-executor-final/v1",
+  "observed_at_utc": "2026-09-10T15:30:05.7794142Z",
+  "task": "WP1 final bounded comp-local executor qualification",
+  "base_checkpoint": "2026-09-11-comp-local-executor-qualification.json",
+  "routes": [
+    {
+      "launch_id": "a3647c2b-8195-4b30-a20e-aa1cf1e410f9",
+      "route": "script_plugin.run_inline -> fusion.Execute(lua)",
+      "status": "BLOCKED",
+      "new_evidence": "current runtime had no timeline/current comp; Fusion.GetCurrentComp returned none",
+      "writes": 0,
+      "project_save": 0,
+      "lease_final": "FREE"
+    },
+    {
+      "launch_id": "e4e5e5ac-9197-4a69-83e9-e7735729037c",
+      "route": "script_plugin.execute; Comp-category Lua",
+      "status": "BLOCKED",
+      "new_evidence": "host returned success=false without observable local comp or error detail",
+      "writes": 0,
+      "project_save": 0,
+      "temporary_script_removed": true,
+      "lease_final": "FREE"
+    },
+    {
+      "launch_id": "316a39f2-ea6c-44e8-84f5-394f98200141",
+      "route": "one Lua fusion.NewComp()-only constructor-local probe",
+      "status": "BLOCKED",
+      "new_evidence": "MCP returned opaque table: value with empty stdout and no serialized local readback",
+      "local_comp_success": "UNKNOWN",
+      "exact_identity": "UNKNOWN",
+      "flowview_get_postable": "UNKNOWN",
+      "owned_undo": "UNKNOWN",
+      "fixture_fingerprint": "UNKNOWN",
+      "processing_serialization": "UNKNOWN",
+      "close_absence": "UNKNOWN",
+      "writes": 0,
+      "project_save": 0,
+      "lease_final": "FREE"
+    }
+  ],
+  "host_final_readback": {
+    "product": "DaVinci Resolve Studio 21.1.0.14",
+    "runtime": "GUI instance 1",
+    "project": "Untitled Project; opaque identity changed across disposable checks",
+    "timeline": "absent",
+    "page": null,
+    "valuable_project_loaded_or_saved": false
+  },
+  "qualification": {
+    "wp1": "BLOCKED",
+    "required_combination": "not proven",
+    "reason": "No route produced an observable exact comp identity, CurrentFrame, FlowView/GetPosTable, owned Undo boundary, and complete processing readback in one invocation.",
+    "retry_policy": "No further identical context probe without genuinely new host evidence. B/C/native matrix and all three new routes are closed."
+  },
+  "downstream": {
+    "wp2": "NOT_RUN",
+    "wp3": "NOT_COLLECTED",
+    "wp4": "NOT_COLLECTED",
+    "G02": "BLOCKED_TECHNICAL",
+    "G03": "BLOCKED_TECHNICAL",
+    "G08": "PENDING",
+    "G04": "PENDING",
+    "integrated_host_session": "NOT_RUN",
+    "main_merge": 0,
+    "release": 0
+  },
+  "status": "CHECKPOINTED_WITH_TECHNICAL_GAP"
+}

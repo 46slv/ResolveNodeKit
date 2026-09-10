@@ -403,3 +403,23 @@ position/Undo counters are zero, final lease is `FREE`, G02/G03 remain
 `BLOCKED_TECHNICAL`, G08/G04 remain pending, and product completion is false.
 Details are in
 `checkpoints/2026-09-11-comp-local-executor-fresh-verifier.{md,json}`.
+
+## WP1 final bounded route closure — 2026-09-11
+
+One final constructor-local hypothesis was tested exactly once after the two
+earlier new routes. A Lua script called the host's composition constructor and
+kept its returned object local; the MCP returned only an opaque `table: ...`
+value with empty stdout. Local comp success, exact identity, FlowView /
+GetPosTable, nested fixture fingerprint, processing serialization, owned Undo,
+and close/absence readback are all `UNKNOWN`, not PASS. No current-comp,
+timeline, standalone `LoadComp`, graph/layout/settings/Undo write, or save
+route was used.
+
+The three new routes are now closed: no identical context probe is allowed
+without genuinely new host evidence. All launcher envelopes ended with
+authoritative `FREE`; final host readback was Resolve Studio `21.1.0.14`, GUI
+instance 1, `Untitled Project`, no timeline, page `null`, with no valuable
+project loaded or saved. WP1 remains `BLOCKED`; WP2/WP3/WP4 and integrated
+G02/G03/G04 remain unrun. The Operator workspace revision and 17-file tree
+remain unchanged. Final evidence is in
+`checkpoints/2026-09-11-comp-local-executor-final.{md,json}`.
