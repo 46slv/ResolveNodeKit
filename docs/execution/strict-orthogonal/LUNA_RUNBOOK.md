@@ -3,6 +3,35 @@
 Revision: LM-TAKEOVER-20260910-2 / RO-CANARY-20260910-1  
 Mission: RNK-STRICT-ORTHOGONAL / 46slv/ResolveNodeKit / PR #5
 
+## Requirements-first migration overlay — current
+
+The old external-Operator-always interpretation is retired for new work. The
+external Operator remains the rollback baseline and a qualified specialist
+route, while the Coordinator selects the minimum sufficient execution locus
+per requirement:
+
+| Mode | Use when | Current qualification boundary |
+|---|---|---|
+| D / direct guarded | product context already has the required host-local capability | candidate only; every live write still uses Host Guard |
+| S / dedicated Resolve Worker | host work is separable and independent host evidence earns the boundary | promoted for structural fixture readback only |
+| H / host-local executor | CurrentComp, Comp Script, FlowView, Undo, or GUI-local context is required | candidate; semantic receipt qualification is the next WP1 route |
+
+The Host Guard is topology-independent and mandatory for every mutable path:
+exclusive user-wide lease, exact target identity, owned disposable state,
+no-blind-retry after ambiguous calls, reversible/discardable mutation,
+independent readback, cleanup/recovery, and terminal receipt with final `FREE`.
+Raw comp/FlowView/Undo handles never cross the boundary; host-local code must
+convert them to detached JSON-safe semantic evidence.
+
+The source contracts are CodexOperations PR #10 at
+`93b2e8008d27fa5c3afbf6dc94bd26c0d2d097b5` and PR #11 at
+`e6b9c1f7e0db7504d53a56a4901eb034684a999e`. The matched readback and current
+next-ready item are in
+`docs/checkpoints/2026-09-11-requirements-first-topology.json`.
+
+This overlay does not change G01–G14, downgrade a required gate, authorize a
+project save, or authorize main merge.
+
 ## 1. Goal / completion boundary
 
 新しいLuna Max Coordinatorが既存成果を引き継ぎ、参考profileに沿うwhole-comp整列、全ノードと実配線の水平垂直、非空nestedを含む全Group解除、実データ規模と元non-Group >=1100、処理保存、Undo exact、run2 moved=0、installed UI / same-run busy-result、性能、cleanupまで進める。
@@ -16,9 +45,9 @@ SO-10/SO-20/SO-30等の既存成果を再実装しない。G01–G14、no-save�
 | Coordinator | new Luna Max task | canonical queue/state/integrationの唯一のwriter。Goal選択、bounded委譲、証拠受領、統合、次工程へ進む |
 | Worker | independent Luna Max context | 一つのcoherent outcomeだけを実装。focused testとEvidence Packetを返す |
 | Verifier | fresh independent Luna Max context | exact candidateを反証的に判定。候補を修正しない |
-| Resolve Operator | current qualified external Operator | live Resolveの唯一のcapability lane。driver/lease/host lifecycle/readback/cleanup/evidenceを所有 |
+| Resolve Host Owner | selected D/S/H lane; external Operator remains qualified fallback | live Resolveの唯一のHost Guard owner。driver/lease/host lifecycle/readback/cleanup/evidenceを所有 |
 
-Coordinator/Worker/Verifierはruntime metadataで実model/effortを確認する。promptの自己申告だけでLuna Maxと判定しない。Resolve Operatorは別capability境界なので、既にqualification済みのeffective profile/modelをLunaに揃えるため変更しない。
+Coordinator/Worker/Verifierはruntime metadataで実model/effortを確認する。promptの自己申告だけでLuna Maxと判定しない。選択されたResolve Host Ownerは要件に必要な実行境界を所有し、既にqualification済みのexternal Operator profile/modelを名前合わせのため変更しない。
 
 ## 3. New-task takeover
 
@@ -31,13 +60,13 @@ Coordinator/Worker/Verifierはruntime metadataで実model/effortを確認する�
 
 既存`handoff_state`のAstra/Sol receiptは歴史的証拠として保存する。新Luna IDを`sol_thread_id`へ上書きしない。今回のownerは`luna_execution.json`とactual lease/readbackで記録する。
 
-## 4. Resolve Operator automatic delegation — current route
+## 4. Guarded host execution — current route
 
 ### 4.1 Trigger
 
-live DaVinci Resolveの状態観測、実機validation、Fusion/Timeline等のhost behavior、Resolve-side readback、restart/reconnect、host-only acceptanceが必要になった時だけResolve Operatorへ委譲する。静的コード読解、unit test、docsだけなら起動しない。
+live DaVinci Resolveの状態観測、実機validation、Fusion/Timeline等のhost behavior、Resolve-side readback、restart/reconnect、host-only acceptanceが必要になった時だけ、Requirement Briefに基づくD/S/H Host Ownerを選ぶ。静的コード読解、unit test、docsだけなら起動しない。
 
-### 4.2 Parent -> Operator envelope
+### 4.2 Parent -> Host Owner envelope
 
 親Lunaは「どう操作するか」ではなく「何を成立させるか」だけを渡す。
 
@@ -60,9 +89,9 @@ evidence:
 
 通常parent promptへMCP tool名、driver指定、Python method、GUI sequence、lease手順、restart手順を書かない。
 
-### 4.3 Operator owns the lifecycle
+### 4.3 Selected Host Owner owns the lifecycle
 
-Resolve Operatorが次を一つのcapabilityとして閉じる。
+選択されたHost Ownerが次を一つのcapabilityとして閉じる。external Operatorを使う場合はそのpackageがこの責務を持つ。
 
 ```text
 RECEIVE
@@ -82,31 +111,30 @@ Operator内部のdriver候補は、current qualified surfaceに基づくBlackmag
 
 ### 4.4 Current implementation boundary
 
-Codex 0.153.4では `global MCP disabled + same-session child role enables MCP` を正規経路にしない。current qualified laneはexternal Resolve Operatorであり、parent Resolve MCP visibility 0を維持する。
+Codex 0.153.4では `global MCP disabled + same-session child role enables MCP` を正規経路にしない。parent Resolve MCP visibility 0は維持し、external Resolve Operatorはrollback/capability baselineとして保持する。
 
 概念経路:
 
 ```text
 Luna Coordinator
- -> external Resolve Operator launcher/package
- -> external Operator runtime/profile
+ -> selected D/S/H Host Guard owner
  -> exclusive user-wide lease
- -> capability router
+ -> capability router or host-local executor
  -> native MCP / qualified compatibility MCP / scripting / GUI
  -> Resolve
 ```
 
-RNKの古いcheckpointでsame-session系Operatorに`davinci-resolve` surfaceが見えなかったことを、current Operator方式の失敗やResolve API不存在へ一般化しない。新規taskはまずcurrent Resolve Operator package/launcherを通常通り呼び、Operatorにdriver選択を任せる。
+RNKの古いcheckpointでsame-session系Operatorに`davinci-resolve` surfaceが見えなかったことを、current Operator方式の失敗やResolve API不存在へ一般化しない。新規taskはまずRequirement BriefとAG-V2を通し、選択したHost Ownerにdriver選択を任せる。external Operatorを使う場合は既存package/launcherを通常通り呼ぶ。
 
 ### 4.5 If automatic delegation fails
 
-一回の失敗でResolve Operator方式を捨てない。`routing / launcher / lease / driver / capability / restore / evidence` に分類する。
+一回の失敗で経路を捨てない。`routing / launcher / lease / driver / capability / restore / evidence / boundary` に分類し、同一failure fingerprintを新証拠なしで再実行しない。
 
 - `routing`: parentからexternal Operatorへ入れていない。Operator package/launcher routingを修復。
 - `launcher`: external runtimeが開始/継続できない。launcher/actual configを限定修復。
 - `lease`: BUSYならhostへ触れずqueue/offline継続。lease機構を迂回しない。
 - `driver`: selected driverが必要capabilityを持たない。Operator内部でqualified fallbackを選択。
-- `capability`: qualifiedな安全routeがない。`BLOCKED` / `INTEGRATION_GAP`を返す。parent direct accessへ迂回しない。
+- `capability`: qualifiedな安全routeがない。materially differentなD/S/H probeへ切り替えるか、`BLOCKED` / `INTEGRATION_GAP`を返す。parent direct accessへの恒久fallbackはしない。
 - `restore`: restoration boundaryを満たせない。writeを拡張しない。
 - `evidence`:操作はできても独立readbackが不足。PASSにしない。
 

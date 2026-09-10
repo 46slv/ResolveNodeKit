@@ -2,6 +2,38 @@
 
 Updated: 2026-09-08 JST. Statusは[acceptance.json](acceptance.json)を初期契約とし、実行開始後の進捗はCoordinatorだけが更新する。旧gateを再度全部走らせるのではなく、変わったsurfaceと新しい必須証明に集中する。
 
+## Requirements-first migration overlay — 2026-09-11
+
+The task graph below remains the single product plan. The external Resolve
+Operator is no longer a mandatory execution locus; it is retained as the
+qualified rollback baseline and a specialist option. Before any host package,
+the Coordinator writes a Requirement Brief and selects the minimum sufficient
+mode:
+
+| Mode | Capability locality | Required Host Guard | Promotion boundary |
+|---|---|---|---|
+| D / direct guarded | product worker already owns the needed host context | same lease, target, owned state, readback, cleanup and receipt | only after direct canary evidence |
+| S / dedicated worker | separable host work or independent host evidence | same Host Guard; no nested launcher | structural fixture readback only in current matrix |
+| H / host-local executor | CurrentComp/Comp Script/FlowView/Undo/GUI-local semantics | same Host Guard; opaque handles remain in host | WP1 semantic receipt qualification is required |
+
+The current matched migration result is recorded in
+`docs/checkpoints/2026-09-11-requirements-first-topology.json`. It changes
+routing policy only; it does not change required gate IDs, completion output,
+processing/Undo requirements, no-save, or main-merge boundaries.
+
+### Overlay dependency and alternate-path rules
+
+`AG-V2` is the authoring gate before a new package. WP1 is a bounded,
+read-only/disposable host-local semantic-receipt probe. WP1 `PASS` is required
+before context-sensitive SO-30/SO-40/SO-50/SO-60 host work; WP1 `BLOCKED` does
+not stop SO-10/SO-20 or any other independent ready package. A closed failure
+fingerprint cannot be replayed without new host evidence; the next attempt must
+change hypothesis, transport, execution context, oracle, or topology.
+
+Every host package must return detached JSON-safe evidence with exact target,
+before/after, mutation count, independent readback, cleanup/recovery, and final
+lease. No raw Comp/FlowView/Undo handle may be serialized across the boundary.
+
 ## Bootstrapからの受け渡し
 
 AstraのAP-10/20/30/40は[HANDOFF.md](HANDOFF.md)に定義する。製品Doneではなく、現状確認・計画の差分監査・限定probe・保存・Sol受領・所有移行・最初の着手が初期Done。既存設計を白紙に戻さず、重大な未知は根拠/未確定/最初の検証を明示する。Solは受領後SO-00から進め、Astraの同じprobeを無条件に再実行しない。

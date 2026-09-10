@@ -110,3 +110,57 @@ no main merge, and all existing data-preservation boundaries. Normal failures
 and checkpoints are not stop conditions before completion, a true boundary, or
 this deadline. Astra's Bootstrap role ends after verified Sol receipt, transfer
 and first action; subsequent normal progress belongs to Sol alone.
+
+## 10. Requirements-first topology overlay — 2026-09-11
+
+This section is the current routing amendment and supersedes the former
+external-Operator-always interpretation for new work. The external Resolve
+Operator remains the qualified rollback baseline and may be selected whenever
+specialist isolation or host lifecycle ownership earns the boundary.
+
+### 10.1 Requirement Brief before topology
+
+Before delegating or starting a live host package, the Coordinator records:
+
+```text
+MISSION / CURRENT_GOAL / DONE_ACCEPTANCE
+REQUIRED_CAPABILITIES / CAPABILITY_LOCALITY
+DIRECT_PATH / DELEGATED_PATH / BOUNDARY_LOSS_RISK
+SAFETY_AUTHORITY / EVIDENCE / STOP_ESCALATION
+MINIMUM_SUFFICIENT_TOPOLOGY
+```
+
+Use D (direct guarded), S (dedicated Resolve Worker), or H (host-local
+executor) only after answering where the capability lives and what the
+boundary adds or removes. A task being difficult or mentioning Resolve is not
+itself a reason to add a worker.
+
+### 10.2 Topology-independent Host Guard
+
+All D/S/H live mutable paths require the same mechanical contract:
+
+- user-wide exclusive lease and exact-live owner identity;
+- exact target identity before every write;
+- owned disposable state or a reversible requested change;
+- no blind retry after timeout or ambiguous result;
+- independent readback, cleanup/recovery, and final receipt;
+- final lease `FREE` before the package is accepted.
+
+Host-local execution keeps Comp/FlowView/Undo handles private to the host
+context and emits only detached JSON-safe semantic evidence. `UNKNOWN`,
+`NOT_COLLECTED`, and `INTEGRATION_GAP` remain explicit and cannot become PASS.
+
+### 10.3 Promotion and rollback
+
+Promotion is per task class, not global. The current matched matrix promotes S
+only for structural fixture readback. D/S/H remain unqualified for
+CurrentComp/FlowView/Undo/GUI-local semantics, so WP1 must use a materially
+different host-local receipt route before context-sensitive gates proceed. The
+legacy external profile is not removed or model-renamed until matched
+qualification proves a replacement.
+
+The migration checkpoint is
+`docs/checkpoints/2026-09-11-requirements-first-topology.json`; AG-V2 is the
+authoring gate. A WP1 or host-route blocker pauses only dependent host gates;
+the Coordinator must continue independent ready work and write the exact next
+route to CURRENT_STATE.
