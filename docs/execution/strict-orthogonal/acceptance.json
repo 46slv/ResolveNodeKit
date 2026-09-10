@@ -6,6 +6,8 @@
   "execution_started": true,
   "baseline_sha": "562405079aa6bffa6d25668b294a26ac4142a680",
   "candidate_sha": "eedd62e4265a6ddc8a7d291a3e72f1987f1b5b79",
+  "current_live_head": "e616966d935c93980ecf0c4b3cd05689926ab56f",
+  "current_live_install_manifest_commit": "e616966d935c93980ecf0c4b3cd05689926ab56f",
   "canonical_branch": "feat/semantic-arrange-v1-20260906",
   "canonical_pr": 5,
   "required_policy": "ALL_REQUIRED_GATES_PASS; blocked/refused/not-collected is not success",
@@ -149,7 +151,8 @@
       "evidence": [
         "docs/checkpoints/2026-09-08-luna-so30-offline.json#review",
         "docs/checkpoints/2026-09-08-luna-so30-offline.json#verification",
-        "dd0069abde35526b8164beae2c5753b95a1e12af"
+        "dd0069abde35526b8164beae2c5753b95a1e12af",
+        "docs/checkpoints/2026-09-10-operator-capability-qualification.json#lane_a"
       ]
     },
     {
@@ -261,7 +264,9 @@
       "evidence": [
         "docs/checkpoints/2026-09-08-luna-so20-offline.json#review",
         "docs/checkpoints/2026-09-08-luna-so20-offline.json#verification",
-        "docs/checkpoints/2026-09-08-luna-so20-offline.json#host"
+        "docs/checkpoints/2026-09-08-luna-so20-offline.json#host",
+        "docs/checkpoints/2026-09-10-operator-capability-qualification.json#lane_a",
+        "docs/checkpoints/2026-09-10-composition-context-matrix.json#compatibility_matrix"
       ]
     },
     {
@@ -274,7 +279,9 @@
       "candidate_sha": "dd0069abde35526b8164beae2c5753b95a1e12af",
       "evidence": [
         "docs/checkpoints/2026-09-08-luna-so30-offline.json#review",
-        "docs/checkpoints/2026-09-08-luna-so30-offline.json#host"
+        "docs/checkpoints/2026-09-08-luna-so30-offline.json#host",
+        "docs/checkpoints/2026-09-10-operator-capability-qualification.json#lane_a",
+        "docs/checkpoints/2026-09-10-composition-context-matrix.json#compatibility_matrix"
       ]
     },
     {
@@ -325,7 +332,11 @@
       "evidence_class": "host",
       "status": "PENDING",
       "candidate_sha": null,
-      "evidence": []
+      "evidence": [
+        "docs/checkpoints/2026-09-10-operator-capability-qualification.json#lane_b",
+        "docs/checkpoints/2026-09-10-composition-context-matrix.json#wp2",
+        "docs/checkpoints/2026-09-10-composition-context-matrix.json#native_matrix"
+      ]
     },
     {
       "id": "G09",

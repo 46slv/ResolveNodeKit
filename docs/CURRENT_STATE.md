@@ -252,3 +252,98 @@ manifest/source hashes match (20 files including entry and manifest), and the
 installed import root resolves `fusion.strict_apply` from the intended user
 package. Install readback is provenance-only; no Resolve call or project save
 occurred.
+
+## Luna Max capability qualification continuation — 2026-09-10
+
+Fresh-read live state now resolves the canonical branch HEAD and installed
+manifest to `e616966d935c93980ecf0c4b3cd05689926ab56f`. The parent effective
+model was `gpt-5.6-luna/max`; the external Resolve Operator profile was
+`gpt-5.6-terra/high`. The Operator workspace has no commit history, so its
+non-cache source/test tree is recorded by deterministic revision
+`21ac220fe0877194fbe8c01687642729906cf1c333cdaf80f148cf9d12bfa90a`.
+
+Lane A used a materially different Operator-owned registry fixture probe
+(`85d54d87-2aed-48a6-905f-ce77ce5acef6`). It loaded and closed
+`nested_group_v1` once, observed 10 tools, 2 groups, and 7 processing edges,
+including the mask edge and both Group-boundary crossings. Only `ports` was
+complete; `group_boundary_proxies`, parameters, keyframes, expressions,
+instances, media, and time range were unsupported, while `tool_state` had an
+explicit read error. FlowView positions, viewport/zoom/provenance, and actual
+displayed wire geometry were unsupported. All mutation/save counters remained
+zero, protected state was unchanged, cleanup was exact, and the launcher ended
+`FREE`. Processing-port or position evidence was not promoted to G03.
+
+Lane B compatibility (`30712be3-3eac-47a1-b7d1-2d7a21d6b6f2`) could not expose a
+retained target or owned Undo boundary, so the first write was forbidden and
+all counters stayed zero. A separate native comparison
+(`c290d6a7-a755-4c54-aea6-c21d0a297fcd`) inspected a 10-node/2-group graph but
+could not retain position context or prove owned Undo; it also stayed zero
+write. Both final leases were `FREE`. The historical `StartUndo=false` result
+remains context-specific and was not generalized.
+
+The Operator owner added transport-neutral contracts for processing coverage,
+FlowView readback, displayed-wire edge coverage, and a dedicated
+`qualify_undo_transaction()` seam with ownership-before-write and exactly-one
+mutation/Undo tests. Focused Operator tests are `15/15 PASS`; compileall and
+diff checks pass. Durable details are in
+`checkpoints/2026-09-10-operator-capability-qualification.{md,json}`.
+
+G02/G03 remain `BLOCKED_TECHNICAL`, G08 remains pending, and the integrated
+G02/G03 HostSession, G04, save, main merge, and release were not run.
+
+The Mandatory Learning Gate for this continuation records only an RNK/host-
+specific reusable delta: retain the short semantic envelope, exact installed
+candidate precondition, four-state capability contracts, mask/Group-boundary
+edge gate, ownership-before-write gate, and no-identical-third-retry guard.
+No global routing policy was promoted. Complete processing serialization,
+displayed wire capture, owned Undo, integrated G02/G03/G04, and large-scale
+qualification remain `NOT_COLLECTED`.
+
+## Composition execution context matrix follow-up — 2026-09-10
+
+The prior Lane A/B procedures were not replayed. One fresh compatibility
+context matrix (`27a845ba-3505-4301-b925-d40ec17051e0`) compared an Operator-
+owned timeline-item comp (B) with the same owned comp while the Fusion page was
+active (C). B exposed `CurrentFrame` but no FlowView. C exposed a sample
+FlowView position `[3.5, 1.009]`, but the public MCP exposed no `Undo`, masked
+the raw `StartUndo` value/type behind a wrapper, and did not export stable opaque
+comp or GUI-active-comp identity. `GetPosTable` and displayed-wire geometry
+were not collected. No write was attempted.
+
+One native route context (`ba69970d-af74-4215-920e-b92de86342b7`) used an
+Operator-owned scratch comp. It did not retain as `CurrentComp`, had no
+`CurrentFrame`/FlowView position target, and could not prove an owned Undo
+boundary despite method names being present. The first write was forbidden.
+
+Both scratch artifacts were cleaned up with independent absence readback and
+both launcher envelopes ended `FREE`. Compatibility's empty `Untitled Project`
+opaque identity differed pre/post; no valuable project was loaded or saved, so
+no speculative restore was attempted. Operator source/test files were
+unchanged (compatibility report: 17-file tree hash
+`32bfeea6fe37e85c7bcfcf7f5987eb8912670cb84cc113d0e730685414756f61`).
+
+No context proved the combined FlowView-bearing + owned-Undo prerequisite.
+WP2 remained zero-write; WP3 full processing fingerprint/sensitivity and WP4
+actual wire capture remain `NOT_COLLECTED`. G02/G03 stay
+`BLOCKED_TECHNICAL`, G08 stays pending, and integrated G02/G03/G04/save/main
+merge/release were not run. Structured evidence is in
+`checkpoints/2026-09-10-composition-context-matrix.{md,json}`. Do not issue an
+identical third context retry; retain the strict complete-processing and
+displayed-wire requirements.
+
+## Context-matrix fresh verification and install readback — 2026-09-10
+
+Parent-side fresh readback found canonical `c22a` HEAD and the remote branch
+equal at `e616966d935c93980ecf0c4b3cd05689926ab56f`; source/test/script tracked
+diff is empty. Operator focused tests are `15/15 PASS`; canonical RNK tests are
+`174/174 PASS` with explicit canonical import provenance, plus compileall and
+the strict contract checker pass. The per-user installer reports 19 manifest
+files plus the entry (20 total), zero source/installed hash mismatches, and
+installed-root imports for all strict modules from a temp cwd.
+
+The fresh verifier confirms `candidate=none`, WP2 mutation counters all zero,
+final leases `FREE`, G02/G03 `BLOCKED_TECHNICAL`, G08/G04 pending, and no
+product gate promotion. Product completion remains false; this is a
+`CHECKPOINTED_WITH_TECHNICAL_GAP` continuation, not a release or main merge.
+Structured verifier evidence is in
+`checkpoints/2026-09-10-context-matrix-fresh-verifier.{md,json}`.

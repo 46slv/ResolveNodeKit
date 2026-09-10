@@ -1,0 +1,182 @@
+{
+  "schema": "resolve-node-kit.composition-context-matrix/v1",
+  "observed_at_utc": "2026-09-10T13:19:53.0147992Z",
+  "task": "RNK strict continuation: materially different composition execution context matrix",
+  "repository": {
+    "worktree": "C:/Users/shiro/.codex/worktrees/c22a/ResolveNodeKit",
+    "branch": "feat/semantic-arrange-v1-20260906",
+    "head": "e616966d935c93980ecf0c4b3cd05689926ab56f",
+    "remote_head_readback": "e616966d935c93980ecf0c4b3cd05689926ab56f",
+    "main_merge_authorized": false
+  },
+  "operator_workspace": {
+    "path": "D:/Documents/ChatGPT/Davinci-Operater",
+    "revision_kind": "uncommitted; unborn master; preserved",
+    "compatibility_inventory": {
+      "reported_revision": "no commits; branch master; 17 untracked files",
+      "source_test_tree_sha256": "32bfeea6fe37e85c7bcfcf7f5987eb8912670cb84cc113d0e730685414756f61",
+      "file_count": 17,
+      "post_readback_equal": true
+    },
+    "native_inventory": {
+      "reported_revision": "unborn master; pre/post porcelain identical",
+      "non_cache_source_test_file_count": 16,
+      "post_readback_equal": true
+    },
+    "parent_direct_resolve_access": 0
+  },
+  "host": {
+    "resolve": "DaVinci Resolve Studio 21.1.0.14",
+    "compatibility_mcp": "2.203.0",
+    "protected_project_before": "Untitled Project",
+    "valuable_project_loaded_or_saved": false
+  },
+  "compatibility_matrix": {
+    "launch_id": "27a845ba-3505-4301-b925-d40ec17051e0",
+    "thread_id": "01a08b6c-d5b2-7092-bf43-3ecd244b0a89",
+    "elapsed_sec": 396.297,
+    "route": "mcp__davinci_resolve__* via resolve_lease.py run-mcp",
+    "B_owned_timeline_item_bound_comp": {
+      "status": "BLOCKED",
+      "identity": {
+        "project": "_mcp_RNK_CTX_27a845ba / 0dbf2f96-5ceb-413b-9431-aa7375ce4694",
+        "timeline": "RNK_CTX_TIMELINE_27a845ba / 699bb82a-9b23-4b03-967c-5d09ea59c304",
+        "item": "Fusion Composition / 47d146bd-1d07-4c1f-9829-b6668e5fcba2",
+        "comp": "Composition 1; tool MediaOut1 / TOOLI_ID=1"
+      },
+      "current_frame": {"available": true, "value": 0.0},
+      "flowview": {"available": false, "classification": "measured FlowView failure on bound timeline-item comp"},
+      "get_pos": "unavailable",
+      "get_pos_table": "NOT_COLLECTED: no exposed raw GetPosTable route",
+      "set_pos": {"callable": true, "source": "MCP advertised", "executed": false},
+      "start_undo": {"raw": "{success:true}", "raw_type": "MCP wrapper object", "underlying_return_exposed": false},
+      "end_undo": {"callable": true, "raw_type": "MCP wrapper object"},
+      "undo": {"callable": false},
+      "settings_serialization": "advertised timeline-item export only; not executed",
+      "candidate": false
+    },
+    "C_fusion_page_active_comp": {
+      "status": "PARTIAL_CAPABILITY",
+      "page": "fusion",
+      "current_frame": {"available": true, "value": 149.0},
+      "flowview": {"available": true, "sample_get_pos": [3.5, 1.009]},
+      "rebind": "scoped and page-current reads matched comp/tool shape and position; opaque comp identity is not exported",
+      "gui_active_comp_match": "inferred, not directly observable by exported GUI comp ID",
+      "get_pos_table": "NOT_COLLECTED",
+      "set_pos": {"callable": true, "source": "MCP advertised", "executed": false},
+      "start_undo": {"raw": "{success:true}", "raw_type": "MCP wrapper object", "underlying_return_exposed": false},
+      "end_undo": {"callable": true, "raw_type": "MCP wrapper object"},
+      "undo": {"callable": false},
+      "settings_serialization": "advertised only; not executed",
+      "classification": "FlowView-bearing but not owned-Undo/rollback capable",
+      "candidate": false
+    },
+    "D_composition_local_script_context": {
+      "status": "NOT_AVAILABLE",
+      "reason": "no callable composition-local raw Script/context route in compatibility MCP"
+    }
+  },
+  "native_matrix": {
+    "launch_id": "ba69970d-af74-4215-920e-b92de86342b7",
+    "thread_id": "01a08b74-b799-7803-b551-2bf42f908f64",
+    "elapsed_sec": 279.172,
+    "route": "mcp__native_resolve__* via native_mcp_stdio_bridge.py",
+    "status": "BLOCKED",
+    "project": {"name": "Untitled Project", "id": "51088363-5b96-4f3e-a2ed-03d0102bf01a"},
+    "scratch": {
+      "owned": true,
+      "identity": "Composition 0x000001E8202B1600, unnamed file, コンポジション2",
+      "target": "Background1 / Background",
+      "rebind_stable": false,
+      "current_comp_after_create": null,
+      "CurrentFrame": null,
+      "FlowView": null,
+      "GetPos_callable": false,
+      "GetPosTable_callable": false,
+      "SetPos_callable": false
+    },
+    "undo": {
+      "StartUndo_callable": true,
+      "StartUndo_raw": "NOT_EXECUTED: ownership/target write gate",
+      "EndUndo_callable": true,
+      "Undo_callable": true,
+      "owned_boundary": false
+    },
+    "settings": {
+      "documented": "SaveSettings supports dict/customdata and file forms",
+      "measured": {"type": "dict", "value": "{'Tools': None}"}
+    },
+    "classification": "native scratch comp did not retain as CurrentComp and exposed no FlowView target",
+    "candidate": false
+  },
+  "candidate": "none",
+  "wp2": {
+    "run": false,
+    "reason": "No single context proved both retained FlowView target and owned Undo boundary; first write forbidden",
+    "mutation_counters": {"position_move": 0, "graph": 0, "layout": 0, "settings": 0, "undo": 0, "project_save": 0},
+    "restoration": "NOT_RUN"
+  },
+  "wp3_processing_preservation_oracle": {
+    "status": "NOT_COLLECTED",
+    "copy_settings_or_equivalent": "not qualified in a retained candidate context",
+    "sensitivity_matrix": "not run",
+    "position_only_exclusion": "not run",
+    "complete_processing_fingerprint": false,
+    "strict_requirement": "unchanged; opaque or partial serialization cannot be promoted"
+  },
+  "wp4_flowview_actual_wire": {
+    "status": "BLOCKED",
+    "node_positions": "partial in compatibility C only; GetPosTable not collected",
+    "displayed_wire_geometry": "unsupported",
+    "mask_and_group_boundary_edges": "not displayed-wire qualified",
+    "orthogonal_mode": "not qualified"
+  },
+  "cleanup": {
+    "compatibility_scratch_project_deleted": true,
+    "compatibility_leftover": null,
+    "native_scratch_comp_closed": true,
+    "native_scratch_absent": true,
+    "no_project_save": true,
+    "note": "Compatibility Untitled Project opaque identity differed pre/post; no valuable project was loaded or saved and no speculative restore was attempted"
+  },
+  "lease": {
+    "compatibility": {
+      "token_prefix": "be24f72b",
+      "holder_pid": 101972,
+      "holder_process_start": 134335191610373393,
+      "owner_process_exact_live": true,
+      "final": "FREE"
+    },
+    "native": {
+      "token_prefix": "6c8261b1",
+      "holder_pid": 104884,
+      "holder_process_start": 134335196775977745,
+      "owner_process_exact_live": true,
+      "final": "FREE"
+    }
+  },
+  "gate_state": {
+    "G02": "BLOCKED_TECHNICAL",
+    "G03": "BLOCKED_TECHNICAL",
+    "G08": "PENDING",
+    "G04": "PENDING",
+    "integrated_host_session": "NOT_RUN",
+    "main_merge": 0,
+    "release": 0
+  },
+  "learning_gate": {
+    "source_supported_conclusion": "Compatibility Fusion-page context can expose a sample FlowView position, but the selected public route exposes no Undo operation; native scratch context does not retain a FlowView target.",
+    "rnk_specific_inference": "No tested context/route currently proves the combined FlowView plus owned-Undo prerequisite; G02/G03/G08 stay unqualified.",
+    "reusable_delta": "Keep context-specific capability states, ownership-before-write, no wrapper-boolean inference, mask/Group-boundary wire gate, and no identical third retry.",
+    "global_policy_promotion": "NO",
+    "not_collected": [
+      "raw StartUndo return/type through public MCP",
+      "GetPosTable and stable opaque comp identity",
+      "complete processing serialization/fingerprint and sensitivity matrix",
+      "displayed wire geometry",
+      "owned Undo mutation/restoration",
+      "integrated G02/G03/G04 and large-scale host qualification"
+    ]
+  },
+  "status": "CHECKPOINTED_WITH_TECHNICAL_GAP"
+}
