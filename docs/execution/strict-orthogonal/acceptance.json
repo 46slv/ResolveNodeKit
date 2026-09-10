@@ -9,7 +9,8 @@
     "source_refs": {
       "codexoperations_pr10": "93b2e8008d27fa5c3afbf6dc94bd26c0d2d097b5",
       "codexoperations_pr11": "e6b9c1f7e0db7504d53a56a4901eb034684a999e",
-      "rnK_pr5_remote_head_fresh_read": "191f9a2749e680ff38ce419468fa85f416854ae0"
+      "rnK_pr5_remote_head_fresh_read": "191f9a2749e680ff38ce419468fa85f416854ae0",
+      "rnK_pr5_current_remote_head_after_migration": "673a57d4fcadac73d225d098db47f1509236d4f7"
     },
     "modes": {
       "direct_guarded": "candidate; use when product context retains required host-local capability",
