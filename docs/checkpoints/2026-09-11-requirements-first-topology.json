@@ -6,7 +6,7 @@
   "rnK": {
     "repository": "46slv/ResolveNodeKit",
     "pr": 5,
-    "remote_head": "673a57d4fcadac73d225d098db47f1509236d4f7",
+    "remote_head": "67dcc5f90bc1ce7e61c2d16e93f5180594df6352",
     "branch": "feat/semantic-arrange-v1-20260906",
     "worktree_for_update": "migration/requirements-first-minimum-topology-v2-20260911",
     "product_status": "CHECKPOINTED_WITH_TECHNICAL_GAP",
