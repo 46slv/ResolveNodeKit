@@ -10,7 +10,7 @@ Entry: [strict continuation](execution/strict-orthogonal/README.md). Initial rou
 
 ## Git authority
 
-Canonical integration branch: `feat/semantic-arrange-v1-20260906`, PR #5 OPEN/Draft, based on `feat/bootstrap-nodekit-20260905`. Current product candidate is `dd0069abde35526b8164beae2c5753b95a1e12af`; prior publication locator was `17aa6f1783418a1810f58163e3a04874ab27182f`. Earlier product/design evidence remains historical. Read the actual new remote HEAD before work. Older task branch `feat/arrange-uia-e2e-20260906` may hold local work: preserve and reconcile it, never reset blindly. main merge/release remains unauthorized.
+Canonical integration branch: `feat/semantic-arrange-v1-20260906`, PR #5 OPEN/Draft, based on `feat/bootstrap-nodekit-20260905`. The last host-evidenced product candidate remains `eedd62e4265a6ddc8a7d291a3e72f1987f1b5b79`; the new offline-only successor is `8e540e67fe2a95c2dc521f8bdaedef56e2419fa0` (publication/docs head `e174424`). Prior publication locator was `17aa6f1783418a1810f58163e3a04874ab27182f`. Earlier product/design evidence remains historical and is not silently promoted to the successor. Read the actual new remote HEAD before work. Older task branch `feat/arrange-uia-e2e-20260906` may hold local work: preserve and reconcile it, never reset blindly. main merge/release remains unauthorized.
 
 AS-HANDOFF-1 updates execution design and a read-only contract checker. Product source/installer and live host are not changed or retested. Existing product evidence is not reset or promoted by this publication.
 
