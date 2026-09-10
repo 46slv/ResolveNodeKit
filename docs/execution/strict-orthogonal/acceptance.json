@@ -5,7 +5,7 @@
   "status": "CHECKPOINTED_WITH_TECHNICAL_GAP",
   "execution_started": true,
   "baseline_sha": "562405079aa6bffa6d25668b294a26ac4142a680",
-  "candidate_sha": "55119cd8b20e227284516b95f77a4b3e05384438",
+  "candidate_sha": "eedd62e4265a6ddc8a7d291a3e72f1987f1b5b79",
   "canonical_branch": "feat/semantic-arrange-v1-20260906",
   "canonical_pr": 5,
   "required_policy": "ALL_REQUIRED_GATES_PASS; blocked/refused/not-collected is not success",
@@ -115,14 +115,15 @@
         "SO-10"
       ],
       "owner": "snapshot-host",
-      "status": "BLOCKED_TECHNICAL",
+      "status": "PASS",
       "evidence": [
         "docs/checkpoints/2026-09-08-sol-deadline-handoff.json#host",
         "docs/checkpoints/2026-09-08-luna-host-recheck.json#lease",
         "docs/checkpoints/2026-09-08-luna-host-recheck.json#runtime",
         "docs/checkpoints/2026-09-10-r1-host-snapshot-adapter.json",
         "docs/checkpoints/2026-09-10-resolve-operator-disposable-requalification-timeout.json",
-        "docs/checkpoints/2026-09-10-resolve-operator-nested-recovery.json"
+        "docs/checkpoints/2026-09-10-resolve-operator-nested-recovery.json",
+        "docs/checkpoints/2026-09-10-so11-nested-group-host-pass.json"
       ]
     },
     {
@@ -239,13 +240,14 @@
       "required": true,
       "criterion": "Complete source audit and port-labelled snapshot",
       "evidence_class": "source_and_host",
-      "status": "BLOCKED_TECHNICAL",
-      "candidate_sha": null,
+      "status": "PASS",
+      "candidate_sha": "eedd62e4265a6ddc8a7d291a3e72f1987f1b5b79",
       "evidence": [
         "docs/checkpoints/2026-09-08-luna-host-recheck.json#runtime",
         "docs/checkpoints/2026-09-10-r1-host-snapshot-adapter.json",
         "docs/checkpoints/2026-09-10-resolve-operator-disposable-requalification-timeout.json",
-        "docs/checkpoints/2026-09-10-resolve-operator-nested-recovery.json"
+        "docs/checkpoints/2026-09-10-resolve-operator-nested-recovery.json",
+        "docs/checkpoints/2026-09-10-so11-nested-group-host-pass.json"
       ]
     },
     {

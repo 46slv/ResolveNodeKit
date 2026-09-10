@@ -27,11 +27,12 @@ AS-HANDOFF-1 updates execution design and a read-only contract checker. Product 
 
 ## New status
 
-Plan: CHECKPOINTED_WITH_TECHNICAL_GAP at product candidate `dd0069a`. Sol handoff is
+Plan: CHECKPOINTED_WITH_TECHNICAL_GAP at product candidate `eedd62e`. Sol handoff is
 EXECUTION_CONFIRMED at program owner epoch 1. SO-10 and SO-20 are offline PASS;
-G02 and G03 are BLOCKED_TECHNICAL because their host portions are unproven. SO-00,
-SO-11, SO-30, SO-50 and all downstream host gates retain technical gaps. Strict/flatten/
-installed-UI product acceptance remains NOT_YET_PROVEN. See the
+SO-11/G01 now have a qualified standalone nested-fixture host snapshot PASS;
+G02 and G03 remain BLOCKED_TECHNICAL because their host portions are unproven.
+SO-00, SO-30, SO-50 and all downstream host gates retain technical gaps.
+Strict/flatten/installed-UI product acceptance remains NOT_YET_PROVEN. See the
 [execution checkpoint](checkpoints/2026-09-08-astra-sol-execution.json) and
 [deadline handoff](checkpoints/2026-09-08-sol-deadline-handoff.json), plus the
 [Luna SO-20 checkpoint](checkpoints/2026-09-08-luna-so20-offline.json) and
@@ -125,6 +126,87 @@ The final backup-backed per-user installer was rerun from `bd2b6294293e1f0664249
 ## R1 offline adapter — 2026-09-10
 
 The bounded Luna Max Worker package `host_snapshot_adapter` added a read-only Fusion host adapter at `src/resolve_node_kit/fusion/host_snapshot.py`. It discovers root and nested `GroupOperator` tools, preserves exact source/target tool and port identities when the host exposes them, and leaves unsupported/error capabilities explicit instead of treating them as empty graph data. Duplicate names, invalid parent references, missing Group child discovery, and hierarchy cycles refuse closed. The adapter never calls position/settings/Undo/save mutation surfaces. Parent-side verification passed focused 38/38 and canonical 165/165 with explicit `c22a/src` import provenance. This is an offline implementation PASS only; SO-11 host qualification, strict mutation integration, and all G01–G14 remain pending. Evidence is in `docs/execution/strict-orthogonal/luna_execution.json#r1_offline_adapter` and `docs/checkpoints/2026-09-10-r1-host-snapshot-adapter.json`.
+
+## SO-11 qualified standalone fixture — 2026-09-10
+
+The external Resolve Operator loaded `nested_group_v1` through the qualified
+standalone registry capability on Resolve Studio `21.1.0.14`, then invoked the
+canonical `host_snapshot.py` adapter against the live comp. AddTool/Paste
+fixture construction was not retried. Independent readback proved 10 unique
+tools, 2 non-empty groups, depth 2, exact nested membership, both `MainOutput1`
+aliases, `TOOLS_Name`/`TOOLS_RegID`/`TOOLI_ID`, and 7 direct port-labelled edges
+including inner-to-outer and outer-to-root crossings. The adapter reconciles the
+measured flattened root inventory with `GetChildrenList()` only for matching
+live identity; ambiguous duplicates still fail closed.
+
+Operator mutation counters were layout/graph/settings/Undo/save = 0. The
+standalone comp was loaded once and closed once in the same invocation; current
+comp absence and protected state equality were read back, cleanup was exact,
+and the launcher ended at lease `FREE`. G01 and SO-11 adapter qualification
+are `PASS`.
+
+The snapshot keeps its remaining processing/position gaps explicit: FlowView
+position was not supplied; `group_boundary_proxies`, parameters, keyframes,
+expressions, instances, media, and time range are unsupported; `tool_state` has
+an explicit JSON-safety read error. Therefore `strict_request` remains
+fail-closed until a complete required snapshot is available. Full evidence is
+in `docs/checkpoints/2026-09-10-so11-nested-group-host-pass.json`.
+
+## Strict request preserve preflight — 2026-09-10
+
+The installed `eedd62e` candidate was run against the same standalone fixture.
+`strict_request` refused before independent plan validation because FlowView
+position readback was unavailable and the required processing fields were not
+complete. Exact unresolved coverage is recorded in
+`docs/checkpoints/2026-09-10-strict-request-preserve-preflight-blocked.json`:
+all ten positions, expressions, group-boundary proxies, instances, keyframes,
+media, parameters, time range, and a tool-state read error.
+
+Preserve, flatten/ungroup, Undo, and project save were all zero. Cleanup and
+protected-state readback passed and the external lease ended `FREE`. This is a
+strict-writer capability gap, not a reason to require a timeline for SO-11. The
+next ready host package is read-only actual view/wire capability inventory on
+the same qualified fixture; preserve remains fail-closed until complete
+position/processing coverage exists.
+
+## Actual view/wire inventory — 2026-09-10
+
+The same qualified standalone fixture loaded and closed safely, but the current
+compatibility driver cannot retain its standalone handle for FlowView,
+connected-endpoint, pipe-mode, port-display, Group-boundary, or edge-geometry
+readback. This is a driver capability gap, not proof that an active timeline is
+required. Graph/layout/settings/Undo/save remained zero, protected state was
+unchanged, cleanup was exact, and the lease ended `FREE`.
+
+G03 remains blocked. The next view/wire attempt must use a materially different
+Operator capability that retains the standalone handle; no blind timeline
+attachment or parent-side Resolve access is allowed. Evidence is in
+`docs/checkpoints/2026-09-10-actual-view-wire-standalone-blocked.json`.
+
+## SO-40 flatten canary — 2026-09-10
+
+The guarded `flatten_all_comp` canary stopped fail-closed with
+`BLOCKED_HOST_API_ZERO_WRITE`. The compatibility surface did not return an
+active standalone comp or the required identity-preserving ungroup, recursive
+identity/endpoint, complete processing snapshot, and bounded Undo/rollback
+readback callbacks. No flatten write, Undo, or save occurred; the project stayed
+the unsaved `Untitled Project` with no timeline/current Fusion comp, and the
+launcher ended `FREE`. This is not evidence that a timeline is required and it
+does not promote G04. Exact evidence is in
+`docs/checkpoints/2026-09-10-flatten-canary-zero-write.json`.
+
+## Fresh offline verifier — 2026-09-10
+
+An independent verifier process audited candidate `eedd62e` after the new host
+evidence. Required IDs, the main-merge prohibition, G01 PASS, G02/G03 blocks,
+G04–G14 non-promotion, exact nested structure, strict/view/flatten fail-closed
+zero-write results, and installed/source provenance all passed the audit. The
+strict contract is 30/30, the canonical suite is 170/170, compileall and diff
+check pass, and the 1101-node planner stress is PASS (0.307s). This is an
+offline readiness audit only: host 1100+, UI, performance, processing, and
+recovery remain unverified. The focused offline UI/flatten/owned-Undo recovery
+seams are 16/16 PASS. Evidence is in
+`docs/checkpoints/2026-09-10-fresh-offline-verifier.json`.
 
 The parent then added `fusion/strict_request.py`, a pure fail-closed preparation seam that composes a complete `ProcessingSnapshot` into the existing strict planner and requires independent plan validation before any future writer can act. It does not perform host writes, save, settings, or Undo. The integration lane passed dedicated tests and the canonical suite at 28/28 and 169/169 respectively; this advances only offline integration and does not qualify SO-11 or a host mutation path.
 

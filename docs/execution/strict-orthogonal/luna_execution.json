@@ -267,6 +267,246 @@
     "product_gate_movement": [],
     "remaining": "nested fixture capability remains unqualified; no third identical qualification"
   },
+  "r1_nested_group_host_qualification": {
+    "task": "SO-11 qualified standalone nested_group_v1 host snapshot",
+    "observed_at_utc": "2026-09-10T05:32:35Z",
+    "candidate_sha": "eedd62e4265a6ddc8a7d291a3e72f1987f1b5b79",
+    "operator": {
+      "launcher_result": "PASS",
+      "launch_id": "a1ecf08a-e24f-477c-afcc-608355b3818a",
+      "thread_id": "01a089c6-7e13-7b60-beff-08175502d05d",
+      "driver": "third-party compatibility MCP v2.203.0",
+      "resolve_version": "21.1.0.14"
+    },
+    "lease": {
+      "acquired": true,
+      "holder_pid": 33152,
+      "holder_process_start": 134334914823840144,
+      "token_prefix": "db88c07d",
+      "final": "FREE"
+    },
+    "fixture": {
+      "operation": "prepare_fusion_fixture",
+      "kind": "nested_group",
+      "topology": "nested_group_v1",
+      "restore_policy": "scratch_disposable",
+      "standalone": true,
+      "comp_sha256": "713E15679F6E95EA66BEC6460BB70DDDE28B0AB97E6985EDB87864E9D72FE67D",
+      "manifest_sha256": "79CE02EDB4FFD67FDD320B9C32EE2A6ACC11122D713E1DD1A36BDC9EB84A25AF"
+    },
+    "structure": {
+      "nodes": 10,
+      "groups": 2,
+      "max_depth": 2,
+      "edges": 7,
+      "membership": "OuterGroup=[OuterSource,InnerGroup,OuterProcess]; InnerGroup=[InnerSource,InnerMask,InnerProcess]",
+      "main_output1": ["OuterGroup", "InnerGroup"],
+      "boundary_edges": ["InnerProcess -> OuterProcess", "OuterProcess -> RootProcess"],
+      "identity": "TOOLS_Name/TOOLS_RegID/TOOLI_ID complete"
+    },
+    "host_snapshot": {
+      "adapter_sha256": "6FF20136854905F1AF7707D548E00C94F16A8E72042D8D7B20EB570C59CFAF5A",
+      "json_safe": true,
+      "ports": "complete",
+      "non_complete": [
+        "position:unsupported",
+        "group_boundary_proxies:unsupported",
+        "parameters:unsupported",
+        "keyframes:unsupported",
+        "expressions:unsupported",
+        "instances:unsupported",
+        "media:unsupported",
+        "time_range:unsupported",
+        "tool_state:error"
+      ]
+    },
+    "mutation": {
+      "layout": 0,
+      "graph": 0,
+      "settings": 0,
+      "undo": 0,
+      "project_save": 0
+    },
+    "cleanup": {
+      "load": 1,
+      "close": 1,
+      "current_comp_after_close": null,
+      "protected_state_unchanged": true,
+      "status": "exact"
+    },
+    "product_gate_movement": {
+      "G01": "PASS",
+      "SO-11_adapter": "PASS"
+    },
+    "strict_writer": "NOT_READY_UNTIL_REQUIRED_FIELDS_COMPLETE",
+    "evidence": "docs/checkpoints/2026-09-10-so11-nested-group-host-pass.json"
+  },
+  "r1_strict_request_preserve_preflight": {
+    "task": "SO-11 to strict_request real-host preserve preflight",
+    "observed_at_utc": "2026-09-10T05:45:17Z",
+    "candidate_sha": "eedd62e4265a6ddc8a7d291a3e72f1987f1b5b79",
+    "operator": {
+      "launcher_result": "PASS",
+      "launch_id": "e57b975e-110f-4299-a2bf-7699b408ad59",
+      "thread_id": "01a089d2-1f5d-7623-91eb-d66ced43556d",
+      "driver": "third-party compatibility MCP v2.203.0",
+      "resolve_version": "21.1.0.14",
+      "installed_manifest_commit": "eedd62e4265a6ddc8a7d291a3e72f1987f1b5b79"
+    },
+    "fixture": {
+      "topology": "nested_group_v1",
+      "standalone": true,
+      "timeline": null,
+      "nodes": 10,
+      "groups": 2,
+      "direct_edges": 7,
+      "adapter_edges": 9
+    },
+    "strict_request": {
+      "status": "STRICT_PREPARATION_BLOCKED",
+      "plan_validation": "NOT_RUN",
+      "preserve_write": "NOT_RUN",
+      "flowview": "unavailable",
+      "unresolved": [
+        "all ten node positions:unsupported",
+        "expressions:unsupported",
+        "group_boundary_proxies:unsupported",
+        "instances:unsupported",
+        "keyframes:unsupported",
+        "media:unsupported",
+        "parameters:unsupported",
+        "time_range:unsupported",
+        "tool_state:error"
+      ]
+    },
+    "mutation": {
+      "writes": 0,
+      "undo": 0,
+      "project_save": 0
+    },
+    "cleanup": {
+      "close": 1,
+      "current_comp_after_close": null,
+      "protected_state_unchanged": true,
+      "lease_final": "FREE"
+    },
+    "evidence": "docs/checkpoints/2026-09-10-strict-request-preserve-preflight-blocked.json",
+    "next": "read-only actual view/wire capability inventory; preserve remains fail-closed"
+  },
+  "r1_actual_view_wire_inventory": {
+    "task": "SO-30/G03 actual view and wire capability inventory",
+    "observed_at_utc": "2026-09-10T05:56:15Z",
+    "candidate_sha": "eedd62e4265a6ddc8a7d291a3e72f1987f1b5b79",
+    "operator": {
+      "launcher_result": "PASS",
+      "launch_id": "3e8a5e8a-acaa-48aa-8fb4-36d3b830c28a",
+      "thread_id": "01a089de-ce00-7c90-99b5-da1c50aac2cf",
+      "driver": "third-party compatibility MCP v2.203.0",
+      "resolve_version": "21.1.0.14"
+    },
+    "fixture": {
+      "topology": "nested_group_v1",
+      "load": "PASS",
+      "close": "PASS",
+      "standalone": true,
+      "timeline": null
+    },
+    "status": "PRECISE_BLOCKER",
+    "missing": [
+      "standalone handle retention",
+      "FlowView positions",
+      "connected endpoints and direct/boundary edges",
+      "pipe or orthogonal mode",
+      "port/group-boundary display",
+      "edge geometry/visibility",
+      "UI-visible scope"
+    ],
+    "timeline_required": "not_proven",
+    "mutation": {
+      "graph": 0,
+      "layout": 0,
+      "settings": 0,
+      "undo": 0,
+      "project_save": 0
+    },
+    "cleanup": "exact; final lease FREE",
+    "evidence": "docs/checkpoints/2026-09-10-actual-view-wire-standalone-blocked.json",
+    "next": "materially different Operator handle-local view/wire capability"
+  },
+  "r1_flatten_canary": {
+    "task": "SO-40 guarded flatten_all_comp preflight/canary",
+    "observed_at_utc": "2026-09-10T06:00:44Z",
+    "candidate_sha": "eedd62e4265a6ddc8a7d291a3e72f1987f1b5b79",
+    "operator": {
+      "launcher_result": "PASS",
+      "launch_id": "6eb2cba0-96bb-4a15-a40c-0722bd822a6c",
+      "thread_id": "01a089e5-09f4-7dc3-b4f9-914ba8ae250a",
+      "driver": "third-party compatibility MCP v2.203.0",
+      "resolve_version": "DaVinci Resolve Studio 21.1.0.14"
+    },
+    "fixture": {
+      "operation": "prepare_fusion_fixture(kind=nested_group, topology=nested_group_v1, restore_policy=scratch_disposable)",
+      "identity": "nested_group_v1",
+      "result": "NOT_CREATED_BY_SELECTED_HOST_SURFACE"
+    },
+    "flatten": {
+      "semantic_result": "BLOCKED_HOST_API",
+      "writes": 0,
+      "undo": 0,
+      "save": 0,
+      "missing_callbacks": [
+        "standalone LoadComp and owned FusionComp.Close",
+        "native identity-preserving Group ungroup",
+        "recursive child/identity inventory",
+        "non-Group identity and endpoint mapping",
+        "processing/parameters/keyframes/expressions/instances/media/port-label snapshot",
+        "bounded Undo/rollback and structural readback"
+      ]
+    },
+    "post_state": {
+      "project": "Untitled Project",
+      "timeline": null,
+      "current_fusion_comp": null,
+      "protected_state": "unchanged",
+      "parent_direct_resolve_calls": 0,
+      "final_lease": "FREE"
+    },
+    "evidence": "docs/checkpoints/2026-09-10-flatten-canary-zero-write.json"
+  },
+  "r1_fresh_offline_verifier": {
+    "task": "fresh independent offline audit after SO-11 host qualification",
+    "recorded_at_utc": "2026-09-10T06:08:58.6078002Z",
+    "candidate_sha": "eedd62e4265a6ddc8a7d291a3e72f1987f1b5b79",
+    "checks": {
+      "required_gate_ids_unchanged": true,
+      "g01_pass": true,
+      "g02_g03_blocked": true,
+      "g04_g14_not_pass": true,
+      "so11_structure_10_nodes_2_groups_depth_2_7_edges": true,
+      "so11_mutation_zero": true,
+      "strict_fail_closed": true,
+      "actual_view_wire_fail_closed": true,
+      "flatten_zero_write": true,
+      "installed_commit_matches_candidate": true,
+      "installed_host_snapshot_hash_matches_source": true
+    },
+    "offline_verification": {
+      "strict_contract": "30/30 PASS",
+      "canonical_suite": "170/170 PASS",
+      "1101_node_planner_stress": "PASS",
+      "1101_node_planner_elapsed_seconds": 0.307,
+      "ui_flatten_recovery_seams": "16/16 PASS",
+      "compileall": "PASS",
+      "git_diff_check": "PASS"
+    },
+    "host_boundary": {
+      "host_1100_plus": "NOT_RUN",
+      "host_performance_recovery_ui": "NOT_RUN",
+      "still_unverified": ["G02", "G03", "G04", "G05", "G06", "G07", "G08", "G09", "G10", "G11", "G12", "G13", "G14"]
+    },
+    "status": "AUDIT_PASS_HOST_COMPLETION_BLOCKED",
+    "evidence": "docs/checkpoints/2026-09-10-fresh-offline-verifier.json"
+  },
   "takeover": {
     "status": "EXECUTION_CONFIRMED",
     "new_task_id": "01a087e9-0cb8-77f3-908d-e0163103ac50",

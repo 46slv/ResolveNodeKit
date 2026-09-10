@@ -1,0 +1,62 @@
+{
+  "schema": "resolve-node-kit.strict-request-preserve-preflight/v1",
+  "observed_at_utc": "2026-09-10T05:45:17Z",
+  "task": "SO-11 to strict_request real-host preserve preflight",
+  "candidate_sha": "eedd62e4265a6ddc8a7d291a3e72f1987f1b5b79",
+  "operator": {
+    "launcher_result": "PASS",
+    "launch_id": "e57b975e-110f-4299-a2bf-7699b408ad59",
+    "thread_id": "01a089d2-1f5d-7623-91eb-d66ced43556d",
+    "driver": "third-party compatibility MCP v2.203.0",
+    "resolve_version": "DaVinci Resolve Studio 21.1.0.14",
+    "installed_manifest_commit": "eedd62e4265a6ddc8a7d291a3e72f1987f1b5b79"
+  },
+  "lease": {
+    "acquired": true,
+    "holder_pid": 51628,
+    "holder_process_start": 134334922445864342,
+    "token_prefix": "97401094",
+    "final": "FREE",
+    "release": "delegated_to_launcher"
+  },
+  "fixture": {
+    "topology": "nested_group_v1",
+    "standalone": true,
+    "timeline": null,
+    "node_count": 10,
+    "group_count": 2,
+    "direct_structure_edges": 7,
+    "adapter_port_inventory": 9,
+    "membership_and_main_output1": "readback_match"
+  },
+  "strict_request": {
+    "status": "REFUSED",
+    "plan_validation": "NOT_RUN",
+    "preserve_write": "NOT_RUN",
+    "flatten_or_ungroup": "NOT_RUN",
+    "flowview_position_capability": "unavailable",
+    "unresolved": [
+      "nodes.{InnerGroup,InnerMask,InnerProcess,InnerSource,MediaOut1,OuterGroup,OuterProcess,OuterSource,RootProcess,RootSource}.position:unsupported",
+      "fields.expressions:unsupported",
+      "fields.group_boundary_proxies:unsupported",
+      "fields.instances:unsupported",
+      "fields.keyframes:unsupported",
+      "fields.media:unsupported",
+      "fields.parameters:unsupported",
+      "fields.time_range:unsupported",
+      "fields.tool_state:error"
+    ]
+  },
+  "mutation": {
+    "writes": 0,
+    "undo": 0,
+    "project_save": 0
+  },
+  "cleanup": {
+    "close_count": 1,
+    "current_comp_after_close": null,
+    "protected_state_unchanged": true,
+    "status": "exact"
+  },
+  "next_decision": "Keep strict_request fail-closed; run a read-only actual view/wire capability inventory on the same qualified fixture. Only a complete position/processing readback may authorize preserve."
+}
