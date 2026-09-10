@@ -245,3 +245,10 @@ never touches graph/settings/media/save surfaces and refuses unknown fields.
 Focused strict-apply tests are `4/4`; canonical unittest is `174/174`,
 `compileall` and `git diff --check` pass. These are offline implementation
 results only and do not promote any host gate.
+
+The offline seam and checkpoint were committed as `8e540e6` on the canonical
+task branch and installed through the backup-backed per-user installer. The
+manifest/source hashes match (20 files including entry and manifest), and the
+installed import root resolves `fusion.strict_apply` from the intended user
+package. Install readback is provenance-only; no Resolve call or project save
+occurred.

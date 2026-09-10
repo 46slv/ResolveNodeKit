@@ -6,6 +6,7 @@
     "branch": "feat/semantic-arrange-v1-20260906",
     "worktree": "C:/Users/shiro/.codex/worktrees/c22a/ResolveNodeKit",
     "pre_change_head": "a821beff1fecbf71b23f664dffab39107bf50317",
+    "candidate_sha": "8e540e67fe2a95c2dc521f8bdaedef56e2419fa0",
     "main_merge_authorized": false
   },
   "host_attempts": [
@@ -84,6 +85,22 @@
       "git_diff_check": "PASS",
       "contract_checker": "contract_consistent=true; product/runtime/host completion=false"
     }
+  },
+  "install_readback": {
+    "status": "PASS",
+    "manifest_commit": "8e540e67fe2a95c2dc521f8bdaedef56e2419fa0",
+    "manifest_files": 19,
+    "entry_plus_manifest_files": 20,
+    "strict_apply_source_installed_sha256_match": true,
+    "installed_import_root": "%APPDATA%/Blackmagic Design/DaVinci Resolve/Support/Fusion/ResolveNodeKit/src",
+    "installed_modules": [
+      "resolve_node_kit",
+      "resolve_node_kit.fusion.strict_apply",
+      "resolve_node_kit.fusion.strict_planner",
+      "resolve_node_kit.fusion.strict_request"
+    ],
+    "resolve_calls": 0,
+    "project_save": 0
   },
   "cleanup": {
     "parent_direct_resolve_access": 0,
