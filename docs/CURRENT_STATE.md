@@ -379,3 +379,27 @@ Structured evidence is in
 `checkpoints/2026-09-11-comp-local-executor-qualification.{md,json}`. Do not
 replay either route or issue an identical third context probe without new
 host evidence.
+
+## WP1 fresh verifier and install readback — 2026-09-11
+
+Parent-side independent verification found the PR #5 branch and remote head
+equal at `649ce7dd73e120b512ac33b4ba6fb2c19c0f32f4`; source/script changes
+from the product parent are empty and the worktree is clean before this
+checkpoint. RNK canonical tests are `174/174 PASS`, Operator focused tests are
+`15/15 PASS`, and compileall, diff-check, and the strict contract checker pass.
+
+The pre-existing manifest/blob provenance mismatch was not accepted. The
+backup-backed installer was rerun from this PR HEAD and now records
+`repo_commit=649ce7dd73e120b512ac33b4ba6fb2c19c0f32f4`, 19 package files plus
+the entry, zero raw source/installed mismatches, and 19/19 normalized source
+blobs matching the commit. The prior entry was backed up in the installer-owned
+backup tree. Temp-cwd imports for all strict modules resolve inside the
+installed root. Operator revision
+`21ac220fe0877194fbe8c01687642729906cf1c333cdaf80f148cf9d12bfa90a` remains
+unchanged with 17 files.
+
+This readback promotes no host capability: WP1 is still `BLOCKED`, WP2
+position/Undo counters are zero, final lease is `FREE`, G02/G03 remain
+`BLOCKED_TECHNICAL`, G08/G04 remain pending, and product completion is false.
+Details are in
+`checkpoints/2026-09-11-comp-local-executor-fresh-verifier.{md,json}`.
