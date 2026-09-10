@@ -4,7 +4,7 @@ An independent parent-side readback checked the canonical branch, the two new
 Operator launcher packets, the installed candidate, and the contract state
 without modifying product source or running another Resolve probe.
 
-- canonical `c22a` HEAD and remote branch both read `e616966d935c93980ecf0c4b3cd05689926ab56f`;
+- canonical `c22a` publication/docs HEAD and remote branch both read `934060451be68f9b165891a745d903d5acfe3082`; the product source/install candidate remains `e616966d935c93980ecf0c4b3cd05689926ab56f`;
 - source/test/script tracked diff is empty; only documentation/checkpoint files are dirty;
 - Operator focused tests are `15/15 PASS`, compileall and diff-check pass, and its uncommitted tree was unchanged;
 - canonical RNK suite is `174/174 PASS` with canonical `PYTHONPATH`, compileall passes, and the contract checker reports consistent records but no host tests;

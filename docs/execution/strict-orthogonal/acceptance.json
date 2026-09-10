@@ -8,6 +8,7 @@
   "candidate_sha": "eedd62e4265a6ddc8a7d291a3e72f1987f1b5b79",
   "current_live_head": "e616966d935c93980ecf0c4b3cd05689926ab56f",
   "current_live_install_manifest_commit": "e616966d935c93980ecf0c4b3cd05689926ab56f",
+  "publication_docs_head": "934060451be68f9b165891a745d903d5acfe3082",
   "canonical_branch": "feat/semantic-arrange-v1-20260906",
   "canonical_pr": 5,
   "required_policy": "ALL_REQUIRED_GATES_PASS; blocked/refused/not-collected is not success",

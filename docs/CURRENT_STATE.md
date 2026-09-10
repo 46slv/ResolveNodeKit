@@ -333,9 +333,10 @@ displayed-wire requirements.
 
 ## Context-matrix fresh verification and install readback — 2026-09-10
 
-Parent-side fresh readback found canonical `c22a` HEAD and the remote branch
-equal at `e616966d935c93980ecf0c4b3cd05689926ab56f`; source/test/script tracked
-diff is empty. Operator focused tests are `15/15 PASS`; canonical RNK tests are
+Parent-side fresh readback found canonical `c22a` publication/docs HEAD and the
+remote branch equal at `934060451be68f9b165891a745d903d5acfe3082`; the product
+source/install candidate remains `e616966d935c93980ecf0c4b3cd05689926ab56f`.
+Source/test/script tracked diff is empty. Operator focused tests are `15/15 PASS`; canonical RNK tests are
 `174/174 PASS` with explicit canonical import provenance, plus compileall and
 the strict contract checker pass. The per-user installer reports 19 manifest
 files plus the entry (20 total), zero source/installed hash mismatches, and

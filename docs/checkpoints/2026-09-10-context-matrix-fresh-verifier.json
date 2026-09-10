@@ -1,12 +1,13 @@
 {
   "schema": "resolve-node-kit.context-matrix-fresh-verifier/v1",
-  "recorded_at_utc": "2026-09-10T13:19:53.0147992Z",
+  "recorded_at_utc": "2026-09-10T13:26:44.5556408Z",
   "task": "independent parent verification after compatibility/native context qualification",
   "repository": {
     "worktree": "C:/Users/shiro/.codex/worktrees/c22a/ResolveNodeKit",
     "branch": "feat/semantic-arrange-v1-20260906",
-    "local_head": "e616966d935c93980ecf0c4b3cd05689926ab56f",
-    "remote_head": "e616966d935c93980ecf0c4b3cd05689926ab56f",
+    "local_head": "934060451be68f9b165891a745d903d5acfe3082",
+    "remote_head": "934060451be68f9b165891a745d903d5acfe3082",
+    "product_source_candidate": "e616966d935c93980ecf0c4b3cd05689926ab56f",
     "head_remote_match": true,
     "source_test_script_tracked_diff_count": 0,
     "main_merge_authorized": false
