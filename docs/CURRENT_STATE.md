@@ -1,6 +1,6 @@
 # ResolveNodeKit current continuation
 
-Updated: 2026-09-10 JST. Live Git/PR/installed/runtime evidence always outranks this locator.
+Updated: 2026-09-11 JST. Live Git/PR/installed/runtime evidence always outranks this locator.
 
 ## Active goal
 
@@ -348,3 +348,34 @@ product gate promotion. Product completion remains false; this is a
 `CHECKPOINTED_WITH_TECHNICAL_GAP` continuation, not a release or main merge.
 Structured verifier evidence is in
 `checkpoints/2026-09-10-context-matrix-fresh-verifier.{md,json}`.
+
+## WP1 comp-local executor qualification — 2026-09-11
+
+After the completed B/C/native matrix, two materially different read-only
+routes were tested through the external Resolve Operator. The first
+(`a3647c2b-8195-4b30-a20e-aa1cf1e410f9`) ran
+`script_plugin.run_inline -> fusion.Execute(lua)` but found Resolve Studio
+`21.1.0.14` in `Untitled Project` with no timeline/current comp;
+`Fusion.GetCurrentComp()` returned no composition. The second
+(`e4e5e5ac-9197-4a69-83e9-e7735729037c`) ran a Comp-category Lua script once;
+the host returned `success=false` without an observable local comp or error
+detail. Neither route exposed exact comp identity, CurrentFrame, FlowView /
+GetPosTable, the 10-tool/2-group fixture fingerprint, complete processing
+serialization, or an owned Undo boundary in one invocation.
+
+Both launcher envelopes were transport `PASS` with exact-live ownership and
+authoritative final `FREE`. The first created no scratch. The second removed
+its temporary Comp script and verified the Comp script list empty; no comp
+fixture result was observable, so its fixture-cleanup proof is not claimed.
+Graph/layout/position/settings/connection/processing/keyframe/media/
+selection/Undo/project-save counters remained zero, and Operator revision
+`21ac220fe0877194fbe8c01687642729906cf1c333cdaf80f148cf9d12bfa90a` remained
+unchanged. WP1 is `BLOCKED`; WP2 position/Undo, WP3 processing sensitivity,
+and WP4 actual displayed-wire qualification were not run. G02/G03 remain
+`BLOCKED_TECHNICAL`, G08 remains `PENDING`, and integrated G02/G03/G04, save,
+main merge, and release remain unrun.
+
+Structured evidence is in
+`checkpoints/2026-09-11-comp-local-executor-qualification.{md,json}`. Do not
+replay either route or issue an identical third context probe without new
+host evidence.
