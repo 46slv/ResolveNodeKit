@@ -1,279 +1,127 @@
 {
-  "schema": "resolve-node-kit.strict-continuation/v2",
+  "schema": "resolve-node-kit.strict-continuation/v3-direct-guarded",
   "program": "RNK-STRICT-ORTHOGONAL",
   "updated": "2026-09-11",
   "status": "CHECKPOINTED_WITH_TECHNICAL_GAP",
   "execution_topology": {
-    "revision": "REQUIREMENTS-FIRST-MINIMUM-TOPOLOGY-20260911",
+    "revision": "DIRECT-GUARDED-RESET-20260911-1",
     "rule": "requirements_first_topology_second_delegation_must_earn_itself",
-    "source_refs": {
-      "codexoperations_pr10": "93b2e8008d27fa5c3afbf6dc94bd26c0d2d097b5",
-      "codexoperations_pr11": "e6b9c1f7e0db7504d53a56a4901eb034684a999e",
-      "rnK_pr5_remote_head_fresh_read": "191f9a2749e680ff38ce419468fa85f416854ae0",
-      "rnK_pr5_current_remote_head_after_migration": "673a57d4fcadac73d225d098db47f1509236d4f7",
-      "rnK_pr5_current_remote_head_after_checkpoint": "67dcc5f90bc1ce7e61c2d16e93f5180594df6352"
-    },
-    "modes": {
-      "direct_guarded": "candidate; use when product context retains required host-local capability",
-      "dedicated_resolve_worker": "promoted for structural fixture readback only",
-      "host_local_executor": "candidate; required for CurrentComp/FlowView/Undo/GUI-local semantics"
-    },
+    "default": "direct_guarded_product_worker",
+    "dedicated_external_operator": "RESEARCH_ONLY_NOT_PRODUCT_DEPENDENCY",
+    "wp1_semantic_receipt": "HISTORICAL_RESEARCH_NOT_PRODUCT_DEPENDENCY",
+    "host_local_helper": "ordinary_in_process_helper_when_useful_not_agent_boundary",
     "host_guard": [
-      "user_wide_exclusive_lease",
-      "exact_target_identity_before_write",
+      "single_live_resolve_writer_or_equivalent_serialization",
+      "exact_target_identity_before_valuable_write",
       "owned_temporary_state",
-      "no_blind_retry_after_timeout",
-      "reversible_or_discardable_mutation",
-      "independent_readback",
-      "cleanup_or_recovery",
-      "terminal_receipt_and_final_lease_FREE"
+      "no_blind_retry_after_ambiguous_mutation",
+      "reversible_or_discardable_mutation_when_practical",
+      "readback",
+      "cleanup_or_recovery"
     ],
-    "raw_handles_cross_boundary": false,
-    "unknown_is_pass": false,
-    "rollback_baseline": "qualified external Resolve Operator retained until matched replacement qualification",
-    "checkpoint": "docs/checkpoints/2026-09-11-requirements-first-topology.json"
-  },
-  "authoring_gate": {
-    "id": "AG-V2",
-    "status": "PASS_FOR_CONTRACT_UPDATE",
-    "requires": [
-      "fresh PR/remote/source/install identity",
-      "PR10/PR11 source readback",
-      "single shared writer and single live host owner",
-      "bounded requirement brief and materially different probe",
-      "gate mapping, independent readback, cleanup, and alternate path"
-    ],
-    "does_not_authorize": ["host_gate_promotion", "project_save", "main_merge"]
+    "complexity_inversion_stop_rule": "if proof/safety/orchestration infrastructure is harder than the guarded Resolve operation, simplify the boundary",
+    "minimum_useful_real_host_smoke_first": true,
+    "unknown_is_pass": false
   },
   "execution_started": true,
-  "baseline_sha": "562405079aa6bffa6d25668b294a26ac4142a680",
-  "candidate_sha": "eedd62e4265a6ddc8a7d291a3e72f1987f1b5b79",
-  "current_live_head": "e616966d935c93980ecf0c4b3cd05689926ab56f",
-  "current_live_install_manifest_commit": "e616966d935c93980ecf0c4b3cd05689926ab56f",
-  "publication_docs_head": "934060451be68f9b165891a745d903d5acfe3082",
   "canonical_branch": "feat/semantic-arrange-v1-20260906",
   "canonical_pr": 5,
   "required_policy": "ALL_REQUIRED_GATES_PASS; blocked/refused/not-collected is not success",
-  "human_need": {
-    "policy": "ONLY_GENUINE_BOUNDARY_AFTER_AUTONOMOUS_WORK",
-    "elimination_status": "NOT_YET_PROVEN",
-    "default_release_smoke": "NOT_MANDATORY_IF_REAL_UI_AUTOMATED"
-  },
-  "profile": {
-    "id": "reference_rail_regions_v2",
-    "hard": [
-      "processing_preserved",
-      "all_nodes_and_ports_covered",
-      "orthogonal_node_alignment",
-      "orthogonal_actual_pipes",
-      "non_overlapping_rectangles",
-      "exact_undo"
-    ],
-    "conditional": [
-      "lower_horizontal_backbone_per_component",
-      "vertical_feeders_above_receivers",
-      "upper_upstream_regions",
-      "right_terminal_reduction_when_topology_exists",
-      "output_may_drop_below_final_merge"
-    ],
-    "geometry": {
-      "units": "logical_integer_cells",
-      "base_anchor_pitch": 3,
-      "ordinary_node_clearance": 1,
-      "region_clearance_initial": 6,
-      "gaps": "whole_cell_expansion",
-      "values_are": "proposed_engineering_defaults_not_measured_pixels"
-    },
-    "forbidden_inferences": [
-      "same_x_means_chain",
-      "background_always_visual_mainstream",
-      "merge_by_name_substring_only",
-      "unknown_input_means_unconnected",
-      "image_color_means_regid",
-      "all_outputs_on_single_rail"
-    ]
-  },
-  "performance": {
-    "minimum_original_non_group_tools": 1100,
-    "qualification_runs": 3,
-    "per_action_budget_seconds": 60,
-    "optimization_target_seconds": 30,
-    "includes": [
-      "snapshot",
-      "flatten_when_requested",
-      "plan",
-      "writes",
-      "readback",
-      "verify"
-    ],
-    "separate_timings": [
-      "fixture_creation",
-      "independent_render_comparison",
-      "transport_monitoring"
-    ],
-    "measurement_baseline": "three independent equivalent disordered/grouped pre-states; no-op run2 timed separately"
-  },
   "roles": {
     "shared_writers": 1,
     "host_owners": 1,
-    "max_parallel_workers_default": 2,
-    "coordinator": "Luna Max Coordinator / current owner epoch 2",
-    "routine_worker": "qualified current lane; Luna Max preferred where available",
-    "verifier": "fresh independent context; no repair",
-    "bootstrap": "Astra / actual configured runtime must be verified",
-    "advisor": "Astra / consult only; no shared writes"
+    "coordinator": "Luna Max Coordinator / Product Worker",
+    "resolve_execution_default": "direct current capability",
+    "verifier": "fresh independent context for final/high-risk acceptance; no repair"
   },
-  "allowed_statuses": [
-    "PENDING",
-    "READY",
-    "RUNNING",
-    "PASS",
-    "FAIL",
-    "BLOCKED_TECHNICAL",
-    "WAITING_AUTHORITY"
-  ],
   "work_packages": [
     {
       "id": "SO-00",
       "depends_on": [],
       "owner": "coordinator",
-      "status": "BLOCKED_TECHNICAL",
-      "evidence": [
-        "docs/checkpoints/2026-09-08-astra-sol-execution.json#so_00",
-        "docs/checkpoints/2026-09-08-sol-deadline-handoff.json#host"
-      ]
+      "status": "READY",
+      "evidence": []
     },
     {
       "id": "SO-10",
-      "depends_on": [
-        "SO-00"
-      ],
+      "depends_on": ["SO-00"],
       "owner": "data-offline",
       "status": "PASS",
-      "evidence": [
-        "docs/checkpoints/2026-09-08-sol-deadline-handoff.json#completed_feasible_work.SO-10"
-      ]
+      "evidence": ["docs/checkpoints/2026-09-08-sol-deadline-handoff.json#completed_feasible_work.SO-10"]
     },
     {
       "id": "SO-11",
-      "depends_on": [
-        "SO-10"
-      ],
+      "depends_on": ["SO-10"],
       "owner": "snapshot-host",
       "status": "PASS",
-      "evidence": [
-        "docs/checkpoints/2026-09-08-sol-deadline-handoff.json#host",
-        "docs/checkpoints/2026-09-08-luna-host-recheck.json#lease",
-        "docs/checkpoints/2026-09-08-luna-host-recheck.json#runtime",
-        "docs/checkpoints/2026-09-10-r1-host-snapshot-adapter.json",
-        "docs/checkpoints/2026-09-10-resolve-operator-disposable-requalification-timeout.json",
-        "docs/checkpoints/2026-09-10-resolve-operator-nested-recovery.json",
-        "docs/checkpoints/2026-09-10-so11-nested-group-host-pass.json"
-      ]
+      "evidence": ["docs/checkpoints/2026-09-10-so11-nested-group-host-pass.json"]
     },
     {
       "id": "SO-20",
-      "depends_on": [
-        "SO-10"
-      ],
+      "depends_on": ["SO-10"],
       "owner": "layout",
       "status": "PASS",
-      "evidence": [
-        "docs/checkpoints/2026-09-08-luna-so20-offline.json#review",
-        "docs/checkpoints/2026-09-08-luna-so20-offline.json#verification",
-        "d7a1610726171c08ad5617c55e4cc04def786a6b"
-      ]
+      "evidence": ["docs/checkpoints/2026-09-08-luna-so20-offline.json#verification"]
     },
     {
       "id": "SO-30",
-      "depends_on": [
-        "SO-10"
-      ],
+      "depends_on": ["SO-10"],
       "owner": "view-host",
       "status": "BLOCKED_TECHNICAL",
-      "evidence": [
-        "docs/checkpoints/2026-09-08-luna-so30-offline.json#review",
-        "docs/checkpoints/2026-09-08-luna-so30-offline.json#verification",
-        "dd0069abde35526b8164beae2c5753b95a1e12af",
-        "docs/checkpoints/2026-09-10-operator-capability-qualification.json#lane_a"
-      ]
+      "evidence": ["docs/checkpoints/2026-09-08-luna-so30-offline.json#verification"]
     },
     {
       "id": "SO-40",
-      "depends_on": [
-        "SO-11"
-      ],
+      "depends_on": ["SO-11"],
       "owner": "structural-host",
       "status": "PENDING",
       "evidence": []
     },
     {
       "id": "SO-50",
-      "depends_on": [
-        "SO-00"
-      ],
+      "depends_on": ["SO-00"],
       "owner": "ui",
-      "status": "BLOCKED_TECHNICAL",
-      "evidence": [
-        "docs/checkpoints/2026-09-08-sol-deadline-handoff.json#completed_feasible_work.SO-50"
-      ]
+      "status": "PENDING",
+      "evidence": []
     },
     {
       "id": "SO-60",
-      "depends_on": [
-        "SO-11",
-        "SO-20",
-        "SO-30",
-        "SO-50"
-      ],
+      "depends_on": ["SO-11", "SO-20", "SO-30", "SO-50"],
       "owner": "integration-host",
       "status": "PENDING",
       "evidence": []
     },
     {
       "id": "SO-61",
-      "depends_on": [
-        "SO-60",
-        "SO-40"
-      ],
+      "depends_on": ["SO-60", "SO-40"],
       "owner": "flatten-integration-host",
       "status": "PENDING",
       "evidence": []
     },
     {
       "id": "SO-70",
-      "depends_on": [
-        "SO-60"
-      ],
+      "depends_on": ["SO-60"],
       "owner": "large-host",
       "status": "PENDING",
       "evidence": []
     },
     {
       "id": "SO-71",
-      "depends_on": [
-        "SO-61",
-        "SO-70"
-      ],
+      "depends_on": ["SO-61", "SO-70"],
       "owner": "large-flatten-host",
       "status": "PENDING",
       "evidence": []
     },
     {
       "id": "SO-80",
-      "depends_on": [
-        "SO-60"
-      ],
+      "depends_on": ["SO-60"],
       "owner": "recovery",
       "status": "PENDING",
       "evidence": []
     },
     {
       "id": "SO-90",
-      "depends_on": [
-        "SO-71",
-        "SO-80"
-      ],
+      "depends_on": ["SO-71", "SO-80"],
       "owner": "fresh-verifier",
       "status": "PENDING",
       "evidence": []
@@ -288,13 +136,7 @@
       "evidence_class": "source_and_host",
       "status": "PASS",
       "candidate_sha": "eedd62e4265a6ddc8a7d291a3e72f1987f1b5b79",
-      "evidence": [
-        "docs/checkpoints/2026-09-08-luna-host-recheck.json#runtime",
-        "docs/checkpoints/2026-09-10-r1-host-snapshot-adapter.json",
-        "docs/checkpoints/2026-09-10-resolve-operator-disposable-requalification-timeout.json",
-        "docs/checkpoints/2026-09-10-resolve-operator-nested-recovery.json",
-        "docs/checkpoints/2026-09-10-so11-nested-group-host-pass.json"
-      ]
+      "evidence": ["docs/checkpoints/2026-09-10-so11-nested-group-host-pass.json"]
     },
     {
       "id": "G02",
@@ -304,13 +146,7 @@
       "evidence_class": "offline_and_host",
       "status": "BLOCKED_TECHNICAL",
       "candidate_sha": "d7a1610726171c08ad5617c55e4cc04def786a6b",
-      "evidence": [
-        "docs/checkpoints/2026-09-08-luna-so20-offline.json#review",
-        "docs/checkpoints/2026-09-08-luna-so20-offline.json#verification",
-        "docs/checkpoints/2026-09-08-luna-so20-offline.json#host",
-        "docs/checkpoints/2026-09-10-operator-capability-qualification.json#lane_a",
-        "docs/checkpoints/2026-09-10-composition-context-matrix.json#compatibility_matrix"
-      ]
+      "evidence": ["docs/checkpoints/2026-09-08-luna-so20-offline.json#verification"]
     },
     {
       "id": "G03",
@@ -320,12 +156,7 @@
       "evidence_class": "host_view",
       "status": "BLOCKED_TECHNICAL",
       "candidate_sha": "dd0069abde35526b8164beae2c5753b95a1e12af",
-      "evidence": [
-        "docs/checkpoints/2026-09-08-luna-so30-offline.json#review",
-        "docs/checkpoints/2026-09-08-luna-so30-offline.json#host",
-        "docs/checkpoints/2026-09-10-operator-capability-qualification.json#lane_a",
-        "docs/checkpoints/2026-09-10-composition-context-matrix.json#compatibility_matrix"
-      ]
+      "evidence": ["docs/checkpoints/2026-09-08-luna-so30-offline.json#verification"]
     },
     {
       "id": "G04",
@@ -375,11 +206,7 @@
       "evidence_class": "host",
       "status": "PENDING",
       "candidate_sha": null,
-      "evidence": [
-        "docs/checkpoints/2026-09-10-operator-capability-qualification.json#lane_b",
-        "docs/checkpoints/2026-09-10-composition-context-matrix.json#wp2",
-        "docs/checkpoints/2026-09-10-composition-context-matrix.json#native_matrix"
-      ]
+      "evidence": []
     },
     {
       "id": "G09",
@@ -443,164 +270,32 @@
     }
   ],
   "completion": {
-    "required_gate_ids": [
-      "G01",
-      "G02",
-      "G03",
-      "G04",
-      "G05",
-      "G06",
-      "G07",
-      "G08",
-      "G09",
-      "G10",
-      "G11",
-      "G12",
-      "G13",
-      "G14"
-    ],
-    "required_task_ids": [
-      "SO-00",
-      "SO-10",
-      "SO-11",
-      "SO-20",
-      "SO-30",
-      "SO-40",
-      "SO-50",
-      "SO-60",
-      "SO-61",
-      "SO-70",
-      "SO-71",
-      "SO-80",
-      "SO-90"
-    ],
+    "required_gate_ids": ["G01", "G02", "G03", "G04", "G05", "G06", "G07", "G08", "G09", "G10", "G11", "G12", "G13", "G14"],
+    "required_task_ids": ["SO-00", "SO-10", "SO-11", "SO-20", "SO-30", "SO-40", "SO-50", "SO-60", "SO-61", "SO-70", "SO-71", "SO-80", "SO-90"],
     "output": "STRICT_LAYOUT_RELEASE_CANDIDATE",
     "main_merge_authorized": false,
     "whole_project_mission_complete": false
   },
   "authoring_proof_is_not_product_proof": true,
-  "authoring_revision": "AS-BOOTSTRAP-20260908-1",
-  "authoring_baseline_sha": "dc074981bc01d1df618c2dc09cc703f58b7bf164",
   "handoff_policy": {
-    "revision": "AS-HANDOFF-1",
-    "contract": "HANDOFF.md",
-    "bootstrap_role": "Astra",
-    "execution_role": "Sol",
-    "advisor_role": "Astra",
-    "completion_phase": "EXECUTION_CONFIRMED",
     "shared_writer_limit": 1,
     "advisor_can_write_shared_state": false,
     "advisor_can_change_authority": false,
-    "plan_ready_is_product_complete": false,
-    "existing_owner_policy": "AMEND_AND_ACK_WITHOUT_DUPLICATE_LAUNCH",
-    "required_binding_fields": [
-      "repository",
-      "cwd",
-      "worktree_identity",
-      "branch",
-      "source_revision",
-      "dirty_fingerprint",
-      "plan_digest",
-      "model",
-      "effort",
-      "permissions_digest",
-      "instruction_digest",
-      "first_task",
-      "verification_entry"
-    ],
-    "phases": [
-      "NOT_STARTED",
-      "PLAN_READY",
-      "LAUNCH_REQUESTED",
-      "THREAD_CREATED",
-      "TURN_STARTED",
-      "RECEIPT_VERIFIED",
-      "OWNERSHIP_TRANSFERRED",
-      "EXECUTION_CONFIRMED"
-    ],
-    "exception_states": [
-      "BLOCKED_RUNTIME",
-      "AMBIGUOUS",
-      "RECEIPT_MISMATCH"
-    ],
-    "task_replanning": "SOL_MAY_REPLAN_WITH_GOAL_GATES_AUTHORITY_UNCHANGED_AND_MAPPING_RECORDED"
+    "required_binding_fields": ["repository", "cwd", "worktree_identity", "branch", "source_revision", "dirty_fingerprint", "plan_digest", "model", "effort", "permissions_digest", "instruction_digest", "first_task", "verification_entry"],
+    "phases": ["NOT_STARTED", "DIRECT_ACTIVE", "EXECUTION_CONFIRMED"],
+    "exception_states": ["BLOCKED_RUNTIME", "AMBIGUOUS", "RECEIPT_MISMATCH"],
+    "task_replanning": "COORDINATOR_MAY_REPLAN_WITH_GOAL_GATES_AUTHORITY_UNCHANGED"
   },
   "handoff_state": {
-    "phase": "EXECUTION_CONFIRMED",
-    "handoff_id": "RNK-SO-20260908T010727Z-01a07e8e",
-    "planner_thread_id": "01a07e8e-41f3-7d30-b190-3f621b5cdb64",
-    "sol_thread_id": "01a07e95-b55e-70a1-8366-b80d785bbaa4",
-    "sol_turn_id": "01a07ea1-c26e-7940-b8d5-2ca970191cd8",
-    "expected": {
-      "repository": "46slv/ResolveNodeKit",
-      "cwd": "C:/Users/shiro/.codex/worktrees/c22a/ResolveNodeKit",
-      "worktree_identity": "D:/Documents/ResolveNodeKit/.git/worktrees/ResolveNodeKit",
-      "branch": "feat/semantic-arrange-v1-20260906",
-      "source_revision": "4b9c8d33a1168e019f935655231d279a05661195",
-      "product_source_revision": "59eeffbce5efd0a73a0fed2a4f3418faf71d5852",
-      "dirty_fingerprint": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "plan_digest": "ebc124049dbb1dfa863cd499c13c2cd1a232774ae754a26edc30ee14668dbc20",
-      "model": "gpt-5.6-sol",
-      "effort": "max",
-      "permissions_digest": "fac84c32139b1f990555df39c0eddf9fb29a827b3b012633f035a604246189c1",
-      "instruction_digest": "c7e421e8a06ce432272a160044701c4cb97f74e8769162f19be84aed0bd88933",
-      "first_task": "SO-00",
-      "verification_entry": "python docs/execution/strict-orthogonal/check_contract.py"
-    },
-    "observed": {
-      "repository": "46slv/ResolveNodeKit",
-      "cwd": "C:/Users/shiro/.codex/worktrees/c22a/ResolveNodeKit",
-      "worktree_identity": "D:/Documents/ResolveNodeKit/.git/worktrees/ResolveNodeKit",
-      "branch": "feat/semantic-arrange-v1-20260906",
-      "source_revision": "4b9c8d33a1168e019f935655231d279a05661195",
-      "product_source_revision": "59eeffbce5efd0a73a0fed2a4f3418faf71d5852",
-      "dirty_fingerprint": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "plan_digest": "ebc124049dbb1dfa863cd499c13c2cd1a232774ae754a26edc30ee14668dbc20",
-      "model": "gpt-5.6-sol",
-      "effort": "max",
-      "permissions_digest": "fac84c32139b1f990555df39c0eddf9fb29a827b3b012633f035a604246189c1",
-      "instruction_digest": "c7e421e8a06ce432272a160044701c4cb97f74e8769162f19be84aed0bd88933",
-      "first_task": "SO-00",
-      "verification_entry": "python docs/execution/strict-orthogonal/check_contract.py"
-    },
-    "receipt": {
-      "handoff_id": "RNK-SO-20260908T010727Z-01a07e8e",
-      "thread_id": "01a07e95-b55e-70a1-8366-b80d785bbaa4",
-      "turn_id": "01a07ea1-c26e-7940-b8d5-2ca970191cd8",
-      "read_only": true,
-      "record": "docs/checkpoints/2026-09-08-astra-sol-receipt.json"
-    },
-    "ownership": {
-      "previous_owner": "01a07e8e-41f3-7d30-b190-3f621b5cdb64",
-      "owner": "01a07e95-b55e-70a1-8366-b80d785bbaa4",
-      "active_writers": [
-        "01a07e95-b55e-70a1-8366-b80d785bbaa4"
-      ],
-      "previous_epoch": 0,
-      "epoch": 1,
-      "cas_success": true,
-      "old_writer_fenced": true,
-      "sol_readback_epoch": 1,
-      "record": "D:/Documents/ResolveNodeKit/.git/rnk-strict-orthogonal-owner.json"
-    },
-    "first_task_start": {
-      "task_id": "SO-00",
-      "thread_id": "01a07e95-b55e-70a1-8366-b80d785bbaa4",
-      "owner_epoch": 1,
-      "event_started": "D:/Documents/ResolveNodeKit/.git/rnk-so-execution-events.jsonl#line=8,item=item_3",
-      "event_completed": "D:/Documents/ResolveNodeKit/.git/rnk-so-execution-events.jsonl#line=12,item=item_3",
-      "record": "docs/checkpoints/2026-09-08-astra-sol-execution.json#first_task_start"
-    },
-    "evidence": {
-      "thread_created": "docs/checkpoints/2026-09-08-astra-sol-receiver-runtime.json#native_create_client_id",
-      "turn_started": "docs/checkpoints/2026-09-08-astra-sol-receipt.json#runtime_metadata",
-      "receipt_verified": "docs/checkpoints/2026-09-08-astra-sol-receipt.json",
-      "ownership_transfer": "D:/Documents/ResolveNodeKit/.git/rnk-strict-orthogonal-owner.json#epoch=1",
-      "owner_readback": "docs/checkpoints/2026-09-08-astra-sol-execution.json#program_lease",
-      "first_task_started": "D:/Documents/ResolveNodeKit/.git/rnk-so-execution-events.jsonl#line=8,item=item_3",
-      "independent_lifetime": "docs/checkpoints/2026-09-08-astra-sol-receipt.json#independent_lifetime"
-    },
-    "initial_planner_done": true,
-    "mode": "NEW_OWNER"
+    "phase": "DIRECT_ACTIVE",
+    "mode": "AMEND_EXISTING",
+    "initial_planner_done": false,
+    "note": "Historical Astra/Sol/Operator handoff records remain in Git/checkpoints; they are not current execution authority."
+  },
+  "historical_research": {
+    "wp1_checkpoint": "docs/checkpoints/2026-09-11-wp1-host-local-semantic-receipt.json",
+    "operator_result": "preserved for research; no longer a prerequisite",
+    "latest_pre_reset_tests": "RNK 174/174 PASS; compileall/diff-check/contract checker PASS; Operator semantic receipt 30/30 PASS",
+    "latest_pre_reset_host_state": "WP1 compatibility/native routes performed zero fixture/product mutation/save and ended lease FREE"
   }
 }
