@@ -1,0 +1,100 @@
+{
+  "schema": "resolve-node-kit.strict-first-package/v1",
+  "observed_at_utc": "2026-09-10T07:10:00Z",
+  "task": "G02/G03 strict preserve and actual view/wire first package",
+  "repository": {
+    "branch": "feat/semantic-arrange-v1-20260906",
+    "worktree": "C:/Users/shiro/.codex/worktrees/c22a/ResolveNodeKit",
+    "pre_change_head": "a821beff1fecbf71b23f664dffab39107bf50317",
+    "main_merge_authorized": false
+  },
+  "host_attempts": [
+    {
+      "launch_id": "58b4cab2-a508-4ce1-97ab-28b12a5c40cf",
+      "driver": "native",
+      "status": "BLOCKED",
+      "failure_category": "SELECTED_RESOLVE_MCP_ABSENT",
+      "detail": "Native launcher was selected but the Operator first looked for the compatibility namespace; no Resolve access or fixture call occurred.",
+      "mutation": {"fixture": 0, "graph": 0, "layout": 0, "settings": 0, "undo": 0, "project_save": 0},
+      "lease_final": "FREE"
+    },
+    {
+      "launch_id": "5b8cc8fe-ee43-4900-a265-5630049f2d6a",
+      "driver": "native",
+      "status": "BLOCKED",
+      "failure_category": "NATIVE_RUNTIME_LAUNCH_TIMEOUT",
+      "detail": "Native namespace was callable, but launch_resolve timed out after 60s while runtime was stopped.",
+      "mutation": {"fixture": 0, "graph": 0, "layout": 0, "settings": 0, "undo": 0, "project_save": 0},
+      "lease_final": "FREE"
+    },
+    {
+      "launch_id": "792c4fbe-e826-45ff-b08c-99ad2aad7cc2",
+      "driver": "third-party",
+      "status": "PASS_RECOVERY_ONLY",
+      "detail": "Resolve Studio 21.1.0.14 recovered to GUI-ready PID 28584; Untitled Project id 80033caa-a342-434e-a569-57e8a736502f, no timeline; all mutation/save counters zero.",
+      "mutation": {"fusion_graph": 0, "project": 0, "timeline": 0, "comp": 0, "node": 0, "view_setting": 0, "save": 0},
+      "lease_final": "FREE"
+    },
+    {
+      "launch_id": "8ef36cf7-dca2-41f4-b72b-2957b417e539",
+      "driver": "native",
+      "status": "BLOCKED",
+      "failure_category": "NATIVE_RUNTIME_UNREACHABLE",
+      "detail": "Native status still reported running=false after compatibility recovery; fixture was not loaded and no native getter was accepted.",
+      "mutation": {"fixture": 0, "graph": 0, "layout": 0, "settings": 0, "undo": 0, "project_save": 0},
+      "lease_final": "FREE"
+    },
+    {
+      "launch_id": "fcb05a07-10f8-435b-aebc-21f54184bbe8",
+      "driver": "native",
+      "status": "BLOCKED",
+      "failure_category": "NATIVE_MCP_RUNTIME_UNREACHABLE",
+      "detail": "Native run_script reported Resolve is not running; fresh version/project/comp getters and the standalone fixture were not attempted.",
+      "mutation": {"fixture": 0, "graph": 0, "layout": 0, "settings": 0, "undo": 0, "project_save": 0},
+      "lease_final": "FREE"
+    }
+  ],
+  "host_gate_result": {
+    "G02": "BLOCKED_TECHNICAL",
+    "G03": "BLOCKED_TECHNICAL",
+    "G01": "CARRIED_PASS_NOT_REPLAYED",
+    "strict_preserve": "NOT_EVALUATED",
+    "actual_view_wire": "NOT_EVALUATED",
+    "timeline_required": "NOT_PROVEN"
+  },
+  "offline_changes": {
+    "added": [
+      "src/resolve_node_kit/fusion/strict_apply.py",
+      "tests/test_strict_apply.py"
+    ],
+    "updated": [
+      "src/resolve_node_kit/fusion/strict_planner.py",
+      "src/resolve_node_kit/fusion/__init__.py"
+    ],
+    "contract": [
+      "StrictPlan exposes per-scope logical placements and offsets.",
+      "GroupOperator registration is preserved as is_group in processing-to-planner mapping.",
+      "Strict host apply requires explicit live handles, complete snapshot, FlowView mapping, post position readback, processing signature equality, rollback, and optional two-run stability.",
+      "Unknown or incomplete fields remain fail-closed; no graph/settings/save surface is used."
+    ],
+    "tests": {
+      "focused_strict_apply": "4/4 PASS",
+      "canonical_unittest": "174/174 PASS",
+      "compileall": "PASS",
+      "git_diff_check": "PASS",
+      "contract_checker": "contract_consistent=true; product/runtime/host completion=false"
+    }
+  },
+  "cleanup": {
+    "parent_direct_resolve_access": 0,
+    "project_save": 0,
+    "main_merge": 0,
+    "final_lease": "FREE"
+  },
+  "next_ready": [
+    "Review and commit the offline strict_apply seam on the canonical task branch.",
+    "Do not repeat native/compatibility host qualification until a materially different Operator capability can keep Resolve reachable and retain the standalone comp handle.",
+    "When that capability is available, run the same first package on nested_group_v1; only complete position/processing/view/wire readback can promote G02/G03."
+  ],
+  "status": "CHECKPOINTED_WITH_TECHNICAL_GAP"
+}

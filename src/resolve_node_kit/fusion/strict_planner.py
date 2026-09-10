@@ -225,6 +225,12 @@ class StrictPlan:
     motif_coverage: Mapping[str, tuple[str, ...]]
     diagnostics: Mapping[str, Any]
     policy: StrictPolicy
+    # Per-scope logical placements and the global offset used to materialize
+    # that scope.  The original ``placements`` map is intentionally kept as a
+    # global view for JSON/evidence consumers; host adapters must use these
+    # maps when a GroupOperator owns a local FlowView coordinate system.
+    scope_placements: Mapping[str | None, Mapping[str, GridPoint]] = field(default_factory=dict)
+    scope_offsets: Mapping[str | None, tuple[int, int]] = field(default_factory=dict)
 
     @property
     def all_edge_ids(self) -> tuple[str, ...]:
@@ -235,6 +241,9 @@ class StrictPlan:
         return all(value == "planned" for value in self.edge_coverage.values())
 
     def as_dict(self) -> dict[str, Any]:
+        def scope_key(scope: str | None) -> str:
+            return "<root>" if scope is None else str(scope)
+
         return {
             "schema": "resolve-node-kit.strict-planner/v1",
             "placements": {uid: {"column": p.column, "row": p.row} for uid, p in sorted(self.placements.items())},
@@ -263,6 +272,23 @@ class StrictPlan:
             "policy": {
                 "pitch": self.policy.pitch,
                 "group_padding": self.policy.group_padding,
+            },
+            "scope_placements": {
+                scope_key(scope): {
+                    uid: {"column": point.column, "row": point.row}
+                    for uid, point in sorted(placements.items())
+                }
+                for scope, placements in sorted(
+                    self.scope_placements.items(),
+                    key=lambda item: scope_key(item[0]),
+                )
+            },
+            "scope_offsets": {
+                scope_key(scope): {"column": offset[0], "row": offset[1]}
+                for scope, offset in sorted(
+                    self.scope_offsets.items(),
+                    key=lambda item: scope_key(item[0]),
+                )
             },
         }
 
@@ -538,12 +564,17 @@ def build_strict_snapshot_from_processing(
             if state != "complete":
                 unresolved.append(f"nodes.{uid}.{label}:{state}")
         parent_value = _processing_field_value(parent_field)
+        reg_id = str(_processing_field_value(type_field) or "")
         nodes.append(
             {
                 "uid": uid,
                 "display_name": uid,
-                "reg_id": str(_processing_field_value(type_field) or ""),
+                "reg_id": reg_id,
                 "parent": None if parent_value in (None, "", "root") else str(parent_value),
+                # Processing snapshots carry the host registration id rather
+                # than a separate boolean.  Preserve GroupOperator identity so
+                # strict planning can build local scope maps for nested hosts.
+                "is_group": reg_id.strip().lower() == "groupoperator",
                 "input_state": "complete",
             }
         )
@@ -943,7 +974,17 @@ def plan_strict(snapshot: StrictSnapshot, policy: StrictPolicy | None = None) ->
         "edge_visual_continuities": {edge.identity(): edge.visual_continuity for edge in snapshot.edges},
         "stable_identity": True,
     }
-    return StrictPlan(placements, rectangles, tuple(modules), edge_coverage, motif_coverage, diagnostics, policy)
+    return StrictPlan(
+        placements,
+        rectangles,
+        tuple(modules),
+        edge_coverage,
+        motif_coverage,
+        diagnostics,
+        policy,
+        scope_placements={scope: dict(values) for scope, values in scope_positions.items()},
+        scope_offsets=dict(module_scope_offsets),
+    )
 
 
 def validate_strict_plan(snapshot: StrictSnapshot, plan: StrictPlan) -> dict[str, Any]:

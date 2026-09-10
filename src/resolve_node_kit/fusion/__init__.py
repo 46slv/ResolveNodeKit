@@ -56,6 +56,15 @@ from .strict_request import (
     prepare_strict_plan,
     prepare_strict_plan_from_processing,
 )
+from .strict_apply import (
+    FlowViewCalibration,
+    StrictHostApplyError,
+    StrictPreserveResult,
+    StrictRunResult,
+    apply_strict_plan,
+    execute_strict_preserve,
+    map_strict_plan_to_host,
+)
 from .tidy import FusionHostError, TidyResult, tidy_comp
 
 __all__ = [
@@ -91,6 +100,9 @@ __all__ = [
     "StrictPlan",
     "StrictPreparation",
     "StrictPreparationError",
+    "StrictHostApplyError",
+    "StrictPreserveResult",
+    "StrictRunResult",
     "StrictPlannerError",
     "StrictPolicy",
     "StrictSnapshot",
@@ -119,6 +131,10 @@ __all__ = [
     "plan_strict",
     "prepare_strict_plan",
     "prepare_strict_plan_from_processing",
+    "FlowViewCalibration",
+    "apply_strict_plan",
+    "execute_strict_preserve",
+    "map_strict_plan_to_host",
     "plan_scope",
     "resolve_arrange_scope",
     "read_processing_snapshot",

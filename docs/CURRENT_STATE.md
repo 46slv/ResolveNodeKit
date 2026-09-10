@@ -215,3 +215,33 @@ The parent then added `fusion/strict_request.py`, a pure fail-closed preparation
 The automatic delegation trial is recorded separately in `PROMPT_ORCHESTRATION_TRIAL_RESULT.{md,json}`. Six bounded Operator launches acquired and released the exact lease; parent direct-host fallback and human intervention were both 0. Two current-target preflights, a stale-install disposable attempt, exact-candidate nested-fixture attempt, and two cleanup packages produced structured readback. The nested fixture route remains an integration gap because `GroupOperator.AddTool` and valid nested `Paste` were refused; no product gate moved. Learning Gate outcome is RNK-specific reuse of the short parent envelope, exact installed-candidate precondition, and mechanical no-identical-third-retry guard, with no global policy promotion.
 
 The fresh independent Luna Max verifier audited the exact pre-docs candidate `bd2b629` without repairs. It confirmed the required gates were not complete, the recorded Operator leases were `FREE`, and the install/trial/test evidence was internally consistent. The subsequent `3bf91d3` change is docs-only; the parent reran the install and independent test/readback checks after that change. Durable verifier evidence is in `docs/checkpoints/2026-09-10-fresh-final-verifier.json`.
+
+## Luna strict first package — 2026-09-10
+
+The requested G02/G03 first package was delegated only to the external Resolve
+Operator. G01 was carried rather than replayed; no timeline workaround,
+flatten/ungroup retry, project save, or parent-side Resolve access was used.
+
+The native route was first corrected for namespace selection, then retried after
+a separate compatibility recovery. Compatibility recovery brought Resolve
+Studio `21.1.0.14` to GUI-ready PID `28584` with the unsaved `Untitled Project`,
+no timeline, and zero graph/project/view/save mutation. The native route still
+reported Resolve unreachable before fixture binding. All host attempts ended
+with exact lease `FREE` and mutation counters zero. FlowView mapping,
+strict-request application, processing invariance, run2, and actual view/wire
+were not evaluated; G02/G03 remain `BLOCKED_TECHNICAL`. This is a runtime/route
+gap, not evidence that a timeline is required. Full evidence is in
+`checkpoints/2026-09-10-strict-first-package.json` and the Operator launch IDs
+listed in its sibling Markdown checkpoint.
+
+The independent offline lane added `fusion/strict_apply.py` and its focused
+tests. `StrictPlan` now exposes per-scope logical placements/offsets, and the
+processing-to-planner mapping preserves `GroupOperator` identity. The new
+position-only seam requires explicit live tool handles and complete snapshot
+coverage, maps logical cells to scope-local FlowView coordinates, verifies
+pre-state identity, reads every position back, compares post processing
+signatures, rolls back on mismatch, and supports a two-run stability check. It
+never touches graph/settings/media/save surfaces and refuses unknown fields.
+Focused strict-apply tests are `4/4`; canonical unittest is `174/174`,
+`compileall` and `git diff --check` pass. These are offline implementation
+results only and do not promote any host gate.
