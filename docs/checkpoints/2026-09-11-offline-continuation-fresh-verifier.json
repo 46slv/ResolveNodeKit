@@ -1,0 +1,21 @@
+{
+  "schema": "resolve-node-kit.offline-continuation-verifier/v1",
+  "captured_at": "2026-09-11",
+  "candidate": "5483b39a12ce24204061232c7bf636a858879a4e",
+  "branch": "feat/semantic-arrange-v1-20260906",
+  "import_provenance": "PYTHONPATH=src",
+  "commands": {
+    "canonical_tests": "python -m unittest discover -s tests -p test_*.py",
+    "compile": "python -m compileall -q src tests",
+    "diff_check": "git diff --check"
+  },
+  "results": {
+    "canonical_tests": "174/174 PASS",
+    "compile": "PASS",
+    "diff_check": "PASS",
+    "host_runtime": "NOT_RUN",
+    "project_save": 0,
+    "gate_promotion": false
+  },
+  "decision": "offline/structural readiness remains PASS; host-dependent G01-G14 completion remains unproven"
+}

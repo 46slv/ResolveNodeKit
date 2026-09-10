@@ -477,3 +477,12 @@ machine-readable evidence is in
 [`2026-09-11-wp1-host-local-semantic-receipt.json`](checkpoints/2026-09-11-wp1-host-local-semantic-receipt.json).
 Independent offline/structural work remains ready; G02/G03/G04/G06–G08 are
 not promoted and the external Operator rollback baseline remains intact.
+
+## Fresh offline continuation verifier — 2026-09-11
+
+After the WP1 transport attempts were closed, the exact PR #5 candidate
+`5483b39a12ce24204061232c7bf636a858879a4e` was re-read with explicit
+`PYTHONPATH=src`. The canonical RNK suite passed `174/174`, compileall passed,
+and `git diff --check` passed. No Resolve call, project save, or host gate
+promotion occurred in this offline verifier. Evidence is in
+[`2026-09-11-offline-continuation-fresh-verifier.json`](checkpoints/2026-09-11-offline-continuation-fresh-verifier.json).
