@@ -2,6 +2,15 @@
 
 確認日: 2026-09-10 / LM-TAKEOVER-20260910-2 / RO-CANARY-20260910-1
 
+## 2026-09-11 routing amendment
+
+The source below is historical canary evidence. It does not require external
+Resolve Operator delegation for every new task. The current repository contract
+is the Requirements-first D/S/H overlay; the external Operator remains the
+rollback baseline and a per-task specialist option. See
+`README.md`, `PLAN.md`, `RUNBOOK.md`, and
+`checkpoints/2026-09-11-requirements-first-topology.json`.
+
 ## Primary Library source now found
 
 今回、ユーザー指定のexact sourceをChatGPT Libraryから取得できた。

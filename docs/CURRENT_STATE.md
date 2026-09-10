@@ -423,3 +423,31 @@ project loaded or saved. WP1 remains `BLOCKED`; WP2/WP3/WP4 and integrated
 G02/G03/G04 remain unrun. The Operator workspace revision and 17-file tree
 remain unchanged. Final evidence is in
 `checkpoints/2026-09-11-comp-local-executor-final.{md,json}`.
+
+## Requirements-first topology migration — 2026-09-11
+
+Fresh reconciliation for this continuation read PR #5 as OPEN/Draft at
+`191f9a2749e680ff38ce419468fa85f416854ae0`. CodexOperations PR #10 and #11
+were read at `93b2e8008d27fa5c3afbf6dc94bd26c0d2d097b5` and
+`e6b9c1f7e0db7504d53a56a4901eb034684a999e`. The migration checkpoint is
+[`2026-09-11-requirements-first-topology.json`](checkpoints/2026-09-11-requirements-first-topology.json).
+
+The execution contract is now requirements-first: choose D (direct guarded),
+S (dedicated Resolve Worker), or H (host-local executor) only after capability
+locality and boundary-loss analysis. The Host Guard is independent of that
+choice and remains mandatory: exclusive lease, exact target, owned disposable
+state, no blind retry, reversible/discardable mutation, detached independent
+readback, cleanup/recovery, and final `FREE`. Raw Comp/FlowView/Undo handles
+must remain host-local.
+
+Matched migration evidence promotes S for structural fixture readback only.
+CurrentComp/FlowView/Undo/GUI-local semantics are still unqualified in D/S/H;
+the next safe package is one materially different WP1 host-local semantic
+receipt probe. The three closed WP1 context routes must not be replayed. If
+that probe blocks, dependent G02/G03/G04/G06–G08 host work remains blocked, but
+independent offline/structural work continues. No gate is downgraded and the
+qualified external Operator remains the rollback baseline.
+
+Current execution status remains `CHECKPOINTED_WITH_TECHNICAL_GAP`; product
+completion is false, main merge/release/project save remain unauthorized, and
+the exact next route is recorded in the migration checkpoint.

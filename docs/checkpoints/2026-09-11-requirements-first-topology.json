@@ -1,0 +1,73 @@
+{
+  "schema": "resolve-node-kit.requirements-first-topology/v1",
+  "captured_at": "2026-09-11",
+  "status": "SAFE_V2_INTRODUCED",
+  "program": "RNK-STRICT-ORTHOGONAL",
+  "rnK": {
+    "repository": "46slv/ResolveNodeKit",
+    "pr": 5,
+    "remote_head": "191f9a2749e680ff38ce419468fa85f416854ae0",
+    "branch": "feat/semantic-arrange-v1-20260906",
+    "worktree_for_update": "migration/requirements-first-minimum-topology-v2-20260911",
+    "product_status": "CHECKPOINTED_WITH_TECHNICAL_GAP",
+    "wp1_status": "BLOCKED",
+    "final_lease": "FREE"
+  },
+  "source_contracts": {
+    "codexoperations_pr10": {
+      "head": "93b2e8008d27fa5c3afbf6dc94bd26c0d2d097b5",
+      "title": "docs: require requirements-first minimum topology"
+    },
+    "codexoperations_pr11": {
+      "head": "e6b9c1f7e0db7504d53a56a4901eb034684a999e",
+      "title": "docs: reconsider Resolve dedicated-worker purpose and topology"
+    },
+    "legacy_operator_baseline": {
+      "codexoperations_pr": 5,
+      "head": "3e1373365fe535dd8e8cf4c0cb658fc1118e9615",
+      "preserved": true
+    }
+  },
+  "host_guard": {
+    "topology_independent": true,
+    "invariants": [
+      "user-wide exclusive lease",
+      "exact target identity before write",
+      "owned disposable state",
+      "no blind retry after ambiguous result",
+      "reversible or discardable mutation",
+      "independent detached readback",
+      "cleanup or recovery",
+      "terminal receipt and final FREE"
+    ],
+    "opaque_handles_cross_boundary": false
+  },
+  "matched_canary": {
+    "structural_fixture_readback": {
+      "direct_guarded": "INTEGRATION_GAP",
+      "dedicated_resolve_worker": "PROMOTED_TASK_CLASS_ONLY",
+      "host_local_executor": "INTEGRATION_GAP",
+      "promotion_reason": "dedicated path proved structural ownership/readback/cleanup; context-sensitive semantics remained unavailable"
+    },
+    "context_sensitive_fusion": {
+      "direct_guarded": "INTEGRATION_GAP",
+      "dedicated_resolve_worker": "NOT_QUALIFIED",
+      "host_local_executor": "INTEGRATION_GAP",
+      "required_capabilities": ["CurrentComp", "Comp Script", "FlowView/GetPosTable", "owned Undo", "GUI-local semantics"],
+      "next_probe": "WP1 host-local semantic receipt with in-host conversion to JSON-safe evidence"
+    }
+  },
+  "authoring_gate": {
+    "id": "AG-V2",
+    "status": "PASS_FOR_CONTRACT_UPDATE",
+    "next_safe_action": "commit/push the contract amendment, fresh-read remote PR #5, then run one materially different WP1 host-local probe",
+    "alternate_on_failure": "record failure fingerprint; continue independent SO-10/SO-20/offline or structural-ready work; do not replay a closed context route",
+    "product_gate_promotion": false
+  },
+  "completion": {
+    "required_gates_unchanged": ["G01", "G02", "G03", "G04", "G05", "G06", "G07", "G08", "G09", "G10", "G11", "G12", "G13", "G14"],
+    "main_merge_authorized": false,
+    "project_save_authorized": false,
+    "release_authorized": false
+  }
+}

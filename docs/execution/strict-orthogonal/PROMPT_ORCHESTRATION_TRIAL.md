@@ -4,6 +4,12 @@ Revision: PO-TRIAL-20260910-2
 Mission: RNK-STRICT-ORTHOGONAL / PR #5  
 Status: READY / prospective operational trial, not product evidence
 
+> **Current routing amendment (2026-09-11):** this historical trial records
+> the external Resolve Operator canary. It is not a global
+> "external-Operator-always" requirement for new work. The current contract is
+> the Requirements-first D/S/H overlay in `README.md`, `PLAN.md`, and
+> `RUNBOOK.md`; retain this trial as evidence and rollback baseline only.
+
 ## 0. Primary research source
 
 Requested source is now retrievable from ChatGPT Library:

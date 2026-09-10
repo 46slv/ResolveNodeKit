@@ -1,8 +1,48 @@
 {
   "schema": "resolve-node-kit.strict-continuation/v2",
   "program": "RNK-STRICT-ORTHOGONAL",
-  "updated": "2026-09-10",
+  "updated": "2026-09-11",
   "status": "CHECKPOINTED_WITH_TECHNICAL_GAP",
+  "execution_topology": {
+    "revision": "REQUIREMENTS-FIRST-MINIMUM-TOPOLOGY-20260911",
+    "rule": "requirements_first_topology_second_delegation_must_earn_itself",
+    "source_refs": {
+      "codexoperations_pr10": "93b2e8008d27fa5c3afbf6dc94bd26c0d2d097b5",
+      "codexoperations_pr11": "e6b9c1f7e0db7504d53a56a4901eb034684a999e",
+      "rnK_pr5_remote_head_fresh_read": "191f9a2749e680ff38ce419468fa85f416854ae0"
+    },
+    "modes": {
+      "direct_guarded": "candidate; use when product context retains required host-local capability",
+      "dedicated_resolve_worker": "promoted for structural fixture readback only",
+      "host_local_executor": "candidate; required for CurrentComp/FlowView/Undo/GUI-local semantics"
+    },
+    "host_guard": [
+      "user_wide_exclusive_lease",
+      "exact_target_identity_before_write",
+      "owned_temporary_state",
+      "no_blind_retry_after_timeout",
+      "reversible_or_discardable_mutation",
+      "independent_readback",
+      "cleanup_or_recovery",
+      "terminal_receipt_and_final_lease_FREE"
+    ],
+    "raw_handles_cross_boundary": false,
+    "unknown_is_pass": false,
+    "rollback_baseline": "qualified external Resolve Operator retained until matched replacement qualification",
+    "checkpoint": "docs/checkpoints/2026-09-11-requirements-first-topology.json"
+  },
+  "authoring_gate": {
+    "id": "AG-V2",
+    "status": "PASS_FOR_CONTRACT_UPDATE",
+    "requires": [
+      "fresh PR/remote/source/install identity",
+      "PR10/PR11 source readback",
+      "single shared writer and single live host owner",
+      "bounded requirement brief and materially different probe",
+      "gate mapping, independent readback, cleanup, and alternate path"
+    ],
+    "does_not_authorize": ["host_gate_promotion", "project_save", "main_merge"]
+  },
   "execution_started": true,
   "baseline_sha": "562405079aa6bffa6d25668b294a26ac4142a680",
   "candidate_sha": "eedd62e4265a6ddc8a7d291a3e72f1987f1b5b79",
