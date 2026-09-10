@@ -171,6 +171,20 @@ class HostSnapshotTests(unittest.TestCase):
         with self.assertRaises(HostSnapshotError):
             build_host_processing_snapshot(_Comp([group]))
 
+    def test_flat_root_inventory_alias_is_reconciled_with_group_ownership(self):
+        comp, flow, _log = _connected_fixture()
+        group = comp.tools[0]
+        # Resolve 21.1 may include the same child objects in the flattened
+        # root inventory as well as the owning GroupOperator child list.
+        comp.tools.extend(group.children)
+
+        snapshot = build_host_processing_snapshot(comp, flow)
+
+        self.assertEqual(set(snapshot.nodes), {"Group", "Source", "Target"})
+        self.assertEqual(snapshot.nodes["Source"].parent.value, "Group")
+        self.assertEqual(snapshot.nodes["Target"].parent.value, "Group")
+        self.assertEqual(snapshot.fields["ports"].state, SnapshotState.COMPLETE)
+
     def test_duplicate_names_are_fail_closed(self):
         first = _Tool("Same", "Loader")
         second = _Tool("Same", "Merge")

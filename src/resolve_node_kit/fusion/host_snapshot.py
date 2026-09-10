@@ -111,6 +111,52 @@ def _read_type(obj: Any, *, label: str) -> SnapshotField:
     return SnapshotField.complete(str(value))
 
 
+def _read_tool_id(obj: Any, *, label: str) -> str | None:
+    """Read Resolve's stable per-tool identity when the host exposes it."""
+
+    try:
+        attrs = _attrs(obj, label=label)
+    except HostSnapshotError:
+        return None
+    value = attrs.get("TOOLI_ID")
+    if value is None:
+        value = getattr(obj, "TOOLI_ID", None)
+    if value is None or not str(value):
+        return None
+    return str(value)
+
+
+def _same_tool_identity(first: Any, second: Any, *, label: str) -> bool:
+    """Return whether two host wrappers are the same live tool.
+
+    Resolve 21.1 may expose one child both in a flattened ``GetToolList`` and
+    through its owning group's ``GetChildrenList``.  Object identity is the
+    strongest signal, while ``TOOLI_ID`` is the measured cross-wrapper
+    identity.  A name-only match is deliberately never enough: two distinct
+    tools with the same name remain an error.
+    """
+
+    if first is second:
+        return True
+    first_id = _read_tool_id(first, label=f"{label} first")
+    second_id = _read_tool_id(second, label=f"{label} second")
+    if first_id is None or second_id is None or first_id != second_id:
+        return False
+    try:
+        first_attrs = _attrs(first, label=f"{label} first")
+        second_attrs = _attrs(second, label=f"{label} second")
+    except HostSnapshotError:
+        return False
+    # TOOLI_ID is authoritative, but conflicting stable metadata indicates
+    # ambiguous host readback rather than an alias we may silently merge.
+    for key in ("TOOLS_Name", "TOOLS_RegID"):
+        first_value = first_attrs.get(key)
+        second_value = second_attrs.get(key)
+        if first_value is not None and second_value is not None and str(first_value) != str(second_value):
+            return False
+    return True
+
+
 def _type_value(field: SnapshotField) -> str | None:
     if field.state is SnapshotState.COMPLETE and field.value is not None:
         return str(field.value)
@@ -256,11 +302,25 @@ def _discover_tools(comp: Any) -> tuple[dict[str, Any], dict[str, str | None], d
         name = _read_name(tool, label=label)
         if name in tools:
             previous = discovered_parent.get(name)
-            if previous != via_parent:
+            if not _same_tool_identity(tools[name], tool, label=f"tool[{name!r}]"):
                 raise HostSnapshotError(
-                    f"duplicate tool name {name!r} discovered under {previous!r} and {via_parent!r}"
+                    f"duplicate tool name {name!r} discovered with ambiguous identity "
+                    f"under {previous!r} and {via_parent!r}"
                 )
-            raise HostSnapshotError(f"duplicate tool name {name!r} discovered more than once")
+            # Resolve 21.1 can return the same child once in a flattened root
+            # inventory and once from GetChildrenList().  Reconcile only that
+            # measured root-vs-owner alias.  Repeated discovery in one scope,
+            # or discovery under two different owners, remains fail-closed.
+            if previous is None and via_parent is not None:
+                discovered_parent[name] = via_parent
+                continue
+            if previous is not None and via_parent is None:
+                continue
+            if previous == via_parent:
+                raise HostSnapshotError(f"duplicate tool name {name!r} discovered more than once")
+            raise HostSnapshotError(
+                f"tool {name!r} discovered under conflicting parents {previous!r} and {via_parent!r}"
+            )
         tools[name] = tool
         discovered_parent[name] = via_parent
         type_field = _read_type(tool, label=f"tool[{name!r}]")
