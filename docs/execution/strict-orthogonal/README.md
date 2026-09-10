@@ -1,118 +1,129 @@
-# Strict Orthogonal Arrange — 新規 Luna Max task の入口
+# Strict Orthogonal Arrange — Luna Max continuation entry
 
-Revision: LM-TAKEOVER-20260910-2 + PO-TRIAL-20260910-2 + RO-CANARY-20260910-1  
-Authoring: READY_FOR_LOCAL_TAKEOVER / runtime takeover not executed here
+Revision: DIRECT-GUARDED-RESET-20260911-1
+Mission: RNK-STRICT-ORTHOGONAL / 46slv/ResolveNodeKit / PR #5
 
-## Requirements-first topology amendment — 2026-09-11
+## Current execution decision — 2026-09-11
 
-This amendment is the current execution contract for this continuation. It
-supersedes the old interpretation that every Resolve operation must originate
-from the external Resolve Operator. The external Operator remains the
-qualified rollback/capability baseline; execution locus is selected per
-requirement after a bounded capability preflight.
+The dedicated/external Resolve Operator is retired from the RNK product critical path and retained only as research/legacy evidence.
 
-The order is fixed:
+RNK now uses the simplest operational shape:
 
 ```text
-user intent -> Requirement Brief -> capability/locality analysis
-  -> direct preflight when uncertain -> minimum sufficient topology
-  -> bounded work package -> evidence -> Coordinator decision
+Luna Max Product Worker / Coordinator
+  -> direct Resolve capability
+  -> mechanical Host Guard where required
+  -> DaVinci Resolve
 ```
 
-The Requirement Brief must state `MISSION`, `CURRENT_GOAL`, `DONE_ACCEPTANCE`,
-`REQUIRED_CAPABILITIES`, `CAPABILITY_LOCALITY`, `DIRECT_PATH`,
-`DELEGATED_PATH`, `BOUNDARY_LOSS_RISK`, `SAFETY_AUTHORITY`, `EVIDENCE`,
-`STOP_ESCALATION`, and `MINIMUM_SUFFICIENT_TOPOLOGY`. A task is not allowed to
-choose a worker merely because it mentions Resolve.
+Do not require external Operator routing, D/S/H qualification, HostLocalSemanticReceipt qualification, raw-handle serialization, or matched topology matrices before normal product work.
 
-The available execution loci are:
+The previous WP1 compatibility/native/host-local receipt experiments remain valid historical evidence of boundary cost, but **WP1 is no longer a product dependency**. Do not replay those routes unless the task is explicitly research about that architecture.
 
-- **D — direct guarded:** use when the product context already retains the
-  required host-local capability and delegation would lose it.
-- **S — dedicated Resolve Worker:** use when host work is separable and the
-  worker earns the boundary through specialist operation or independent host
-  evidence.
-- **H — host-local executor:** use when CurrentComp, Comp Script, FlowView,
-  Undo, or GUI-local state is required. Opaque host handles stay inside the
-  host context and leave only detached JSON-safe evidence.
+## Core rule
 
-D/S/H are execution loci, not safety boundaries. Every live mutable path uses
-the same Host Guard: user-wide exclusive lease, exact target identity before
-write, owned disposable state, no blind retry after timeout, reversible or
-discardable mutation, independent readback, cleanup/recovery, and a terminal
-receipt with final lease `FREE`. `UNKNOWN` is never normalized to `PASS`.
+`Requirements first. Topology second. Delegation must earn itself.`
 
-The fresh migration readback is recorded in
-`docs/checkpoints/2026-09-11-requirements-first-topology.json`: the dedicated
-worker is promoted for structural fixture readback only; CurrentComp/FlowView/
-Undo/GUI-local semantics remain unqualified. The external Operator is retained
-unchanged as rollback baseline until a matched replacement qualifies.
+Additional stop rule:
 
-### Authoring Gate AG-V2
+> If safety/proof/orchestration infrastructure becomes harder than safely performing the target Resolve operation, question or remove that boundary before adding more infrastructure.
 
-Before each new package, the Coordinator must verify from this repository:
+For this project, direct guarded Resolve operation is the default because strict layout work needs current host/Fusion/FlowView/Undo/UI context and the user has explicitly authorized normal Resolve operation for development and validation.
 
-1. remote PR #5 head and local source/install/publication identities are fresh;
-2. the PR #10/#11 source SHAs and the migration checkpoint are read;
-3. exactly one shared integration writer and one live Resolve lease owner exist;
-4. the selected D/S/H locus has a bounded requirement brief and a materially
-   different probe from any closed failure fingerprint;
-5. the package names its gate mapping, independent readback, cleanup, and
-   alternate path on failure.
+## Host Guard — keep the useful part
 
-AG-V2 passing authorizes the next bounded package only. It does not promote a
-host gate, authorize a project save, or authorize main merge.
+Direct does not mean unguarded. For mutable or concurrent live-host work, preserve the smallest applicable safeguards:
 
-## 今回の指示
+- one integration/state writer;
+- one live Resolve writer / user-wide serialization when concurrent access is possible;
+- fresh target identity before valuable writes;
+- owned/disposable scratch state for probes;
+- no blind retry after ambiguous mutation;
+- reversible mutation / Undo or discardable fixture where practical;
+- before/after readback and cleanup/recovery;
+- no valuable project save unless separately authorized.
 
-新しいLuna MaxのCodex taskが、既存ResolveNodeKitの成果と同じPR #5を引き継ぎ、実装・導入・実機検証を進める。Astra Bootstrapをやり直さず、旧Sol thread再開を既定にせず、新規taskの実所有を正規takeoverする。新規taskは進捗初期化を意味しない。
+These safeguards do not require a dedicated agent/process boundary.
 
-最初にlive Git、AGENTS、CURRENT_STATE、[LUNA_RUNBOOK](LUNA_RUNBOOK.md)、[PROMPT_ORCHESTRATION_TRIAL](PROMPT_ORCHESTRATION_TRIAL.md)を読む。製品Goal/DoneはDESIGN / PLAN / acceptance.jsonを継続する。
+## Product Goal / Done
 
-## Resolve live host routing — corrected
+Continue the existing strict-orthogonal mission unchanged:
 
-live DaVinci Resolveの状態観測・操作・実機validationが必要なら、親LunaはまずRequirements BriefとHost Guardを満たす最小十分なD/S/H経路を選ぶ。external Resolve Operatorは分離host作業の既定候補およびrollback baselineであり、direct/host-localが要件上必要な場合に一律で置き換えない。
+- reference-guided whole-comp horizontal/vertical layout;
+- actual orthogonal displayed wires;
+- preserve mode keeps Groups and processing semantics;
+- flatten-all removes all Groups while preserving non-Group identity/processing semantics;
+- exact Undo/rollback where required;
+- second run stable (`moved=0`);
+- installed UI Run/Cancel/busy/result user flow;
+- real-scale and >=1100 original non-Group qualification;
+- performance, recovery, cleanup and final independent verification;
+- all required G01–G14 PASS on the final candidate before product completion.
 
-親が渡すのは原則これだけ:
+Do not lower an acceptance requirement merely because a host/API path is difficult.
+
+## Start / source of truth
+
+At every continuation:
+
+1. inspect live Git/worktree/remote PR #5 and preserve unknown dirty work;
+2. read `AGENTS.md` and `docs/CURRENT_STATE.md` as state/evidence locators;
+3. read this file, `PLAN.md`, `LUNA_RUNBOOK.md`, `acceptance.json`, DESIGN/SOURCES as needed;
+4. verify current installed candidate and current Resolve/runtime capability instead of trusting historical SHAs/tool counts;
+5. continue from the highest-value ready product task, not from an obsolete Operator/WP1 dependency.
+
+Current user instruction and live repo/runtime evidence outrank historical checkpoints.
+
+## Direct Resolve operation
+
+The current Luna/Product Worker may directly use the available Resolve control surface needed by the task, including Blackmagic native MCP, current scripting, or GUI operation.
+
+- Parent/direct Resolve capability visibility is no longer required to stay zero.
+- If direct capability is disabled by an old Operator-isolation config, repair/enable the direct product-worker route instead of launching a dedicated Operator merely to preserve the old topology.
+- Prefer the simplest current qualified surface for the exact semantic operation; do not infer parity from tool count or marketing.
+- Host-local objects such as Comp/FlowView/Undo handles may remain ordinary in-process/live objects. Do not build serialization infrastructure just to move them across a boundary that the product no longer needs.
+- A small host-local helper/script is fine when it is the shortest implementation path; it is not a new agent authority domain.
+
+## Execution order
+
+Use the existing product task graph, but remove WP1/topology qualification from its dependencies.
+
+Near-term priority:
+
+1. restore/confirm a direct Resolve-capable Luna Max product-worker path;
+2. run one minimum useful disposable/current-safe host smoke that proves the worker can bind the intended Fusion context, read layout/view state, perform a tiny reversible owned mutation when required, Undo/restore, and read back;
+3. if that works, immediately return to product gates rather than expanding infrastructure;
+4. progress SO-30 / SO-50 / SO-60 preserve first where ready;
+5. progress SO-40 / SO-61 flatten independently as its capability becomes available;
+6. progress SO-70/71 large qualification, SO-80 recovery and SO-90 final independent verification;
+7. a local blocker does not stop independent ready product work.
+
+Use minimum useful smoke early. Add stronger evidence machinery only for an observed failure class or a final acceptance gate that actually needs it.
+
+## Historical Operator/WP1 evidence
+
+Keep the existing checkpoints, Operator branches, HostSession code, semantic receipt code and qualification results as research evidence. They may inform future tooling research, concurrency guards or comparative experiments.
+
+They are not current RNK execution authority and must not be used to block product work.
+
+## Short continuation prompt
 
 ```text
-objective / target / observable Done / restore policy / required evidence
-```
-
-選択されたhost ownerがinventory、exclusive lease、launch/quit/restart、operation、independent readback、cleanup/recovery、final readback、lease releaseを所有する。external Operatorを使う場合も、native MCP / qualified compatibility MCP / scripting / GUIの選択を親promptへ固定しない。
-
-Codex 0.153.4の`global MCP disabled + same-session child roleでMCP enable`を再デバッグしない。current shared authorityはHost Guardであり、qualified **external Resolve Operator**はrollback/capability baselineである。過去RNK checkpointの`MCP surface unavailable`は当時の経路の証拠として保存するが、current Operator capabilityの正本にしない。
-
-選択経路が失敗したら`routing / launcher / lease / driver / capability / restore / evidence / boundary`へ分類し、同じfailure fingerprintを新証拠なしで再試行しない。materially differentなD/S/H経路へ切り替えるか、BLOCKED/INTEGRATION_GAPとして独立ready workを続ける。parent direct host accessへの恒久fallbackも、external Operatorの一律強制も行わない。
-
-## 取り戻す現在地
-
-保存前の既知product lineageはSO-10/SO-20 offline PASS、SO-30 offline view evidence contract、158/158 reportedまで進んでいる。G02/G03 host portion、SO-11、flatten、actual UI/host/performanceは未証明。起動時はlive head/current stateを再取得し、古い件数/commitへ合わせて巻き戻さない。
-
-## 新規Luna Max taskへ渡すprompt
-
-```text
-ResolveNodeKit PR #5を、新規Luna Max Coordinatorとして引き継いで進める。
-
 Goal:
-既存のstrict水平垂直配置・1100+ tools・全Group解除の完成条件まで、実装・導入・実機検証を進める。
+Continue ResolveNodeKit PR #5 to the existing G01–G14 strict-orthogonal completion target.
 
 Done:
-G01–G14を最終candidateで実証し、source / install / Resolve実機 / PR / cleanupを整合する。未達要件を削らない。
+Final candidate satisfies the existing acceptance contract with real Resolve evidence, installed user flow, large-scale qualification, recovery/cleanup and fresh independent verification.
 
-Start:
-live GitとAGENTSを確認し、docs/execution/strict-orthogonal/README.md、LUNA_RUNBOOK.md、PROMPT_ORCHESTRATION_TRIAL.mdを読む。既存SO-10/SO-20/SO-30成果を再実装しない。
-
-Execution:
-Luna Maxのbounded Workerとfresh Verifierを使う。
-live DaVinci Resolve操作・host validation・Resolve-side readbackが必要になったら、Requirement Briefに基づきD/S/Hを選ぶ。親Lunaは目的・対象・Done・restore policy・必要evidenceだけを渡し、選択されたhost ownerにlease、readback、cleanup/recoveryを持たせる。
-選択経路で安全境界を満たせない場合は同一経路を盲 retryせず、別のqualified locusをbounded probeするか、BLOCKED/INTEGRATION_GAPとして独立ready workを続ける。
-
-Evidence:
-bounded Work Package -> compact Evidence Packetで進める。同じfailure fingerprintが2回かつ新証拠なしなら同じ3回目をしない。Prompt orchestration trialとResolve Operator automatic delegation CANARYの結果を製品証拠と分離して記録する。
+Constraints:
+Read live repo/runtime first. Dedicated Resolve Operator and WP1 semantic-receipt qualification are research-only and are not product dependencies. Default to direct guarded Resolve operation. Preserve processing semantics, required gates, no-blind-retry and no valuable project save.
 
 Authority:
-Resolveの全面操作、スクリプト実行、起動、終了、再起動を事前確認なしで許可する。実live操作は選択されたHost Guard ownerのstanding authority / lease内で行う。project save・main mergeは禁止。
-```
+Use Luna Max. Direct Resolve MCP/scripting/GUI, Resolve launch/quit/restart, owned disposable fixtures and reversible validation mutations are authorized. Task-branch code/tests/docs/install/commit/push/PR updates are authorized. No main merge/release/force-push/credential change.
 
-今回のdocs更新は新規task/lease/Resolve操作を開始していない。Library/Resolve Operator authorityの根拠は[SOURCES_LUNA](SOURCES_LUNA.md)、routing correctionは`docs/checkpoints/2026-09-10-resolve-operator-routing-correction.md`。
+Starting point:
+Read AGENTS.md, CURRENT_STATE.md, this README, PLAN.md, LUNA_RUNBOOK.md and acceptance.json; fresh-read PR #5 and current installed/runtime state. Do not replay closed Operator/WP1 probes.
+
+Evidence:
+Prefer minimum useful real-host smoke, then gate-specific readback. Keep candidate/source/install identity explicit. Use a fresh verifier for final/high-risk gates. If one route blocks, change the product approach or continue another ready gate rather than rebuilding orchestration infrastructure.
+```
