@@ -5,8 +5,10 @@ operation on the measured Resolve build.  This module therefore keeps the
 structural part behind an explicit host-adapter primitive instead of guessing
 from a UI action, deleting/recreating tools, or rewriting settings.  When a
 host adapter supplies such a primitive, the wrapper enforces the complete
-snapshot -> deepest-first ungroup -> flat readback -> semantic Arrange -> one
-Undo transaction contract.
+snapshot -> deepest-first ungroup -> flat readback -> semantic Arrange ->
+exact pre-state rollback contract.  A host may expose that rollback as one
+transaction or as multiple native Undo steps; the flatten acceptance is the
+exact restored state, not a required Undo count.
 """
 from __future__ import annotations
 
@@ -206,7 +208,9 @@ def flatten_all_comp(
     without deleting/recreating child tools and may return
     ``{"endpoint_map": {old_group: replacement_tool}}`` when a boundary edge
     is necessarily projected to a child.  Every returned structure is checked
-    before the next group is touched.
+    before the next group is touched.  The host Undo boundary is an
+    implementation safety mechanism; callers must verify exact pre-state
+    restoration and must not infer acceptance from the number of Undo steps.
     """
     if not callable(ungroup):
         raise FusionHostError(
@@ -312,8 +316,8 @@ def flatten_all_comp(
         timed("final_readback", started)
     except Exception as exc:
         # EndUndo(False) is the first rollback boundary.  If the host leaves a
-        # structural delta behind, use exactly one owned Undo and verify the
-        # complete original snapshot before reporting the failure.
+        # structural delta behind, use the host's owned Undo boundary and
+        # verify the complete original snapshot before reporting the failure.
         try:
             end_undo(False)
         except Exception:
