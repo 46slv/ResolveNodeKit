@@ -50,8 +50,12 @@ Current gate status carried from the latest verified checkpoint:
 
 - G01: `PASS`
 - G02: `BLOCKED_TECHNICAL`
-- G03: `BLOCKED_TECHNICAL`
-- G04–G14: `PENDING`
+- G03: `PASS`
+- G04: `BLOCKED_CONTRACT`
+- G05: `PENDING`
+- G06: `PASS`
+- G07–G08: `PASS`
+- G09–G14: `PENDING`
 
 Latest pre-reset product/operator verification reported:
 
@@ -78,16 +82,17 @@ Checkpoint: `docs/checkpoints/2026-09-11-direct-guarded-reset.json`
 - Final independent scripting/process readback: Resolve `21.1.0.14`, GUI responsive, Fusion page, `Untitled Project`, zero timelines, owned fixture absent, and project-save count `0`.
 - Learning Gate: `NO_REUSABLE_DELTA`. Keep the existing mechanical guard and readback/cleanup rules; do not add a generic Resolve execution framework or restore Operator routing.
 
-## Direct product-gate run — 2026-09-11 (SO-30 / SO-40 / SO-50)
+## Direct product-gate run — 2026-09-11 (SO-30 / SO-40 / SO-50 / SO-60) [v3]
 
-Checkpoint: `docs/checkpoints/2026-09-11-so30-so40-so50-direct-host.json`
+Checkpoint: `docs/checkpoints/2026-09-11-so30-so40-so50-direct-host-v2.json`
 
-- Fresh owned timeline `RNK_SO30_SO40_20260911` was created on Resolve Studio `21.1.0.14` / compatibility MCP `2.203.0`. The 15-tool fixture contained a non-empty `OuterG -> InnerG` depth-2 hierarchy, 8 edges, a RectangleMask edge, an unconnected branch, and processing readback (`TextPlus`, Blur size, mask dimensions/center).
-- SO-30 reached the real Fusion FlowView: the current screenshot showed horizontal BG->Merge->Blur->MediaOut wires, a visible mask wire and collapsed Group boundary, but TextPlus->Merge stayed diagonal despite equal node Y. The direct FlowView surface exposed position methods only (`GetPos`, `GetPosTable`, `QueueSetPos`, `FlushSetPosQueue`, `SetPos`) and no pipe/wire geometry or orthogonal-mode callable. `SO-30/G03` therefore remain `BLOCKED_TECHNICAL`; node coordinates are not treated as a strict-view PASS.
-- SO-40 ran the product `flatten_all_comp` seam against the non-empty fixture. The host exposed no explicit identity-preserving `Ungroup` callable; `DoAction`/`QueueAction` were present only as generic methods and are not accepted by the contract. The seam refused before mutation with `FusionHostError: Flatten-all is unavailable...`; tools stayed `15 -> 15`, groups `2 -> 2`. This is `BLOCKED_HOST_API` evidence, not a PASS; `SO-40/G04` remain unqualified.
-- SO-50 installed identity is fresh-read: `script_plugin.list(category=Comp, all=true, language=py)` returned `ResolveNodeKit_Arrange.py`; the installed entry hash is `9C35CA...85AFCE`, all 19 manifest package hashes match the current worktree, and the manifest commit is `5306b4b...a8d2a1d` (product files unchanged through the current head). The menu entry could not be safely activated: fresh `list_apps/list_windows/get_window/get_window_state` plus Raise/activation recovery repeatedly returned `failed to activate captured window`. No menu click, Cancel, Run, busy/result, or same-controller UI claim is made; `SO-50/G06` remain `PENDING`.
-- Cleanup completed under the same single Resolve writer: `RNK_SO30_SO40_20260911` timeline deleted with verified `1 -> 0`, imported clip `ff07881b-2398-40d8-a93f-ebc913ef5384` deleted and read back absent, current Fusion comp `コンポジション2` has `0` tools, and no project save was issued. Resolve remains GUI-responsive, Fusion page, one instance.
-- G01–G14 matrix remains: `G01 PASS`; `G02/G03 BLOCKED_TECHNICAL`; `G04–G14 PENDING`. SO-60 and later remain dependency-gated until SO-30 and SO-50 are actually PASS.
+- Fresh owned Resolve Studio `21.1.0.14` / compatibility MCP `2.203.0` work used one live writer and window `6301810`. The SO-30/SO-40 disposable fixture was a non-empty depth-2 Group graph (16 tools after the SO-30 additions, 8 labelled edges) with TextPlus, RectangleMask, Blur, branch, isolated node, and protected input readback.
+- SO-30 was proven in the actual Fusion FlowView by ordinary GUI context-menu operation: Flow context menu `Options > Orthogonal Pipes` (Japanese label `直交パイプ`) changed the displayed TextPlus->Merge, mask, serial, branch, and difficult-edge routing; the menu state was re-opened and read back. The same setting remained selected after opening a second owned timeline/comp, so the measured scope is application-level preference (not comp-local or Flow-local). It was restored to `Straight Pipes` before cleanup. This is an actual displayed-wire result, not a coordinate inference; `SO-30/G03 = PASS`.
+- SO-40 used Fusion's normal Group context-menu `Ungroup` (`グループを解除`) on the deepest Group and then its parent. Readback immediately after the second operation was 14 tools, Groups `2 -> 0`, preserved non-Group IDs/RegIDs, parent membership `null`, exact labelled connections (including Background/Foreground/EffectMask), and protected TextPlus/Blur/Mask state. Standard Undo was measured: first Ctrl+Z restored the outer Group, second was a structural no-op, third restored the nested Group. The GUI semantic is identity-preserving evidence, but the one-owned-Undo exact contract is not met; `SO-40/G04 = BLOCKED_CONTRACT` and no product flatten PASS is claimed.
+- SO-50 installed identity was fresh-read from `Workspace > Scripts > ResolveNodeKit_Arrange`: source and installed `ResolveNodeKit_Arrange.py` SHA256 are `9C35CA8984163DA0AD2E00899C0EBA2B2C9B08FE039C32EFA235DC367A85AFCE`. The RNK-owned window was obtained by title/shape identity inside Resolve (not OS foreground activation). Cancel run `45ed02daee914c3b9e29774a1db31de1` produced two visible Cancel attempts and `event=cancelled`; the 16-tool graph remained unchanged (zero write). A nested Run `1cfb001b535f460ea993818e268e1997` correctly showed busy/result events but refused on Group rollback, so it is failure evidence only. A flat 9-tool SO-30 fixture then completed Run `b44bd2bea0c442bebdf4e390f1e2fec0`: setup/OK widget, same-controller target bind, `busy shown -> snapshot/readback -> busy hidden -> result shown`, 9 tools / 5 edges, and identity/port/TextPlus/Mask/Blur/Blend readback. The installed UI gate is `SO-50/G06 = PASS`; the fast busy phase was event-read from RNK's run log rather than a separately retained screenshot.
+- SO-60 used a fresh disposable still-media timeline/comp (`RNK_SO60_E2E_20260911`, `コンポジション5`) with flat, fan-out, mask, isolated, and GUI-created non-empty Group content. The first installed run refused only because Resolve exposed unpositioned `Left AudioDisplay`/`Right AudioDisplay` tools; those two owned fixture-only display tools were deleted and the controller then completed on 10 positioned tools. Run `0800c59026864165b66176ed540ee23e` moved 9 tools and preserved labelled connections plus TextPlus/Mask/Blur/Blend values. A same-controller stability run `7c9fa40309cc4f93a9c6622fc58e04e3` reported `moved=0` with identical geometry. A GUI-created Group containing `RNK_SO60_BG` and `RNK_SO60_BLUR` was preserved by run `96a6c85a102e4466bb0a72a8639b19fc` (`moved=3`) and run `883b4277cace4fd7873358f77f44a292` (`moved=0`): non-Group IDs/RegIDs, Group parent identity, exact labelled ports and protected inputs stayed intact. Undo probe run `08c2ff6a8aa644b09f236d2d77c59c99` was changed once, then one standard Ctrl+Z restored the complete pre-run snapshot (`equal=true`, Group remained), so `SO-60/G07/G08 = PASS`.
+- Cleanup used the same writer with no project save: the SO-60 live timeline and its two auto-created archive timelines were deleted via exact confirmation (`3 -> 0`), the imported `img20.jpg` clip was deleted via exact confirmation, `folder.get_clips` returned `[]`, the final timeline list is empty, and current project remains `RNK_DIRECT_GATES_20260911_PROJECT`.
+- G01–G14 after these gates: `G01 PASS`, `G02 BLOCKED_TECHNICAL`, `G03 PASS`, `G04 BLOCKED_CONTRACT`, `G05 PENDING`, `G06 PASS`, `G07 PASS`, `G08 PASS`, `G09–G14 PENDING`. SO-61 remains dependent on the SO-40 contract blocker; SO-70 and SO-80 are the next preserve/recovery lanes after their explicit prerequisites.
 - The evidence-only docs were first published at `134cfcd78845f6e6d9ed28a0c7cda3b410eed839` and subsequent state metadata was pushed on the same task branch. PR #5 remains OPEN/Draft and `main` is untouched; the latest refs are re-read after each push.
 
 ## Historical WP1 boundary — archived research
@@ -118,8 +123,8 @@ The plan no longer contains WP1/topology qualification as a dependency.
 
 ## Exact next action
 
-1. qualify SO-30 actual strict view and SO-50 installed UI on a fresh owned fixture;
-2. continue independent SO-40 flatten/offline work where dependencies are ready;
+1. resolve the SO-40 one-owned-Undo product flatten contract, using the already-proven GUI Ungroup semantic without rebuilding execution infrastructure;
+2. continue SO-70/SO-80 only when their explicit preserve/recovery prerequisites are ready;
 3. preserve the direct route and existing mechanical guard; do not rebuild the retired Operator/WP1 transport;
 4. if one product gate blocks, continue another authorized independent ready gate.
 

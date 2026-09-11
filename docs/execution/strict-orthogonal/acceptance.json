@@ -87,32 +87,32 @@
       "id": "SO-30",
       "depends_on": ["SO-10"],
       "owner": "view-host",
-      "status": "BLOCKED_TECHNICAL",
+      "status": "PASS",
       "evidence": [
         "docs/checkpoints/2026-09-08-luna-so30-offline.json#verification",
-        "docs/checkpoints/2026-09-11-so30-so40-so50-direct-host.json#SO-30"
+        "docs/checkpoints/2026-09-11-so30-so40-so50-direct-host-v2.json#SO-30"
       ]
     },
     {
       "id": "SO-40",
       "depends_on": ["SO-11"],
       "owner": "structural-host",
-      "status": "PENDING",
-      "evidence": ["docs/checkpoints/2026-09-11-so30-so40-so50-direct-host.json#SO-40"]
+      "status": "BLOCKED_CONTRACT",
+      "evidence": ["docs/checkpoints/2026-09-11-so30-so40-so50-direct-host-v2.json#SO-40"]
     },
     {
       "id": "SO-50",
       "depends_on": ["SO-00"],
       "owner": "ui",
-      "status": "PENDING",
-      "evidence": ["docs/checkpoints/2026-09-11-so30-so40-so50-direct-host.json#SO-50"]
+      "status": "PASS",
+      "evidence": ["docs/checkpoints/2026-09-11-so30-so40-so50-direct-host-v2.json#SO-50"]
     },
     {
       "id": "SO-60",
       "depends_on": ["SO-11", "SO-20", "SO-30", "SO-50"],
       "owner": "integration-host",
-      "status": "PENDING",
-      "evidence": []
+      "status": "PASS",
+      "evidence": ["docs/checkpoints/2026-09-11-so30-so40-so50-direct-host-v2.json#SO-60"]
     },
     {
       "id": "SO-61",
@@ -177,11 +177,11 @@
       "required": true,
       "criterion": "Actual strict wire realization including masks and boundaries",
       "evidence_class": "host_view",
-      "status": "BLOCKED_TECHNICAL",
+      "status": "PASS",
       "candidate_sha": "dd0069abde35526b8164beae2c5753b95a1e12af",
       "evidence": [
         "docs/checkpoints/2026-09-08-luna-so30-offline.json#verification",
-        "docs/checkpoints/2026-09-11-so30-so40-so50-direct-host.json#SO-30"
+        "docs/checkpoints/2026-09-11-so30-so40-so50-direct-host-v2.json#SO-30"
       ]
     },
     {
@@ -190,9 +190,9 @@
       "required": true,
       "criterion": "Non-empty nested flatten, non-Group identity and proxy equivalence",
       "evidence_class": "host",
-      "status": "PENDING",
+      "status": "BLOCKED_CONTRACT",
       "candidate_sha": null,
-      "evidence": ["docs/checkpoints/2026-09-11-so30-so40-so50-direct-host.json#SO-40"]
+      "evidence": ["docs/checkpoints/2026-09-11-so30-so40-so50-direct-host-v2.json#SO-40"]
     },
     {
       "id": "G05",
@@ -210,9 +210,9 @@
       "required": true,
       "criterion": "Installed UI default/state mapping, actual Run and Cancel events",
       "evidence_class": "host_ui",
-      "status": "PENDING",
+      "status": "PASS",
       "candidate_sha": null,
-      "evidence": ["docs/checkpoints/2026-09-11-so30-so40-so50-direct-host.json#SO-50"]
+      "evidence": ["docs/checkpoints/2026-09-11-so30-so40-so50-direct-host-v2.json#SO-50"]
     },
     {
       "id": "G07",
@@ -220,9 +220,9 @@
       "required": true,
       "criterion": "Same-run actual busy-hidden-before-result visibility",
       "evidence_class": "host_ui",
-      "status": "PENDING",
+      "status": "PASS",
       "candidate_sha": null,
-      "evidence": []
+      "evidence": ["docs/checkpoints/2026-09-11-so30-so40-so50-direct-host-v2.json#SO-60"]
     },
     {
       "id": "G08",
@@ -230,9 +230,9 @@
       "required": true,
       "criterion": "One owned Undo exact and rollback recovery",
       "evidence_class": "host",
-      "status": "PENDING",
+      "status": "PASS",
       "candidate_sha": null,
-      "evidence": []
+      "evidence": ["docs/checkpoints/2026-09-11-so30-so40-so50-direct-host-v2.json#SO-60"]
     },
     {
       "id": "G09",
