@@ -1,6 +1,6 @@
 # ResolveNodeKit current continuation
 
-Updated: 2026-09-11 JST
+Updated: 2026-09-12 JST
 Status: `CHECKPOINTED_WITH_TECHNICAL_GAP` / product not complete
 
 Live Git/PR/installed/runtime evidence always outranks this locator.
@@ -51,11 +51,15 @@ Current gate status carried from the latest verified checkpoint:
 - G01: `PASS`
 - G02: `BLOCKED_TECHNICAL`
 - G03: `PASS`
-- G04: `BLOCKED_CONTRACT`
-- G05: `PENDING`
+- G04: `PASS`
+- G05: `BLOCKED_TECHNICAL`
 - G06: `PASS`
 - G07–G08: `PASS`
-- G09–G14: `PENDING`
+- G09: `PENDING`
+- G10: `BLOCKED_TECHNICAL`
+- G11: `PENDING`
+- G12: `PASS`
+- G13–G14: `PENDING`
 
 Latest pre-reset product/operator verification reported:
 
@@ -82,18 +86,30 @@ Checkpoint: `docs/checkpoints/2026-09-11-direct-guarded-reset.json`
 - Final independent scripting/process readback: Resolve `21.1.0.14`, GUI responsive, Fusion page, `Untitled Project`, zero timelines, owned fixture absent, and project-save count `0`.
 - Learning Gate: `NO_REUSABLE_DELTA`. Keep the existing mechanical guard and readback/cleanup rules; do not add a generic Resolve execution framework or restore Operator routing.
 
-## Direct product-gate run — 2026-09-11 (SO-30 / SO-40 / SO-50 / SO-60) [v3]
+## Direct product-gate run — 2026-09-11 (SO-30 / SO-40 / SO-50 / SO-60) [v3, superseded SO-40 wording]
 
 Checkpoint: `docs/checkpoints/2026-09-11-so30-so40-so50-direct-host-v2.json`
 
 - Fresh owned Resolve Studio `21.1.0.14` / compatibility MCP `2.203.0` work used one live writer and window `6301810`. The SO-30/SO-40 disposable fixture was a non-empty depth-2 Group graph (16 tools after the SO-30 additions, 8 labelled edges) with TextPlus, RectangleMask, Blur, branch, isolated node, and protected input readback.
 - SO-30 was proven in the actual Fusion FlowView by ordinary GUI context-menu operation: Flow context menu `Options > Orthogonal Pipes` (Japanese label `直交パイプ`) changed the displayed TextPlus->Merge, mask, serial, branch, and difficult-edge routing; the menu state was re-opened and read back. The same setting remained selected after opening a second owned timeline/comp, so the measured scope is application-level preference (not comp-local or Flow-local). It was restored to `Straight Pipes` before cleanup. This is an actual displayed-wire result, not a coordinate inference; `SO-30/G03 = PASS`.
-- SO-40 used Fusion's normal Group context-menu `Ungroup` (`グループを解除`) on the deepest Group and then its parent. Readback immediately after the second operation was 14 tools, Groups `2 -> 0`, preserved non-Group IDs/RegIDs, parent membership `null`, exact labelled connections (including Background/Foreground/EffectMask), and protected TextPlus/Blur/Mask state. Standard Undo was measured: first Ctrl+Z restored the outer Group, second was a structural no-op, third restored the nested Group. The GUI semantic is identity-preserving evidence, but the one-owned-Undo exact contract is not met; `SO-40/G04 = BLOCKED_CONTRACT` and no product flatten PASS is claimed.
+- SO-40's original record treated the extra native no-op Undo as a one-owned-Undo contract failure. That interpretation is superseded by the 2026-09-12 fresh exact-rollback record below; the historical observation itself remains unchanged.
 - SO-50 installed identity was fresh-read from `Workspace > Scripts > ResolveNodeKit_Arrange`: source and installed `ResolveNodeKit_Arrange.py` SHA256 are `9C35CA8984163DA0AD2E00899C0EBA2B2C9B08FE039C32EFA235DC367A85AFCE`. The RNK-owned window was obtained by title/shape identity inside Resolve (not OS foreground activation). Cancel run `45ed02daee914c3b9e29774a1db31de1` produced two visible Cancel attempts and `event=cancelled`; the 16-tool graph remained unchanged (zero write). A nested Run `1cfb001b535f460ea993818e268e1997` correctly showed busy/result events but refused on Group rollback, so it is failure evidence only. A flat 9-tool SO-30 fixture then completed Run `b44bd2bea0c442bebdf4e390f1e2fec0`: setup/OK widget, same-controller target bind, `busy shown -> snapshot/readback -> busy hidden -> result shown`, 9 tools / 5 edges, and identity/port/TextPlus/Mask/Blur/Blend readback. The installed UI gate is `SO-50/G06 = PASS`; the fast busy phase was event-read from RNK's run log rather than a separately retained screenshot.
 - SO-60 used a fresh disposable still-media timeline/comp (`RNK_SO60_E2E_20260911`, `コンポジション5`) with flat, fan-out, mask, isolated, and GUI-created non-empty Group content. The first installed run refused only because Resolve exposed unpositioned `Left AudioDisplay`/`Right AudioDisplay` tools; those two owned fixture-only display tools were deleted and the controller then completed on 10 positioned tools. Run `0800c59026864165b66176ed540ee23e` moved 9 tools and preserved labelled connections plus TextPlus/Mask/Blur/Blend values. A same-controller stability run `7c9fa40309cc4f93a9c6622fc58e04e3` reported `moved=0` with identical geometry. A GUI-created Group containing `RNK_SO60_BG` and `RNK_SO60_BLUR` was preserved by run `96a6c85a102e4466bb0a72a8639b19fc` (`moved=3`) and run `883b4277cace4fd7873358f77f44a292` (`moved=0`): non-Group IDs/RegIDs, Group parent identity, exact labelled ports and protected inputs stayed intact. Undo probe run `08c2ff6a8aa644b09f236d2d77c59c99` was changed once, then one standard Ctrl+Z restored the complete pre-run snapshot (`equal=true`, Group remained), so `SO-60/G07/G08 = PASS`.
 - Cleanup used the same writer with no project save: the SO-60 live timeline and its two auto-created archive timelines were deleted via exact confirmation (`3 -> 0`), the imported `img20.jpg` clip was deleted via exact confirmation, `folder.get_clips` returned `[]`, the final timeline list is empty, and current project remains `RNK_DIRECT_GATES_20260911_PROJECT`.
-- G01–G14 after these gates: `G01 PASS`, `G02 BLOCKED_TECHNICAL`, `G03 PASS`, `G04 BLOCKED_CONTRACT`, `G05 PENDING`, `G06 PASS`, `G07 PASS`, `G08 PASS`, `G09–G14 PENDING`. SO-61 remains dependent on the SO-40 contract blocker; SO-70 and SO-80 are the next preserve/recovery lanes after their explicit prerequisites.
+- G01–G14 at that time: `G01 PASS`, `G02 BLOCKED_TECHNICAL`, `G03 PASS`, `G04 BLOCKED_CONTRACT`, `G05 PENDING`, `G06 PASS`, `G07 PASS`, `G08 PASS`, `G09–G14 PENDING`. This point-in-time matrix is superseded by the continuation checkpoint below.
 - The evidence-only docs were published on the task branch and pushed to PR #5 at evidence commit `3871dac`; PR #5 remains OPEN/Draft and `main` is untouched. The final remote ref is re-read after the metadata push and reported with the exact SHA below.
+
+## Direct guarded continuation — 2026-09-12 (SO-40 / SO-61 / SO-70 / SO-80)
+
+Checkpoint: `docs/checkpoints/2026-09-12-so40-so61-so70-so80-direct-continuation.json`
+
+- SO-40/G04 is now `PASS`. A fresh owned depth-2 fixture went from 18 tools / 2 Groups to 16 tools / 0 Groups through native Fusion GUI `Ungroup`, deepest Group1 then parent Group2. All 11 port-labelled processing edges, non-Group IDs/RegIDs, parent semantics, complete input expression/keyframe snapshot, protected TextPlus/Blur/Mask/Merge/MediaIn/MediaOut values, and readback geometry were preserved. The second flatten readback was a no-op. Flat -> Ctrl+Z #1 restored the parent Group2 intermediate; Ctrl+Z #2 restored the exact pre-flatten snapshot (identity, positions, parents, edges, inputs, and static values). The Undo count is 2 and is not a G04 criterion; G08 remains the separate SO-60 one-owned-Undo PASS.
+- SO-61 is `BLOCKED_TECHNICAL` / G05 not promoted. Native GUI flatten and the small render probe preserved state; 18 compared frames were byte-identical (nested wrote 150, flat wrote 18 before safe cancel). The installed RNK `UngroupFirst` route still refuses closed because no measured identity-preserving host primitive is wired, so the requested installed-entry flatten E2E is not claimed.
+- SO-70 is `BLOCKED_TECHNICAL`; G02 remains blocked and G10 is not qualified. The current disposable PSD2Fusion item3 had 1109 total / 34 Groups / 1075 non-Group / depth 4 / 1345 edges; item9 had 1076 non-Group. The direct product attempt ran once for 46.148s, wrote 1105 positions, then refused at readback with a 12-node rollback-incomplete list. No blind retry, Undo, run2, strict wire, or three-run performance claim is made. The explicit >=1100 non-Group fixture and three real-changing <=60s baseline are still open.
+- SO-80/G12 is `PASS` for the existing product recovery path. Current host evidence covers UI Cancel zero-write, safe render timeout/cancel, fail-closed rollback-mismatch stop, and this continuation's independent-lane resume. The 174/174 suite (including 86 recovery-focused tests), strict contract 30/30, compileall, install backup/idempotence/foreign-entry/uninstall tests, current source/install hash parity, and the carried exact Resolve timeout/relaunch/ambiguous-state recovery record all pass within their stated scopes. No generic execution framework or retired Operator route was added.
+- Cleanup is exact: the two owned SO-70 timelines were deleted by verified IDs; only valuable `Timeline 1` and pre-existing `Timeline 1_archived_v06` remain. The SO-61 render directory and SO-40 temporary screenshots were removed. PSD2Fusion is current, responsive, unmodified (`COMPB_Modified=false`), and no project save was issued.
+- Current matrix: `SO-00/10/11/20/30/40/50/60/80 PASS`; `SO-61 BLOCKED_TECHNICAL`; `SO-70 BLOCKED_TECHNICAL`; `SO-71/90 PENDING`. Gates: `G01 PASS`, `G02 BLOCKED_TECHNICAL`, `G03 PASS`, `G04 PASS`, `G05 BLOCKED_TECHNICAL`, `G06 PASS`, `G07 PASS`, `G08 PASS`, `G09 PENDING`, `G10 BLOCKED_TECHNICAL`, `G11 PENDING`, `G12 PASS`, `G13–G14 PENDING`.
+- Source/install identity: current candidate `b0bf8f891bf87d10db23c6d9213cb4b449bfa407`; installed entry and source SHA256 `9C35CA8984163DA0AD2E00899C0EBA2B2C9B08FE039C32EFA235DC367A85AFCE`; manifest commit is the same candidate and all 19 package hashes match.
 
 ## Historical WP1 boundary — archived research
 
@@ -123,10 +139,10 @@ The plan no longer contains WP1/topology qualification as a dependency.
 
 ## Exact next action
 
-1. resolve the SO-40 one-owned-Undo product flatten contract, using the already-proven GUI Ungroup semantic without rebuilding execution infrastructure;
-2. continue SO-70/SO-80 only when their explicit preserve/recovery prerequisites are ready;
-3. preserve the direct route and existing mechanical guard; do not rebuild the retired Operator/WP1 transport;
-4. if one product gate blocks, continue another authorized independent ready gate.
+1. close SO-61 by qualifying an existing installed-entry/native host bridge for identity-preserving flatten, then rerun the small E2E;
+2. prepare a fresh SO-70 disposable with >=1100 original non-Group tools and a new depth-4 rollback hypothesis before any further large write;
+3. keep SO-80's existing recovery contract and direct guarded route; do not rebuild the retired Operator/WP1 transport;
+4. after SO-61 + SO-70, continue SO-71 and then request SO-90's fresh independent verifier.
 
 ## Stop boundary
 

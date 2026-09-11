@@ -1,7 +1,7 @@
 {
   "schema": "resolve-node-kit.strict-continuation/v3-direct-guarded",
   "program": "RNK-STRICT-ORTHOGONAL",
-  "updated": "2026-09-11",
+  "updated": "2026-09-12",
   "status": "CHECKPOINTED_WITH_TECHNICAL_GAP",
   "execution_topology": {
     "revision": "DIRECT-GUARDED-RESET-20260911-1",
@@ -97,8 +97,8 @@
       "id": "SO-40",
       "depends_on": ["SO-11"],
       "owner": "structural-host",
-      "status": "BLOCKED_CONTRACT",
-      "evidence": ["docs/checkpoints/2026-09-11-so30-so40-so50-direct-host-v2.json#SO-40"]
+      "status": "PASS",
+      "evidence": ["docs/checkpoints/2026-09-12-so40-so61-so70-so80-direct-continuation.json#SO-40"]
     },
     {
       "id": "SO-50",
@@ -118,15 +118,15 @@
       "id": "SO-61",
       "depends_on": ["SO-60", "SO-40"],
       "owner": "flatten-integration-host",
-      "status": "PENDING",
-      "evidence": []
+      "status": "BLOCKED_TECHNICAL",
+      "evidence": ["docs/checkpoints/2026-09-12-so40-so61-so70-so80-direct-continuation.json#SO-61"]
     },
     {
       "id": "SO-70",
       "depends_on": ["SO-60"],
       "owner": "large-host",
-      "status": "PENDING",
-      "evidence": []
+      "status": "BLOCKED_TECHNICAL",
+      "evidence": ["docs/checkpoints/2026-09-12-so40-so61-so70-so80-direct-continuation.json#SO-70"]
     },
     {
       "id": "SO-71",
@@ -139,8 +139,8 @@
       "id": "SO-80",
       "depends_on": ["SO-60"],
       "owner": "recovery",
-      "status": "PENDING",
-      "evidence": []
+      "status": "PASS",
+      "evidence": ["docs/checkpoints/2026-09-12-so40-so61-so70-so80-direct-continuation.json#SO-80"]
     },
     {
       "id": "SO-90",
@@ -190,9 +190,9 @@
       "required": true,
       "criterion": "Non-empty nested flatten, non-Group identity and proxy equivalence",
       "evidence_class": "host",
-      "status": "BLOCKED_CONTRACT",
-      "candidate_sha": null,
-      "evidence": ["docs/checkpoints/2026-09-11-so30-so40-so50-direct-host-v2.json#SO-40"]
+      "status": "PASS",
+      "candidate_sha": "b0bf8f891bf87d10db23c6d9213cb4b449bfa407",
+      "evidence": ["docs/checkpoints/2026-09-12-so40-so61-so70-so80-direct-continuation.json#SO-40"]
     },
     {
       "id": "G05",
@@ -200,9 +200,9 @@
       "required": true,
       "criterion": "Processing parameters, animation, instances, expressions and media preservation",
       "evidence_class": "host_state_and_render",
-      "status": "PENDING",
-      "candidate_sha": null,
-      "evidence": []
+      "status": "BLOCKED_TECHNICAL",
+      "candidate_sha": "b0bf8f891bf87d10db23c6d9213cb4b449bfa407",
+      "evidence": ["docs/checkpoints/2026-09-12-so40-so61-so70-so80-direct-continuation.json#SO-61"]
     },
     {
       "id": "G06",
@@ -250,9 +250,9 @@
       "required": true,
       "criterion": "Real-scale and >=1100 non-Group preserve and flatten qualification",
       "evidence_class": "large_host",
-      "status": "PENDING",
+      "status": "BLOCKED_TECHNICAL",
       "candidate_sha": null,
-      "evidence": []
+      "evidence": ["docs/checkpoints/2026-09-12-so40-so61-so70-so80-direct-continuation.json#SO-70"]
     },
     {
       "id": "G11",
@@ -270,9 +270,9 @@
       "required": true,
       "criterion": "Timeout/cancel/ambiguous-write recovery and durable multi-goal continuation",
       "evidence_class": "recovery",
-      "status": "PENDING",
-      "candidate_sha": null,
-      "evidence": []
+      "status": "PASS",
+      "candidate_sha": "b0bf8f891bf87d10db23c6d9213cb4b449bfa407",
+      "evidence": ["docs/checkpoints/2026-09-12-so40-so61-so70-so80-direct-continuation.json#SO-80"]
     },
     {
       "id": "G13",
