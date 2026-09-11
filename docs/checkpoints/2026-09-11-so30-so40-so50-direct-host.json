@@ -5,8 +5,11 @@
   "candidate": {
     "pull_request": 5,
     "pull_request_url": "https://github.com/46slv/ResolveNodeKit/pull/5",
-    "remote_head_sha": "0398223298139833eecddf6608296e69c16561e6",
+    "remote_head_sha_before_doc_commit": "0398223298139833eecddf6608296e69c16561e6",
+    "remote_head_sha_after_push": "134cfcd78845f6e6d9ed28a0c7cda3b410eed839",
     "remote_head_rechecked": true,
+    "remote_readback_refs": ["refs/pull/5/head", "refs/heads/feat/semantic-arrange-v1-20260906"],
+    "published_head_matches_remote": true,
     "worktree": "D:/Documents/ResolveNodeKit-pr5-v2-integration",
     "branch": "feat/direct-guarded-reset-20260911",
     "source_revision": "0398223298139833eecddf6608296e69c16561e6",
