@@ -9,11 +9,12 @@
     "local_branch": "feat/direct-guarded-reset-20260911",
     "pr_head_branch": "feat/semantic-arrange-v1-20260906",
     "source_revision": "1e83aec10e6f006932c4c19da581c0dffdb869ec",
+    "evidence_revision": "58591de74f3155bfdcee390e8cc2688f5db1b6bb",
     "source_parent": "fd822aa1d17d0da0483f2207cd46c1b341add667",
-    "remote_pr_head_rechecked": "1e83aec10e6f006932c4c19da581c0dffdb869ec",
+    "remote_pr_head_rechecked": "58591de74f3155bfdcee390e8cc2688f5db1b6bb",
     "installed_entry": {
       "path": "C:/Users/shiro/AppData/Roaming/Blackmagic Design/DaVinci Resolve/Support/Fusion/Scripts/Comp/ResolveNodeKit_Arrange.py",
-      "manifest_commit": "1e83aec10e6f006932c4c19da581c0dffdb869ec",
+      "manifest_commit": "58591de74f3155bfdcee390e8cc2688f5db1b6bb",
       "manifest_entry_total": 20,
       "package_hash_mismatches": 0,
       "installed_root_import": "PASS"
