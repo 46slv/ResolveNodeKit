@@ -78,6 +78,17 @@ Checkpoint: `docs/checkpoints/2026-09-11-direct-guarded-reset.json`
 - Final independent scripting/process readback: Resolve `21.1.0.14`, GUI responsive, Fusion page, `Untitled Project`, zero timelines, owned fixture absent, and project-save count `0`.
 - Learning Gate: `NO_REUSABLE_DELTA`. Keep the existing mechanical guard and readback/cleanup rules; do not add a generic Resolve execution framework or restore Operator routing.
 
+## Direct product-gate run — 2026-09-11 (SO-30 / SO-40 / SO-50)
+
+Checkpoint: `docs/checkpoints/2026-09-11-so30-so40-so50-direct-host.json`
+
+- Fresh owned timeline `RNK_SO30_SO40_20260911` was created on Resolve Studio `21.1.0.14` / compatibility MCP `2.203.0`. The 15-tool fixture contained a non-empty `OuterG -> InnerG` depth-2 hierarchy, 8 edges, a RectangleMask edge, an unconnected branch, and processing readback (`TextPlus`, Blur size, mask dimensions/center).
+- SO-30 reached the real Fusion FlowView: the current screenshot showed horizontal BG->Merge->Blur->MediaOut wires, a visible mask wire and collapsed Group boundary, but TextPlus->Merge stayed diagonal despite equal node Y. The direct FlowView surface exposed position methods only (`GetPos`, `GetPosTable`, `QueueSetPos`, `FlushSetPosQueue`, `SetPos`) and no pipe/wire geometry or orthogonal-mode callable. `SO-30/G03` therefore remain `BLOCKED_TECHNICAL`; node coordinates are not treated as a strict-view PASS.
+- SO-40 ran the product `flatten_all_comp` seam against the non-empty fixture. The host exposed no explicit identity-preserving `Ungroup` callable; `DoAction`/`QueueAction` were present only as generic methods and are not accepted by the contract. The seam refused before mutation with `FusionHostError: Flatten-all is unavailable...`; tools stayed `15 -> 15`, groups `2 -> 2`. This is `BLOCKED_HOST_API` evidence, not a PASS; `SO-40/G04` remain unqualified.
+- SO-50 installed identity is fresh-read: `script_plugin.list(category=Comp, all=true, language=py)` returned `ResolveNodeKit_Arrange.py`; the installed entry hash is `9C35CA...85AFCE`, all 19 manifest package hashes match the current worktree, and the manifest commit is `5306b4b...a8d2a1d` (product files unchanged through the current head). The menu entry could not be safely activated: fresh `list_apps/list_windows/get_window/get_window_state` plus Raise/activation recovery repeatedly returned `failed to activate captured window`. No menu click, Cancel, Run, busy/result, or same-controller UI claim is made; `SO-50/G06` remain `PENDING`.
+- Cleanup completed under the same single Resolve writer: `RNK_SO30_SO40_20260911` timeline deleted with verified `1 -> 0`, imported clip `ff07881b-2398-40d8-a93f-ebc913ef5384` deleted and read back absent, current Fusion comp `コンポジション2` has `0` tools, and no project save was issued. Resolve remains GUI-responsive, Fusion page, one instance.
+- G01–G14 matrix remains: `G01 PASS`; `G02/G03 BLOCKED_TECHNICAL`; `G04–G14 PENDING`. SO-60 and later remain dependency-gated until SO-30 and SO-50 are actually PASS.
+
 ## Historical WP1 boundary — archived research
 
 Checkpoint:

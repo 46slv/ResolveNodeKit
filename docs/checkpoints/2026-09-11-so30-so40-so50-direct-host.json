@@ -1,0 +1,181 @@
+{
+  "schema": "resolve-node-kit.strict-continuation.direct-gates/v1",
+  "recorded_at": "2026-09-11T16:15:28+09:00",
+  "status": "CHECKPOINTED_WITH_TECHNICAL_GAP",
+  "candidate": {
+    "pull_request": 5,
+    "pull_request_url": "https://github.com/46slv/ResolveNodeKit/pull/5",
+    "remote_head_sha": "0398223298139833eecddf6608296e69c16561e6",
+    "remote_head_rechecked": true,
+    "worktree": "D:/Documents/ResolveNodeKit-pr5-v2-integration",
+    "branch": "feat/direct-guarded-reset-20260911",
+    "source_revision": "0398223298139833eecddf6608296e69c16561e6",
+    "dirty_before_host_run": false,
+    "installed_manifest_commit": "5306b4b52f2707219cd89092d56f12764a8d2a1d",
+    "installed_package_hash_matches_worktree": true,
+    "installed_entry": {
+      "path": "C:/Users/shiro/AppData/Roaming/Blackmagic Design/DaVinci Resolve/Support/Fusion/Scripts/Comp/ResolveNodeKit_Arrange.py",
+      "sha256": "9C35CA8984163DA0AD2E00899C0EBA2B2C9B08FE039C32EFA235DC367A85AFCE",
+      "listed_by": "script_plugin.list(category=Comp, all=true, language=py)"
+    }
+  },
+  "host": {
+    "resolve": "DaVinci Resolve Studio 21.1.0.14",
+    "compatibility_mcp": "2.203.0",
+    "page": "fusion",
+    "runtime": {
+      "running": true,
+      "headless": false,
+      "instances": 1,
+      "gui_responsive_after_cleanup": true
+    },
+    "project_id": "0db98793-2654-449e-85b8-d28eb94f0a07",
+    "project_after_cleanup": "Untitled Project 2026-09-11_155005",
+    "target_window": {
+      "id": 12979518,
+      "title": "DaVinci Resolve Studio - 新規プロジェクト"
+    }
+  },
+  "fixture": {
+    "timeline_name": "RNK_SO30_SO40_20260911",
+    "timeline_id": "4a50a244-f67e-4de8-8039-97145d4c403e",
+    "comp_name": "コンポジション4",
+    "comp_index": 1,
+    "imported_clip_id": "ff07881b-2398-40d8-a93f-ebc913ef5384",
+    "initial_root_tools": 4,
+    "nested_fixture_before_cleanup": {
+      "tool_count": 15,
+      "group_depth": 2,
+      "groups": ["OuterG", "InnerG"],
+      "outer_children": ["InnerG", "BLOut", "BGout"],
+      "inner_children": ["BGin", "MGin", "BLin"],
+      "edge_count": 8,
+      "processing_readback": {
+        "text": "RNK SO-30 Strict View",
+        "blur_x_size": 1,
+        "mask_width": 0.35,
+        "mask_height": 0.25,
+        "mask_center": [0.5, 0.5]
+      }
+    }
+  },
+  "SO-30": {
+    "status": "BLOCKED_TECHNICAL",
+    "evidence_type": "actual_Fusion_FlowView_screenshot_plus_same_run_readback",
+    "screenshot": {
+      "window_id": 12979518,
+      "screenshot_id": "screenshot-0",
+      "width": 3840,
+      "height": 2151,
+      "observed": "BG->Merge, Merge->Blur and Blur->MediaOut were horizontal; TextPlus->Merge remained diagonal despite equal node Y; RectangleMask wire and collapsed OuterG boundary were visible; unconnected branch and isolated node remained visible."
+    },
+    "positions": {
+      "RNK_SO30_BG": [-3.999, 0.009],
+      "RNK_SO30_BRANCH": [-3.999, 2.009],
+      "RNK_SO30_TEXT": [-3.999, 0.009],
+      "RNK_SO30_MERGE": [0.0, 0.009],
+      "RNK_SO30_BLUR": [4.0, 0.009],
+      "RNK_SO30_OUT": [8.0, 0.009],
+      "RNK_SO30_MASK": [0.073, -2.945],
+      "RNK_SO30_ISOLATED": [8.0, 4.009],
+      "OuterG": [10.5, 5.009]
+    },
+    "edges": [
+      "RNK_SO30_BG.Output -> RNK_SO30_MERGE.Background",
+      "RNK_SO30_TEXT.Output -> RNK_SO30_MERGE.Foreground",
+      "RNK_SO30_MASK.Mask -> RNK_SO30_MERGE.EffectMask",
+      "RNK_SO30_MERGE.Output -> RNK_SO30_BLUR.Input",
+      "RNK_SO30_BLUR.Output -> RNK_SO30_OUT.Input",
+      "BGin.Output -> BLin.Input",
+      "BLin.Output -> MGin.Background",
+      "BGout.Output -> BLOut.Input"
+    ],
+    "flow_view_capability": {
+      "position_methods": ["GetPos", "GetPosTable", "QueueSetPos", "FlushSetPosQueue", "SetPos"],
+      "pipe_or_wire_geometry_callable": false,
+      "fusion_graph_boundary_report_has_flowview_geometry": false
+    },
+    "decision": "Node positions and connection readback are real, but strict displayed-wire orthogonality is not proven and the actual TextPlus port wire is diagonal. Keep G03 blocked; do not synthesize a PASS from positions."
+  },
+  "SO-40": {
+    "status": "PENDING",
+    "attempt": "live_non_empty_nested_depth2_fixture",
+    "host_capability": {
+      "explicit_ungroup_callables": [],
+      "generic_action_methods_seen": ["DoAction", "QueueAction"],
+      "generic_action_policy": "not accepted as an identity-preserving ungroup primitive"
+    },
+    "product_seam_result": "BLOCKED_HOST_API_ZERO_WRITE",
+    "error": "FusionHostError: Flatten-all is unavailable: the host adapter supplied no measured identity-preserving ungroup primitive",
+    "tools_before": 15,
+    "tools_after": 15,
+    "groups_before": 2,
+    "groups_after": 2,
+    "undo_or_flatten_write": false,
+    "decision": "Zero-write refusal is evidence of the host blocker, not a flatten PASS. Keep SO-40/G04 unqualified and continue only when a documented identity-preserving host operation is measured."
+  },
+  "SO-50": {
+    "status": "PENDING",
+    "installed_entry_identity": "PASS",
+    "menu_entry_invoked": false,
+    "ui_flow": {
+      "cancel_zero_write": "NOT_RUN",
+      "run": "NOT_RUN",
+      "busy_to_result": "NOT_RUN",
+      "same_controller_correlation": "NOT_RUN"
+    },
+    "automation_blocker": {
+      "surface": "computer-use sky",
+      "attempted_recovery": "fresh list_apps/list_windows/get_window/get_window_state plus Raise/activate retries",
+      "error": "failed to activate captured window",
+      "blind_retry": false
+    },
+    "decision": "Installed source and manifest identity are verified, but no UI qualification is claimed because the actual Resolve menu entry could not be safely activated."
+  },
+  "cleanup": {
+    "timeline_delete": {
+      "id": "4a50a244-f67e-4de8-8039-97145d4c403e",
+      "before": 1,
+      "after": 0,
+      "verified": true
+    },
+    "clip_delete": {
+      "id": "ff07881b-2398-40d8-a93f-ebc913ef5384",
+      "verified_absent": true,
+      "readback_error": "Clip not found: ff07881b-2398-40d8-a93f-ebc913ef5384"
+    },
+    "comp_after_cleanup": {
+      "name": "コンポジション2",
+      "tool_count": 0
+    },
+    "save_calls": 0,
+    "versioning_analysis_run_id": "run_49e4742892bf"
+  },
+  "tests": {
+    "command": "PYTHONPATH=D:/Documents/ResolveNodeKit-pr5-v2-integration/src python -m unittest discover -s tests -v",
+    "result": "174/174 PASS",
+    "contract_check": "PASS",
+    "note": "An initial unscoped run resolved the older checkout and was discarded; the recorded run explicitly bound the target worktree src."
+  },
+  "G01_G14_matrix": {
+    "G01": "PASS",
+    "G02": "BLOCKED_TECHNICAL",
+    "G03": "BLOCKED_TECHNICAL",
+    "G04": "PENDING",
+    "G05": "PENDING",
+    "G06": "PENDING",
+    "G07": "PENDING",
+    "G08": "PENDING",
+    "G09": "PENDING",
+    "G10": "PENDING",
+    "G11": "PENDING",
+    "G12": "PENDING",
+    "G13": "PENDING",
+    "G14": "PENDING"
+  },
+  "next_ready": [
+    "Retry SO-50 only after Resolve can be safely foregrounded; invoke the installed Workspace -> Scripts -> Comp entry and capture Cancel/Run/busy/result with the same controller run_id.",
+    "Keep SO-40 local to the documented host-native identity-preserving ungroup/Undo capability; do not reconstruct or flatten by guessed DoAction strings.",
+    "Do not start SO-60 or later until SO-30 and SO-50 are actually PASS."
+  ]
+}

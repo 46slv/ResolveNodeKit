@@ -88,21 +88,24 @@
       "depends_on": ["SO-10"],
       "owner": "view-host",
       "status": "BLOCKED_TECHNICAL",
-      "evidence": ["docs/checkpoints/2026-09-08-luna-so30-offline.json#verification"]
+      "evidence": [
+        "docs/checkpoints/2026-09-08-luna-so30-offline.json#verification",
+        "docs/checkpoints/2026-09-11-so30-so40-so50-direct-host.json#SO-30"
+      ]
     },
     {
       "id": "SO-40",
       "depends_on": ["SO-11"],
       "owner": "structural-host",
       "status": "PENDING",
-      "evidence": []
+      "evidence": ["docs/checkpoints/2026-09-11-so30-so40-so50-direct-host.json#SO-40"]
     },
     {
       "id": "SO-50",
       "depends_on": ["SO-00"],
       "owner": "ui",
       "status": "PENDING",
-      "evidence": []
+      "evidence": ["docs/checkpoints/2026-09-11-so30-so40-so50-direct-host.json#SO-50"]
     },
     {
       "id": "SO-60",
@@ -176,7 +179,10 @@
       "evidence_class": "host_view",
       "status": "BLOCKED_TECHNICAL",
       "candidate_sha": "dd0069abde35526b8164beae2c5753b95a1e12af",
-      "evidence": ["docs/checkpoints/2026-09-08-luna-so30-offline.json#verification"]
+      "evidence": [
+        "docs/checkpoints/2026-09-08-luna-so30-offline.json#verification",
+        "docs/checkpoints/2026-09-11-so30-so40-so50-direct-host.json#SO-30"
+      ]
     },
     {
       "id": "G04",
@@ -186,7 +192,7 @@
       "evidence_class": "host",
       "status": "PENDING",
       "candidate_sha": null,
-      "evidence": []
+      "evidence": ["docs/checkpoints/2026-09-11-so30-so40-so50-direct-host.json#SO-40"]
     },
     {
       "id": "G05",
@@ -206,7 +212,7 @@
       "evidence_class": "host_ui",
       "status": "PENDING",
       "candidate_sha": null,
-      "evidence": []
+      "evidence": ["docs/checkpoints/2026-09-11-so30-so40-so50-direct-host.json#SO-50"]
     },
     {
       "id": "G07",
