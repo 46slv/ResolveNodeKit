@@ -8,13 +8,13 @@
     "worktree": "D:/Documents/ResolveNodeKit-pr5-v2-integration",
     "local_branch": "feat/direct-guarded-reset-20260911",
     "pr_head_branch": "feat/semantic-arrange-v1-20260906",
-    "source_revision": "1e83aec10e6f006932c4c19da581c0dffdb869ec",
-    "evidence_revision": "58591de74f3155bfdcee390e8cc2688f5db1b6bb",
+    "source_revision": "c26bfdf6b1b918590e22327c0f37de4bb6859d1a",
+    "evidence_revision": "c26bfdf6b1b918590e22327c0f37de4bb6859d1a",
     "source_parent": "fd822aa1d17d0da0483f2207cd46c1b341add667",
-    "remote_pr_head_rechecked": "58591de74f3155bfdcee390e8cc2688f5db1b6bb",
+    "remote_pr_head_rechecked": "c26bfdf6b1b918590e22327c0f37de4bb6859d1a",
     "installed_entry": {
       "path": "C:/Users/shiro/AppData/Roaming/Blackmagic Design/DaVinci Resolve/Support/Fusion/Scripts/Comp/ResolveNodeKit_Arrange.py",
-      "manifest_commit": "58591de74f3155bfdcee390e8cc2688f5db1b6bb",
+      "manifest_commit": "c26bfdf6b1b918590e22327c0f37de4bb6859d1a",
       "manifest_entry_total": 20,
       "package_hash_mismatches": 0,
       "installed_root_import": "PASS"
