@@ -10,10 +10,10 @@
       "refs/pull/5/head",
       "refs/heads/feat/semantic-arrange-v1-20260906"
     ],
-    "remote_head_after_push": "569faaf194d0a876a60e1ff3fc9215e52113dd3c",
+    "remote_head_after_push": "3871dac",
     "worktree": "D:/Documents/ResolveNodeKit-pr5-v2-integration",
     "branch": "feat/direct-guarded-reset-20260911",
-    "source_revision": "569faaf194d0a876a60e1ff3fc9215e52113dd3c",
+    "source_revision": "3871dac",
     "dirty_before_host_run": false,
     "source_entry": {
       "path": "scripts/Fusion/ResolveNodeKit_Arrange.py",
