@@ -64,6 +64,7 @@
       "original_non_group_identity_exact": true,
       "parent_semantics": "all original non-Group parents became null; Group1 was inside Group2 before flatten",
       "port_labelled_processing_edges_exact": true,
+      "proxy_equivalence": "boundary-connected child endpoints remained the same labelled non-Group endpoints; no GroupOperator proxy substitution or rewire was observed",
       "edges": [
         "Left.Data -> MediaIn1.LeftAudio",
         "RNK_SO40_BG.Output -> RNK_SO40_MERGE.Background",
