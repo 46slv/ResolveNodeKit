@@ -119,14 +119,20 @@
       "depends_on": ["SO-60", "SO-40"],
       "owner": "flatten-integration-host",
       "status": "BLOCKED_TECHNICAL",
-      "evidence": ["docs/checkpoints/2026-09-12-so40-so61-so70-so80-direct-continuation.json#SO-61"]
+      "evidence": [
+        "docs/checkpoints/2026-09-12-so40-so61-so70-so80-direct-continuation.json#SO-61",
+        "docs/checkpoints/2026-09-12-so70-depth4-direct-preserve.json#SO-61"
+      ]
     },
     {
       "id": "SO-70",
       "depends_on": ["SO-60"],
       "owner": "large-host",
       "status": "BLOCKED_TECHNICAL",
-      "evidence": ["docs/checkpoints/2026-09-12-so40-so61-so70-so80-direct-continuation.json#SO-70"]
+      "evidence": [
+        "docs/checkpoints/2026-09-12-so40-so61-so70-so80-direct-continuation.json#SO-70",
+        "docs/checkpoints/2026-09-12-so70-depth4-direct-preserve.json#SO-70"
+      ]
     },
     {
       "id": "SO-71",
@@ -169,7 +175,10 @@
       "evidence_class": "offline_and_host",
       "status": "BLOCKED_TECHNICAL",
       "candidate_sha": "d7a1610726171c08ad5617c55e4cc04def786a6b",
-      "evidence": ["docs/checkpoints/2026-09-08-luna-so20-offline.json#verification"]
+      "evidence": [
+        "docs/checkpoints/2026-09-08-luna-so20-offline.json#verification",
+        "docs/checkpoints/2026-09-12-so70-depth4-direct-preserve.json#SO-70.qualification_boundary"
+      ]
     },
     {
       "id": "G03",
@@ -252,7 +261,10 @@
       "evidence_class": "large_host",
       "status": "BLOCKED_TECHNICAL",
       "candidate_sha": null,
-      "evidence": ["docs/checkpoints/2026-09-12-so40-so61-so70-so80-direct-continuation.json#SO-70"]
+      "evidence": [
+        "docs/checkpoints/2026-09-12-so40-so61-so70-so80-direct-continuation.json#SO-70",
+        "docs/checkpoints/2026-09-12-so70-depth4-direct-preserve.json#SO-70"
+      ]
     },
     {
       "id": "G11",
