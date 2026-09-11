@@ -643,7 +643,7 @@ def arrange_comp(
         _snapshot,
         _validate_hierarchy,
     )
-    from .tidy import _snap_position, _xy_from_pos_table
+    from .tidy import _parent_first_order, _snap_position, _xy_from_pos_table
 
     if ungroup:
         from .flatten import flatten_all_comp
@@ -762,8 +762,9 @@ def arrange_comp(
         started = time.perf_counter()
         queue_set_pos = getattr(flow, "QueueSetPos", None)
         flush_set_pos = getattr(flow, "FlushSetPosQueue", None)
+        write_order = _parent_first_order(writes, snapshot.parents)
         if writes and callable(queue_set_pos) and callable(flush_set_pos):
-            for name in sorted(writes):
+            for name in write_order:
                 result = queue_set_pos(tools[name], *writes[name])
                 if result is False:
                     raise FusionHostError(f"position queue rejected {name!r}")
@@ -771,7 +772,7 @@ def arrange_comp(
             if result is False:
                 raise FusionHostError("position queue flush was rejected")
         else:
-            for name in sorted(writes):
+            for name in write_order:
                 flow.SetPos(tools[name], *writes[name])
         _timed("writes", started)
         _note("readback begin")

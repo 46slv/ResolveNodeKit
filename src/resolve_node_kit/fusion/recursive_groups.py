@@ -15,6 +15,8 @@ from .tidy import (
     _snap_position,
     _tool_name,
     _xy_from_pos_table,
+    _parent_first_order,
+    _restore_positions_batch,
 )
 
 
@@ -383,20 +385,23 @@ def _restore_groups(comp: Any, snapshot: _Snapshot, saved: dict[str, Any]) -> li
 
 
 def _restore_positions(comp: Any, flow: Any, snapshot: _Snapshot) -> list[str]:
-    failures: list[str] = []
     try:
         live, _ = _collect_tools(comp)
     except Exception:
         live = {}
-    for name, (x, y) in sorted(snapshot.positions.items()):
-        try:
-            tool = live.get(name) or snapshot.tools[name]
-            flow.SetPos(tool, x, y)
-            if not _close_enough(_xy_from_pos_table(flow.GetPosTable(tool)), (x, y)):
-                failures.append(name)
-        except Exception:
-            failures.append(name)
-    return failures
+    tools = {
+        name: live.get(name) or snapshot.tools[name]
+        for name in snapshot.positions
+    }
+    # Restore enclosing GroupOperators before their local children.  Fusion's
+    # nested FlowView can normalize a child readback when its parent is written
+    # later; the old lexical order made that normalization look like a
+    # node-class-specific rollback failure.
+    order = sorted(
+        snapshot.positions,
+        key=lambda name: (_depth(name, snapshot.parents), name),
+    )
+    return _restore_positions_batch(flow, tools, snapshot.positions, order=order)
 
 
 def _edge_signature(snapshot: _Snapshot) -> tuple[tuple[str, str, str], ...]:
@@ -436,7 +441,7 @@ def tidy_groups_comp(comp: Any, config: LayoutConfig | None = None) -> GroupTidy
 
         desired, scope_count = _layout(active, config)
         writes = {name: pos for name, pos in desired.items() if not _close_enough(active.positions[name], pos)}
-        for name in sorted(writes):
+        for name in _parent_first_order(writes, active.parents):
             flow.SetPos(active.tools[name], *writes[name])
         mismatch = [
             name for name in sorted(writes)
@@ -496,7 +501,7 @@ def tidy_nested_comp(comp: Any, config: LayoutConfig | None = None) -> GroupTidy
         desired, scope_count = _layout_to_fixed_point(original, config)
         tools = {name: _find_tool(comp, name, original.tools) for name in desired}
         writes = {name: pos for name, pos in desired.items() if not _close_enough(original.positions[name], pos)}
-        for name in sorted(writes):
+        for name in _parent_first_order(writes, original.parents):
             flow.SetPos(tools[name], *writes[name])
         mismatch = [
             name for name in sorted(writes)

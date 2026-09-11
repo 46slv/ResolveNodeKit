@@ -30,6 +30,7 @@ from .tidy import (
     FLOW_GRID_Y,
     FLOW_POSITION_TOLERANCE,
     _close_enough,
+    _restore_positions_batch,
     _xy_from_pos_table,
 )
 
@@ -257,27 +258,61 @@ def map_strict_plan_to_host(
     return desired, origins
 
 
-def _restore_positions(flow: Any, tools: Mapping[str, Any], positions: Mapping[str, tuple[float, float]], tolerance: float) -> list[str]:
-    failures: list[str] = []
-    setter = getattr(flow, "SetPos", None)
-    if not callable(setter):
-        return sorted(positions)
-    for name in sorted(positions):
+def _restore_positions(
+    flow: Any,
+    tools: Mapping[str, Any],
+    positions: Mapping[str, tuple[float, float]],
+    tolerance: float,
+    *,
+    order: list[str] | None = None,
+) -> list[str]:
+    return _restore_positions_batch(
+        flow,
+        tools,
+        positions,
+        order=order,
+        tolerance=tolerance,
+    )
+
+
+def _restore_order(preparation: StrictPreparation, positions: Mapping[str, tuple[float, float]]) -> list[str]:
+    """Return parent-first order for nested strict snapshots."""
+    parents: dict[str, str | None] = {}
+    for name, node in preparation.processing.nodes.items():
         try:
-            setter(tools[name], *positions[name])
-            actual = _xy_from_pos_table(flow.GetPosTable(tools[name]))
-            if not _close_enough(actual, positions[name], epsilon=tolerance):
-                failures.append(name)
-        except Exception:
-            failures.append(name)
-    return failures
+            raw = _field_value(node.parent, path=f"nodes.{name}.parent")
+        except StrictHostApplyError:
+            raw = None
+        parents[name] = None if raw in (None, "", "root") else str(raw)
+
+    def depth(name: str) -> int:
+        seen: set[str] = set()
+        value = 0
+        current = name
+        while parents.get(current) is not None and current not in seen:
+            seen.add(current)
+            parent = parents.get(current)
+            if parent is None:
+                break
+            value += 1
+            current = parent
+        return value
+
+    return sorted(positions, key=lambda name: (depth(name), name))
 
 
-def _write_positions(flow: Any, tools: Mapping[str, Any], writes: Mapping[str, tuple[float, float]]) -> None:
+def _write_positions(
+    flow: Any,
+    tools: Mapping[str, Any],
+    writes: Mapping[str, tuple[float, float]],
+    *,
+    order: list[str] | None = None,
+) -> None:
+    names = list(order) if order is not None else sorted(writes)
     queue_set_pos = getattr(flow, "QueueSetPos", None)
     flush_set_pos = getattr(flow, "FlushSetPosQueue", None)
     if writes and callable(queue_set_pos) and callable(flush_set_pos):
-        for name in sorted(writes):
+        for name in names:
             result = queue_set_pos(tools[name], *writes[name])
             if result is False:
                 raise StrictHostApplyError(f"FlowView position queue rejected {name!r}")
@@ -288,7 +323,7 @@ def _write_positions(flow: Any, tools: Mapping[str, Any], writes: Mapping[str, t
     setter = getattr(flow, "SetPos", None)
     if not callable(setter):
         raise StrictHostApplyError("FlowView.SetPos is unavailable")
-    for name in sorted(writes):
+    for name in names:
         result = setter(tools[name], *writes[name])
         if result is False:
             raise StrictHostApplyError(f"FlowView.SetPos rejected {name!r}")
@@ -340,7 +375,7 @@ def apply_strict_plan(
     if undo_started:
         start_undo("ResolveNodeKit: Strict Preserve")
     try:
-        _write_positions(flow, tools, writes)
+        _write_positions(flow, tools, writes, order=_restore_order(preparation, writes))
         readback = _read_positions(flow, tools)
         mismatched = [
             name
@@ -359,7 +394,13 @@ def apply_strict_plan(
         if after_signature != before_signature:
             raise StrictHostApplyError("strict preserve changed processing/structure signature")
     except Exception as exc:
-        restore_failures = _restore_positions(flow, tools, pre_positions, calibration.tolerance)
+        restore_failures = _restore_positions(
+            flow,
+            tools,
+            pre_positions,
+            calibration.tolerance,
+            order=_restore_order(preparation, pre_positions),
+        )
         if undo_started:
             end_undo(False)
         if restore_failures:

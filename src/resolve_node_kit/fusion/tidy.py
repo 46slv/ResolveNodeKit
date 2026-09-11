@@ -4,7 +4,7 @@ import math
 from collections import OrderedDict  # noqa: F401  (see _ensure_ordered_dict)
 import builtins
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Mapping, Sequence
 
 from resolve_node_kit.core.layout import Edge, LayoutConfig, LayoutError, layout_graph
 
@@ -172,18 +172,99 @@ def _close_enough(a: tuple[float, float], b: tuple[float, float], epsilon: float
     return abs(a[0] - b[0]) <= epsilon and abs(a[1] - b[1]) <= epsilon
 
 
-def _restore(flow: Any, tools: dict[str, Any], original: dict[str, tuple[float, float]]) -> list[str]:
-    failures: list[str] = []
-    for name in sorted(original):
+def _parent_first_order(
+    names: Sequence[str],
+    parents: Mapping[str, str | None] | None = None,
+) -> list[str]:
+    """Return a deterministic parent-before-child FlowView write order."""
+    if not parents:
+        return sorted(names)
+
+    def depth(name: str) -> int:
+        value = 0
+        current = name
+        seen: set[str] = set()
+        while parents.get(current) is not None and current not in seen:
+            seen.add(current)
+            parent = parents.get(current)
+            if parent is None:
+                break
+            value += 1
+            current = parent
+        return value
+
+    return sorted(names, key=lambda name: (depth(name), name))
+
+
+def _restore_positions_batch(
+    flow: Any,
+    tools: Mapping[str, Any],
+    original: Mapping[str, tuple[float, float]],
+    *,
+    order: Sequence[str] | None = None,
+    tolerance: float = FLOW_POSITION_TOLERANCE,
+) -> list[str]:
+    """Restore FlowView positions in one measured write/readback batch.
+
+    Fusion can normalize a child coordinate when its parent GroupOperator is
+    restored later in the same rollback.  Queueing the complete restore and
+    reading it back only after the flush avoids that transient scope mismatch.
+    The caller supplies a parent-first order for nested scopes; flat callers
+    keep the deterministic name order.  A rejected queue is reported as a
+    failure and is never retried through a second mutation path.
+    """
+    names = list(order) if order is not None else sorted(original)
+    failures: set[str] = set()
+    queue_set_pos = getattr(flow, "QueueSetPos", None)
+    flush_set_pos = getattr(flow, "FlushSetPosQueue", None)
+    use_queue = callable(queue_set_pos) and callable(flush_set_pos)
+
+    if use_queue:
+        for index, name in enumerate(names):
+            try:
+                result = queue_set_pos(tools[name], *original[name])
+            except Exception:
+                failures.update(names[index:])
+                break
+            if result is False:
+                failures.update(names[index:])
+                break
+        if not failures:
+            try:
+                if flush_set_pos() is False:
+                    failures.update(names)
+            except Exception:
+                failures.update(names)
+    else:
+        setter = getattr(flow, "SetPos", None)
+        if not callable(setter):
+            return sorted(names)
+        for index, name in enumerate(names):
+            try:
+                result = setter(tools[name], *original[name])
+            except Exception:
+                failures.update(names[index:])
+                break
+            if result is False:
+                failures.update(names[index:])
+                break
+
+    # Read back after the complete write/flush, never immediately after an
+    # individual nested child write.  This is still fail-closed: a mismatch
+    # remains a rollback failure rather than being silently normalized away.
+    for name in names:
         try:
-            x, y = original[name]
-            flow.SetPos(tools[name], x, y)
-            readback = _xy_from_pos_table(flow.GetPosTable(tools[name]))
-            if not _close_enough(readback, (x, y)):
-                failures.append(name)
+            actual = _xy_from_pos_table(flow.GetPosTable(tools[name]))
         except Exception:
-            failures.append(name)
-    return failures
+            failures.add(name)
+            continue
+        if not _close_enough(actual, original[name], epsilon=tolerance):
+            failures.add(name)
+    return sorted(failures)
+
+
+def _restore(flow: Any, tools: dict[str, Any], original: dict[str, tuple[float, float]]) -> list[str]:
+    return _restore_positions_batch(flow, tools, original)
 
 
 def tidy_comp(comp: Any, config: LayoutConfig | None = None) -> TidyResult:
