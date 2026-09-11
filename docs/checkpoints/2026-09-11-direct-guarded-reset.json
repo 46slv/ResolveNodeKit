@@ -78,7 +78,8 @@
     "status": "PASS",
     "installer": "scripts/install_resolve_user.ps1",
     "manifest": "C:/Users/shiro/AppData/Roaming/Blackmagic Design/DaVinci Resolve/Support/Fusion/ResolveNodeKit/install_manifest.json",
-    "commit": "239ac09eb72291281bde4a1c95f25a62060aaffb",
+    "smoke_candidate_commit": "239ac09eb72291281bde4a1c95f25a62060aaffb",
+    "final_checkpoint_commit": "5306b4b52f2707219cd89092d56f12764a8d2a1d",
     "files": 20,
     "import_from_installed_root": "PASS"
   },
