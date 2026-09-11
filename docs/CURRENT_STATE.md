@@ -109,7 +109,18 @@ Checkpoint: `docs/checkpoints/2026-09-12-so40-so61-so70-so80-direct-continuation
 - SO-80/G12 is `PASS` for the existing product recovery path. Current host evidence covers UI Cancel zero-write, safe render timeout/cancel, fail-closed rollback-mismatch stop, and this continuation's independent-lane resume. The 174/174 suite (including 86 recovery-focused tests), strict contract 30/30, compileall, install backup/idempotence/foreign-entry/uninstall tests, current source/install hash parity, and the carried exact Resolve timeout/relaunch/ambiguous-state recovery record all pass within their stated scopes. No generic execution framework or retired Operator route was added.
 - Cleanup is exact: the two owned SO-70 timelines were deleted by verified IDs; only valuable `Timeline 1` and pre-existing `Timeline 1_archived_v06` remain. The SO-61 render directory and SO-40 temporary screenshots were removed. PSD2Fusion is current, responsive, unmodified (`COMPB_Modified=false`), and no project save was issued.
 - Current matrix: `SO-00/10/11/20/30/40/50/60/80 PASS`; `SO-61 BLOCKED_TECHNICAL`; `SO-70 BLOCKED_TECHNICAL`; `SO-71/90 PENDING`. Gates: `G01 PASS`, `G02 BLOCKED_TECHNICAL`, `G03 PASS`, `G04 PASS`, `G05 BLOCKED_TECHNICAL`, `G06 PASS`, `G07 PASS`, `G08 PASS`, `G09 PENDING`, `G10 BLOCKED_TECHNICAL`, `G11 PENDING`, `G12 PASS`, `G13–G14 PENDING`.
-- Source/install identity: current candidate `b0bf8f891bf87d10db23c6d9213cb4b449bfa407`; installed entry and source SHA256 `9C35CA8984163DA0AD2E00899C0EBA2B2C9B08FE039C32EFA235DC367A85AFCE`; manifest commit is the same candidate and all 19 package hashes match.
+- Source/install identity at the superseded continuation checkpoint was candidate `b0bf8f891bf87d10db23c6d9213cb4b449bfa407`; the parent-first continuation below is the current source/install record.
+
+## Direct guarded continuation — 2026-09-12 parent-first rollback canary
+
+Checkpoint: `docs/checkpoints/2026-09-12-so61-so70-parent-first-canary.json`
+
+- Candidate `1e83aec10e6f006932c4c19da581c0dffdb869ec` is installed and pushed to PR #5's actual head branch `feat/semantic-arrange-v1-20260906`; manifest verification is 20 files / 0 package mismatches. Focused tests are 89/89 PASS, full tests 175/175 PASS, compileall and diff check PASS.
+- The SO-70 rollback fingerprint was localized without replaying the old 1100+ failure. The repeated node prefix was a symptom across several parent scopes. A minimal measured canary reproduced the mismatch when a nested child was written before its GroupOperator and the parent was normalized later. Parent-first ordering plus one queued batch flush and complete readback fixes the reusable nested FlowView behavior. The helper is shared by tidy, recursive semantic arrange, and strict apply; the regression is node-name-independent.
+- A fresh disposable PSD2Fusion duplicate with generated rails reached 1198 tools / 1173 non-Group / 25 Groups / 1341 edges at live depth 2. The installed product ran with all-node/all-edge coverage, endpoint loss 0, identity/parent/edge exactness, logical overlap 0, exact Undo restoration, one no-op run2, and three real-changing runs of 13.692s / 15.018s / 14.477s. This is substantial recovery of the SO-70 lane, but it is not a G02/G10 PASS: the prior relevant depth-4 source case was not reproduced, 60 positions were outside the host grid tolerance, rectangle geometry and strict displayed wires are not exposed by the current FlowView surface, and the distinct generated depth-qualified fixture was not qualified because nested GroupOperator creation was refused.
+- SO-61 remains `BLOCKED_TECHNICAL` / G05. Current API/action-registry/UI inspection measured the native GUI label `グループを解除` but no installed-callable identity-preserving action or documented Ungroup method. Installed `UngroupFirst` therefore remains fail-closed; no guessed action ID or generic desktop bridge was added.
+- Cleanup is exact: task-owned duplicate `_mcp_RNK_SO70_PSD_DUP_20260912` and auto-archive `Timeline 1_archived_v08` were deleted by verified IDs; `Timeline 1` and pre-existing `Timeline 1_archived_v06` remain. PSD2Fusion is current with 958 tools, generated prefix count 0, `COMPB_Modified=false`, and project save calls 0.
+- Current matrix remains `SO-00/10/11/20/30/40/50/60/80 PASS`; `SO-61 BLOCKED_TECHNICAL`; `SO-70 BLOCKED_TECHNICAL`; `SO-71/90 PENDING`. Gates remain `G01 PASS`, `G02 BLOCKED_TECHNICAL`, `G03 PASS`, `G04 PASS`, `G05 BLOCKED_TECHNICAL`, `G06 PASS`, `G07 PASS`, `G08 PASS`, `G09 PENDING`, `G10 BLOCKED_TECHNICAL`, `G11 PENDING`, `G12 PASS`, `G13–G14 PENDING`.
 
 ## Historical WP1 boundary — archived research
 
@@ -140,7 +151,7 @@ The plan no longer contains WP1/topology qualification as a dependency.
 ## Exact next action
 
 1. close SO-61 by qualifying an existing installed-entry/native host bridge for identity-preserving flatten, then rerun the small E2E;
-2. prepare a fresh SO-70 disposable with >=1100 original non-Group tools and a new depth-4 rollback hypothesis before any further large write;
+2. qualify a fresh depth-qualified >=1100 SO-70 source/generated fixture with strict rectangle/wire evidence; do not treat the depth-2 duplicate canary as G02/G10 completion;
 3. keep SO-80's existing recovery contract and direct guarded route; do not rebuild the retired Operator/WP1 transport;
 4. after SO-61 + SO-70, continue SO-71 and then request SO-90's fresh independent verifier.
 

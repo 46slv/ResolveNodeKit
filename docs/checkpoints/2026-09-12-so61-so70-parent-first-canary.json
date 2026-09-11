@@ -1,0 +1,163 @@
+{
+  "schema": "resolve-node-kit.strict-continuation.direct-gates/v4",
+  "recorded_at": "2026-09-12T05:42:39+09:00",
+  "status": "CHECKPOINTED_WITH_TECHNICAL_GAP",
+  "candidate": {
+    "pull_request": 5,
+    "pull_request_url": "https://github.com/46slv/ResolveNodeKit/pull/5",
+    "worktree": "D:/Documents/ResolveNodeKit-pr5-v2-integration",
+    "local_branch": "feat/direct-guarded-reset-20260911",
+    "pr_head_branch": "feat/semantic-arrange-v1-20260906",
+    "source_revision": "1e83aec10e6f006932c4c19da581c0dffdb869ec",
+    "source_parent": "fd822aa1d17d0da0483f2207cd46c1b341add667",
+    "remote_pr_head_rechecked": "1e83aec10e6f006932c4c19da581c0dffdb869ec",
+    "installed_entry": {
+      "path": "C:/Users/shiro/AppData/Roaming/Blackmagic Design/DaVinci Resolve/Support/Fusion/Scripts/Comp/ResolveNodeKit_Arrange.py",
+      "manifest_commit": "1e83aec10e6f006932c4c19da581c0dffdb869ec",
+      "manifest_entry_total": 20,
+      "package_hash_mismatches": 0,
+      "installed_root_import": "PASS"
+    },
+    "tests": {
+      "focused": "89/89 PASS",
+      "full": "175/175 PASS",
+      "compileall": "PASS",
+      "git_diff_check": "PASS"
+    }
+  },
+  "SO-61": {
+    "status": "BLOCKED_TECHNICAL",
+    "gate": "G05",
+    "action_surface": {
+      "fusion_api_search": "no Ungroup/UnGroup/GroupOperator mutation method",
+      "action_registry": "GetActions returned a mapping; measured action records contained no ungroup/flatten action identifier",
+      "fusion_ui": "ShowActions/ShowMenu produced no usable native ungroup action surface",
+      "actual_gui_action": "context-menu label グループを解除 was measured on the native graph",
+      "installed_bridge": "not wired; installed UngroupFirst remains fail-closed with no measured identity-preserving primitive"
+    },
+    "decision": "Do not guess an action ID or build a generic desktop automation daemon. Native GUI flatten evidence remains carried from SO-40/SO-61, but installed-entry E2E and G05 are not claimed."
+  },
+  "SO-70": {
+    "status": "BLOCKED_TECHNICAL",
+    "gate": "G02",
+    "rollback_root_cause": {
+      "initial_fingerprint": "12 rollback-incomplete nodes shared one ChannelBoolean-like prefix but were distributed across multiple parent scopes; the prefix was a symptom, not a sufficient causal rule",
+      "minimum_canary": {
+        "non_grid_nested_coordinates": "child-only, child-first, parent-first and queue/direct variants reproduced host normalization mismatch",
+        "canonical_grid_coordinates": "parent-first and child-first restores both passed after grid normalization",
+        "measured_failure": "a child written before its GroupOperator was normalized when the parent was written later",
+        "measured_fix": "queue the complete position batch, write enclosing GroupOperators before descendants, flush once, then read back the complete batch"
+      },
+      "reusable_scope": "nested FlowView rollback and forward writes, not a node-name special case",
+      "learning_gate": "promoted to shared tidy/recursive/semantic/strict ordering helpers and a generic regression test; no raw one-off node names were added to this checkpoint"
+    },
+    "implementation": {
+      "commit": "1e83aec10e6f006932c4c19da581c0dffdb869ec",
+      "files": [
+        "src/resolve_node_kit/fusion/tidy.py",
+        "src/resolve_node_kit/fusion/recursive_groups.py",
+        "src/resolve_node_kit/fusion/semantic.py",
+        "src/resolve_node_kit/fusion/strict_apply.py",
+        "tests/test_fusion_nested.py"
+      ],
+      "regression": "ParentAwareQueuedFlow proves lexical child-first mismatch and parent-first queued restore exactness"
+    },
+    "psd2fusion_disposable_duplicate": {
+      "timeline": "_mcp_RNK_SO70_PSD_DUP_20260912",
+      "tool_count": 1198,
+      "non_group_count": 1173,
+      "group_count": 25,
+      "max_group_depth": 2,
+      "edge_count": 1341,
+      "edge_kind_counts": {"background": 931, "foreground": 406, "other": 4},
+      "reference_motifs": {"fanout_sources": 164, "fanin_targets": 385, "multi_edge_pairs": 60},
+      "run1": {
+        "elapsed_seconds": 14.595,
+        "moved_count": 1132,
+        "arranged_count": 1198,
+        "diagnostics": {
+          "overlap_count": 0,
+          "backbone_order_violation_count": 0,
+          "branch_lane_violation_count": 0,
+          "max_group_depth": 2,
+          "fixed_point_iterations": 2,
+          "diagonal_edge_count": 387,
+          "avoidable_diagonal_edge_count": 157,
+          "expanded_gap_count": 140
+        }
+      },
+      "run2_noop": {"moved_count": 0, "counted_as_performance_run": false},
+      "performance_real_changing_runs_seconds": [13.692, 15.018, 14.477],
+      "exact_rollback": {
+        "undo_return": null,
+        "positions": true,
+        "identity": true,
+        "parents": true,
+        "edges": true,
+        "processing": "pre/post signature exact in the duplicate qualification run"
+      },
+      "coverage": {
+        "all_node_coverage": true,
+        "all_edge_coverage": true,
+        "endpoint_loss": 0,
+        "logical_overlap_count": 0,
+        "grid_bad_count": 60,
+        "rectangle_geometry": "NOT_EXPOSED_BY_CURRENT_HOST_SURFACE",
+        "strict_displayed_wires": "NOT_COLLECTED_BY_FLOWVIEW_API"
+      },
+      "decision": "Real PSD2Fusion-scale duplicate crossed the >=1100 original non-Group threshold and the parent-first fix completed bounded runs, but live depth was 2 rather than the prior depth-4 source case; grid/rectangle/strict-wire evidence and a distinct generated depth-qualified fixture remain open."
+    },
+    "generated_fixture": {
+      "status": "NOT_QUALIFIED",
+      "reason": "nested GroupOperator creation was refused by the measured host surface; no guessed membership rewrite or depth-4 claim was made"
+    }
+  },
+  "cleanup": {
+    "deleted_exact_targets": [
+      {"name": "_mcp_RNK_SO70_PSD_DUP_20260912", "id": "c7f788dc-168b-4ab2-b3fd-3b2c0c873842"},
+      {"name": "Timeline 1_archived_v08", "id": "c054ada3-0c6d-460d-8847-b71b46866d5e"}
+    ],
+    "remaining_timelines": [
+      {"name": "Timeline 1", "id": "49f71479-5230-4c0c-9483-1b7356a911bd"},
+      {"name": "Timeline 1_archived_v06", "id": "25b9deba-6c3b-4067-a71b-5a5dff9aa5be"}
+    ],
+    "current_project": "PSD2Fusion",
+    "current_comp_tool_count": 958,
+    "generated_prefix_remaining": 0,
+    "comp_modified": false,
+    "project_save_calls": 0,
+    "resolve_responsive": true
+  },
+  "G01_G14_matrix": {
+    "G01": "PASS",
+    "G02": "BLOCKED_TECHNICAL",
+    "G03": "PASS",
+    "G04": "PASS",
+    "G05": "BLOCKED_TECHNICAL",
+    "G06": "PASS",
+    "G07": "PASS",
+    "G08": "PASS",
+    "G09": "PENDING",
+    "G10": "BLOCKED_TECHNICAL",
+    "G11": "PENDING",
+    "G12": "PASS",
+    "G13": "PENDING",
+    "G14": "PENDING"
+  },
+  "SO_matrix": {
+    "SO-00": "PASS",
+    "SO-10": "PASS",
+    "SO-11": "PASS",
+    "SO-20": "PASS",
+    "SO-30": "PASS",
+    "SO-40": "PASS",
+    "SO-50": "PASS",
+    "SO-60": "PASS",
+    "SO-61": "BLOCKED_TECHNICAL",
+    "SO-70": "BLOCKED_TECHNICAL",
+    "SO-71": "PENDING",
+    "SO-80": "PASS",
+    "SO-90": "PENDING"
+  },
+  "next_ready_task": "Keep SO-61 fail-closed until a measured installed/native bridge is available; for SO-70, qualify a fresh depth-qualified >=1100 generated/source fixture with strict geometry evidence before SO-71; then request SO-90 fresh verification."
+}
