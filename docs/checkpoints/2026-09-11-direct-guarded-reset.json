@@ -1,0 +1,113 @@
+{
+  "schema": "resolve-node-kit.direct-guarded-reset/v1",
+  "observed_at_utc": "2026-09-11T06:00:58.8876302Z",
+  "task": "Reset Resolve execution from dedicated Operator routing to direct guarded Product Worker and resume PR #5",
+  "candidate": {
+    "repository": "46slv/ResolveNodeKit",
+    "pr": 5,
+    "remote_locator_at_start": "239ac09eb72291281bde4a1c95f25a62060aaffb",
+    "head_before_checkpoint": "239ac09eb72291281bde4a1c95f25a62060aaffb",
+    "branch": "feat/semantic-arrange-v1-20260906",
+    "checkout": "D:/Documents/ResolveNodeKit-pr5-v2-integration",
+    "worktree_clean_before_checkpoint": true,
+    "main_merge": false
+  },
+  "codex": {
+    "version": "codex-cli 0.147.0",
+    "home": "C:/Users/shiro/.codex",
+    "profile": "luna-max",
+    "model": "gpt-5.6-luna",
+    "effort": "max",
+    "product_worker_session": "01a08f00-cfd3-7e53-bde8-75c3a870ed31",
+    "direct_visibility": {
+      "mcp_servers.davinci-resolve": "enabled",
+      "mcp_servers.native-resolve": "enabled",
+      "product_worker_route": "direct compatibility/native MCP or scripting/GUI with mechanical guard"
+    },
+    "legacy_operator": "research-only; not default routing, dependency, auto-delegation, or capability isolation"
+  },
+  "rollback": {
+    "backup_directory": "C:/Users/shiro/.codex/backups/resolve-direct-reset-20260911-142052",
+    "manifest": "C:/Users/shiro/.codex/backups/resolve-direct-reset-20260911-142052/manifest.json"
+  },
+  "changed_layers": [
+    "C:/Users/shiro/.codex/config.toml",
+    "C:/Users/shiro/.codex/AGENTS.md",
+    "C:/Users/shiro/.codex/agents/resolve_operator.toml",
+    "C:/Users/shiro/.codex/resolve-operator.config.toml",
+    "C:/Users/shiro/.codex/resolve-worker-v2.config.toml",
+    "C:/Users/shiro/.codex/luna-max.config.toml",
+    "C:/Users/shiro/.agents/skills/resolve-operator/SKILL.md"
+  ],
+  "native_direct_probe": {
+    "status": "BLOCKED_DRIVER",
+    "status_before_launch": {"running": false, "version": "21.1"},
+    "launch_result": "Resolve did not respond within 60s",
+    "mutation": 0,
+    "project_save": 0,
+    "decision": "Do not blind-retry; compatibility direct route supplied the minimum useful smoke"
+  },
+  "compatibility_direct_smoke": {
+    "status": "PASS",
+    "session": "01a08ef1-40c3-7660-a379-100b4a02ed71",
+    "driver": "direct mcp__davinci_resolve__*",
+    "resolve": "21.1.0.14",
+    "mcp": "2.203.0",
+    "owned_fixture": "RNK_DIRECT_SMOKE_20260911 / RNK_DIRECT_SMOKE_20260911_TL / Fusion comp",
+    "observed": "MediaOut1 position (3.5, 1.009)",
+    "mutation": "one position write to (3.75, 1.259), independent readback matched",
+    "undo": "called; host did not restore, so owned fixture was discarded",
+    "cleanup": "project deleted; leftover null; no save",
+    "external_operator_used": false
+  },
+  "product_seam_smoke": {
+    "status": "PASS",
+    "session": "01a08f00-cfd3-7e53-bde8-75c3a870ed31",
+    "driver": "direct compatibility script_plugin.run_inline",
+    "installed_entry_sha256": "9C35CA8984163DA0AD2E00899C0EBA2B2C9B08FE039C32EFA235DC367A85AFCE",
+    "installed_manifest_commit": "239ac09eb72291281bde4a1c95f25a62060aaffb",
+    "fixture": {"tools": 5, "edges": 4, "groups": 0, "project": "RNK_PRODUCT_SMOKE_20260911"},
+    "run1": {"moved_count": 4, "arranged_count": 5, "writes": 4, "avoidable_diagonals": 0, "overlap": 0},
+    "run2": {"moved_count": 0, "arranged_count": 5, "writes": 0, "stable": true},
+    "invariants": "tool identities, connections, parents, and basic processing attributes preserved",
+    "cleanup": "owned project deleted and absent; current timeline null; project_save_calls 0",
+    "qualification": "UNVERIFIED_UI_AND_PROCESSING",
+    "qualification_gap": "busy/UI Run-Cancel/displayed-wire and full processing/render equivalence were not collected; COMPB_Modified transport values differed"
+  },
+  "install": {
+    "status": "PASS",
+    "installer": "scripts/install_resolve_user.ps1",
+    "manifest": "C:/Users/shiro/AppData/Roaming/Blackmagic Design/DaVinci Resolve/Support/Fusion/ResolveNodeKit/install_manifest.json",
+    "commit": "239ac09eb72291281bde4a1c95f25a62060aaffb",
+    "files": 20,
+    "import_from_installed_root": "PASS"
+  },
+  "host_final_readback": {
+    "connected": true,
+    "resolve": "21.1.0.14",
+    "mcp": "2.203.0",
+    "process_responsive": true,
+    "gui": true,
+    "page": "fusion",
+    "project": "Untitled Project",
+    "timelines": 0,
+    "owned_fixture_absent": true,
+    "project_save_calls": 0
+  },
+  "gates": {
+    "G01": "PASS",
+    "G02": "BLOCKED_TECHNICAL",
+    "G03": "BLOCKED_TECHNICAL",
+    "G04-G14": "PENDING",
+    "SO-00": "PASS",
+    "SO-30": "BLOCKED_TECHNICAL",
+    "next_ready": "SO-30 actual strict-view qualification and SO-50 installed UI; continue independent SO-40/offline work"
+  },
+  "learning_gate": {
+    "result": "NO_REUSABLE_DELTA",
+    "source_supported": "Direct guarded compatibility route can execute the installed RNK seam with one bounded mutation and independent cleanup.",
+    "reusable_delta": "Keep the existing mechanical guard, exact identity/readback, owned fixture, no-blind-retry, and cleanup rules; do not add a generic Resolve execution framework.",
+    "operator_policy": "Legacy Operator lifecycle remains research-only and is not promoted back into normal routing."
+  },
+  "status": "CHECKPOINTED_WITH_TECHNICAL_GAP"
+}

@@ -65,6 +65,18 @@ Latest pre-reset product/operator verification reported:
 
 These facts do not equal product completion.
 
+## Direct guarded reset and product continuation — 2026-09-11
+
+Checkpoint: `docs/checkpoints/2026-09-11-direct-guarded-reset.json`
+
+- `C:\Users\shiro\.codex\config.toml` now exposes both direct `davinci-resolve` and `native-resolve` MCP servers to the Luna Max Product Worker. The global AGENTS route is direct guarded execution; the legacy Operator profile/skill/config remain available only for explicit research.
+- Native direct status was visible (`running=false`, Resolve `21.1`), but its one launch attempt timed out after 60 seconds. It caused no mutation and is closed without a blind retry.
+- Direct compatibility minimum smoke passed on Resolve `21.1.0.14` / MCP `2.203.0`: owned Fusion context, exact position read, one reversible position write with readback, owned fixture discard after Undo did not restore, and cleanup with no project save.
+- The installed RNK seam then passed on the same direct compatibility route: `execute_arrange_request` moved 4 of 5 tools on Run 1 and performed 0 writes on Run 2. Tool identity, connections, parent membership, and basic processing attributes were preserved; the owned project was deleted and absent on readback.
+- UI Run/Cancel/busy/displayed-wire and full processing/render equivalence are not claimed. The inline `COMPB_Modified` transport value differed from the direct MCP pre-probe, so this is a product seam smoke, not SO-30/SO-50 qualification.
+- Final independent scripting/process readback: Resolve `21.1.0.14`, GUI responsive, Fusion page, `Untitled Project`, zero timelines, owned fixture absent, and project-save count `0`.
+- Learning Gate: `NO_REUSABLE_DELTA`. Keep the existing mechanical guard and readback/cleanup rules; do not add a generic Resolve execution framework or restore Operator routing.
+
 ## Historical WP1 boundary — archived research
 
 Checkpoint:
@@ -93,12 +105,10 @@ The plan no longer contains WP1/topology qualification as a dependency.
 
 ## Exact next action
 
-1. fresh-read PR #5/source/install/current Resolve runtime;
-2. confirm the active Luna Max Product Worker has direct Resolve MCP/scripting/GUI capability; repair old isolation config if necessary;
-3. run one minimum useful direct-host smoke on owned/disposable safe state: bind Fusion context, observe relevant FlowView/position state, perform the smallest useful RNK path or tiny reversible owned mutation, read back, Undo/restore and clean up;
-4. if successful, immediately continue product gates—prefer SO-30/SO-50/SO-60 preserve and SO-40 flatten where ready;
-5. do not respond to success by building another generic execution framework;
-6. if one product gate blocks, continue another authorized independent ready gate.
+1. qualify SO-30 actual strict view and SO-50 installed UI on a fresh owned fixture;
+2. continue independent SO-40 flatten/offline work where dependencies are ready;
+3. preserve the direct route and existing mechanical guard; do not rebuild the retired Operator/WP1 transport;
+4. if one product gate blocks, continue another authorized independent ready gate.
 
 ## Stop boundary
 

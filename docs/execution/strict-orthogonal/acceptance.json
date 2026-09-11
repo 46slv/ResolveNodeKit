@@ -34,13 +34,33 @@
     "resolve_execution_default": "direct current capability",
     "verifier": "fresh independent context for final/high-risk acceptance; no repair"
   },
+  "performance": {
+    "minimum_original_non_group_tools": 1100,
+    "qualification_runs": 3,
+    "per_action_budget_seconds": 60,
+    "optimization_target_seconds": 30,
+    "includes": [
+      "snapshot",
+      "flatten_when_requested",
+      "plan",
+      "writes",
+      "readback",
+      "verify"
+    ],
+    "separate_timings": [
+      "fixture_creation",
+      "independent_render_comparison",
+      "transport_monitoring"
+    ],
+    "measurement_baseline": "three independent equivalent disordered/grouped pre-states; no-op run2 timed separately"
+  },
   "work_packages": [
     {
       "id": "SO-00",
       "depends_on": [],
       "owner": "coordinator",
-      "status": "READY",
-      "evidence": []
+      "status": "PASS",
+      "evidence": ["docs/checkpoints/2026-09-11-direct-guarded-reset.json"]
     },
     {
       "id": "SO-10",
