@@ -1,0 +1,102 @@
+{
+  "schema": "resolve-node-kit.strict-so20-offline/v1",
+  "program": "RNK-STRICT-ORTHOGONAL",
+  "handoff_id": "RNK-SO-20260908T010727Z-01a07e8e",
+  "coordinator_thread_id": "01a07e95-b55e-70a1-8366-b80d785bbaa4",
+  "owner_epoch": 1,
+  "recorded_at_utc": "2026-09-08T05:56:13Z",
+  "model": "gpt-5.6-luna",
+  "effort": "max",
+  "cwd": "C:/Users/shiro/.codex/worktrees/c22a/ResolveNodeKit",
+  "worktree_identity": "D:/Documents/ResolveNodeKit/.git/worktrees/ResolveNodeKit",
+  "branch": "feat/semantic-arrange-v1-20260906",
+  "publication_base_revision": "74a497f454ae1416a55b9bfb8e0c74ce19b2b75a",
+  "product_source_revision": "d7a1610726171c08ad5617c55e4cc04def786a6b",
+  "unchanged_product_source_revision": "59eeffbce5efd0a73a0fed2a4f3418faf71d5852",
+  "plan_revision": "AS-BOOTSTRAP-20260908-1",
+  "plan_digest": "ebc124049dbb1dfa863cd499c13c2cd1a232774ae754a26edc30ee14668dbc20",
+  "instruction_digest": "c7e421e8a06ce432272a160044701c4cb97f74e8769162f19be84aed0bd88933",
+  "resolve_operator_skill_sha256": "42bf71936531bff62420a9cde1bd695f6e16ee00716cc8fe205d8da89632bc61",
+  "owner_readback": {
+    "owner": "01a07e95-b55e-70a1-8366-b80d785bbaa4",
+    "previous_owner": "01a07e8e-41f3-7d30-b190-3f621b5cdb64",
+    "epoch": 1,
+    "previous_epoch": 0,
+    "cas_success": true,
+    "old_writer_fenced": true,
+    "active_writers": [
+      "01a07e95-b55e-70a1-8366-b80d785bbaa4"
+    ],
+    "owner_file_sha256": "5f8cb002cd32f3960bda9c7e36aad6f3b10e96bf3a808f827e688fcefbd548a2"
+  },
+  "review": {
+    "status": "SO20_OFFLINE_PASS_HOST_PORTION_UNPROVEN",
+    "owned_files": [
+      "src/resolve_node_kit/fusion/strict_planner.py",
+      "tests/test_strict_planner.py",
+      "src/resolve_node_kit/fusion/__init__.py"
+    ],
+    "implemented": [
+      "exact source-output and target-input labelled multiedges with deterministic duplicate ordinals",
+      "processing role separate from visual continuity",
+      "recursive group bounds and sibling rectangle non-overlap",
+      "integer logical grid with pitch policy",
+      "rail, feeder, region and processing-role reduction modules",
+      "shared-source single placement evidence",
+      "all-edge and motif coverage diagnostics",
+      "SO-10 ProcessingSnapshot mapping with explicit unresolved states",
+      "fail-closed omitted/unknown/missing input coverage",
+      "O01-O18 catalogue with O12 fail-closed and O14/O16/O17/O18 host-only split",
+      "O13 29-group and O15 1101-node/deep-chain offline stress fixtures",
+      "fresh validator checks for rectangles, containment, extra/missing edges and integer placement"
+    ],
+    "host_unproven": [
+      "actual Fusion wire realization and native orthogonal display",
+      "host readback offsets and view scope",
+      "flatten/UI/Undo/processing preservation on Resolve"
+    ]
+  },
+  "files": {
+    "src/resolve_node_kit/fusion/strict_planner.py": {
+      "sha256": "376422d81f1ece0e70c2946698e0df7cf2919b377f6e443da9a8fe19cd249b7e",
+      "bytes": 47970
+    },
+    "tests/test_strict_planner.py": {
+      "sha256": "2f25faa42e4c16cd60a8cdd6430f2d696e27ccd77ce607283af7cd09be1d27f8",
+      "bytes": 15044
+    },
+    "src/resolve_node_kit/fusion/__init__.py": {
+      "sha256": "d334b648a1a842dee83cf01923e2091cbbe16a86cb64f53c508d93ace877f911"
+    }
+  },
+  "verification": {
+    "focused": "10/10 PASS",
+    "canonical_full_suite": "146/146 PASS",
+    "compileall": "PASS",
+    "git_diff_check": "PASS",
+    "canonical_python": "C:/Users/shiro/AppData/Local/Programs/Python/Python312/python.exe",
+    "canonical_pythonpath": "C:/Users/shiro/.codex/worktrees/c22a/ResolveNodeKit/src",
+    "source_audit": "1109 tools / 29 groups / 257 merge rows / parent cycles 0 / unknown group members 0",
+    "dirty_fingerprint_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "host": {
+    "lease_attempt": "2026-09-08T05:25:40.986Z",
+    "lease_token_prefix": "d11d9281",
+    "holder_pid": 16260,
+    "holder_start": "134333187408098474",
+    "status": "FREE_AFTER_EXACT_RELEASE",
+    "mcp_surface": "UNAVAILABLE_TO_RESOLVE_OPERATOR",
+    "resolve_calls": 0,
+    "mutation": false,
+    "save": false,
+    "restart": false,
+    "runtime_identity": "NOT_OBSERVED"
+  },
+  "publication": {
+    "product_commit_pushed": true,
+    "normal_non_force_push": true,
+    "pr": 5,
+    "pr_state": "OPEN_DRAFT",
+    "next": "publish this checkpoint and acceptance/CURRENT_STATE update, then continue independent ready lanes"
+  }
+}

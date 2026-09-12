@@ -1,0 +1,43 @@
+{
+  "schema": "resolve-node-kit.fresh-offline-verifier/v1",
+  "recorded_at_utc": "2026-09-10T06:08:58.6078002Z",
+  "task": "fresh independent offline audit after SO-11 host qualification",
+  "candidate": {
+    "branch": "feat/semantic-arrange-v1-20260906",
+    "commit": "eedd62e4265a6ddc8a7d291a3e72f1987f1b5b79",
+    "main_merge_authorized": false,
+    "source_code_diff_clean": true
+  },
+  "checks": {
+    "required_gate_ids_unchanged": true,
+    "g01_pass": true,
+    "g02_g03_blocked": true,
+    "g04_g14_not_pass": true,
+    "so11_structure_10_nodes_2_groups_depth_2_7_edges": true,
+    "so11_mutation_zero": true,
+    "strict_fail_closed": true,
+    "actual_view_wire_fail_closed": true,
+    "flatten_zero_write": true,
+    "flatten_evidence_registered": true,
+    "installed_commit_matches_candidate": true,
+    "installed_host_snapshot_hash_matches_source": true,
+    "installed_host_snapshot_import_target": true
+  },
+  "offline_verification": {
+    "strict_contract": "30/30 PASS",
+    "canonical_suite": "170/170 PASS",
+    "1101_node_planner_stress": "PASS",
+    "1101_node_planner_elapsed_seconds": 0.307,
+    "ui_flatten_recovery_seams": "16/16 PASS",
+    "compileall": "PASS",
+    "git_diff_check": "PASS"
+  },
+  "host_boundary": {
+    "verified": ["G01", "SO-11 structural host snapshot"],
+    "still_unverified": ["G02", "G03", "G04", "G05", "G06", "G07", "G08", "G09", "G10", "G11", "G12", "G13", "G14"],
+    "host_1100_plus": "NOT_RUN",
+    "host_performance_recovery_ui": "NOT_RUN",
+    "fresh_verifier_scope": "offline provenance/contract/evidence audit only"
+  },
+  "status": "AUDIT_PASS_HOST_COMPLETION_BLOCKED"
+}

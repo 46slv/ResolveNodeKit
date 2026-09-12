@@ -1,0 +1,47 @@
+{
+  "schema": "resolve-node-kit.resolve-operator-disposable-recovery/v1",
+  "task": "cleanup after timed-out disposable SO-11 qualification",
+  "launch_id": "6e31406c-12ea-4726-b893-ba4a69a895c9",
+  "operator_thread": "01a0880c-cb3f-70a2-b55e-3de56df2c5d9",
+  "result": "PASS_NO_OWNED_RESIDUE",
+  "driver": "compatibility Resolve MCP v2.203.0 (Operator selected)",
+  "resolve": {
+    "edition": "DaVinci Resolve Studio",
+    "version": "21.1.0.14",
+    "process": "C:/Program Files/Blackmagic Design/DaVinci Resolve/Resolve.exe",
+    "mode": "GUI",
+    "instances": 1,
+    "database": "Local Database"
+  },
+  "target": {
+    "project": "Untitled Project",
+    "project_id": "206a53ff-8d46-4ddc-bd51-88f1abbe5ebc",
+    "saved_project_list_entry": false,
+    "timelines": 0,
+    "media_clips": 0
+  },
+  "residue_inventory": {
+    "owned_prefix": "_mcp_",
+    "owned_saved_projects": 0,
+    "so11_or_launch_id_matches": 0,
+    "timeline_or_comp_residue": 0
+  },
+  "cleanup": {
+    "action": "none_required",
+    "reason": "blank unsaved project had no ownership marker; preserved"
+  },
+  "independent_readback": "before/after matched",
+  "mutations": {
+    "project_or_graph": 0,
+    "project_save": 0
+  },
+  "lease": {
+    "acquired": true,
+    "held_exact_live": true,
+    "final": "FREE"
+  },
+  "human_intervention": 0,
+  "parent_direct_host_fallback": 0,
+  "product_gate_movement": [],
+  "remaining": "SO-11 disposable fixture qualification"
+}

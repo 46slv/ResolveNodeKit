@@ -1,0 +1,72 @@
+{
+  "schema": "resolve-node-kit.context-matrix-fresh-verifier/v1",
+  "recorded_at_utc": "2026-09-10T13:26:44.5556408Z",
+  "task": "independent parent verification after compatibility/native context qualification",
+  "repository": {
+    "worktree": "C:/Users/shiro/.codex/worktrees/c22a/ResolveNodeKit",
+    "branch": "feat/semantic-arrange-v1-20260906",
+    "local_head": "934060451be68f9b165891a745d903d5acfe3082",
+    "remote_head": "934060451be68f9b165891a745d903d5acfe3082",
+    "product_source_candidate": "e616966d935c93980ecf0c4b3cd05689926ab56f",
+    "head_remote_match": true,
+    "source_test_script_tracked_diff_count": 0,
+    "main_merge_authorized": false
+  },
+  "operator": {
+    "focused_tests": "15/15 PASS",
+    "compileall": "PASS",
+    "diff_check": "PASS; untracked Operator tree preserved",
+    "parent_direct_resolve_access": 0,
+    "workspace_pre_post_equal": true
+  },
+  "rnk_offline": {
+    "canonical_import_root": "C:/Users/shiro/.codex/worktrees/c22a/ResolveNodeKit/src",
+    "canonical_unittest": "174/174 PASS",
+    "compileall": "PASS",
+    "strict_contract_checker": {
+      "contract_consistent": true,
+      "handoff_record_consistent": true,
+      "product_completion_record_consistent": false,
+      "runtime_evidence_authenticated": false,
+      "host_tests_executed": false
+    }
+  },
+  "installed": {
+    "manifest": "C:/Users/shiro/AppData/Roaming/Blackmagic Design/DaVinci Resolve/Support/Fusion/ResolveNodeKit/install_manifest.json",
+    "manifest_commit": "e616966d935c93980ecf0c4b3cd05689926ab56f",
+    "manifest_file_count": 19,
+    "entry_plus_manifest_total": 20,
+    "source_installed_hash_mismatches": 0,
+    "installed_import_root": "C:/Users/shiro/AppData/Roaming/Blackmagic Design/DaVinci Resolve/Support/Fusion/ResolveNodeKit/src",
+    "temp_cwd_imports": {
+      "resolve_node_kit": "installed root",
+      "fusion.host_snapshot": "installed root",
+      "fusion.processing_snapshot": "installed root",
+      "fusion.strict_request": "installed root",
+      "fusion.strict_planner": "installed root",
+      "fusion.view_realization": "installed root",
+      "fusion.strict_apply": "installed root"
+    }
+  },
+  "host_context_result": {
+    "checkpoint": "docs/checkpoints/2026-09-10-composition-context-matrix.json",
+    "candidate": "none",
+    "status": "CHECKPOINTED_WITH_TECHNICAL_GAP",
+    "wp2_mutation_counters": {"position_move": 0, "graph": 0, "layout": 0, "settings": 0, "undo": 0, "project_save": 0},
+    "final_leases": "FREE",
+    "g02": "BLOCKED_TECHNICAL",
+    "g03": "BLOCKED_TECHNICAL",
+    "g08": "PENDING",
+    "g04": "PENDING",
+    "integrated_host_session": "NOT_RUN"
+  },
+  "fresh_verifier_scope": {
+    "changed_files": "docs only; source/test/script diff empty",
+    "host_mutation": 0,
+    "project_save": 0,
+    "product_gate_promotions": [],
+    "main_merge": 0,
+    "release": 0
+  },
+  "status": "AUDIT_PASS_COMPLETION_BLOCKED"
+}

@@ -1,6 +1,10 @@
 # Fusion GroupOperator contracts
 
-ResolveNodeKit must support deeply nested Fusion `GroupOperator` trees without flattening or ungrouping them.
+ResolveNodeKit must support deeply nested Fusion `GroupOperator` trees without
+flattening or ungrouping them on the default preserve-mode path. The
+2026-09-08 large-flatten amendment defines a separate, explicit structural
+lane that may remove eligible Groups only after a measured host primitive and
+exact Undo proof; it does not relax the preserve contract below.
 
 This document separates three different behaviors that must not be conflated:
 
@@ -49,6 +53,17 @@ Required behavior:
 Do not declare this feature ready from mocks alone. First prove on a real collapsed GroupOperator that child positions can be read and changed while the group remains collapsed, and that those writes do not alter membership, connections, processing state, or display state.
 
 If collapsed child positions cannot be safely written/read back, classify this feature separately as host/API blocked. Do not weaken invariants to make it pass.
+
+## 2.1 Amended flatten-all lane
+
+`flatten_all_comp` is a guarded adapter seam for the continuation requirement.
+It accepts only an explicit host-native ungroup callback, processes nested
+Groups deterministically, checks non-Group identity/endpoint mappings after
+each step, arranges inside one owned Undo transaction, and proves exact grouped
+restoration on failure. Generic `DoAction`/`QueueAction`, blind UI, and
+delete/recreate are not structural primitives. If the host lacks the callback,
+flatten remains fail-closed and unexposed; current Resolve 21.0.3.7 is recorded
+as `BLOCKED_HOST_API` in the dated checkpoint.
 
 ## 3. `Tidy + Expand Groups` — strict runtime visual-expansion contract
 

@@ -1,0 +1,46 @@
+{
+  "schema": "resolve-node-kit.resolve-operator-evidence/v1",
+  "recorded_at_utc": "2026-09-09T20:57:09Z",
+  "task": "SO-11 host preflight",
+  "semantic_status": "BLOCKED",
+  "blocker_class": "driver",
+  "failure_fingerprint": "DRIVER_CAPABILITY_GAP:scripting_unavailable_and_database_unattached",
+  "attempt_count": 1,
+  "transport_envelope": {
+    "result": "PASS",
+    "launcher": "external Resolve Operator",
+    "launch_id": "6c90ac45-f9f6-4a4d-a9b5-cf25cfe3bb21",
+    "operator_thread": "01a087f0-9512-75f3-aea5-28abd3a63108",
+    "codex_version": "codex-cli 0.153.4",
+    "cwd": "C:/Users/shiro/.codex/worktrees/c22a/ResolveNodeKit",
+    "timed_out": false,
+    "exit_code": 0
+  },
+  "host_evidence": {
+    "resolve_version": "UNAVAILABLE",
+    "driver_identity": "mcp__davinci_resolve__ compatibility; scripting unavailable",
+    "runtime": {"running": true, "instances": 1, "database_attached": false, "bridge_enabled": false},
+    "target_identity": {"project": "UNAVAILABLE", "timeline": "UNAVAILABLE", "comp": "UNAVAILABLE", "binding": "none"},
+    "so_11_processing_port_snapshot": "UNDETERMINED",
+    "independent_readback": "runtime mode repeated; no target getter available"
+  },
+  "lease": {
+    "initial": "FREE",
+    "held": true,
+    "owner_process_exact_live": true,
+    "owner_task_matches_launch_id": true,
+    "holder_pid": 12908,
+    "token_prefix": "5946c158",
+    "final": "FREE",
+    "release": "launcher release/recovery completed"
+  },
+  "mutation": {"graph_project_mutation": 0, "project_save": 0, "restore": "not_applicable"},
+  "remaining": [
+    "restore a qualified Resolve scripting/target route inside the Operator boundary",
+    "repeat this same semantic preflight after materially different recovery/route",
+    "do not promote G01/G02/SO-11"
+  ],
+  "next_decision": "operator-side bounded recovery and qualified fallback, then one requalification",
+  "parent_direct_host_fallback": 0,
+  "human_intervention": 0
+}

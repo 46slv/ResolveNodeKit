@@ -1,0 +1,57 @@
+{
+  "schema": "resolve-node-kit.luna-takeover/v1",
+  "recorded_at_utc": "2026-09-09T20:53:00Z",
+  "program": "RNK-STRICT-ORTHOGONAL",
+  "task_id": "01a087e9-0cb8-77f3-908d-e0163103ac50",
+  "handoff_id": "RNK-LUNA-20260909T204822Z-01a087e9",
+  "coordinator": {
+    "model": "gpt-5.6-luna",
+    "effort": "max",
+    "runtime_binding": "user-directed task; parent runtime metadata not exposed by native tools"
+  },
+  "owner": {
+    "record": "D:/Documents/ResolveNodeKit/.git/rnk-strict-orthogonal-owner.json",
+    "previous_owner": "01a07e95-b55e-70a1-8366-b80d785bbaa4",
+    "owner": "01a087e9-0cb8-77f3-908d-e0163103ac50",
+    "previous_epoch": 1,
+    "epoch": 2,
+    "phase": "EXECUTION_CONFIRMED",
+    "old_writer_fenced": true,
+    "lock_probe": "FileShare=None acquired",
+    "owner_sha256": "08b32a85c73d2471150c8c6495a1101c0e88bcc6dd4d334a274c06c61547314e"
+  },
+  "source": {
+    "cwd": "C:/Users/shiro/.codex/worktrees/c22a/ResolveNodeKit",
+    "branch": "feat/semantic-arrange-v1-20260906",
+    "head": "c590d8d7e617be76b44ad577cebd89082369f3fe",
+    "remote_head": "c590d8d7e617be76b44ad577cebd89082369f3fe",
+    "dirty": false,
+    "product_candidate": "dd0069abde35526b8164beae2c5753b95a1e12af",
+    "pr": {"number": 5, "state": "OPEN", "draft": true}
+  },
+  "worker": {
+    "task": "R1-OFFLINE-INTEGRATION-AUDIT",
+    "context": "offline_integration_audit",
+    "state": "PASS_OFFLINE_INSTALL_SUBGATE_STALE",
+    "changed": "none",
+    "tests": {
+      "contract": "30/30 PASS",
+      "canonical": "158/158 PASS",
+      "focused_strict_snapshot_view_ui": "31/31 PASS",
+      "import_provenance": "explicit c22a/src"
+    },
+    "disposable_install": "17 files verified; foreign file preserved; owned uninstall exact",
+    "user_install": "read-only stale 8c667e6, 14 files; strict_planner.py and view_realization.py missing",
+    "host": "NOT_RUN / zero Resolve calls"
+  },
+  "product_status": "CHECKPOINTED_WITH_TECHNICAL_GAP",
+  "gates_changed": [],
+  "remaining": [
+    "SO-11 host preflight through external Resolve Operator",
+    "backup-backed user reinstall and installed hash/import readback",
+    "strict preserve/flatten/UI/large/fresh verifier gates"
+  ],
+  "next_decision": "consume SO-11 Operator result, then reinstall exact candidate if host lane is qualified",
+  "failure_fingerprint": null,
+  "attempt_count": 1
+}

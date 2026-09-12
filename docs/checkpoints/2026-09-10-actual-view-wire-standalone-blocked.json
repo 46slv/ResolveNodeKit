@@ -1,0 +1,49 @@
+{
+  "schema": "resolve-node-kit.actual-view-wire-standalone/v1",
+  "observed_at_utc": "2026-09-10T05:56:15Z",
+  "task": "SO-30/G03 actual view and wire capability inventory",
+  "candidate_sha": "eedd62e4265a6ddc8a7d291a3e72f1987f1b5b79",
+  "operator": {
+    "launcher_result": "PASS",
+    "launch_id": "3e8a5e8a-acaa-48aa-8fb4-36d3b830c28a",
+    "thread_id": "01a089de-ce00-7c90-99b5-da1c50aac2cf",
+    "driver": "third-party compatibility MCP v2.203.0",
+    "resolve_version": "DaVinci Resolve Studio 21.1.0.14"
+  },
+  "fixture": {
+    "operation": "prepare_fusion_fixture",
+    "topology": "nested_group_v1",
+    "standalone": true,
+    "load": "PASS",
+    "close": "PASS",
+    "timeline": null
+  },
+  "capability": {
+    "status": "PRECISE_BLOCKER",
+    "driver_can_retain_handle": false,
+    "flowview_positions": "missing",
+    "connected_endpoint_objects": "missing",
+    "direct_edges": "missing",
+    "boundary_crossings": "missing",
+    "pipe_or_orthogonal_mode": "missing",
+    "port_display": "missing",
+    "group_boundary_display": "missing",
+    "edge_geometry_visibility": "missing",
+    "ui_visible_scope": "unknown",
+    "timeline_required": "not_proven"
+  },
+  "mutation": {
+    "graph": 0,
+    "layout": 0,
+    "settings": 0,
+    "undo": 0,
+    "project_save": 0
+  },
+  "cleanup": {
+    "owned": true,
+    "current_comp_after_close": null,
+    "protected_state_unchanged": true,
+    "lease_final": "FREE"
+  },
+  "next_decision": "Keep G03 blocked. Continue independent flatten/preserve readiness; only retry view/wire after a materially different Operator capability can retain the standalone comp handle and expose FlowView, endpoint, and display geometry readback."
+}

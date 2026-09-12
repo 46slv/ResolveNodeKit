@@ -1,0 +1,378 @@
+{
+  "schema": "resolve-node-kit.strict-continuation.direct-gates/v2",
+  "recorded_at": "2026-09-11T18:38:00+09:00",
+  "status": "CHECKPOINTED_WITH_SO40_CONTRACT_GAP",
+  "candidate": {
+    "pull_request": 5,
+    "pull_request_url": "https://github.com/46slv/ResolveNodeKit/pull/5",
+    "remote_head_rechecked_at_start": "569faaf194d0a876a60e1ff3fc9215e52113dd3c",
+    "remote_readback_refs": [
+      "refs/pull/5/head",
+      "refs/heads/feat/semantic-arrange-v1-20260906"
+    ],
+    "remote_head_after_push": "3871dac",
+    "worktree": "D:/Documents/ResolveNodeKit-pr5-v2-integration",
+    "branch": "feat/direct-guarded-reset-20260911",
+    "source_revision": "3871dac",
+    "dirty_before_host_run": false,
+    "source_entry": {
+      "path": "scripts/Fusion/ResolveNodeKit_Arrange.py",
+      "sha256": "9C35CA8984163DA0AD2E00899C0EBA2B2C9B08FE039C32EFA235DC367A85AFCE"
+    },
+    "installed_entry": {
+      "path": "C:/Users/shiro/AppData/Roaming/Blackmagic Design/DaVinci Resolve/Support/Fusion/Scripts/Comp/ResolveNodeKit_Arrange.py",
+      "sha256": "9C35CA8984163DA0AD2E00899C0EBA2B2C9B08FE039C32EFA235DC367A85AFCE",
+      "listed_by": "script_plugin.list(category=Comp, all=true, language=py)",
+      "manifest_commit": "5306b4b52f2707219cd89092d56f12764a8d2a1d"
+    },
+    "evidence_log": "C:/Users/shiro/AppData/Roaming/Blackmagic Design/DaVinci Resolve/Support/Fusion/ResolveNodeKit/logs/arrange-run.log"
+  },
+  "host": {
+    "resolve": "DaVinci Resolve Studio 21.1.0.14",
+    "compatibility_mcp": "2.203.0",
+    "page": "fusion",
+    "runtime": {
+      "running": true,
+      "headless": false,
+      "instances": 1,
+      "gui_responsive_after_cleanup": true
+    },
+    "project": {
+      "name": "RNK_DIRECT_GATES_20260911_PROJECT",
+      "id": "9e1f9381-6e52-4173-8008-28b0f2db60f4",
+      "save_calls": 0
+    },
+    "target_window": {
+      "id": 6301810,
+      "title": "DaVinci Resolve Studio - RNK_DIRECT_GATES_20260911_PROJECT"
+    }
+  },
+  "fixture": {
+    "so30_so40_timeline": {
+      "name": "RNK_DIRECT_GATES_20260911_B",
+      "id": "62b7eaef-043b-4751-b247-82d0d0232dc9"
+    },
+    "so30_scope_timeline": {
+      "name": "RNK_SO30_SCOPE_20260911",
+      "id": "159440cf-57a8-40c3-9fee-9da895bdd90e"
+    },
+    "nested_before": {
+      "tool_count": 16,
+      "non_group_count": 14,
+      "group_count": 2,
+      "groups": ["Group2", "Group1"],
+      "depth": 2,
+      "edge_count": 8,
+      "protected": {
+        "TextPlus": "RNK SO-30 TextPlus",
+        "Blur.XBlurSize": 1,
+        "Mask.Width": 0.35,
+        "Mask.Height": 0.25,
+        "Mask.Center": [0.5, 0.5],
+        "Merge.Blend": 1
+      }
+    },
+    "flat_so50_after_gui_cleanup": {
+      "tool_count": 9,
+      "non_group_count": 9,
+      "group_count": 0,
+      "edge_count": 5,
+      "tools": [
+        "MediaOut1",
+        "RNK_SO30_BG",
+        "RNK_SO30_TEXT",
+        "RNK_SO30_MASK",
+        "RNK_SO30_MERGE",
+        "RNK_SO30_BLUR",
+        "RNK_SO30_OUT",
+        "RNK_SO30_BRANCH",
+        "RNK_SO30_ISOLATED"
+      ],
+      "connections": [
+        "RNK_SO30_BG.Output -> RNK_SO30_MERGE.Background",
+        "RNK_SO30_TEXT.Output -> RNK_SO30_MERGE.Foreground",
+        "RNK_SO30_MASK.Mask -> RNK_SO30_MERGE.EffectMask",
+        "RNK_SO30_MERGE.Output -> RNK_SO30_BLUR.Input",
+        "RNK_SO30_BLUR.Output -> RNK_SO30_OUT.Input"
+      ],
+      "protected_readback": {
+        "TextPlus.StyledText": "RNK SO-30 TextPlus",
+        "Mask.Width": 0.35,
+        "Mask.Height": 0.25,
+        "Mask.Center": [0.5, 0.5],
+        "Blur.XBlurSize": 1,
+        "Merge.Blend": 1
+      }
+    }
+  },
+  "SO-30": {
+    "status": "PASS",
+    "gate": "G03",
+    "evidence_type": "actual_Fusion_FlowView_GUI_screenshots_plus_scope_readback",
+    "baseline_pipe_style": "Straight Pipes",
+    "enabled_pipe_style": "Orthogonal Pipes",
+    "restored_pipe_style": "Straight Pipes",
+    "scope_readback": {
+      "second_owned_timeline_comp": "Orthogonal Pipes remained selected",
+      "measured_scope": "application-level preference",
+      "comp_local": false,
+      "flow_local_only": false,
+      "permanent_global_change": false,
+      "restored": true
+    },
+    "actual_displayed_checks": {
+      "TextPlus_to_Merge": "orthogonal after enable; diagonal baseline restored after Straight Pipes",
+      "mask_wire": "visible and orthogonal after enable",
+      "serial_edges": "BG->Merge->Blur->MediaOut displayed orthogonally",
+      "branch_and_difficult_edges": "visible and compared before/after",
+      "Group_boundary": "compared on the live FlowView; no boundary was present in the SO-30-only view",
+      "node_coordinates_as_proof": false
+    },
+    "decision": "PASS: actual displayed wire realization was observed and restored; no API pipe callable was used."
+  },
+  "SO-40": {
+    "status": "BLOCKED_CONTRACT",
+    "gate": "G04",
+    "evidence_type": "Fusion_GUI_Group_context_menu_Ungroup_plus_readback_and_standard_Undo",
+    "operations": [
+      {
+        "operation": "deepest Group Ungroup",
+        "menu_label": "グループを解除",
+        "result": "Group1 removed; its five children returned to parent Flow"
+      },
+      {
+        "operation": "parent Group Ungroup",
+        "menu_label": "グループを解除",
+        "result": "Group2 removed; all five non-Group nodes returned to main Flow"
+      }
+    ],
+    "comparison": {
+      "tools": "16 -> 14 after both GUI Ungroup operations",
+      "groups": "2 -> 0",
+      "parent_membership": "all formerly grouped nodes read TOOLH_GroupParent=null",
+      "identity": "non-Group names, TOOLI_ID and TOOLS_RegID preserved; SO-40 IDs 10-14 remained stable",
+      "connections": [
+        "RNK_SO40_BLin.Input -> RNK_SO40_BGin",
+        "RNK_SO40_MGin.Background -> RNK_SO40_BLin",
+        "RNK_SO40_BLOut.Input -> RNK_SO40_BGout",
+        "RNK_SO30_MERGE.Background -> RNK_SO30_BG",
+        "RNK_SO30_MERGE.Foreground -> RNK_SO30_TEXT",
+        "RNK_SO30_MERGE.EffectMask -> RNK_SO30_MASK",
+        "RNK_SO30_BLUR.Input -> RNK_SO30_MERGE"
+      ],
+      "protected_processing": "TextPlus StyledText, RectangleMask width/height/center, Blur size and Merge blend unchanged"
+    },
+    "undo": [
+      "Ctrl+Z #1 restored Group2 around the five nodes",
+      "Ctrl+Z #2 produced no structural change",
+      "Ctrl+Z #3 restored Group1 nested inside Group2"
+    ],
+    "decision": "GUI Ungroup is identity-preserving semantic evidence, but multiple native Undo steps violate the current one-owned-Undo exact flatten contract; do not claim SO-40 product flatten or G04 PASS. The separate SO-60 Arrange Undo proof is recorded below."
+  },
+  "SO-50": {
+    "status": "PASS",
+    "gate": "G06",
+    "installed_entry": "Workspace > Scripts > ResolveNodeKit_Arrange",
+    "window_identity": {
+      "title": "ResolveNodeKit - Arrange",
+      "surface": "Resolve-embedded RNK-owned UI shape",
+      "os_foreground_activation_required": false,
+      "captured_window_failure_is_product_failure": false,
+      "dialog_buttons": ["OK", "Cancel"],
+      "button_note": "OK is the installed source's Run/accept action; no separate button labelled Run is rendered."
+    },
+    "runs": {
+      "cancel": {
+        "run_id": "45ed02daee914c3b9e29774a1db31de1",
+        "initial_state": "setup",
+        "events": ["setup dialog visible", "Cancel", "second Cancel attempt", "event=cancelled"],
+        "zero_write_readback": "16 tools and positions unchanged"
+      },
+      "nested_run_refusal": {
+        "run_id": "1cfb001b535f460ea993818e268e1997",
+        "events": ["setup", "busy shown", "snapshot", "readback", "rollback refusal", "busy hidden", "result shown"],
+        "result": "refused arrange failed; rollback incomplete for: Group1, Group2"
+      },
+      "flat_run": {
+        "run_id": "b44bd2bea0c442bebdf4e390f1e2fec0",
+        "initial_state": "setup",
+        "events": [
+          "setup dialog visible",
+          "OK accepted",
+          "target live comp=tools=9",
+          "busy shown pumped=false",
+          "arrange snapshot tools=9 edges=5",
+          "arrange verify begin",
+          "busy hidden",
+          "result shown via shape 1"
+        ],
+        "result": "[ResolveNodeKit] Arrange: nodes=9 edges=5 moved=8 arranged=9 avoidable_diagonals=1 expanded_gaps=0",
+        "same_controller": true,
+        "readback": "9 tools, 5 labelled edges, IDs/RegIDs and protected TextPlus/Mask/Blur/Blend inputs preserved"
+      }
+    },
+    "decision": "PASS for installed UI state, Cancel zero-write, Run path, busy/result event order, and same-controller correlation."
+  },
+  "SO-60": {
+    "status": "PASS",
+    "gate": "G07/G08",
+    "evidence_type": "direct_installed_entry_on_disposable_flat_and_non_empty_nested_fixture",
+    "fixture": {
+      "timeline": {
+        "name": "RNK_SO60_E2E_20260911",
+        "id": "a50676a6-64fc-4298-81fd-60eaea5becfc"
+      },
+      "clip": {
+        "name": "img20.jpg",
+        "id": "9f0cc084-ee3f-4219-81f7-a24219f68dad",
+        "source": "C:/Windows/Web/Wallpaper/ThemeA/img20.jpg"
+      },
+      "comp": "コンポジション5",
+      "owned_fixture_only_change": "unpositioned Left AudioDisplay and Right AudioDisplay were deleted after a fail-closed readback refusal; the source still image was never modified"
+    },
+    "flat_and_mask_preserve": {
+      "initial_tools": 10,
+      "initial_edges": 6,
+      "run_id": "0800c59026864165b66176ed540ee23e",
+      "result": "nodes=10 edges=6 moved=9 arranged=10 avoidable_diagonals=2 expanded_gaps=0",
+      "run2_id": "7c9fa40309cc4f93a9c6622fc58e04e3",
+      "run2_result": "nodes=10 edges=6 moved=0 arranged=10 avoidable_diagonals=2 expanded_gaps=0",
+      "post_positions": {
+        "MediaIn1": [0, 1.009],
+        "MediaOut1": [3, 1.009],
+        "RNK_SO60_BG": [0, 5.009],
+        "RNK_SO60_TEXT": [3, 11.009],
+        "RNK_SO60_MASK": [3.073, 8.054],
+        "RNK_SO60_MERGE": [6, 8.009],
+        "RNK_SO60_BLUR": [3, 5.009],
+        "RNK_SO60_OUT": [0, 11.009],
+        "RNK_SO60_BRANCH": [6, 5.009],
+        "RNK_SO60_ISOLATED": [0, 8.009]
+      },
+      "connections": [
+        "RNK_SO60_BG.Output -> RNK_SO60_MERGE.Background",
+        "RNK_SO60_TEXT.Output -> RNK_SO60_MERGE.Foreground",
+        "RNK_SO60_MASK.Mask -> RNK_SO60_MERGE.EffectMask",
+        "RNK_SO60_MERGE.Output -> RNK_SO60_BLUR.Input",
+        "RNK_SO60_BLUR.Output -> RNK_SO60_OUT.Input"
+      ],
+      "protected_readback": {
+        "TextPlus.StyledText": "RNK SO-60 Preserve",
+        "Mask.Width": 0.35,
+        "Mask.Height": 0.25,
+        "Mask.Center": [0.5, 0.5, 0],
+        "Blur.XBlurSize": 1,
+        "Merge.Blend": 1
+      }
+    },
+    "nested_preserve": {
+      "gui_fixture": "one non-empty Group1 containing RNK_SO60_BG and RNK_SO60_BLUR, created with standard Fusion GUI Ctrl+G",
+      "first_run_id": "96a6c85a102e4466bb0a72a8639b19fc",
+      "first_result": "nodes=11 edges=9 moved=3 arranged=11 avoidable_diagonals=0 expanded_gaps=0",
+      "run2_id": "883b4277cace4fd7873358f77f44a292",
+      "run2_result": "nodes=11 edges=9 moved=0 arranged=11 avoidable_diagonals=0 expanded_gaps=0",
+      "post_run2_readback": {
+        "tool_count": 11,
+        "group_count": 1,
+        "non_group_ids": {
+          "RNK_SO60_BG": 5,
+          "RNK_SO60_TEXT": 6,
+          "RNK_SO60_MASK": 7,
+          "RNK_SO60_MERGE": 8,
+          "RNK_SO60_BLUR": 9,
+          "RNK_SO60_OUT": 10,
+          "RNK_SO60_BRANCH": 11,
+          "RNK_SO60_ISOLATED": 12
+        },
+        "group_id": 13,
+        "group_parent": "Group (0x0000020D3AA34100)",
+        "labelled_connections_unchanged": true,
+        "protected_processing_unchanged": true
+      }
+    },
+    "ui_and_undo": {
+      "same_installed_entry": true,
+      "busy_event_order": ["setup", "OK accepted", "busy shown", "snapshot/readback", "busy hidden", "result shown"],
+      "busy_evidence": "run log records the actual RNK-owned UI/controller event order; result widget was visibly acknowledged through the same embedded window",
+      "undo_probe_run_id": "08c2ff6a8aa644b09f236d2d77c59c99",
+      "undo_action": "one standard Ctrl+Z after moved=3",
+      "undo_readback": "tool identity, RegID, Group parent, all labelled connections and all positions exactly matched the pre-run snapshot (equal=true); Group remained",
+      "processing_readback": "TextPlus StyledText, RectangleMask Width/Height/Center, Blur XBlurSize and Merge Blend unchanged"
+    },
+    "decision": "PASS: flat/multiedge/Mask, non-empty nested preserve, actual installed UI controller, busy/result ordering, processing preservation, one-owned Undo rollback, run2 moved=0, and no-save cleanup are all directly evidenced."
+  },
+  "cleanup": {
+    "live_timelines": {
+      "before": 5,
+      "after_live_delete": 3,
+      "archive_delete": {
+        "before": 3,
+        "after": 0
+      },
+      "so60_timeline_delete": {
+        "timeline": "RNK_SO60_E2E_20260911",
+        "before": 3,
+        "after": 0,
+        "archives_deleted": [
+          "7781d547-f0cb-4da4-8f2f-cec95a8f6447",
+          "e19e1148-72df-4fb2-a1ee-43a2680c13b1"
+        ]
+      },
+      "final_timeline_list": []
+    },
+    "so60_clip_delete": {
+      "clip_id": "9f0cc084-ee3f-4219-81f7-a24219f68dad",
+      "delete_verified": true,
+      "folder_get_clips_after": []
+    },
+    "project_save_calls": 0,
+    "owned_comp_after_cleanup": {
+      "name": "コンポジション2",
+      "tool_count": 0
+    },
+    "resolve_responsive": true
+  },
+  "tests": {
+    "command": "PYTHONPATH=D:/Documents/ResolveNodeKit-pr5-v2-integration/src python -m unittest discover -s tests -v",
+    "result": "174/174 PASS",
+    "compileall": "python -m compileall -q src scripts tests: PASS",
+    "diff_check": "git diff --check: PASS",
+    "strict_contract": "python -m unittest discover -s docs/execution/strict-orthogonal -p test_contract.py -v: 30/30 PASS"
+  },
+  "SO_matrix": {
+    "SO-00": "PASS",
+    "SO-10": "PASS",
+    "SO-11": "PASS",
+    "SO-20": "PASS",
+    "SO-30": "PASS",
+    "SO-40": "BLOCKED_CONTRACT",
+    "SO-50": "PASS",
+    "SO-60": "PASS",
+    "SO-61": "BLOCKED_BY_SO-40",
+    "SO-70": "PENDING",
+    "SO-71": "PENDING",
+    "SO-80": "PENDING",
+    "SO-90": "PENDING"
+  },
+  "G01_G14_matrix": {
+    "G01": "PASS",
+    "G02": "BLOCKED_TECHNICAL",
+    "G03": "PASS",
+    "G04": "BLOCKED_CONTRACT",
+    "G05": "PENDING",
+    "G06": "PASS",
+    "G07": "PASS",
+    "G08": "PASS",
+    "G09": "PENDING",
+    "G10": "PENDING",
+    "G11": "PENDING",
+    "G12": "PENDING",
+    "G13": "PENDING",
+    "G14": "PENDING"
+  },
+  "remaining_product_blockers": [
+    "SO-40 product flatten still lacks a single owned Undo exact path; GUI Ungroup semantic is proven but not integrated as a product flatten implementation.",
+    "SO-61 remains blocked until the SO-40 one-owned-Undo flatten contract is implemented and proven.",
+    "G02 and the remaining later gates remain open until their own acceptance evidence is collected."
+  ]
+}

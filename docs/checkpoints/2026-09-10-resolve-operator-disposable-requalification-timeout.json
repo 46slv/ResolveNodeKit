@@ -1,0 +1,48 @@
+{
+  "schema": "resolve-node-kit.resolve-operator-disposable-requalification/v1",
+  "task": "SO-11 disposable nested-fixture qualification on exact installed candidate",
+  "launch_id": "9b291a91-2b9d-469c-bd89-1a751de69934",
+  "operator_thread": "01a08811-ab94-7e41-8189-fed5f8867b85",
+  "attempt_count": 1,
+  "candidate": {
+    "installed_commit": "bce01df2b37aee22079e00f60aeca36999ba171c",
+    "source_root": "C:/Users/shiro/.codex/worktrees/c22a/ResolveNodeKit"
+  },
+  "parent_envelope": {
+    "driver_specified": false,
+    "target": "owned disposable scratch project/timeline/Fusion comp",
+    "restore_policy": "scratch_disposable",
+    "parent_direct_host_fallback": 0
+  },
+  "outer_result": {
+    "result": "FAIL",
+    "exit_code": 1,
+    "timed_out": true,
+    "elapsed_sec": 421.219,
+    "driver": "third-party (Operator selected)"
+  },
+  "lease": {
+    "initial": "FREE",
+    "held_exact_live": true,
+    "cleanup": "launcher recovered stale holder",
+    "final": "FREE"
+  },
+  "new_host_evidence": {
+    "scratch_project_created": true,
+    "scratch_timeline_created": true,
+    "scratch_fusion_item_created": true,
+    "GroupOperator.AddTool": "refused",
+    "valid_nested_Paste": "refused",
+    "non_empty_nested_fixture": "not_created",
+    "adapter_final_readback": "NOT_RETURNED_BEFORE_TIMEOUT",
+    "scratch_final_cleanup": "NOT_RETURNED_BEFORE_TIMEOUT"
+  },
+  "safety": {
+    "valuable_project_save": 0,
+    "human_intervention": 0,
+    "product_gate_movement": [],
+    "restore_status": "UNVERIFIED_AFTER_TIMEOUT"
+  },
+  "failure_fingerprint": "HOST_CAPABILITY_GAP:NESTED_GROUP_CREATION_REFUSED_WITH_TIMEOUT",
+  "next_decision": "recover scratch residue; forbid third identical qualification; require a materially different qualified fixture route"
+}

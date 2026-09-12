@@ -1,81 +1,40 @@
 # ResolveNodeKit agent entrypoint
 
-## Goal
+Build compact, reversible Fusion and Color workflow tools for DaVinci Resolve. This is not an Auto-Node-Tree fork or a Blender Node Wrangler port.
 
-Build compact, reversible node-workflow tools for DaVinci Resolve Fusion and Color. This is a Resolve-specific toolkit, not a Blender Node Wrangler port and not an Auto-Node-Tree fork.
+## Authority and current route
 
-## Authority order
+Current user instruction > live Git/PR/runtime evidence > CURRENT_STATE > applicable repo contracts > current installed/primary documentation > historical notes > inference.
 
-1. current user instruction;
-2. live local Git/worktree, current remote branch/PR, current tests, and live Resolve/Fusion readback;
-3. `docs/CURRENT_STATE.md`;
-4. `docs/ORCHESTRATION.md` and relevant repo contracts;
-5. installed/current Resolve scripting documentation and measured host behavior;
-6. historical checkpoints / prior-art notes;
-7. inference.
+For the current strict-orthogonal/large-flatten continuation, read `docs/CURRENT_STATE.md`, then `docs/execution/strict-orthogonal/README.md`. That packet is the latest scoped user contract and supersedes conflicting old SAV1 optional/stop/acceptance clauses. Its plan publication is not product qualification.
 
-Historical SHAs, project names, timeline names, comp identities, worker session IDs, and test counts are locators/evidence only. Fresh-read before acting.
+For Resolve host work, the current default is **direct guarded execution by the capable Product Worker**. The historical dedicated/external Resolve Operator and WP1 semantic-receipt path are research-only and are not product dependencies. Keep mechanical Host Guard invariants where risk requires them, but do not recreate an agent/process boundary merely because the task touches Resolve.
 
-## Required read order for long-running work
+Inspect local Git status before pull/checkout/rebase. Preserve unknown dirty work and live worker/host leases. Historical project/timeline names, counts, process IDs and SHAs are locators, not fresh target identity.
 
-For any multi-stage, host-mutating, or autonomous continuation run:
-
-1. inspect live Git status before pull/reset/rebase/checkout;
-2. read `docs/CURRENT_STATE.md`;
-3. read `docs/ORCHESTRATION.md`;
-4. read the relevant feature/evidence contract (`docs/GROUPS.md`, `docs/HOST_VALIDATION.md`, `docs/COLOR_API.md`, `docs/EVIDENCE_PROTOCOL.md`);
-5. read the newest applicable checkpoint under `docs/checkpoints/`;
-6. choose the smallest ready gate from the dependency graph.
-
-Do not replay chat history as the operating plan.
+Layout design: `docs/design/strict-orthogonal/DESIGN.md` and `SOURCES.md`. Execution/authority: the strict README, PLAN, RUNBOOK and acceptance.json. Other features retain their applicable `docs/GROUPS.md`, `docs/COLOR_API.md`, `docs/HOST_VALIDATION.md`, `docs/EVIDENCE_PROTOCOL.md` and `docs/ORCHESTRATION.md` contracts.
 
 ## Invariants
 
-- Fusion and Color use separate adapters; never assume Fusion APIs exist on Color.
-- Layout/display commands must not alter connections, processing parameters, keyframes, tools, media, grades, or render state.
-- Preserve every `GroupOperator` and direct parent/child membership. Never flatten or ungroup merely to arrange the graph.
-- Cross-boundary edges may be projected to a visible GroupOperator for layout planning only; never rewire the actual graph to match that projection.
-- Host writes follow: target bind -> snapshot -> bounded mutation -> readback -> invariant comparison -> rollback on mismatch.
-- Worker narration is not proof. Host success needs structured MCP evidence plus independent parent verification.
-- Offline mocks do not prove Resolve/Fusion host behavior.
-- Never blind-retry an ambiguous write or ambiguous ChatGPT/MCP delivery.
-- Do not install watchers/services/startup items or change global Resolve keyboard shortcuts unless explicitly authorized.
-- Auto-Node-Tree and Blender Node Wrangler are prior art/UX references only; do not vendor their source without explicit provenance/license review.
+- Preserve actual port-labelled processing connections, parameters, keyframes, expressions, instances and media. Layout projection is not permission to rewire processing.
+- Preserve mode never removes GroupOperators or changes direct membership. Explicit flatten-all is now required and may remove containers only through a qualified host operation with non-Group identity/processing preservation and exact Undo/rollback. A refusing wrapper is not flatten completion.
+- Do not use guessed APIs/actions, names, current XY or screenshot appearance as processing-graph truth. Missing reads are not empty/unconnected data.
+- Strict layout requires node alignment and actual orthogonal wire display. Old avoidable-diagonal/anchor-overlap metrics are not complete strict geometry proof.
+- Host mutation follows exact target bind, complete snapshot, pure planning, bounded writes, actual readback, verification and rollback on mismatch. Never retry an ambiguous write before reconciling its outcome.
+- One integration/state writer; one exclusive Resolve host writer/serialization boundary for mutable work. Workers use isolated worktrees/path ownership. Fresh verifier does not repair its own candidate.
+- Test narration, mocks, direct controller execution and UI visibility each prove different things. Keep exact candidate, coverage and evidence scope explicit.
+- Fusion and Color adapters remain separate. Do not assume a Fusion method exists in Color.
 
-## Current repository authority
+## Authorized work / boundaries
 
-The current project authorization allows autonomous work inside ResolveNodeKit task branches: code/tests/docs edits, commits, pushes, and Draft PR updates. Do not merge to `main`, publish a release, force-push shared history, delete unrelated branches/work, or rewrite unrelated user changes without explicit authority.
+Task-branch code/tests/docs, local backup-backed install, commit/push and PR #5 updates are authorized. Direct Resolve MCP/scripting/GUI operations and bounded exact Resolve/fuscript restart are authorized under RUNBOOK safety. No project save, main merge, release, force-push shared history, unrelated deletion/process kill, PC reboot, credential bypass, global shortcuts, permanent services/startup or unsupported blind UI operations.
 
-If a host run leaves valuable local dirty work while the remote branch advances, preserve the local work first (temporary branch/checkpoint commit or patch), then reconcile. Never use `reset --hard` or cleanup as the first response to that condition.
+Role/model assignments belong to the active mission entry, not this durable rule file. An execution handoff requires receiver readback and exclusive ownership; publishing a plan or creating a task alone is insufficient. An Advisor never becomes a second queue/state writer. Reuse existing local Skills/Harness; do not build a general orchestrator merely to run this project.
 
-## Completion semantics
+## Completion and learning
 
-A blocker belongs to the narrowest affected feature/lane. If another authorized independent gate is ready, the overall program status is `CHECKPOINTED`, not `BLOCKED_*`, and work continues.
+A feature-local blocker does not stop independent ready work. Do not declare completion by counting repeated blockers, deleting required gates, or relabelling unsupported behavior as optional. Keep plan readiness, historical preserve FIRST_USABLE, current strict/flatten product qualification and whole-project MISSION_COMPLETE separate.
 
-The user's visual-group requirement is mission-critical: nested groups must eventually be openable while remaining groups, with their contents visible. A usable beta may checkpoint a host/API limitation, but `MISSION_COMPLETE` requires that requirement to pass or the user to explicitly waive/change it.
+The wider Group-preserving visual expansion requirement remains tracked separately; this strict/flatten milestone does not mark it or Color complete. Preserve tested generic Tidy commands while developing the strict Arrange policy.
 
-Keep strict names strict. `Tidy + Expand Groups` must fail closed when expansion is not proven. A hierarchy-preserving recursive tidy without visual expansion is a separate command/API.
-
-## Current measured orientation
-
-Use `docs/CURRENT_STATE.md` for the live ready queue, but keep these durable facts in mind:
-
-- Flat Fusion Tidy is host-verified on the measured Resolve Studio 21.0.3.7 path.
-- `Tidy Nested` is host-verified after fixed-point stabilization; repeated execution is stable and hierarchy/connection/display-state invariants held in the canary.
-- Color read-only capability mapping is complete for the current project context; physical Color-node XY positioning is absent from the measured callable surface.
-- Large ~1100-tool stress is currently transport-limited by long MCP/bridge calls; establish a transport-fitting chunk size and use compact evidence rather than repeating a whole-graph call.
-- Visual runtime Group expansion remains mission-critical and unresolved. The serialized `LoadSettings(Expanded=true)` path is disproven on the measured host.
-
-## Checkpoint discipline
-
-After each meaningful host gate or phase transition:
-
-- commit/push accepted task-branch work when safe;
-- update the Draft PR;
-- update `docs/CURRENT_STATE.md`;
-- add a dated checkpoint only when it contains evidence worth preserving;
-- record exact tests, host identity, worker route, mutations, readback, blocker, and smallest next gate.
-
-Large-graph host gates must follow `docs/EVIDENCE_PROTOCOL.md` rather than relying on full-graph MCP dumps or worker narration. Establish a bounded/chunked transport envelope first.
-
-See `docs/ORCHESTRATION.md` for the phase graph, stop rules, large-graph fallback, and resume contract.
+After meaningful changes: focused tests, required host evidence, learning capture/mechanical regression, durable checkpoint, PR/state reconciliation and remote readback. Do not reproduce full chat transcripts or the whole knowledge library in prompts.

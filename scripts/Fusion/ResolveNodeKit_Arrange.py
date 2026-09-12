@@ -1,0 +1,308 @@
+"""ResolveNodeKit Fusion entrypoint: whole-composition semantic Arrange.
+
+User flow on the Fusion page:
+
+1. open the active Fusion composition,
+2. run this script from Workspace -> Scripts -> Comp,
+3. confirm the whole-composition message,
+4. press the host confirmation button or Cancel to change nothing.
+
+The script finds its package without a repo checkout:
+
+1. $RNK_SUPPORT_ROOT/ResolveNodeKit/src when the variable is set,
+2. <Fusion Support>/ResolveNodeKit/src located by walking up from this file,
+3. the repo src tree two levels above this file (developer fallback).
+
+Every run appends one line plus any traceback to
+<Fusion Support>/ResolveNodeKit/logs/arrange-run.log (or the system temp
+directory for the repo fallback), so a silent menu press stays diagnosable.
+
+Automated canary override (no dialog click needed):
+
+    RNK_ARRANGE_NO_UI=1
+    RNK_ARRANGE_INCLUDE_UNSELECTED=0|1 (default 1; 0 is experimental)
+    RNK_ARRANGE_UNGROUP=0|1 (default 0; 1 stays fail-closed until host-proven)
+"""
+from __future__ import annotations
+
+import datetime
+import os
+import sys
+import traceback
+from pathlib import Path
+
+
+TITLE = "ResolveNodeKit - Arrange"
+SCOPE_MESSAGE = "現在のFusionコンポジション全体を整列します。"
+RUN_LOG_NAME = "arrange-run.log"
+
+
+def _script_file():
+    try:
+        return Path(__file__).resolve()
+    except Exception:
+        return None
+
+
+def _walk_up_to_fusion(start):
+    try:
+        current = Path(start)
+    except Exception:
+        return None
+    for parent in [current.parent, *current.parents]:
+        try:
+            if parent.name == "Fusion":
+                return parent
+        except Exception:
+            continue
+    return None
+
+
+def _root_from_host_map(fusion_obj=None):
+    try:
+        target = fusion_obj or globals().get("fusion") or globals().get("fu")
+        if target is None:
+            resolver = globals().get("resolve")
+            if resolver is not None:
+                target = resolver.Fusion()
+        if target is None:
+            return None
+        mapper = getattr(target, "MapPath", None)
+        if not callable(mapper):
+            return None
+        for key in ("Scripts:", "Comp:"):
+            try:
+                mapped = mapper(key)
+            except Exception:
+                continue
+            if mapped:
+                root = _walk_up_to_fusion(Path(str(mapped)))
+                if root is not None:
+                    return root
+    except Exception:
+        pass
+    return None
+
+
+def _root_from_appdata():
+    try:
+        base = os.environ.get("APPDATA", "")
+        if not base:
+            return None
+        root = Path(base) / "Blackmagic Design" / "DaVinci Resolve" / "Support" / "Fusion"
+        return root if root.is_dir() else None
+    except Exception:
+        return None
+
+
+def _fusion_support_root(script_file=None):
+    here = script_file or _script_file()
+    if here is not None:
+        root = _walk_up_to_fusion(here)
+        if root is not None:
+            return root
+    root = _root_from_host_map()
+    if root is not None:
+        return root
+    return _root_from_appdata()
+
+
+def _candidate_src_dirs(script_file=None):
+    found = []
+    override = os.environ.get("RNK_SUPPORT_ROOT", "")
+    if override:
+        found.append(Path(override) / "ResolveNodeKit" / "src")
+    root = _fusion_support_root(script_file)
+    if root is not None:
+        found.append(root / "ResolveNodeKit" / "src")
+    here = script_file or _script_file()
+    if here is not None:
+        try:
+            found.append(here.parents[2] / "src")
+        except IndexError:
+            pass
+    return found
+
+
+def _bootstrap_package(script_file=None):
+    for candidate in _candidate_src_dirs(script_file):
+        try:
+            if candidate.is_dir():
+                if str(candidate) not in sys.path:
+                    sys.path.insert(0, str(candidate))
+                return str(candidate)
+        except Exception:
+            continue
+    return ""
+
+
+def _log_file(script_file=None):
+    root = _fusion_support_root(script_file)
+    override = os.environ.get("RNK_SUPPORT_ROOT", "")
+    if override:
+        root = Path(override)
+    if root is not None:
+        try:
+            logs = Path(root) / "ResolveNodeKit" / "logs"
+            logs.mkdir(parents=True, exist_ok=True)
+            return logs / RUN_LOG_NAME
+        except Exception:
+            pass
+    try:
+        import tempfile
+        return Path(tempfile.gettempdir()) / ("rnk-" + RUN_LOG_NAME)
+    except Exception:
+        return None
+
+
+def _write_log(status, detail=""):
+    try:
+        path = _log_file()
+        if path is None:
+            return ""
+        stamp = datetime.datetime.now().isoformat(timespec="seconds")
+        with open(path, "a", encoding="utf-8") as handle:
+            handle.write(stamp + " " + status + (" " + detail if detail else "") + "\n")
+        return str(path)
+    except Exception:
+        return ""
+
+
+_BOOTSTRAPPED_FROM = _bootstrap_package()
+
+try:
+    from resolve_node_kit.fusion import ArrangeDialogState
+    from resolve_node_kit.fusion import ask_arrange_confirmation
+    _IMPORT_ERROR = ""
+except Exception as exc:
+    ArrangeDialogState = None
+    ask_arrange_confirmation = None
+    _IMPORT_ERROR = repr(exc)
+
+# The entry may temporarily coexist with an older backup-backed installed
+# package during upgrade/bootstrap tests.  Observability is additive; its
+# absence must not turn an otherwise usable package into an import failure.
+try:
+    from resolve_node_kit.fusion.dialog import ArrangeUiSession
+except Exception:
+    ArrangeUiSession = None
+
+try:
+    from resolve_node_kit.fusion import execute_arrange_request
+except Exception:
+    execute_arrange_request = None
+
+
+def _current_comp():
+    comp_obj = globals().get("comp")
+    if comp_obj is not None:
+        return comp_obj
+    fusion_obj = globals().get("fusion") or globals().get("fu")
+    if fusion_obj is not None:
+        getter = getattr(fusion_obj, "GetCurrentComp", None)
+        if callable(getter):
+            try:
+                return getter()
+            except Exception:
+                return None
+    resolve_obj = globals().get("resolve")
+    if resolve_obj is not None:
+        try:
+            fusion_obj = resolve_obj.Fusion()
+            getter = getattr(fusion_obj, "GetCurrentComp", None)
+            if callable(getter):
+                return getter()
+        except Exception:
+            return None
+    return None
+
+
+def _state_from_env():
+    return ArrangeDialogState(
+        include_unselected=os.environ.get("RNK_ARRANGE_INCLUDE_UNSELECTED", "1") == "1",
+        ungroup=os.environ.get("RNK_ARRANGE_UNGROUP", "0") == "1",
+    )
+
+
+def _fusion_handle():
+    fusion_obj = globals().get("fusion") or globals().get("fu")
+    if fusion_obj is not None:
+        return fusion_obj
+    resolve_obj = globals().get("resolve")
+    if resolve_obj is not None:
+        try:
+            return resolve_obj.Fusion()
+        except Exception:
+            return None
+    return None
+
+
+def _run():
+    _write_log("start", "name=" + __name__ + " src=" + _BOOTSTRAPPED_FROM)
+    if _IMPORT_ERROR or ArrangeDialogState is None or ask_arrange_confirmation is None:
+        message = "package import failed: " + (_IMPORT_ERROR or "unknown")
+        print("[ResolveNodeKit] Arrange: " + message)
+        _write_log("import-error", _IMPORT_ERROR)
+        return 4
+    ui_comp = _current_comp()
+    if ui_comp is None:
+        print("[ResolveNodeKit] Arrange: no active Fusion composition. Open a comp and run again.")
+        _write_log("no-comp", "")
+        return 2
+
+    ui_session = ArrangeUiSession() if ArrangeUiSession is not None else None
+    if ui_session is not None:
+        _write_log("ui", "run_id=" + ui_session.run_id + " state=" + ui_session.state)
+
+    if os.environ.get("RNK_ARRANGE_NO_UI", "0") == "1":
+        state = _state_from_env()
+    else:
+        ui_ask = getattr(ui_comp, "AskUser", None)
+        if not callable(ui_ask):
+            print("[ResolveNodeKit] Arrange: dialog is unavailable on this host; nothing changed.")
+            _write_log("no-dialog", "")
+            return 2
+        state = ask_arrange_confirmation(
+            ui_ask, TITLE, SCOPE_MESSAGE,
+            log=lambda message: _write_log("dialog", message),
+        )
+        if state is None:
+            if ui_session is not None:
+                ui_session.cancel()
+                _write_log("ui", "run_id=" + ui_session.run_id + " event=cancelled")
+            print("[ResolveNodeKit] Arrange canceled; nothing changed.")
+            _write_log("cancel", "")
+            return 0
+    if not callable(execute_arrange_request):
+        print("[ResolveNodeKit] Arrange: production handler is unavailable; nothing changed.")
+        _write_log("handler-missing", "")
+        return 4
+    # AskUser belongs to the menu-owned wrapper, but the production seam must
+    # bind its mutation target from Fusion.GetCurrentComp().  Resolve can
+    # expose two wrappers for the same composition with non-identical Python
+    # identity; passing the UI wrapper would fail closed before the handler
+    # can use the proven live target.
+    execution = execute_arrange_request(
+        None,
+        globals().get("fusion") or globals().get("fu"),
+        globals().get("resolve"),
+        state,
+        result_ask=getattr(ui_comp, "AskUser", None),
+        title=TITLE,
+        log=lambda message: _write_log("handler", message),
+        ui_session=ui_session,
+    )
+    if execution.message:
+        print(execution.message)
+    return execution.exit_code
+
+
+
+try:
+    _EXIT_CODE = _run()
+except Exception:
+    _write_log("traceback", traceback.format_exc(limit=8).replace("\n", " | "))
+    print("[ResolveNodeKit] Arrange failed unexpectedly; see the run log.")
+    _EXIT_CODE = 1
+print("[ResolveNodeKit] Arrange exit=" + str(_EXIT_CODE))
+raise SystemExit(_EXIT_CODE)
