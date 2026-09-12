@@ -131,7 +131,8 @@
       "status": "BLOCKED_TECHNICAL",
       "evidence": [
         "docs/checkpoints/2026-09-12-so40-so61-so70-so80-direct-continuation.json#SO-70",
-        "docs/checkpoints/2026-09-12-so70-depth4-direct-preserve.json#SO-70"
+        "docs/checkpoints/2026-09-12-so70-depth4-direct-preserve.json#SO-70",
+        "docs/checkpoints/2026-09-12-so70-depth4-1100-direct-preserve.json#SO-70"
       ]
     },
     {
@@ -177,7 +178,8 @@
       "candidate_sha": "d7a1610726171c08ad5617c55e4cc04def786a6b",
       "evidence": [
         "docs/checkpoints/2026-09-08-luna-so20-offline.json#verification",
-        "docs/checkpoints/2026-09-12-so70-depth4-direct-preserve.json#SO-70.qualification_boundary"
+        "docs/checkpoints/2026-09-12-so70-depth4-direct-preserve.json#SO-70.qualification_boundary",
+        "docs/checkpoints/2026-09-12-so70-depth4-1100-direct-preserve.json#SO-70.qualification_boundary"
       ]
     },
     {
@@ -263,7 +265,8 @@
       "candidate_sha": null,
       "evidence": [
         "docs/checkpoints/2026-09-12-so40-so61-so70-so80-direct-continuation.json#SO-70",
-        "docs/checkpoints/2026-09-12-so70-depth4-direct-preserve.json#SO-70"
+        "docs/checkpoints/2026-09-12-so70-depth4-direct-preserve.json#SO-70",
+        "docs/checkpoints/2026-09-12-so70-depth4-1100-direct-preserve.json#SO-70"
       ]
     },
     {

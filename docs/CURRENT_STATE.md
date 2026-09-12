@@ -132,6 +132,17 @@ Checkpoint: `docs/checkpoints/2026-09-12-so70-depth4-direct-preserve.json`
 - Cleanup is exact and limited to the owned project: five verified disposable/archive timelines were deleted (`5 -> 0`) and `img20.jpg` was deleted by its exact Media Pool ID; the folder is empty and no current timeline remains. The runtime is left on the dedicated empty project, so the valuable PSD2Fusion timeline was not reloaded or saved after the read-only source export.
 - Current matrix remains `SO-00/10/11/20/30/40/50/60/80 PASS`; `SO-61 BLOCKED_TECHNICAL`; `SO-70 BLOCKED_TECHNICAL`; `SO-71/90 PENDING`. Gates remain `G01 PASS`, `G02 BLOCKED_TECHNICAL`, `G03 PASS`, `G04 PASS`, `G05 BLOCKED_TECHNICAL`, `G06 PASS`, `G07 PASS`, `G08 PASS`, `G09 PENDING`, `G10 BLOCKED_TECHNICAL`, `G11 PENDING`, `G12 PASS`, `G13–G14 PENDING`.
 
+## Direct guarded continuation — 2026-09-12 depth-4 1100-threshold preserve
+
+Checkpoint: `docs/checkpoints/2026-09-12-so70-depth4-1100-direct-preserve.json`
+
+- A fresh disposable depth-4 fixture was built from a direct native `ExportFusionComp` of PSD2Fusion `Timeline 1` item index 3, then padded before the baseline with 25 explicitly named disconnected `Background` tools. Host readback was 1,134 tools / 1,100 non-Group / 34 Groups / max depth 4 / 1,345 edges. The source-derived portion remains 1,075 non-Group; the 1100 numeric threshold is therefore recorded as a constructed-fixture result, not silently rewritten as a source-derived claim.
+- The installed production seam was exercised directly three times from equivalent restored baselines. Product stage sums were 15.0752s / 12.8013s / 13.0515s, each moved 1,132 and arranged 1,134 tools, preserved all 1,345 edges and parent/identity sets, reported logical overlap 0, and restored exactly with one owned Undo. A separate stability run reported first moved 1,132 then second moved 0 with identical geometry and exact Undo.
+- This materially closes the numeric large-preserve/performance sub-work, but does not close strict Mission gates: FlowView still exposes no node rectangle geometry or integer-grid proof for these nodes, large strict displayed-wire evidence and complete processing-state hashes were not collected, and the installed flatten route remains fail-closed. Consequently `SO-70`, `G02`, and `G10` remain `BLOCKED_TECHNICAL`; `G11` remains pending until flatten-scoped SO-71 evidence exists.
+- Cleanup is exact: the disposable project, its two timelines, imported clip, source export, and three full sidecars were deleted/read back absent; current runtime is the dedicated empty `_mcp_RNK_SO40_SO70_SO80_20260911` project with no timeline/clips and no valuable-project save.
+- The latest SO-61 action-surface result is unchanged: no callable identity-preserving Ungroup primitive or documented action ID was measured. Do not repeat that route; resume only on a materially different measured bridge.
+- Current matrix remains `SO-00/10/11/20/30/40/50/60/80 PASS`; `SO-61 BLOCKED_TECHNICAL`; `SO-70 BLOCKED_TECHNICAL`; `SO-71/90 PENDING`. Gates remain `G01 PASS`, `G02 BLOCKED_TECHNICAL`, `G03 PASS`, `G04 PASS`, `G05 BLOCKED_TECHNICAL`, `G06 PASS`, `G07 PASS`, `G08 PASS`, `G09 PENDING`, `G10 BLOCKED_TECHNICAL`, `G11 PENDING`, `G12 PASS`, `G13–G14 PENDING`.
+
 ## Historical WP1 boundary — archived research
 
 Checkpoint:
@@ -161,7 +172,7 @@ The plan no longer contains WP1/topology qualification as a dependency.
 ## Exact next action
 
 1. close SO-61 by qualifying an existing installed-entry/native host bridge for identity-preserving flatten, then rerun the small E2E;
-2. qualify a fresh depth-qualified >=1100 SO-70 source/generated fixture with strict rectangle/wire evidence; do not treat the depth-2 duplicate canary as G02/G10 completion;
+2. close the remaining SO-70 strict rectangle/grid/display and complete processing evidence on the fresh depth-4 1100-threshold fixture; do not treat the numeric threshold or preserve-only runs as G02/G10/G11 completion;
 3. keep SO-80's existing recovery contract and direct guarded route; do not rebuild the retired Operator/WP1 transport;
 4. after SO-61 + SO-70, continue SO-71 and then request SO-90's fresh independent verifier.
 
