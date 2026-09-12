@@ -159,6 +159,13 @@
       "flatten": "NOT_RUN; installed ungroup route remains fail-closed",
       "g11": "Three real-changing preserve actions are measured under 60s with endpoint loss 0, but G11 remains pending until the required flatten-scoped SO-71 evidence exists"
     },
+    "ui_accessibility_boundary": {
+      "observed_at": "2026-09-12T14:27:00+09:00",
+      "surface": "Computer Use get_window_state on the returned Resolve window",
+      "window": "DaVinci Resolve Studio - _mcp_RNK_SO40_SO70_SO80_20260911",
+      "fusion_tree": "Fusion is represented by generic Custom/Group elements; no graph node names, node rectangle bounds, wire endpoints, or graph identity are exposed",
+      "decision": "No coordinate-derived strict-wire/rectangle claim and no blind context-menu invoke; this is a read-only capability boundary"
+    },
     "decision": "The fresh depth-4 disposable reaches the numeric 1100 non-Group threshold and completes three bounded installed preserve actions with exact structural rollback. Strict rectangle/grid/display, complete processing evidence, and flatten are still missing, so SO-70/G02/G10 are not PASS."
   },
   "SO-61": {
