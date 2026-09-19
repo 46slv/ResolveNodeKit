@@ -1,4 +1,9 @@
-# Semantic Arrange v1 — continuation runbook
+# Semantic Arrange v1 — preserved historical continuation runbook
+
+> This is the pre-reset continuation record. Use
+> `docs/execution/v1-arrange/` for current v1 work. Its old flatten-required
+> clauses are preserved for historical/v2 traceability and are not current v1
+> release authority.
 
 Status: READY
 Updated: 2026-09-08 JST

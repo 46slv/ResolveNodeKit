@@ -3,6 +3,10 @@
   "program": "RNK-STRICT-ORTHOGONAL",
   "updated": "2026-09-12",
   "status": "CHECKPOINTED_WITH_TECHNICAL_GAP",
+  "lane": "v2-strict-research-and-automatic-flatten",
+  "current_v1_owner": "docs/execution/v1-arrange/acceptance.json",
+  "release_blocker_for_v1": false,
+  "preservation_rule": "Keep all G01-G14 criteria and observed statuses; do not rewrite them as v1 PASS.",
   "execution_topology": {
     "revision": "DIRECT-GUARDED-RESET-20260911-1",
     "rule": "requirements_first_topology_second_delegation_must_earn_itself",

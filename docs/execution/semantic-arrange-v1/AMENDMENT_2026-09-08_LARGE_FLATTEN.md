@@ -1,4 +1,8 @@
-# Semantic Arrange v1 — large-graph flatten amendment
+# Semantic Arrange v1 — archived large-graph flatten amendment
+
+> Archived by the 2026-09-20 product-direction reset. Preserve evidence in
+> this amendment can be carried into v1 when candidate identity is proven; the
+> flatten requirements remain v2 research and are not v1 release blockers.
 
 Status: READY / SUPERSEDES conflicting clauses in PLAN.md and RUNBOOK.md
 Updated: 2026-09-08 JST

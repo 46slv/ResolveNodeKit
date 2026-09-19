@@ -1,19 +1,19 @@
 # Arrange dialog / execution UX — v1
 
-Status: FIRST_USABLE product contract
+Status: v1 Arrange / Preserve product contract
 
 This document defines the first user-facing execution flow for ResolveNodeKit
 arrangement commands.  The FIRST_USABLE path arranges the active Fusion
 composition as a whole while preserving GroupOperators. Selection-only remains
-an experimental lane. Flatten-all is a separate amendment-required,
-host-capability-gated lane and is not exposed by this default dialog.
+an experimental lane. Automatic Ungroup / Flatten All is a v2 research lane and
+is not exposed by this default v1 dialog.
 
 The tool is run from Resolve/Fusion with a small confirmation dialog before
 any graph mutation, followed by the existing visible busy/progress state.
-The default UI is preserve-mode. The 2026-09-08 continuation amendment adds
-flatten-all as a separate host-gated structural lane; it is not shown until
-the host supplies an identity-preserving Ungroup primitive and exact Undo
-evidence.
+The default UI is preserve-mode. The preserved 2026-09-08 continuation
+amendment documents a possible v2 flatten lane; it is not part of v1 and is not
+shown until a future v2 contract supplies an identity-preserving Ungroup
+primitive and exact Undo evidence.
 
 ## 1. User flow
 
@@ -67,10 +67,10 @@ Running-state copy may use:
 ```
 
 The production request is always `include_unselected=True` and
-`ungroup=False`.  Selection-only and ungroup controls are not exposed in the
-FIRST_USABLE setup dialog.
+`ungroup=False`. Selection-only and automatic Ungroup controls are not exposed
+in the v1 setup dialog.
 
-## 2. Whole-composition scope (FIRST_USABLE)
+## 2. Whole-composition scope (v1)
 
 The active Fusion composition is the arrangement scope.  The production
 handler receives:
@@ -81,9 +81,9 @@ ArrangeDialogState(include_unselected=True, ungroup=False)
 
 Every root/local Group scope is planned recursively.  Selection-only behavior
 (`include_unselected=False`) remains available to regression tests and a future
-experimental lane, but it is not part of the FIRST_USABLE release gate.
+experimental lane, but it is not part of the v1 release gate.
 
-## 3. Group policy (FIRST_USABLE preserve mode)
+## 3. Group policy (v1 preserve mode)
 
 The first usable path always preserves Groups:
 
@@ -92,15 +92,15 @@ The first usable path always preserves Groups:
 - recursively arrange Group interiors using the same semantic/grid policy;
 - do not create new Groups merely for readability;
 - semantic regions may be expressed by spacing and alignment alone;
-- `ungroup=True` remains fail-closed and is not exposed by FIRST_USABLE UI until
+- `ungroup=True` remains fail-closed and is not exposed by v1 UI until
   exact structural restoration is host-proven. The current measured host has
   no such primitive, so the installed product intentionally remains
   preserve-only.
 
-### 3.1 Amended flatten-all lane
+### 3.1 Preserved v2 flatten-all lane
 
-The production API now contains a guarded `flatten_all_comp` seam for a host
-adapter to supply an explicit primitive. Its contract is:
+The research API contains a guarded `flatten_all_comp` seam for a future v2
+host adapter to supply an explicit primitive. Its contract is:
 
 ```text
 snapshot -> deepest-first ungroup -> flat readback
@@ -108,9 +108,9 @@ snapshot -> deepest-first ungroup -> flat readback
 ```
 
 Generic `DoAction`/`QueueAction`, blind UI, delete/recreate, and guessed
-settings transformations are not accepted. The live Resolve 21.0.3.7
-capability probe found no callable primitive and `ungroup=True` refused with
-zero writes; therefore no checkbox is exposed and no flatten PASS is claimed.
+settings transformations are not accepted. The live Resolve capability probe
+found no callable primitive and `ungroup=True` refused with zero writes;
+therefore no v1 checkbox is exposed and no v2 flatten PASS is claimed.
 
 ## 4. Semantic regions are not the same as GroupOperators
 

@@ -1,4 +1,11 @@
-# Strict Orthogonal Arrange — Luna Max continuation entry
+# Strict Orthogonal Arrange — preserved v2 / research continuation
+
+> This directory is intentionally preserved as the v2 Automatic Flatten / strict
+> research contract. It is not the current v1 release owner. Start normal
+> product work at `docs/PRODUCT_DIRECTION_BRIEF.md` and
+> `docs/execution/v1-arrange/`. The G01–G14 criteria and their current
+> `PASS`/`BLOCKED`/`PENDING` states are historical research evidence and must
+> not be rewritten to manufacture v1 completion.
 
 Revision: DIRECT-GUARDED-RESET-20260911-1
 Mission: RNK-STRICT-ORTHOGONAL / 46slv/ResolveNodeKit / PR #5
@@ -45,9 +52,10 @@ Direct does not mean unguarded. For mutable or concurrent live-host work, preser
 
 These safeguards do not require a dedicated agent/process boundary.
 
-## Product Goal / Done
+## Preserved v2 / strict research contract
 
-Continue the existing strict-orthogonal mission unchanged:
+The following contract remains available for a future v2 lane. Its completion
+is not required for v1 Arrange / Preserve:
 
 - reference-guided whole-comp horizontal/vertical layout;
 - actual orthogonal displayed wires;
@@ -58,9 +66,12 @@ Continue the existing strict-orthogonal mission unchanged:
 - installed UI Run/Cancel/busy/result user flow;
 - real-scale and >=1100 original non-Group qualification;
 - performance, recovery, cleanup and final independent verification;
-- all required G01–G14 PASS on the final candidate before product completion.
+- all required G01–G14 PASS on a future strict/flatten candidate before that
+  v2 lane is complete.
 
-Do not lower an acceptance requirement merely because a host/API path is difficult.
+Do not lower this historical acceptance requirement. Equally, do not use its
+flatten or strict-geometry gaps to block the independent v1 Arrange release
+candidate. See the current boundary in the product direction brief.
 
 ## Start / source of truth
 
@@ -109,8 +120,10 @@ They are not current RNK execution authority and must not be used to block produ
 ## Short continuation prompt
 
 ```text
-Goal:
-Continue ResolveNodeKit PR #5 to the existing G01–G14 strict-orthogonal completion target.
+Goal (v2 resume only):
+Continue the preserved PR #5 G01–G14 strict-orthogonal/Automatic Flatten
+research target after the v1 Arrange candidate is complete and the v2 resume
+trigger is satisfied.
 
 Done:
 Final candidate satisfies the existing acceptance contract with real Resolve evidence, installed user flow, large-scale qualification, recovery/cleanup and fresh independent verification.
@@ -122,7 +135,10 @@ Authority:
 Use Luna Max. Direct Resolve MCP/scripting/GUI, Resolve launch/quit/restart, owned disposable fixtures and reversible validation mutations are authorized. Task-branch code/tests/docs/install/commit/push/PR updates are authorized. No main merge/release/force-push/credential change.
 
 Starting point:
-Read AGENTS.md, CURRENT_STATE.md, this README, PLAN.md, LUNA_RUNBOOK.md and acceptance.json; fresh-read PR #5 and current installed/runtime state. Do not replay closed Operator/WP1 probes.
+Read the v1 product brief and current v1 owner first. Use this README, PLAN,
+LUNA_RUNBOOK and acceptance.json only for an explicit v2 research continuation.
+Do not replay closed Operator/WP1 probes or treat this lane as v1 release
+authority.
 
 Evidence:
 Prefer minimum useful real-host smoke, then gate-specific readback. Keep candidate/source/install identity explicit. Use a fresh verifier for final/high-risk gates. If one route blocks, change the product approach or continue another ready gate rather than rebuilding orchestration infrastructure.

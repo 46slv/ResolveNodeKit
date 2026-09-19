@@ -1,4 +1,9 @@
-# Semantic Arrange v1 — continuation plan
+# Semantic Arrange v1 — preserved historical continuation plan
+
+> Product-direction reset notice: this dated continuation is retained as
+> historical evidence and v2 flatten research. The active v1 owner is
+> `docs/execution/v1-arrange/`; its preserve path is carried forward, while
+> the old flatten amendment no longer blocks v1.
 
 Status: READY / amended by `AMENDMENT_2026-09-08_LARGE_FLATTEN.md`
 Updated: 2026-09-08 JST

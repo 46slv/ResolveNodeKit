@@ -6,7 +6,19 @@ The project is not a Blender Node Wrangler port. It targets Resolve-specific nod
 
 ## Current status
 
-The project is active and `CHECKPOINTED`, not mission-complete.
+The current product direction is `v1 Arrange / Preserve`. v1 keeps Groups and
+protects processing structure; it does not automatically Ungroup or Flatten All.
+The official workflow for users who want a flat graph is:
+
+```text
+Arrange -> optional Resolve native GUI manual Ungroup -> Re-Arrange
+```
+
+The current release lane is tracked in `docs/execution/v1-arrange/`. The old
+strict G01–G14 and flatten material is retained under
+`docs/execution/strict-orthogonal/` as v2/research evidence and does not block
+the v1 release candidate. The project is active and remains separate from the
+broader ResolveNodeKit `MISSION_COMPLETE` state.
 
 Host-verified on the current measured Resolve Studio 21.0.3.7 environment:
 
@@ -21,7 +33,8 @@ Current known limitations:
 - large ~1100-tool stress is currently transport-limited by long MCP/bridge calls, not by a demonstrated layout failure;
 - physical Color-node XY positioning is absent from the measured Color Graph API surface.
 
-See `docs/CURRENT_STATE.md` for the operational next gate and `docs/ORCHESTRATION.md` for the long-running execution contract.
+See `docs/PRODUCT_DIRECTION_BRIEF.md`, `docs/CURRENT_STATE.md` and
+`docs/execution/v1-arrange/` for the current product contract and evidence.
 
 ## Fusion scope
 
@@ -30,6 +43,8 @@ Implemented / under validation:
 - deterministic flat **Tidy Graph** layout;
 - **Tidy Nested**: recursively arrange nested GroupOperator child scopes without changing visual expanded/collapsed state;
 - strict **Tidy + Expand Groups** remains a separate fail-closed research path and must not silently degrade to `Tidy Nested`;
+- v1 **Arrange / Preserve** is the installed whole-composition product path and preserves existing Groups;
+- automatic Ungroup / Flatten All is v2-only and is not exposed by the normal v1 Arrange UI;
 - disconnected/isolated tools included so they are not silently overlapped;
 - cycle detection before writes;
 - `StartUndo` / `EndUndo` integration where exposed;
@@ -70,9 +85,10 @@ See:
 
 ResolveNodeKit treats hierarchy-aware layout, runtime visual expansion, and fit-to-contents as separate capabilities.
 
-`Tidy Nested` is host-verified as a hierarchy-preserving layout feature. It does **not** satisfy the mission-critical visual requirement by itself.
-
-The current explicit mission still requires nested GroupOperators to remain groups, actually open in the Fusion runtime/UI sense, have their internals tidied, and show all contents. `MISSION_COMPLETE` cannot be declared until that is proven or the user explicitly changes scope.
+`Tidy Nested` and v1 Arrange are hierarchy-preserving layout features. They do not
+automatically flatten Groups. Runtime visual expansion and fit-to-contents remain
+separate broader-program capabilities; their status does not redefine the v1
+Arrange release candidate.
 
 See `docs/GROUPS.md`.
 

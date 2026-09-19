@@ -1,4 +1,8 @@
-# Work packages and acceptance ownership
+# Work packages and acceptance ownership — preserved v2 / research lane
+
+> This plan is retained for strict layout and Automatic Flatten research. It is
+> not the active v1 Arrange plan and its blocked/pending gates do not block
+> `docs/execution/v1-arrange/`. See `docs/PRODUCT_DIRECTION_BRIEF.md`.
 
 Updated: 2026-09-11 JST
 Status: DIRECT_GUARDED_RESET

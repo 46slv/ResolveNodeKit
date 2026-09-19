@@ -1,7 +1,12 @@
-# Luna Max orchestration — Direct Guarded Resolve runbook
+# Luna Max orchestration — Direct Guarded Resolve runbook (preserved v2 lane)
 
 Revision: DIRECT-GUARDED-RESET-20260911-1
-Mission: RNK-STRICT-ORTHOGONAL / 46slv/ResolveNodeKit / PR #5
+Mission: RNK-STRICT-ORTHOGONAL / Automatic Flatten research / 46slv/ResolveNodeKit / PR #5
+
+> This runbook is not the current v1 Arrange route. Read
+> `docs/PRODUCT_DIRECTION_BRIEF.md` and `docs/execution/v1-arrange/` first.
+> The direct guarded route remains valid, but v1 does not wait for the v2
+> strict/flatten gates.
 
 ## 1. Operating model
 

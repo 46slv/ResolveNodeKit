@@ -1,6 +1,6 @@
 # ADR-0002: Arrange UI, editable Group policy, and orthogonal grid
 
-Status: proposed; flatten-all continuation amended 2026-09-08
+Status: accepted for v1 Arrange / Preserve; flatten continuation preserved for v2
 Date: 2026-09-06
 
 ## Context
@@ -48,7 +48,7 @@ When `Ungroup before arranging` is OFF:
 - recursively arrange their interiors;
 - do not create new Groups solely to show semantic regions.
 
-### 3. Ungroup is not exposed in FIRST_USABLE
+### 3. Ungroup is not exposed in v1
 
 The default UI `ungroup=True` request remains fail-closed:
 
@@ -58,13 +58,12 @@ The default UI `ungroup=True` request remains fail-closed:
   structural restoration are host-proven;
 - preserve-mode recursive layout is the only release scope.
 
-The 2026-09-08 amendment makes flatten-all a required continuation gate rather
-than an optional future behavior. It must remove only eligible Groups,
-preserve non-Group identity and endpoint mappings, arrange in the same owned
-Undo transaction, and restore the original hierarchy exactly on failure. The
-current Resolve Studio 21.0.3.7 host exposes no measured primitive, so the
-capability is `BLOCKED_HOST_API`, not a UIA/MSAA blocker, and the checkbox
-remains hidden.
+The 2026-09-08 amendment is retained as v2 research. It may remove only
+eligible Groups, preserve non-Group identity and endpoint mappings, arrange in
+the same owned Undo transaction, and restore the original hierarchy exactly on
+failure. It is not a v1 release gate. The measured Resolve host exposes no
+callable identity-preserving primitive, so the v2 capability remains
+`BLOCKED_HOST_API`, and the v1 checkbox remains hidden.
 
 ### 4. Semantic region != GroupOperator
 
@@ -85,14 +84,16 @@ Backbones align horizontally; branches align vertically; vertical reduction rail
 Positive:
 
 - arranging after manual edits remains predictable;
-- users can choose readable Group preservation or edit-friendly flattening;
+- users can choose readable Group preservation in v1 and use Resolve's native
+  manual Ungroup boundary when they need an editable flat graph;
 - semantic layout no longer depends on aggressive Group creation;
 - regular rows/columns should make large Merge-heavy graphs easier to scan;
 - spacing can grow without losing grid regularity.
 
 Costs / risks:
 
-- ungroup mode changes structure and therefore requires stronger host validation than position-only tidy;
+- automatic ungroup mode is a v2 feature and requires stronger host validation
+  than position-only Arrange;
 - selection-only and ungroup scope semantics remain future/experimental lanes;
 - some diagonals may remain unless routing nodes are introduced in a future explicit feature;
 - visually uniform cells need separate X/Y host calibration because Fusion snap units differ.
