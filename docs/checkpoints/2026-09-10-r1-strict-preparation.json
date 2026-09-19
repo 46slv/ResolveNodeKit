@@ -1,0 +1,36 @@
+{
+  "schema": "resolve-node-kit.strict-r1-preparation/v1",
+  "observed_at_utc": "2026-09-09T21:51:31.7483997Z",
+  "task": "R1 pure strict planner integration seam",
+  "candidate": "55119cd8b20e227284516b95f77a4b3e05384438",
+  "owner": "Luna Max Coordinator",
+  "changed": [
+    "src/resolve_node_kit/fusion/strict_request.py",
+    "src/resolve_node_kit/fusion/__init__.py",
+    "tests/test_strict_request.py"
+  ],
+  "contract": {
+    "requires_complete_processing_snapshot": true,
+    "uses_existing_strict_planner": true,
+    "independent_plan_validation_required": true,
+    "host_writes": 0,
+    "project_save": 0,
+    "settings_or_undo": 0
+  },
+  "verified": {
+    "import_root": "C:/Users/shiro/.codex/worktrees/c22a/ResolveNodeKit/src",
+    "focused_tests": "28/28 PASS",
+    "canonical_tests": "169/169 PASS",
+    "json_safe_preparation": true,
+    "diff_check": "PASS"
+  },
+  "host_evidence": "NOT_RUN_BY_DESIGN",
+  "product_gate_movement": [],
+  "remaining": [
+    "qualified host snapshot",
+    "host position writer/readback",
+    "native strict wire/view",
+    "flatten/UI/1100+ and G01-G14"
+  ],
+  "status": "PASS_OFFLINE_INTEGRATION;HOST_MUTATION_PENDING"
+}

@@ -3,7 +3,8 @@ import unittest
 
 from resolve_node_kit.fusion import FusionHostError, tidy_nested_comp
 from resolve_node_kit.fusion.recursive_groups import GroupTidyResult
-from resolve_node_kit.fusion.recursive_groups import _layout_step, _snapshot
+from resolve_node_kit.fusion.recursive_groups import _Snapshot, _layout_step, _restore_positions, _snapshot
+from resolve_node_kit.fusion.tidy import _parent_first_order
 
 
 class MockOutput:
@@ -49,6 +50,45 @@ class MockFlow:
     def SetPos(self, tool, x, y):
         self.calls += 1
         self.positions[tool.Name] = (float(x), float(y))
+        return True
+
+
+class ParentAwareQueuedFlow(MockFlow):
+    """Model the measured nested-scope rollback normalization.
+
+    If a child is restored before its GroupOperator, the host shifts the
+    child's displayed Y by a frame-offset-sized amount when the parent is
+    normalized.  A parent-first queue avoids that transient mismatch.
+    """
+
+    def __init__(self, positions, parents):
+        super().__init__(positions)
+        self.parents = dict(parents)
+        self.queue = []
+        self.write_order = []
+
+    def _apply(self, tool, x, y):
+        name = tool.Name
+        self.write_order.append(name)
+        self.positions[name] = (float(x), float(y))
+        for child, parent in self.parents.items():
+            if parent == name and child in self.write_order:
+                child_x, child_y = self.positions[child]
+                self.positions[child] = (child_x, child_y + 0.25)
+
+    def SetPos(self, tool, x, y):
+        self._apply(tool, x, y)
+        return True
+
+    def QueueSetPos(self, tool, x, y):
+        self.queue.append((tool, float(x), float(y)))
+        return True
+
+    def FlushSetPosQueue(self):
+        queued = list(self.queue)
+        self.queue.clear()
+        for tool, x, y in queued:
+            self._apply(tool, x, y)
         return True
 
 
@@ -119,6 +159,29 @@ def snapshot_settings(comp):
 
 
 class TidyNestedTests(unittest.TestCase):
+    def test_nested_rollback_restores_parent_scope_before_children(self):
+        group = MockTool("G", "GroupOperator")
+        child = MockTool("BlendBaseOpaqueRIIII_canary", parent=group)
+        tools = {"G": group, child.Name: child}
+        parents = {"G": None, child.Name: "G"}
+        original = {"G": (0.0, 0.0), child.Name: (4.0, 2.0)}
+        moved = {"G": (1.0, 1.0), child.Name: (5.0, 3.0)}
+        snapshot = _Snapshot(tools, original, (), parents, ("G",))
+
+        # The pre-fix lexical order writes the child before its parent and
+        # reproduces the host's nested-coordinate rollback mismatch.
+        bad_flow = ParentAwareQueuedFlow(moved, parents)
+        for name in sorted(original):
+            bad_flow.SetPos(tools[name], *original[name])
+        self.assertGreater(abs(bad_flow.positions[child.Name][1] - original[child.Name][1]), 0.1)
+
+        flow = ParentAwareQueuedFlow(moved, parents)
+        failures = _restore_positions(MockComp([group], flow), flow, snapshot)
+        self.assertEqual(failures, [])
+        self.assertEqual(flow.write_order, ["G", child.Name])
+        self.assertEqual(flow.positions, original)
+        self.assertEqual(_parent_first_order(original, parents), ["G", child.Name])
+
     def test_nested_scopes_tidied_groups_stay_grouped(self):
         comp, g1, g2 = nested_comp()
         flow = comp.CurrentFrame.FlowView

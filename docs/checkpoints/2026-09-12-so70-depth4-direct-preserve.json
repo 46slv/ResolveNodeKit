@@ -1,0 +1,233 @@
+{
+  "schema": "resolve-node-kit.strict-continuation.direct-gates/v5",
+  "recorded_at": "2026-09-12T08:42:54+09:00",
+  "status": "CHECKPOINTED_WITH_TECHNICAL_GAP",
+  "candidate": {
+    "pull_request": 5,
+    "pull_request_url": "https://github.com/46slv/ResolveNodeKit/pull/5",
+    "worktree": "D:/Documents/ResolveNodeKit-pr5-v2-integration",
+    "local_branch": "feat/direct-guarded-reset-20260911",
+    "pr_head_branch": "feat/semantic-arrange-v1-20260906",
+    "source_revision": "dfedb02d8de46a44400f61efa8640cf7be35ffc6",
+    "evidence_revision": "e12471446e1f68b01009ecd90a902727f646f9b2",
+    "remote_pr_head_rechecked": "e12471446e1f68b01009ecd90a902727f646f9b2",
+    "installed_entry": {
+      "path": "C:/Users/shiro/AppData/Roaming/Blackmagic Design/DaVinci Resolve/Support/Fusion/Scripts/Comp/ResolveNodeKit_Arrange.py",
+      "manifest_path": "C:/Users/shiro/AppData/Roaming/Blackmagic Design/DaVinci Resolve/Support/Fusion/ResolveNodeKit/install_manifest.json",
+      "manifest_commit": "e12471446e1f68b01009ecd90a902727f646f9b2",
+      "manifest_package_files": 19,
+      "installed_total_with_entry": 20,
+      "package_hash_mismatches": 0,
+      "entry_sha256": "9c35ca8984163da0ad2e00899c0eba2b2c9b08fe039c32efa235dc367a85afce",
+      "source_arrange_request_sha256": "c2391c5e42d3c36ae78b3a8eb166045bcf25e5a368badff5a3a56c2c209118cd",
+      "installed_arrange_request_sha256": "c2391c5e42d3c36ae78b3a8eb166045bcf25e5a368badff5a3a56c2c209118cd",
+      "installed_root_import": "PASS"
+    }
+  },
+  "host": {
+    "resolve": "DaVinci Resolve Studio 21.1.0.14",
+    "native_reported_version": "21.1",
+    "compatibility_mcp": "2.203.0",
+    "route": "Direct Guarded script_plugin.run_inline -> installed ResolveNodeKit package -> execute_arrange_request",
+    "page": "Fusion",
+    "save": false,
+    "ui_note": "The bounded inline host worker has no UIDispatcher; this evidence is production semantic execution, not the separate installed UI gate."
+  },
+  "source_fixture": {
+    "project": "PSD2Fusion",
+    "project_id": "5a77c8a5-b609-4cc2-8224-e8098a96f493",
+    "timeline": "Timeline 1",
+    "timeline_id": "49f71479-5230-4c0c-9483-1b7356a911bd",
+    "timeline_item_index": 3,
+    "timeline_item_id": "4b396796-377b-43c8-94df-83b43959ed91",
+    "direct_export": {
+      "path": "C:/Users/shiro/AppData/Local/Temp/RNK_SO70_SOURCE_ITEM3_DIRECT_20260912.comp",
+      "bytes": 716273,
+      "sha256": "341c919157d0470a923de4b08fff60bf56900b5b0f03303d5fb0105d6d237103",
+      "header_render_range": [43, 59],
+      "header_resolve_version": "DaVinci Resolve Studio 21.1.0.0014"
+    },
+    "host_read": {
+      "total_tools": 1109,
+      "non_group_tools": 1075,
+      "group_operators": 34,
+      "max_group_depth": 4,
+      "group_depth_histogram": {"1": 2, "2": 6, "3": 15, "4": 11},
+      "edges": 1345,
+      "edge_kind_counts": {"background": 939, "foreground": 406},
+      "processing_modified_before_run": false
+    }
+  },
+  "SO-70": {
+    "status": "BLOCKED_TECHNICAL",
+    "gate": "G02",
+    "owned_fixture": {
+      "project": "_mcp_RNK_SO40_SO70_SO80_20260911",
+      "project_id": "59701b37-1a50-4784-9c29-b0ddfc190b4d",
+      "timeline": "RNK_SO40_SO61_20260911",
+      "timeline_id": "c37cf959-adfa-465f-8744-3d11ad90b6ae",
+      "timeline_item": "img20.jpg",
+      "timeline_item_id": "20103029-359a-431c-b092-8c49f210c2a1",
+      "imported_source": "direct native ExportFusionComp item index 3"
+    },
+    "preserve_runs": {
+      "state": {"include_unselected": true, "ungroup": false},
+      "pre": {
+        "tools": 1109,
+        "groups": 34,
+        "max_group_depth": 4,
+        "edges": 1345,
+        "position_hash": "45ee0b5b"
+      },
+      "run1": {
+        "status": "success",
+        "action_ms": 11063.1,
+        "moved": 1107,
+        "arranged": 1109,
+        "edges": 1345,
+        "post_position_hash": "776b9215",
+        "topology_equal": true,
+        "endpoint_loss": 0,
+        "undo_exact": true,
+        "diagnostics": {
+          "scope_count": 35,
+          "backbone_count": 35,
+          "merge_rail_count": 32,
+          "logical_group_box_count": 34,
+          "overlap_count": 0,
+          "backbone_order_violation_count": 0,
+          "branch_lane_violation_count": 0,
+          "diagonal_edge_count": 351,
+          "avoidable_diagonal_edge_count": 64,
+          "expanded_gap_count": 167,
+          "max_gap_x": 4,
+          "total_width": 1663,
+          "total_height": 58,
+          "fixed_point_iterations": 2
+        }
+      },
+      "run2": {
+        "status": "success",
+        "action_ms": 11008.5,
+        "moved": 1107,
+        "arranged": 1109,
+        "edges": 1345,
+        "post_position_hash": "776b9215",
+        "topology_equal": true,
+        "endpoint_loss": 0,
+        "undo_exact": true
+      },
+      "run3": {
+        "status": "success",
+        "action_ms": 10804.7,
+        "moved": 1107,
+        "arranged": 1109,
+        "edges": 1345,
+        "post_position_hash": "776b9215",
+        "topology_equal": true,
+        "endpoint_loss": 0,
+        "undo_exact": true
+      },
+      "all_runs_restored_position_hash": "45ee0b5b",
+      "all_runs_pre_position_hash": "45ee0b5b",
+      "all_runs_post_position_hash": "776b9215",
+      "action_budget_seconds": 60,
+      "action_times_seconds": [11.0631, 11.0085, 10.8047],
+      "endpoint_loss_total": 0
+    },
+    "run2_stability": {
+      "artifact": "C:/Users/shiro/AppData/Local/Temp/RNK_SO70_ITEM3_RUN2_20260912.json",
+      "artifact_sha256": "ad547b8dc3a53e64d16021128debf3d3f013e3e6422b99e3a3119b0e535b85c8",
+      "first_run_moved": 1107,
+      "second_run_moved": 0,
+      "second_run_edges": 1345,
+      "second_run_geometry_same_as_first": true,
+      "one_undo_restored_pre": true
+    },
+    "artifacts": {
+      "timed_run1": {"path": "C:/Users/shiro/AppData/Local/Temp/RNK_SO70_TIMED_RUN1_20260912.json", "sha256": "b31ba90756dce1f2aeb5f854457998c9a3e92d5056994861717ff50cdeb172a0"},
+      "timed_run2": {"path": "C:/Users/shiro/AppData/Local/Temp/RNK_SO70_TIMED_RUN220260912.json", "sha256": "2d58269ed41c81e210b1b96cf0b0c56efd912dc27cc07f898a78bf7426c864c7"},
+      "timed_run3": {"path": "C:/Users/shiro/AppData/Local/Temp/RNK_SO70_TIMED_RUN320260912.json", "sha256": "a81de5153b93c08d7ed76cf4effd68930e3a180f47fb064b0e19dedfee7ba7fd"},
+      "single_run_behavior": {"path": "C:/Users/shiro/AppData/Local/Temp/RNK_SO70_ITEM3_BEHAVIOR_20260912.json", "sha256": "4e567e04a148438b4aef154fbe827ad613737401eaed82484dde1b99a8fe803f"}
+    },
+    "qualification_boundary": {
+      "preserve_all_node_and_edge_readback": "PASS",
+      "logical_overlap": "PASS (0)",
+      "depth4_source_case": "PASS (host read and bounded preserve execution)",
+      "minimum_original_non_group_threshold": "NOT_MET_BY_THIS_SOURCE_CASE (1075 < 1100)",
+      "rectangle_geometry": "NOT_EXPOSED_BY_CURRENT_HOST_FLOWVIEW_SURFACE",
+      "integer_grid": "NOT_PROVEN (host snapping/tolerance remains non-integer for the measured node classes)",
+      "strict_displayed_wires": "NOT_COLLECTED_IN_THIS_LARGE_RUN; small native GUI SO-30 evidence remains separate",
+      "flatten": "NOT_RUN; installed ungroup route remains fail-closed"
+    },
+    "decision": "Depth-4 real PSD2Fusion preserve and three bounded changing runs are now directly evidenced. G02/G10 remain blocked because strict rectangle/grid/display proof, >=1100 original non-Group qualification on this depth-4 source, and flatten are not all satisfied."
+  },
+  "SO-61": {
+    "status": "BLOCKED_TECHNICAL",
+    "gate": "G05",
+    "action_surface_recheck": {
+      "fusion_api": "no callable Ungroup/UnGroup/GroupOperator mutation method",
+      "action_registry": "fresh ActionManager scan contained no ungroup/flatten action identifier",
+      "installed_route": "UngroupFirst refuses closed without a measured identity-preserving primitive",
+      "decision": "No guessed action ID and no generic desktop automation bridge added."
+    }
+  },
+  "cleanup": {
+    "owned_timelines": {
+      "before": 5,
+      "deleted_ids": [
+        "c37cf959-adfa-465f-8744-3d11ad90b6ae",
+        "213efa4a-06a0-4928-a180-ebe6084df53b",
+        "c3aa45fa-77cb-4d0a-82b3-ed5ff1db3b87",
+        "4cf98a76-5c05-47ff-b3f0-d7bab75a4dae",
+        "c06a4886-a760-4922-8c7b-6649d3f5c530"
+      ],
+      "delete_verified": true,
+      "after": 0
+    },
+    "owned_clip": {
+      "name": "img20.jpg",
+      "id": "6a690799-c506-43bb-926d-1032a2173008",
+      "delete_verified": true,
+      "folder_clips_after": []
+    },
+    "current_project_after_cleanup": "_mcp_RNK_SO40_SO70_SO80_20260911",
+    "current_timeline_after_cleanup": null,
+    "explicit_project_save_calls": 0,
+    "valuable_project_save": false,
+    "temp_artifacts": "captured in this checkpoint and removed after the durable summary is committed"
+  },
+  "G01_G14_matrix": {
+    "G01": "PASS",
+    "G02": "BLOCKED_TECHNICAL",
+    "G03": "PASS",
+    "G04": "PASS",
+    "G05": "BLOCKED_TECHNICAL",
+    "G06": "PASS",
+    "G07": "PASS",
+    "G08": "PASS",
+    "G09": "PENDING",
+    "G10": "BLOCKED_TECHNICAL",
+    "G11": "PENDING",
+    "G12": "PASS",
+    "G13": "PENDING",
+    "G14": "PENDING"
+  },
+  "SO_matrix": {
+    "SO-00": "PASS",
+    "SO-10": "PASS",
+    "SO-11": "PASS",
+    "SO-20": "PASS",
+    "SO-30": "PASS",
+    "SO-40": "PASS",
+    "SO-50": "PASS",
+    "SO-60": "PASS",
+    "SO-61": "BLOCKED_TECHNICAL",
+    "SO-70": "BLOCKED_TECHNICAL",
+    "SO-71": "PENDING",
+    "SO-80": "PASS",
+    "SO-90": "PENDING"
+  },
+  "next_ready_task": "Keep SO-61 fail-closed until a measured installed/native identity-preserving flatten bridge exists. Keep the new depth-4 preserve evidence, but do not promote G02/G10/G11 without strict geometry/display, threshold, and flatten-scoped proof. SO-71 and SO-90 remain gated.",
+  "main_merge_authorized": false
+}

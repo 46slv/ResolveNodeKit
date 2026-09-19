@@ -1,0 +1,52 @@
+{
+  "schema": "resolve-node-kit.flatten-canary/v1",
+  "observed_at_utc": "2026-09-10T06:00:44Z",
+  "task": "SO-40 guarded flatten_all_comp preflight/canary",
+  "candidate_sha": "eedd62e4265a6ddc8a7d291a3e72f1987f1b5b79",
+  "operator": {
+    "launcher_result": "PASS",
+    "launch_id": "6eb2cba0-96bb-4a15-a40c-0722bd822a6c",
+    "thread_id": "01a089e5-09f4-7dc3-b4f9-914ba8ae250a",
+    "driver": "third-party compatibility MCP v2.203.0",
+    "resolve_version": "DaVinci Resolve Studio 21.1.0.14",
+    "cwd": "C:/Users/shiro/Documents/Codex/2026-09-09/46slv-codexoperations-pr-5-branch-docs"
+  },
+  "fixture": {
+    "operation": "prepare_fusion_fixture(kind=nested_group, topology=nested_group_v1, restore_policy=scratch_disposable)",
+    "result": "NOT_CREATED_BY_SELECTED_HOST_SURFACE",
+    "identity": "nested_group_v1",
+    "pre_snapshot": "NOT_AVAILABLE"
+  },
+  "flatten": {
+    "semantic_result": "BLOCKED_HOST_API",
+    "writes": 0,
+    "undo": 0,
+    "save": 0,
+    "all_group_operators_zero": false,
+    "identity_mapping": "NOT_RUN",
+    "processing_readback": "NOT_RUN",
+    "missing_callbacks": [
+      "standalone LoadComp and owned FusionComp.Close",
+      "native identity-preserving Group ungroup",
+      "recursive child/identity inventory",
+      "non-Group identity and endpoint mapping",
+      "processing/parameters/keyframes/expressions/instances/media/port-label snapshot",
+      "bounded Undo/rollback and structural readback"
+    ]
+  },
+  "post_state": {
+    "project": "Untitled Project",
+    "timeline": null,
+    "current_fusion_comp": null,
+    "protected_state": "unchanged",
+    "cleanup": "no-save cleanup required",
+    "parent_direct_resolve_calls": 0
+  },
+  "lease": {
+    "final": "FREE",
+    "holder_pid": 30124,
+    "holder_process_start": 134334934842916847,
+    "token_prefix": "96f9f54b"
+  },
+  "status": "BLOCKED_HOST_API_ZERO_WRITE"
+}

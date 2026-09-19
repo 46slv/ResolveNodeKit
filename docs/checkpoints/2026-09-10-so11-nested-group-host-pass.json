@@ -1,0 +1,124 @@
+{
+  "schema": "resolve-node-kit.strict-so11-nested-group-host/v1",
+  "observed_at_utc": "2026-09-10T05:32:35Z",
+  "task": "SO-11 qualified standalone nested_group_v1 host snapshot",
+  "candidate_sha": "eedd62e4265a6ddc8a7d291a3e72f1987f1b5b79",
+  "operator": {
+    "launcher_result": "PASS",
+    "launch_id": "a1ecf08a-e24f-477c-afcc-608355b3818a",
+    "thread_id": "01a089c6-7e13-7b60-beff-08175502d05d",
+    "codex_cli": "0.153.4",
+    "cwd": "C:/Users/shiro/Documents/Codex/2026-09-09/46slv-codexoperations-pr-5-branch-docs",
+    "driver": "third-party compatibility MCP v2.203.0",
+    "resolve": "DaVinci Resolve Studio 21.1.0.14"
+  },
+  "lease": {
+    "acquired": true,
+    "owner_process_exact_live": true,
+    "holder_pid": 33152,
+    "holder_process_start": 134334914823840144,
+    "token_prefix": "db88c07d",
+    "final": "FREE",
+    "release": "delegated to launcher"
+  },
+  "target": {
+    "project": "Untitled Project",
+    "project_id": "redacted_by_operator_message",
+    "timeline": null,
+    "standalone_comp": true,
+    "protected_state_hash_before_after": "5ddafe96…53152"
+  },
+  "fixture": {
+    "operation": "prepare_fusion_fixture",
+    "kind": "nested_group",
+    "topology": "nested_group_v1",
+    "restore_policy": "scratch_disposable",
+    "comp_sha256": "713E15679F6E95EA66BEC6460BB70DDDE28B0AB97E6985EDB87864E9D72FE67D",
+    "manifest_sha256": "79CE02EDB4FFD67FDD320B9C32EE2A6ACC11122D713E1DD1A36BDC9EB84A25AF",
+    "load_count": 1,
+    "close_count": 1
+  },
+  "structure": {
+    "node_count": 10,
+    "group_count": 2,
+    "max_group_depth": 2,
+    "groups": {
+      "OuterGroup": ["OuterSource", "InnerGroup", "OuterProcess"],
+      "InnerGroup": ["InnerSource", "InnerMask", "InnerProcess"]
+    },
+    "main_output1": ["OuterGroup", "InnerGroup"],
+    "tool_identity": {
+      "OuterGroup": 10,
+      "OuterSource": 11,
+      "InnerGroup": 12,
+      "InnerSource": 13,
+      "InnerMask": 14,
+      "InnerProcess": 15,
+      "OuterProcess": 16,
+      "RootProcess": 17,
+      "RootSource": 18,
+      "MediaOut1": 19
+    },
+    "direct_edges": [
+      "InnerSource.Output -> InnerProcess.Background",
+      "InnerMask.Output -> InnerProcess.Foreground",
+      "InnerProcess.Output -> OuterProcess.Foreground",
+      "OuterSource.Output -> OuterProcess.Background",
+      "OuterProcess.Output -> RootProcess.Foreground",
+      "RootSource.Output -> RootProcess.Background",
+      "RootProcess.Output -> MediaOut1.Input"
+    ],
+    "edge_count": 7,
+    "boundary_edges": {
+      "inner_to_outer": true,
+      "outer_to_root": true
+    },
+    "identity_status": "complete"
+  },
+  "host_snapshot": {
+    "adapter_sha256": "6FF20136854905F1AF7707D548E00C94F16A8E72042D8D7B20EB570C59CFAF5A",
+    "json_safe": true,
+    "ports": "complete",
+    "adapter_connection_inventory_count": 9,
+    "non_complete": [
+      "nodes.<10 nodes>.position:unsupported (FlowView not supplied)",
+      "fields.group_boundary_proxies:unsupported",
+      "fields.parameters:unsupported",
+      "fields.keyframes:unsupported",
+      "fields.expressions:unsupported",
+      "fields.instances:unsupported",
+      "fields.media:unsupported",
+      "fields.time_range:unsupported",
+      "fields.tool_state:error (at least one GetAttrs value was not JSON-safe)"
+    ],
+    "unknown_not_empty": true,
+    "ambiguous_duplicate_policy": "fail_closed"
+  },
+  "mutation": {
+    "layout": 0,
+    "graph": 0,
+    "settings": 0,
+    "undo": 0,
+    "project_save": 0
+  },
+  "cleanup": {
+    "owned": true,
+    "status": "exact",
+    "close_result": true,
+    "current_comp_after_close": null,
+    "protected_state_unchanged": true
+  },
+  "gate": {
+    "G01": "PASS",
+    "SO-11_adapter": "PASS",
+    "operator_semantic_status": "PARTIAL_PASS",
+    "strict_structural_writer": "NOT_READY_UNTIL_REQUIRED_FIELDS_COMPLETE"
+  },
+  "remaining_boundary": [
+    "FlowView position readback was not supplied to this standalone snapshot",
+    "group_boundary_proxies, parameters, keyframes, expressions, instances, media, time_range are unsupported",
+    "tool_state has an explicit read error",
+    "strict_request preserve must remain fail-closed until its required snapshot fields are complete"
+  ],
+  "next_decision": "Use the same qualified standalone fixture for one strict_request preserve preflight through Resolve Operator; do not mutate when required fields remain unresolved, then proceed to actual view/wire only after a complete readback gate."
+}

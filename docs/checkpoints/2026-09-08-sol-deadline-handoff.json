@@ -1,0 +1,104 @@
+{
+  "schema": "resolve-node-kit.deadline-handoff/v1",
+  "program": "RNK-STRICT-ORTHOGONAL",
+  "handoff_id": "RNK-SO-20260908T010727Z-01a07e8e",
+  "coordinator": "01a07e95-b55e-70a1-8366-b80d785bbaa4",
+  "owner_epoch": 1,
+  "recorded_at_utc": "2026-09-08T01:59:49Z",
+  "deadline_utc": "2026-09-08T02:07:27Z",
+  "status": "CHECKPOINTED_WITH_TECHNICAL_GAP",
+  "candidate_sha": "8c667e6c50b20753657e9c3d36a641d60d0c08e3",
+  "candidate_remote": "origin/feat/semantic-arrange-v1-20260906",
+  "handoff": {
+    "phase": "EXECUTION_CONFIRMED",
+    "record": "docs/checkpoints/2026-09-08-astra-sol-execution.json",
+    "bootstrap_done": true
+  },
+  "completed_feasible_work": {
+    "SO-10": {
+      "status": "PASS",
+      "result": "Full 1109-row source audit plus explicit complete/absent/unsupported/error processing snapshot gate. Structural writes reject missing required processing coverage and either missing edge port ID.",
+      "observed": {
+        "tool_count": 1109,
+        "group_count": 29,
+        "merge_count": 257,
+        "unique_node_count": 1109,
+        "parent_cycles": 0,
+        "unknown_group_members": 0
+      }
+    },
+    "SO-50": {
+      "status": "BLOCKED_TECHNICAL",
+      "offline_result": "Production controller now emits one run_id-correlated setup/started/busy/progress/hidden/result/terminal stream and preserves pre-bind Cancel zero mutation.",
+      "remaining": "Actual installed widget event delivery and same-run host visibility are not tested; G06/G07 remain PENDING."
+    }
+  },
+  "tests": {
+    "canonical_pythonpath_full_suite": "136/136 PASS",
+    "focused_new_tests": "9/9 PASS",
+    "contract_tests": "30/30 PASS",
+    "compileall": "PASS",
+    "git_diff_check": "PASS",
+    "reference_audit": "PASS",
+    "environment_note": "An initial unbound full-suite run imported D:/Documents/ResolveNodeKit/src and failed by mixing checkouts; rerun with canonical worktree PYTHONPATH passed 136/136."
+  },
+  "installed": {
+    "repo_commit": "8c667e6c50b20753657e9c3d36a641d60d0c08e3",
+    "manifest_sha256": "e88eea1280e3ec1a4d57f786b8d8232b0c8edad3b67884e56fbfc1d1a26bde98",
+    "package_files": "14/14 match",
+    "entry_sha256": "2cec9ce068788c7e92451c28a561338debd12bab13186cec4318848ed30ffc1f",
+    "backup": "C:/Users/shiro/AppData/Roaming/Blackmagic Design/DaVinci Resolve/Support/Fusion/ResolveNodeKit/backup/20260908-015924"
+  },
+  "host": {
+    "resolve_operator_result": "FREE",
+    "lease_acquired": false,
+    "resolve_calls": 0,
+    "runtime_identity": "NOT_OBSERVED",
+    "project_timeline_comp": "NOT_OBSERVED",
+    "mutation": false,
+    "save": false,
+    "cleanup": "not_applicable"
+  },
+  "instruction_chain": {
+    "receipt_digest": "c7e421e8a06ce432272a160044701c4cb97f74e8769162f19be84aed0bd88933",
+    "current_execution_digest": "e4c7045294a94ee07807684aec38682dbf058d8bd08f5bee0613f97d79e76c94",
+    "reason": "Current resolve-operator SKILL added stricter runtime/process corroboration after receipt. The stricter current text was followed and drift was not hidden."
+  },
+  "gate_matrix": {
+    "G01": "PENDING",
+    "G02": "PENDING",
+    "G03": "PENDING",
+    "G04": "PENDING",
+    "G05": "PENDING",
+    "G06": "PENDING",
+    "G07": "PENDING",
+    "G08": "PENDING",
+    "G09": "PENDING",
+    "G10": "PENDING",
+    "G11": "PENDING",
+    "G12": "PENDING",
+    "G13": "PENDING",
+    "G14": "PENDING"
+  },
+  "exact_blockers": [
+    "User-wide Resolve lease status was FREE, so the operator correctly made zero Resolve calls and host identity/current target remain unobserved.",
+    "SO-11 complete host snapshot adapter, SO-20 strict planner, SO-30 native view, SO-40 flatten and all integrated/large host qualifications remain incomplete.",
+    "SO-50 has offline observability evidence only; installed real UI event/visibility evidence is absent.",
+    "No fresh independent final-candidate verifier was run."
+  ],
+  "smallest_ready_next": [
+    "SO-20: build strict planner against the now-audited source and complete artificial snapshot fixtures.",
+    "SO-11: when a dedicated resolve_operator instance has a mechanically HELD lease and MCP connection, read host identity and implement complete adapter coverage without writes on unknown fields.",
+    "SO-50: qualify the installed candidate's actual widget events and same-run busy/result visibility through resolve_operator.",
+    "Rebind the current resolve-operator instruction digest before the next authenticated host lane."
+  ],
+  "git": {
+    "branch": "feat/semantic-arrange-v1-20260906",
+    "pushed": true,
+    "worktree_dirty_at_record": false,
+    "main_merge": false,
+    "force_push": false
+  },
+  "product_done": false,
+  "whole_project_mission_complete": false
+}

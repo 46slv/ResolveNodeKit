@@ -1,0 +1,52 @@
+{
+  "schema": "resolve-node-kit.runtime-binding-amendment/v1",
+  "handoff_id": "RNK-SO-20260908T010727Z-01a07e8e",
+  "runtime_binding_revision": 2,
+  "plan_revision": "AS-BOOTSTRAP-20260908-1",
+  "plan_digest": "ebc124049dbb1dfa863cd499c13c2cd1a232774ae754a26edc30ee14668dbc20",
+  "plan_publication": "8934307d533894f41f72cc865e0dabd8288206cf",
+  "reason": [
+    "Native App task creation did not inherit the authorized local execution settings: observed on-request/workspace-write/network false. No write lease granted.",
+    "The Resolve Operator skill was updated by its existing owner after the original instruction hash was frozen. Preserve that change and explicitly re-receive its current hash."
+  ],
+  "sol_thread_id": "01a07e95-b55e-70a1-8366-b80d785bbaa4",
+  "initial_turn_id": "01a07e95-b80a-7983-8e06-cf13b4244e30",
+  "native_create_client_id": "client-new-thread:661bf39a-53b4-4fa0-83fd-cfef09f3da8a",
+  "observed_initial": {
+    "model": "gpt-5.6-sol",
+    "effort": "max",
+    "approval_policy": "on-request",
+    "sandbox_policy": "workspace-write",
+    "network_access": false,
+    "cwd": "C:\\Users\\shiro\\.codex\\worktrees\\c22a\\ResolveNodeKit",
+    "metadata_event": "2026-09-08T01:15:37.696Z turn_context line 8"
+  },
+  "correction_route": {
+    "status": "PREPARED_NOT_EXECUTED",
+    "binary": "C:\\Users\\shiro\\AppData\\Local\\OpenAI\\Codex\\bin\\8e5b6932251c2c1c\\codex.exe",
+    "version": "codex-cli 0.153.4",
+    "supported_command": "exec resume <exact same UUID>",
+    "settings": "per-invocation -m gpt-5.6-sol -c model_reasoning_effort=max -c approval_policy=never -c sandbox_mode=danger-full-access",
+    "precondition": "initial App receipt turn completed; no queued or active App turn; no concurrent receiver",
+    "global_config_changes": false,
+    "independent_lifetime": "Hidden standalone Codex process, durable same-thread JSONL; verify actual turn_context before transfer"
+  },
+  "instruction_manifest": {
+    "AGENTS.md": "7e271c57e63715dcbf086dcb2d7aec271904c964932baa683f839d0a6c9f261a",
+    "docs/execution/strict-orthogonal/RUNBOOK.md": "9f7be23965717f2433a0b82aebe31359e455283d730f6f9e0a14acaa7355f847",
+    "C:/Users/shiro/.agents/skills/resolve-operator/SKILL.md": "79a8a70758f0927e8cb6efa95dd64b0684f060d83918e7b8d6a810a537dbbde8"
+  },
+  "instruction_digest": "c7e421e8a06ce432272a160044701c4cb97f74e8769162f19be84aed0bd88933",
+  "permissions": {
+    "approval_policy": "never",
+    "sandbox_policy": "danger-full-access",
+    "network_access": true,
+    "contract": "RUNBOOK.md",
+    "deadline_utc": "2026-09-08T02:07:27Z",
+    "no_project_save": true,
+    "no_main_merge": true
+  },
+  "permissions_digest": "fac84c32139b1f990555df39c0eddf9fb29a827b3b012633f035a604246189c1",
+  "product_gate_changes": false,
+  "lease_transferred": false
+}

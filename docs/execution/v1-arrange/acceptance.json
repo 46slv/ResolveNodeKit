@@ -1,0 +1,66 @@
+{
+  "schema": "resolve-node-kit.v1-arrange-preserve/v1",
+  "updated": "2026-09-20",
+  "status": "CHECKPOINTED",
+  "release_state": "V1_RELEASE_CANDIDATE_PENDING_HOST_RECHECK",
+  "product_direction": "docs/PRODUCT_DIRECTION_BRIEF.md",
+  "current_owner": "docs/execution/v1-arrange/",
+  "preserved_v2_owner": "docs/execution/strict-orthogonal/",
+  "official_workflow": ["Arrange", "Resolve native GUI manual Ungroup (optional)", "Re-Arrange"],
+  "v1_boundary": {
+    "preserve_groups": true,
+    "automatic_ungroup": false,
+    "automatic_flatten_all": false,
+    "flatten_is_release_blocker": false,
+    "strict_geometry_machine_surface_is_release_blocker": false,
+    "actual_visual_breakage_is_release_blocker": true
+  },
+  "execution": {
+    "route": "Luna Max Product Worker -> direct Resolve capability -> minimal mechanical Host Guard -> Resolve",
+    "single_state_writer": true,
+    "single_live_resolve_writer": true,
+    "no_blind_retry": true,
+    "no_valuable_project_save": true,
+    "main_merge": false,
+    "actual_release": false
+  },
+  "criteria": [
+    {"id": "V1-01", "name": "flat_graph_arrange", "status": "PASS", "evidence": ["docs/checkpoints/2026-09-11-so30-so40-so50-direct-host-v2.json#SO-60"]},
+    {"id": "V1-02", "name": "group_preserving_arrange", "status": "PASS", "evidence": ["docs/checkpoints/2026-09-11-so30-so40-so50-direct-host-v2.json#SO-60"]},
+    {"id": "V1-03", "name": "nested_group_arrange", "status": "PASS_WITH_SCOPE", "evidence": ["docs/checkpoints/2026-09-10-so11-nested-group-host-pass.json", "docs/checkpoints/2026-09-11-so30-so40-so50-direct-host-v2.json#SO-60"]},
+    {"id": "V1-04", "name": "representative_fanout_multiedge_mask_branch", "status": "PASS_WITH_SCOPE", "evidence": ["docs/checkpoints/2026-09-11-so30-so40-so50-direct-host-v2.json#SO-60", "docs/checkpoints/2026-09-12-so61-so70-parent-first-canary.json#SO-70.psd2fusion_disposable_duplicate"]},
+    {"id": "V1-05", "name": "processing_topology_preservation", "status": "PASS_WITH_SCOPE", "evidence": ["docs/checkpoints/2026-09-11-so30-so40-so50-direct-host-v2.json#SO-60", "docs/checkpoints/2026-09-12-so61-so70-parent-first-canary.json#SO-70.psd2fusion_disposable_duplicate"]},
+    {"id": "V1-06", "name": "tool_identity_preservation", "status": "PASS", "evidence": ["docs/checkpoints/2026-09-12-so61-so70-parent-first-canary.json#SO-70"]},
+    {"id": "V1-07", "name": "group_parent_membership_preservation", "status": "PASS", "evidence": ["docs/checkpoints/2026-09-11-so30-so40-so50-direct-host-v2.json#SO-60", "docs/checkpoints/2026-09-12-so61-so70-parent-first-canary.json#SO-70"]},
+    {"id": "V1-08", "name": "endpoint_loss_zero", "status": "PASS", "evidence": ["docs/checkpoints/2026-09-12-so61-so70-parent-first-canary.json#SO-70", "docs/checkpoints/2026-09-12-so70-depth4-1100-direct-preserve.json#SO-70"]},
+    {"id": "V1-09", "name": "undo_rollback", "status": "PASS_WITH_SCOPE", "evidence": ["docs/checkpoints/2026-09-11-so30-so40-so50-direct-host-v2.json#SO-60", "docs/checkpoints/2026-09-12-so70-depth4-1100-direct-preserve.json#SO-70"]},
+    {"id": "V1-10", "name": "run2_stable_noop", "status": "PASS", "evidence": ["docs/checkpoints/2026-09-11-so30-so40-so50-direct-host-v2.json#SO-60", "docs/checkpoints/2026-09-12-so70-depth4-1100-direct-preserve.json#SO-70"]},
+    {"id": "V1-11", "name": "installed_ui_run_cancel_busy_result", "status": "PASS_WITH_SCOPE", "evidence": ["docs/checkpoints/2026-09-11-so30-so40-so50-direct-host-v2.json#SO-50", "docs/checkpoints/2026-09-11-so30-so40-so50-direct-host-v2.json#SO-60"]},
+    {"id": "V1-12", "name": "real_project_duplicate", "status": "PASS", "evidence": ["docs/checkpoints/2026-09-12-so61-so70-parent-first-canary.json#SO-70"]},
+    {"id": "V1-13", "name": "scale_1100_non_group", "status": "PASS_WITH_SCOPE", "evidence": ["docs/checkpoints/2026-09-12-so70-depth4-1100-direct-preserve.json#SO-70"]},
+    {"id": "V1-14", "name": "performance", "status": "PASS", "evidence": ["docs/checkpoints/2026-09-12-so70-depth4-1100-direct-preserve.json#SO-70"]},
+    {"id": "V1-15", "name": "recovery_cleanup", "status": "PASS", "evidence": ["docs/checkpoints/2026-09-12-so40-so61-so70-so80-direct-continuation.json#SO-80", "docs/checkpoints/2026-09-12-so70-depth4-1100-direct-preserve.json#cleanup"]},
+    {"id": "V1-16", "name": "manual_ungroup_re_arrange_e2e", "status": "NEEDS_SMALL_RECHECK", "evidence": ["docs/checkpoints/2026-09-12-so40-so61-so70-so80-direct-continuation.json#SO-40", "docs/checkpoints/2026-09-11-so30-so40-so50-direct-host-v2.json#SO-60"]},
+    {"id": "V1-17", "name": "source_install_package_identity", "status": "PASS", "evidence": ["docs/checkpoints/2026-09-20-product-direction-reset.md#candidate-install-readback"]},
+    {"id": "V1-18", "name": "fresh_independent_verifier", "status": "PASS", "evidence": ["docs/checkpoints/2026-09-20-product-direction-reset.md#fresh-independent-verifier"]}
+  ],
+  "v2_research_not_v1_blockers": [
+    "automatic Ungroup",
+    "UngroupFirst",
+    "Flatten All",
+    "large automatic flatten qualification",
+    "flatten processing/render preservation",
+    "automatic flatten rollback",
+    "strict machine-readable rectangle/grid proof",
+    "strict large displayed-wire collection"
+  ],
+  "completion": {
+    "required_statuses": ["PASS", "PASS_WITH_SCOPE"],
+    "allowed_open_statuses_before_candidate": ["NEEDS_SMALL_RECHECK"],
+    "candidate_requires": ["manual_ungroup_re_arrange_e2e"],
+    "output": "V1_RELEASE_CANDIDATE",
+    "v2_output": "DEFERRED_RESEARCH",
+    "main_merge_authorized": false,
+    "actual_release_authorized": false
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "schema": "resolve-node-kit.comp-local-executor-qualification/v1",
+  "observed_at_utc": "2026-09-10T15:07:10.1188510Z",
+  "task": "WP1 comp-local executor qualification after the completed context matrix",
+  "repository": {
+    "branch": "feat/semantic-arrange-v1-20260906",
+    "head_before_checkpoint": "5eaa69b0fc651626c1da7bd4628f923cc34e8cc0",
+    "remote_head_readback": "5eaa69b0fc651626c1da7bd4628f923cc34e8cc0",
+    "main_merge_authorized": false
+  },
+  "operator": {
+    "launcher": "C:/Users/shiro/.agents/skills/resolve-operator/scripts/launch_external_operator.py",
+    "profile_model": "gpt-5.6-terra/high",
+    "workspace": "D:/Documents/ChatGPT/Davinci-Operater",
+    "workspace_revision": "21ac220fe0877194fbe8c01687642729906cf1c333cdaf80f148cf9d12bfa90a",
+    "workspace_file_count": 17,
+    "workspace_post_readback_equal": true,
+    "parent_direct_resolve_access": 0
+  },
+  "runs": [
+    {
+      "launch_id": "a3647c2b-8195-4b30-a20e-aa1cf1e410f9",
+      "thread_id": "01a08bcf-b075-7fe1-be70-a40ed9874a7e",
+      "launcher_result": "PASS",
+      "operator_status": "BLOCKED",
+      "route": "script_plugin.run_inline -> fusion.Execute(lua)",
+      "materially_different": true,
+      "host": {
+        "product": "DaVinci Resolve Studio 21.1.0.14",
+        "runtime": "running/gui/one instance",
+        "page": null,
+        "project": {
+          "name": "Untitled Project",
+          "id": "812688b6-3f81-461e-aeaf-cd9fa6166383"
+        },
+        "timeline": "absent"
+      },
+      "readback": {
+        "fusion_present": true,
+        "get_current_comp": {
+          "callable": true,
+          "call_ok": true,
+          "current_comp_present": false
+        },
+        "exact_comp_binding": "not established; COMPS_Name/COMPS_ID=nil",
+        "current_frame": "not_observable",
+        "flowview_get_postable_sample": "not_observable",
+        "tool_handles": "not_observable",
+        "undo_surface": "not_observable; not called",
+        "processing_serialization": "not_observable",
+        "fixture_fingerprint": "not_observable"
+      },
+      "mutation_counters": {
+        "graph": 0,
+        "positions": 0,
+        "settings": 0,
+        "connections": 0,
+        "processing": 0,
+        "keyframes": 0,
+        "media": 0,
+        "selection": 0,
+        "undo": 0,
+        "project_save": 0
+      },
+      "cleanup": {
+        "scratch_created": false,
+        "cleanup": "not_applicable",
+        "final_host": "Untitled Project; no current timeline/comp"
+      },
+      "lease": {
+        "initial": "FREE",
+        "held": true,
+        "owner_process_exact_live": true,
+        "holder_pid": 104640,
+        "holder_process_start": 134335256397499532,
+        "token_prefix": "21460e36",
+        "final": "FREE"
+      }
+    },
+    {
+      "launch_id": "e4e5e5ac-9197-4a69-83e9-e7735729037c",
+      "thread_id": "01a08bd5-d50b-7743-9360-644d0c2d07e8",
+      "launcher_result": "PASS",
+      "operator_status": "BLOCKED",
+      "route": "script_plugin.execute; Comp-category Lua",
+      "materially_different": true,
+      "host": {
+        "product": "DaVinci Resolve Studio 21.1.0.14",
+        "runtime": "running/gui/one instance",
+        "page": null,
+        "project": "Untitled Project",
+        "timeline": "absent"
+      },
+      "readback": {
+        "script_result": false,
+        "error_detail": "not returned by the host; Lua print output is Console-only",
+        "local_new_comp": "not observed",
+        "exact_comp_binding": "not established",
+        "current_frame": "not_observable",
+        "flowview_get_postable_sample": "not_observable",
+        "fixture_fingerprint": "not_observable",
+        "undo_surface": "not_observable; not called",
+        "processing_serialization": "not_observable"
+      },
+      "mutation_counters": {
+        "graph": 0,
+        "positions": 0,
+        "settings": 0,
+        "connections": 0,
+        "processing": 0,
+        "keyframes": 0,
+        "media": 0,
+        "selection": 0,
+        "undo": 0,
+        "project_save": 0
+      },
+      "cleanup": {
+        "temporary_comp_script_removed": true,
+        "comp_script_list_after": "empty",
+        "comp_fixture_cleanup": "not_proven; execution returned false and no fixture result was observable",
+        "final_host": "Untitled Project; no current timeline; GUI running"
+      },
+      "lease": {
+        "initial": "FREE",
+        "held": true,
+        "owner_process_exact_live": true,
+        "holder_pid": 98428,
+        "holder_process_start": 134335260421335590,
+        "token_prefix": "a53f2e95",
+        "final": "FREE"
+      }
+    }
+  ],
+  "qualification": {
+    "status": "BLOCKED",
+    "required_combination_exact_comp_plus_current_frame_plus_flowview_plus_owned_undo": false,
+    "reason": "The first new route had no active composition; the Comp-category local-script route returned false without an observable local composition. No route proved exact binding, FlowView and owned Undo in one invocation.",
+    "independent_verifier_judgement": "insufficient; no stable target or capability readback"
+  },
+  "wp2": {
+    "run": false,
+    "position_moves": 0,
+    "undo_calls": 0,
+    "reason": "WP1 prerequisite not proven"
+  },
+  "wp3_processing_fingerprint": "NOT_COLLECTED",
+  "wp4_flowview_actual_wire": "NOT_COLLECTED",
+  "gate_state": {
+    "G02": "BLOCKED_TECHNICAL",
+    "G03": "BLOCKED_TECHNICAL",
+    "G08": "PENDING",
+    "integrated_host_session": "NOT_RUN",
+    "main_merge": 0,
+    "release": 0
+  },
+  "retry_rule": "Do not repeat either route or issue an identical third context probe without new host evidence.",
+  "status": "CHECKPOINTED_WITH_TECHNICAL_GAP"
+}

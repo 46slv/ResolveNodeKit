@@ -1,0 +1,113 @@
+{
+  "schema": "resolve-node-kit.bootstrap-audit/v1",
+  "handoff_id": "RNK-SO-20260908T010727Z-01a07e8e",
+  "plan_revision": "AS-BOOTSTRAP-20260908-1",
+  "authoring_head": "856bf39c21e4f71f0d42499d61c86e212b6ea3e1",
+  "product_source_revision": "59eeffbce5efd0a73a0fed2a4f3418faf71d5852",
+  "planner": {
+    "thread_id": "01a07e8e-41f3-7d30-b190-3f621b5cdb64",
+    "turn_id": "01a07e8e-461e-7e72-81cd-60cc7b72ece5",
+    "model": "gpt-6-astra",
+    "effort": "xhigh",
+    "runtime_metadata_source": "persisted turn_context",
+    "cwd": "D:\\Documents\\ResolveNodeKit"
+  },
+  "plan_hash_algorithm": "SHA256 over canonical sorted compact UTF-8 JSON of manifest; text file hashes use LF-normalized bytes; acceptance normative omits mutable fields as listed",
+  "acceptance_exclusions": {
+    "top_level": [
+      "updated",
+      "status",
+      "execution_started",
+      "candidate_sha",
+      "handoff_state"
+    ],
+    "work_packages": [
+      "status",
+      "evidence"
+    ],
+    "gates": [
+      "status",
+      "candidate_sha",
+      "evidence"
+    ]
+  },
+  "plan_manifest": {
+    "docs/design/strict-orthogonal/DESIGN.md": "0abead154bb4905a86ea7f145096c16c6745cd35f6e07ff282467425b070ae55",
+    "docs/design/strict-orthogonal/SOURCES.md": "efb8dc94239d41ec0c6cb832940316fb417ee3adaa4bf9a2421e468a1aeb1684",
+    "docs/execution/strict-orthogonal/PLAN.md": "1d7747f6f41cd9dfb2d12ce36abf0c0d50e8c4a67f19ee7531c1d575ae6bada0",
+    "docs/execution/strict-orthogonal/RUNBOOK.md": "9f7be23965717f2433a0b82aebe31359e455283d730f6f9e0a14acaa7355f847",
+    "docs/execution/strict-orthogonal/README.md": "bfd06bbef6e77134d3f04bae7a59a64144e03091a966c4326fafb06dec3493f8",
+    "docs/execution/strict-orthogonal/HANDOFF.md": "a35a6deda60ff5f5cea9598d5955feeef575511193245d17aee0010d57b638d6",
+    "docs/execution/strict-orthogonal/acceptance.json#normative": "e53c7f438ccf3022284b62775236fd9338262a8fe83a8ebb3241a74a25fb01d1"
+  },
+  "plan_digest": "ebc124049dbb1dfa863cd499c13c2cd1a232774ae754a26edc30ee14668dbc20",
+  "permissions": {
+    "approval_policy": "never",
+    "sandbox_policy": "danger-full-access",
+    "network_access": true,
+    "contract": "RUNBOOK.md",
+    "deadline_utc": "2026-09-08T02:07:27Z",
+    "no_project_save": true,
+    "no_main_merge": true
+  },
+  "permissions_digest": "fac84c32139b1f990555df39c0eddf9fb29a827b3b012633f035a604246189c1",
+  "instruction_manifest": {
+    "AGENTS.md": "7e271c57e63715dcbf086dcb2d7aec271904c964932baa683f839d0a6c9f261a",
+    "docs/execution/strict-orthogonal/RUNBOOK.md": "9f7be23965717f2433a0b82aebe31359e455283d730f6f9e0a14acaa7355f847",
+    "C:/Users/shiro/.agents/skills/resolve-operator/SKILL.md": "1697b135dcfbc49568a70aebd242c77829d3112c5cb5116ef8980b526db7d65b"
+  },
+  "instruction_digest": "1ca5dc9d451a68b9af1528b0e81678b17c8238f719d36ce4ea0f1d48a8cd56f6",
+  "instruction_sources_api": "not_exposed_by_native_tools; explicit file reads and persisted turn metadata required",
+  "expected_receiver": {
+    "repository": "46slv/ResolveNodeKit",
+    "model": "gpt-5.6-sol",
+    "effort": "max",
+    "branch": "feat/semantic-arrange-v1-20260906",
+    "first_task": "SO-00",
+    "verification_entry": "python docs/execution/strict-orthogonal/check_contract.py"
+  },
+  "timebox": {
+    "start_utc": "2026-09-08T01:07:27Z",
+    "deadline_utc": "2026-09-08T02:07:27Z"
+  },
+  "duplicate_scan": {
+    "native_thread_limit": 50,
+    "existing_nodekit_tasks": "notLoaded",
+    "same_program_processes": 0,
+    "published_phase": "NOT_STARTED",
+    "existing_sol_owner_found": false,
+    "other_resolve_tasks_active": true
+  },
+  "installed": {
+    "manifest_revision": "562405079aa6bffa6d25668b294a26ac4142a680",
+    "manifest_sha256": "71809a6ebe3b9c277b8fce77540b61ce7082ce7a8836064417dc46f3a72b401b",
+    "package_manifest_matches": 13,
+    "package_original_checkout_byte_matches": 13,
+    "new_worktree_line_ending_differences": 6,
+    "entry_original_checkout_byte_match": true,
+    "entry_new_worktree_line_ending_difference": true,
+    "entry_sha256": "3bb3f6439ac67796197f511692d0a8ca39f4d5cd350a7e992ad783ef5f2e7945"
+  },
+  "validation": {
+    "static_contract": "PASS",
+    "contract_tests": 30,
+    "product_tests_this_bootstrap": "NOT_RUN_PRODUCT_UNCHANGED",
+    "host_this_bootstrap": "NOT_RUN",
+    "product_gates": {
+      "G01": "PENDING",
+      "G02": "PENDING",
+      "G03": "PENDING",
+      "G04": "PENDING",
+      "G05": "PENDING",
+      "G06": "PENDING",
+      "G07": "PENDING",
+      "G08": "PENDING",
+      "G09": "PENDING",
+      "G10": "PENDING",
+      "G11": "PENDING",
+      "G12": "PENDING",
+      "G13": "PENDING",
+      "G14": "PENDING"
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "schema": "resolve-node-kit.strict-fresh-final-verifier/v1",
+  "recorded_at_utc": "2026-09-09T22:06:28.3031356Z",
+  "task": "fresh independent Luna Max audit of the strict orthogonal candidate",
+  "audited_candidate": {
+    "branch": "feat/semantic-arrange-v1-20260906",
+    "commit": "bd2b6294293e1f0664249cd3c327830ed688309d",
+    "post_audit_docs_only_commit": "3bf91d381e9846be93900b2febfe365013834c54",
+    "pr": 5,
+    "state": "OPEN/Draft/non-main"
+  },
+  "evidence_packet": {
+    "TASK": "independent final-candidate audit without repairs",
+    "STATE": "Luna epoch 2 owner current; old writer fenced; no unfinished Resolve operation recorded",
+    "CHANGED": "none by verifier",
+    "VERIFIED": [
+      "remote PR head matched bd2b629 at audit time",
+      "installed manifest matched bd2b629 at audit time",
+      "trial result JSON/MD parsed; seven work packages and six automatic Operator launches recorded",
+      "all recorded Operator final leases FREE; parent direct-host fallback 0; human intervention 0"
+    ],
+    "TESTS": [
+      "strict contract tests 30/30 PASS",
+      "canonical suite 169/169 PASS",
+      "compileall PASS",
+      "git diff --check PASS"
+    ],
+    "HOST_EVIDENCE": "Resolve Studio 21.1.0.14 compatibility lane was independently recorded; SO-11 remained unqualified, cleanup readbacks passed, project_save=0, valuable project mutation=0",
+    "REMAINING": [
+      "qualified host snapshot and strict position writer/readback",
+      "native strict wire/view and installed UI run/cancel/busy/result",
+      "all-Group flatten with processing and exact Undo preservation",
+      "1100+ non-Group large qualification, recovery/performance, and G01-G14"
+    ],
+    "BLOCKER": [
+      "CAPABILITY_GAP:NO_ACTIVE_TIMELINE_OR_COMP_WEDGED_RUNTIME",
+      "HOST_CAPABILITY_GAP:NESTED_GROUP_CREATION_REFUSED_WITH_TIMEOUT"
+    ],
+    "FAILURE_FINGERPRINT": "no identical third qualification permitted after route changes and new evidence",
+    "ATTEMPT_COUNT": {
+      "SO11_preflight": 2,
+      "disposable_stale_install": 1,
+      "exact_candidate_nested_fixture": 1,
+      "cleanup_recovery": 2
+    },
+    "NEXT_DECISION": "Keep completion fail-closed; only continue with a materially different qualified fixture route or independent offline integration."
+  },
+  "gate_readback": {
+    "G01": "BLOCKED_TECHNICAL",
+    "G02": "BLOCKED_TECHNICAL",
+    "G03": "BLOCKED_TECHNICAL",
+    "G04-G13": "PENDING",
+    "G14": "UNPROMOTED",
+    "whole_project_mission_complete": false,
+    "product_gate_movement": []
+  },
+  "status": "AUDIT_PASS_COMPLETION_BLOCKED"
+}

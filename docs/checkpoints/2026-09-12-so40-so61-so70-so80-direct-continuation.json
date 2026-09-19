@@ -1,0 +1,302 @@
+{
+  "schema": "resolve-node-kit.strict-continuation.direct-gates/v3",
+  "recorded_at": "2026-09-12T00:30:52+09:00",
+  "status": "CHECKPOINTED_WITH_TECHNICAL_GAP",
+  "candidate": {
+    "pull_request": 5,
+    "pull_request_url": "https://github.com/46slv/ResolveNodeKit/pull/5",
+    "worktree": "D:/Documents/ResolveNodeKit-pr5-v2-integration",
+    "branch": "feat/direct-guarded-reset-20260911",
+    "source_revision": "b0bf8f891bf87d10db23c6d9213cb4b449bfa407",
+    "source_parent_locator": "a088b783b46cbc6274f5cde526c9f7b34b105550",
+    "remote_head_rechecked_before_work": "a088b783b46cbc6274f5cde526c9f7b34b105550",
+    "dirty_before_run": false,
+    "contract_change": "flatten.py now states exact pre-state rollback; Undo count is host-dependent and is not a SO-40 acceptance criterion",
+    "source_entry": {
+      "path": "scripts/Fusion/ResolveNodeKit_Arrange.py",
+      "sha256": "9C35CA8984163DA0AD2E00899C0EBA2B2C9B08FE039C32EFA235DC367A85AFCE"
+    },
+    "installed_entry": {
+      "path": "C:/Users/shiro/AppData/Roaming/Blackmagic Design/DaVinci Resolve/Support/Fusion/Scripts/Comp/ResolveNodeKit_Arrange.py",
+      "sha256": "9C35CA8984163DA0AD2E00899C0EBA2B2C9B08FE039C32EFA235DC367A85AFCE",
+      "manifest_commit": "b0bf8f891bf87d10db23c6d9213cb4b449bfa407",
+      "manifest_package_files": 19,
+      "manifest_entry_total": 20,
+      "package_hash_mismatches": 0,
+      "installed_root_import": "PASS"
+    }
+  },
+  "host": {
+    "resolve": "DaVinci Resolve Studio 21.1.0.14",
+    "compatibility_mcp": "2.203.0",
+    "live_writers": 1,
+    "valuable_project": {
+      "name": "PSD2Fusion",
+      "id": "5a77c8a5-b609-4cc2-8224-e8098a96f493",
+      "current_timeline": "Timeline 1",
+      "current_timeline_id": "49f71479-5230-4c0c-9483-1b7356a911bd",
+      "comp_readback_after_cleanup": {
+        "tool_count": 958,
+        "comp_modified": false
+      }
+    }
+  },
+  "SO-40": {
+    "status": "PASS",
+    "gate": "G04",
+    "evidence_type": "fresh_owned_depth_2_fixture_native_Fusion_GUI_Ungroup_plus_compact_snapshot_readback",
+    "fixture": {
+      "project": "_mcp_RNK_SO40_SO70_SO80_20260911",
+      "comp": "コンポジション2",
+      "pre_tool_count": 18,
+      "pre_group_count": 2,
+      "pre_groups": ["Group1", "Group2"],
+      "pre_max_depth": 2,
+      "pre_edge_count": 11,
+      "pre_non_group_position_sha256": "13222ed8ab3f84962b69d1922f339b2f31e06ba04a56694e5608dbff5b59f11b",
+      "pre_group_position_sha256": "a9c72ea19d3beae1bc5ad72b42946c90a8c2afcf5a766f27ca4add65b7d05922"
+    },
+    "flatten": {
+      "route": "Fusion context-menu Ungroup (グループを解除), deepest Group1 then parent Group2",
+      "post_tool_count": 16,
+      "post_group_count": 0,
+      "post_edge_count": 11,
+      "original_non_group_identity_exact": true,
+      "parent_semantics": "all original non-Group parents became null; Group1 was inside Group2 before flatten",
+      "port_labelled_processing_edges_exact": true,
+      "proxy_equivalence": "boundary-connected child endpoints remained the same labelled non-Group endpoints; no GroupOperator proxy substitution or rewire was observed",
+      "edges": [
+        "Left.Data -> MediaIn1.LeftAudio",
+        "RNK_SO40_BG.Output -> RNK_SO40_MERGE.Background",
+        "RNK_SO40_BLUR.Output -> RNK_SO40_OUT_MERGE.Background",
+        "RNK_SO40_BLURBlurSize.Value -> RNK_SO40_BLUR.XBlurSize",
+        "RNK_SO40_BRANCH_BG.Output -> RNK_SO40_BRANCH_BLUR.Input",
+        "RNK_SO40_BRANCH_BLUR.Output -> RNK_SO40_OUT_MERGE.Foreground",
+        "RNK_SO40_MASK.Mask -> RNK_SO40_MERGE.EffectMask",
+        "RNK_SO40_MERGE.Output -> RNK_SO40_BLUR.Input",
+        "RNK_SO40_OUT_MERGE.Output -> MediaOut1.Input",
+        "RNK_SO40_TEXT.Output -> RNK_SO40_MERGE.Foreground",
+        "Right.Data -> MediaIn1.RightAudio"
+      ],
+      "flat_semantic_sha256": "1bdabf425d4e1dd8b82afda4e8e757dd1cbcf7087ad85ff415150d8acf84a4c9",
+      "flat_non_group_position_sha256": "febcc1af00044174ee3de73cea3c9e049303f8fcf5aeb20ceae37c486b3355bf5",
+      "input_snapshot_exact": true,
+      "protected_attributes_exact": [
+        "RNK_SO40_TEXT.StyledText",
+        "RNK_SO40_BLUR.XBlurSize/YBlurSize",
+        "RNK_SO40_MERGE.Blend",
+        "RNK_SO40_MASK.Width/Height/CornerRadius",
+        "MediaIn1.LeftAudio/RightAudio keyframes",
+        "MediaOut1.Input keyframes",
+        "expressions and keyframe maps from the complete input snapshot"
+      ],
+      "second_execution_readback_noop": true
+    },
+    "rollback": {
+      "undo_steps_to_exact_restore": 2,
+      "sequence": [
+        "Ctrl+Z #1 restored the parent Group2 intermediate state",
+        "Ctrl+Z #2 restored Group1 nested in Group2 and the complete pre-flatten snapshot"
+      ],
+      "final_tool_count": 18,
+      "final_group_count": 2,
+      "final_groups": ["Group1", "Group2"],
+      "final_non_group_position_sha256": "13222ed8ab3f84962b69d1922f339b2f31e06ba04a56694e5608dbff5b59f11b",
+      "final_group_position_sha256": "a9c72ea19d3beae1bc5ad72b42946c90a8c2afcf5a766f27ca4add65b7d05922",
+      "identity_exact": true,
+      "positions_exact": true,
+      "connections_exact": true,
+      "input_snapshot_exact": true,
+      "static_protected_values_exact": true,
+      "decision": "PASS: G04 requires non-empty nested flatten, identity and proxy equivalence; it does not require a single Undo. The earlier three-step/no-op observation was overstrict and is superseded by this exact two-step restore.",
+      "G08_boundary": "unchanged PASS from SO-60 one-owned Undo evidence; not imported into SO-40"
+    }
+  },
+  "SO-61": {
+    "status": "BLOCKED_TECHNICAL",
+    "gate": "G05",
+    "evidence_type": "native_Fusion_GUI_flatten_state_and_render_comparison_with_installed_entry_refusal",
+    "native_flatten_evidence": {
+      "non_empty_nested_fixture": true,
+      "groups_before_after": "2 -> 0",
+      "port_processing_input_snapshot_exact": true,
+      "undo_steps": 2,
+      "run2_readback_noop": true
+    },
+    "render": {
+      "temporary_root": "C:/Users/shiro/AppData/Local/Temp/RNK_SO61_20260911",
+      "nested_frames_written": 150,
+      "flat_frames_written_before_safe_cancel": 18,
+      "frames_compared": 18,
+      "all_compared_frames_equal": true,
+      "sha256_all_compared_pngs": "DB01917FD884DEC0FAA1B7DF380DAA752352C858AE896E742414E3C0BA730080",
+      "bytes_each_compared_png": 77276,
+      "flat_render_stop": "unsafe native preview call exceeded its bounded call and was canceled through the Resolve UI; no blind rerun"
+    },
+    "installed_entry": {
+      "status": "REFUSED_FAIL_CLOSED",
+      "reason": "installed RNK UngroupFirst path has no measured identity-preserving host ungroup primitive",
+      "observable": "Flatten-all is unavailable: the host adapter supplied no measured identity-preserving ungroup primitive"
+    },
+    "cleanup": "owned project closed without save; render directory removed",
+    "decision": "Native Resolve UI flatten semantics and 18-frame equivalence are proven, but the requested installed RNK UI flatten path did not complete. G05 is not promoted until that path produces the same evidence."
+  },
+  "SO-70": {
+    "status": "BLOCKED_TECHNICAL",
+    "gate": "G02",
+    "evidence_type": "direct_current_product_worker_readback_on_disposable_PSD2Fusion_duplicate",
+    "fixture_item3": {
+      "timeline": "_mcp_RNK_SO70_PSD2Fusion_20260911",
+      "timeline_id": "5beb8730-10c6-45de-8c04-010c190d7ab4",
+      "tool_count": 1109,
+      "group_count": 34,
+      "non_group_count": 1075,
+      "max_group_depth": 4,
+      "edge_count": 1345,
+      "edge_kind_counts": {"background": 939, "foreground": 406},
+      "reference_motifs": {"multi_input_targets": 372, "multi_output_sources": 121, "mask_edges": 0},
+      "processing_rows": 1109,
+      "position_count": 1109,
+      "grid_bad_count": 974,
+      "pre_edge_sha256": "6a8a86b4e02b9cddd0ebd771274e6d751b9d2086dcadfc7800931ad6a1c7b791"
+    },
+    "fixture_item9_readback": {
+      "tool_count": 1107,
+      "group_count": 31,
+      "non_group_count": 1076,
+      "max_group_depth": 4,
+      "edge_count": 1340
+    },
+    "product_attempt": {
+      "route": "direct source execute_arrange_request; no Operator/WP1/HostSession",
+      "attempts": 1,
+      "elapsed_seconds": 46.148,
+      "writes_reported": 1105,
+      "status": "refused",
+      "failure": "arrange failed; rollback incomplete",
+      "rollback_incomplete_nodes": [
+        "BlendBaseOpaqueRIIII_0bed15e775",
+        "BlendBaseOpaqueRIIII_0e630cfcaa",
+        "BlendBaseOpaqueRIIII_1121750b57",
+        "BlendBaseOpaqueRIIII_1a63d29c01",
+        "BlendBaseOpaqueRIIII_2f93ad7024",
+        "BlendBaseOpaqueRIIII_44d5ca7c1d",
+        "BlendBaseOpaqueRIIII_57ca140e4e",
+        "BlendBaseOpaqueRIIII_5e548e6c2f",
+        "BlendBaseOpaqueRIIII_650855f842",
+        "BlendBaseOpaqueRIIII_6696aa9f65",
+        "BlendBaseOpaqueRIIII_6d068609af",
+        "BlendBaseOpaqueRIIII_8404ab3ac0"
+      ],
+      "post_tool_count": 1109,
+      "post_group_count": 34,
+      "post_edge_count": 1345,
+      "comp_modified": false,
+      "retry": "not performed; same failure fingerprint was not blindly retried"
+    },
+    "qualification": {
+      "required_min_original_non_group": 1100,
+      "observed_max_original_non_group": 1076,
+      "all_node_coverage": "not qualified",
+      "all_edge_coverage": "not qualified",
+      "integer_grid": "not qualified; item3 pre-read had 974 grid-bad positions",
+      "rectangle_nonoverlap": "not qualified",
+      "strict_displayed_wires": "not qualified",
+      "processing_preservation": "not qualified after rollback mismatch",
+      "undo": "not qualified",
+      "run2": "not run",
+      "endpoint_loss": "not qualified",
+      "performance": "NOT_RUN; three real-changing equivalent baselines were not attempted"
+    },
+    "decision": "BLOCKED_TECHNICAL: current disposable is below the 1100 non-Group threshold and the one direct product attempt refused at readback/rollback on depth-4 state. Do not repeat without a new fixture and hypothesis."
+  },
+  "SO-80": {
+    "status": "PASS",
+    "gate": "G12",
+    "evidence_type": "current_product_path_tests_plus_current_direct_recovery_and_carried_host_recovery_contract",
+    "current_direct_evidence": {
+      "cancel_zero_write": "SO-50 run 45ed02daee914c3b9e29774a1db31de1 and SO-60 UI cancel evidence",
+      "render_timeout_cancel": "SO-61 preview exceeded bounded call; Resolve UI cancel stopped it; 18 files read back and compared before cleanup",
+      "rollback_mismatch_stop": "SO-70 direct attempt refused at readback with rollback-incomplete list; no retry and no project save",
+      "multi_goal_resume": "this continuation resumed at a088b783..., closed SO-40 contract interpretation, and continued independent SO-70/SO-80 lanes without execution-infrastructure revival"
+    },
+    "unit_and_package_evidence": {
+      "full_tests": "174/174 PASS",
+      "focused_recovery_related_tests": "86/86 PASS",
+      "covered_cases": [
+        "Cancel before controller and Cancel without live target are zero-mutation",
+        "partial structural failure uses owned rollback",
+        "write failure and readback mismatch restore positions",
+        "processing signature mismatch rolls back",
+        "target/host reader ambiguity refuses before write",
+        "busy closes before refusal/result",
+        "installer repair backs up, reinstall is idempotent, foreign entry is preserved, uninstall removes only owned files",
+        "environment/bootstrap guard is restored without global leak"
+      ],
+      "compileall": "PASS",
+      "strict_contract_tests": "30/30 PASS",
+      "diff_check": "PASS",
+      "installed_hash_and_import": "PASS; 20 manifest+entry files, 0 package hash mismatches"
+    },
+    "carried_host_recovery": {
+      "reference": "docs/checkpoints/2026-09-08-semantic-arrange-v1-continuation.json#sav1_60.recovery",
+      "scope": "historical host evidence, not a new current-candidate qualification",
+      "proved": ["bounded timeout", "no blind retry", "exact Resolve/fuscript recovery", "relaunch", "post-restart valuable timeline identity", "ambiguous mutation retained as non-success", "exact disposable cleanup"]
+    },
+    "decision": "PASS for the existing product recovery contract and durable continuation; SO-70 remains an independent technical qualification blocker."
+  },
+  "cleanup": {
+    "owned_SO70_timelines_deleted": {
+      "ids": ["5beb8730-10c6-45de-8c04-010c190d7ab4", "8c57b117-b086-4409-85c1-9b6923f93faf"],
+      "delete_verified": true,
+      "remaining_timelines": [
+        {"name": "Timeline 1", "id": "49f71479-5230-4c0c-9483-1b7356a911bd"},
+        {"name": "Timeline 1_archived_v06", "id": "25b9deba-6c3b-4067-a71b-5a5dff9aa5be"}
+      ]
+    },
+    "SO61_render_directory_deleted": true,
+    "SO40_owned_project_closed_without_save": true,
+    "valuable_project_preserved": true,
+    "project_save_calls": 0,
+    "resolve_responsive": true
+  },
+  "performance": {
+    "SO61_render_comparison": {"nested_frames": 150, "flat_frames": 18, "compared": 18, "all_equal": true},
+    "SO70_three_real_changing_runs": "NOT_RUN",
+    "SO70_noop_run2": "not counted and not run after refusal",
+    "per_action_budget_seconds": 60
+  },
+  "G01_G14_matrix": {
+    "G01": "PASS",
+    "G02": "BLOCKED_TECHNICAL",
+    "G03": "PASS",
+    "G04": "PASS",
+    "G05": "BLOCKED_TECHNICAL",
+    "G06": "PASS",
+    "G07": "PASS",
+    "G08": "PASS",
+    "G09": "PENDING",
+    "G10": "BLOCKED_TECHNICAL",
+    "G11": "PENDING",
+    "G12": "PASS",
+    "G13": "PENDING",
+    "G14": "PENDING"
+  },
+  "SO_matrix": {
+    "SO-00": "PASS",
+    "SO-10": "PASS",
+    "SO-11": "PASS",
+    "SO-20": "PASS",
+    "SO-30": "PASS",
+    "SO-40": "PASS",
+    "SO-50": "PASS",
+    "SO-60": "PASS",
+    "SO-61": "BLOCKED_TECHNICAL",
+    "SO-70": "BLOCKED_TECHNICAL",
+    "SO-71": "PENDING",
+    "SO-80": "PASS",
+    "SO-90": "PENDING"
+  },
+  "next_ready_task": "SO-61: supply or qualify an existing installed-entry/native host bridge for identity-preserving flatten, then rerun the small E2E; in parallel SO-70 next requires a fresh disposable with >=1100 original non-Group tools and a new depth-4 rollback hypothesis. SO-71 and SO-90 remain gated.",
+  "main_merge_authorized": false
+}

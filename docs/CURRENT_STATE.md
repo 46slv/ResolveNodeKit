@@ -1,168 +1,144 @@
 # ResolveNodeKit current state
 
-Updated: 2026-09-06 JST
+Updated: 2026-09-20 JST
 
-This file is the short-lived operational pointer for the next Codex run. Live local Git/worktree, remote Git/PR, and live Resolve state always outrank it. Historical detail belongs in `docs/checkpoints/`.
+Status: `V1_DIRECTION_RESET / CHECKPOINTED`
 
-## Program status
+Live Git/PR/installed/runtime evidence outranks this short operational pointer.
 
-`CHECKPOINTED`
+## Current product mission
 
-The Resolve host recovered successfully and was clean/responsive at the end of the latest run. ResolveNodeKit is not globally blocked and is not `MISSION_COMPLETE`.
+ResolveNodeKit v1 is **Automatic Node Arrange / Preserve**:
 
-The mission-critical unresolved requirement remains runtime visual nested-group access: groups must remain GroupOperators, actually open in the Fusion runtime/UI sense, have their internals tidied, and show all contents.
+```text
+Arrange -> optional Resolve native GUI manual Ungroup -> Re-Arrange
+```
 
-## Canonical repo state
+v1 preserves GroupOperators and processing structure. Automatic Ungroup,
+`UngroupFirst` and Flatten All are v2 research/backlog items. They are not v1
+release blockers and are not exposed as normal v1 UI.
 
-- repo: `46slv/ResolveNodeKit`
-- task branch: `feat/bootstrap-nodekit-20260905`
-- Draft PR: #1, open/draft
-- branch locator immediately before this state normalization: `f974730f5952a6376feb443d482bbb571e71d59e`
-- reported worktree at latest run end: clean, remote in sync
-- offline suite: 36/36 unittest PASS + `compileall` PASS
+Canonical current owner:
 
-Fresh-read all locators on resume.
+- `docs/PRODUCT_DIRECTION_BRIEF.md`
+- `docs/execution/v1-arrange/README.md`
+- `docs/execution/v1-arrange/PLAN.md`
+- `docs/execution/v1-arrange/acceptance.json`
+- `docs/execution/v1-arrange/EVIDENCE_MATRIX.md`
 
-## Closed / proven gates
+Preserved v2/research owner:
 
-### P0R — reconciliation: PASS
+- `docs/execution/strict-orthogonal/README.md`
+- `docs/execution/strict-orthogonal/PLAN.md`
+- `docs/execution/strict-orthogonal/LUNA_RUNBOOK.md`
+- `docs/execution/strict-orthogonal/acceptance.json`
 
-Host-measured local fixes were preserved, reconciled with the newer remote orchestration work, tested, committed, and pushed.
+The old `docs/execution/semantic-arrange-v1/` continuation is retained as
+historical evidence. Its preserve evidence is eligible for v1 carry-forward;
+its flatten amendment is not current v1 authority.
 
-### P2C — Flat Tidy: HOST-PASS
+## Live identity read at direction reset
 
-Real Resolve Studio 21.0.3.7 disposable validation proved serial / Merge / EffectMask / isolated-node handling, connection invariance, measured FlowView grid/readback handling, second-run `moved=0`, Undo restoring positions, and fail-closed rollback.
+- Repository: `46slv/ResolveNodeKit`
+- PR: `#5`, OPEN, Draft
+- PR head rechecked before this reset: `1035217b71f62b2347da20460ff30cdf5d03b8b3`
+- PR head after the direction-reset contract commit: `1ab8a458e0c1e4731bc66a67a564fc4d89b984d8`
+- Follow-up evidence/checkpoint commit: `66ff8886a88bd96ed07387cdd5f6702401ea7592`
+- PR head branch: `feat/semantic-arrange-v1-20260906`
+- Active PR worktree: `D:/Documents/ResolveNodeKit-pr5-v2-integration`
+- Local branch in that worktree: `feat/direct-guarded-reset-20260911`
+- Worktree was clean before the direction-reset edits; `main` was not merged
+- User install manifest before refresh: `repo_commit=92998ec59c56d2f0ef8568a4a425980dc5093d29`
+- Installed package: 19 Python files, entry + package hashes matched the PR
+  worktree source tree, installed-root import previously passed
+- Resolve executable: `C:/Program Files/Blackmagic Design/DaVinci Resolve/Resolve.exe`
+- A fresh launch was requested during this reset; the original process was
+  observed as PID `6484`, and the post-restart process is PID `70164` with the
+  Resolve project manager visible to Windows but still absent from the
+  available CUA app inventory. No host mutation or project save was performed
+  in this reset.
+- Candidate install refreshes from the direction-reset and follow-up
+  checkpoint heads both passed with 19 package files, zero package mismatches,
+  and source/installed entry SHA256
+  `9C35CA8984163DA0AD2E00899C0EBA2B2C9B08FE039C32EFA235DC367A85AFCE`.
+  The final docs-only checkpoint is followed by one last backup-backed install
+  readback; its manifest must match the final PR head. Production confirmation
+  uses `include_unselected=True, ungroup=False`, has no checkbox, and the
+  production function has no `UngroupFirst` label.
 
-### P3A collapsed-child canary: PASS
+## v1 carry-forward status
 
-A real collapsed nested GroupOperator canary proved child positions can be changed/read back without changing hierarchy, connections, processing state, or collapsed/expanded display state. Undo restores positions.
+The detailed matrix is in `docs/execution/v1-arrange/EVIDENCE_MATRIX.md` and the
+machine-readable state is in `acceptance.json`.
 
-### R1 — `Tidy Nested` fixed-command re-validation: HOST-PASS
+Already valid for v1, with scope recorded:
 
-`tidy_nested_comp(...)` and `scripts/Fusion/ResolveNodeKit_TidyNested.py` are implemented.
+- flat Arrange and whole-comp production seam;
+- Group-preserving Arrange and non-empty nested Group behavior;
+- fan-out, multi-edge, Mask and branch representative coverage;
+- tool identity, parent/membership, topology and endpoint-loss readback;
+- exact small-fixture Undo/rollback and stable run2;
+- installed Run / Cancel / busy / result behavior;
+- real PSD2Fusion duplicate Arrange at 1198 tools / 1173 non-Group tools;
+- depth-4 1134-tool scale fixture with 1100 non-Group tools, explicitly
+  recorded as 1075 source-derived plus 25 owned padding tools;
+- three real-changing large preserve actions at 15.0752s / 12.8013s /
+  13.0515s, plus a separate stable run2;
+- recovery, no-save cleanup and historical fresh-verifier evidence.
 
-A prior host validation found a second-run settle drift (`moved=7 -> 1 -> 0`). The cause was reproduced offline and fixed by iterating `_layout_step` to a fixed point before one host write.
+The following is the only open v1 candidate item after the contract/install and
+independent-verifier checkpoints:
 
-Latest real-host re-validation after Resolve recovery:
+1. same-fixture installed Arrange -> native GUI manual Ungroup -> installed
+   Re-Arrange E2E, including readback, run2, Undo/recovery and cleanup;
 
-- run1 `moved=7`, reaching the fixed point directly;
-- run2 `moved=0`, identical positions;
-- membership unchanged;
-- connections unchanged;
-- collapsed/display state unchanged;
-- sampled processing state unchanged;
-- Undo restored all positions exactly;
-- disposable deleted;
-- Timeline 1 remained untouched/unmodified;
-- no project save.
+If the Resolve control surface remains unavailable, keep item 1 as
+`NEEDS_SMALL_RECHECK`; do not convert separate native-Ungroup and Arrange
+fixtures into an unearned same-workflow PASS.
 
-Evidence: `docs/checkpoints/2026-09-06-tidy-nested-r1-pass.md`.
+## v2 / strict research status — preserved, not rewritten
 
-`Tidy Nested` is HOST-PASS.
+The old strict contract remains intact as a research lane. Current carried
+statuses are:
 
-### P8 — Color read-only capability map: PASS
+```text
+G01 PASS       G02 BLOCKED_TECHNICAL  G03 PASS
+G04 PASS       G05 BLOCKED_TECHNICAL  G06 PASS
+G07 PASS       G08 PASS               G09 PENDING
+G10 BLOCKED_TECHNICAL                 G11 PENDING
+G12 PASS       G13 PENDING            G14 PENDING
+```
 
-Measured on Resolve Studio 21.0.3.7 with zero host writes:
+The strict lane still records the measured absence of an installed-callable
+identity-preserving Ungroup primitive, incomplete strict large-graph
+rectangle/grid/display surfaces, and flatten-specific processing evidence
+gaps. Do not change those records to PASS for the v1 reset.
 
-- per-item Color Graphs available on current Timeline 1 items, with one node in the measured context;
-- timeline-level Graph available but empty;
-- no Color groups exist in the current project, so group-graph behavior remains context-unexercised rather than disproven;
-- Graph surface includes LUT/cache/enabled/label/tools/grade-related operations;
-- physical Color-node XY position API is absent in the measured callable surface.
+## Host-safety and architecture
 
-Consequence: future Color operations may use readback-verifiable enable/cache/LUT/etc. surfaces, but must not claim physical XY layout.
+Normal host work remains:
 
-## Current feature-local blocker
+```text
+Luna Max Product Worker -> direct Resolve MCP/scripting/GUI
+  -> minimal mechanical Host Guard -> Resolve
+```
 
-### P5 — large nested stress: `BLOCKED_HOST` (transport only)
+Keep one state writer, one live Resolve writer, exact target binding,
+owned/disposable state, no blind retry, bounded mutation, readback,
+rollback/recovery, cleanup and no valuable project save. Do not revive the
+retired Operator/WP1/HostSession topology.
 
-The large real composition contains approximately 1107 tools and 31 nested GroupOperators in the measured context.
+## Next gates
 
-Latest P5 attempt:
+1. Use a fresh disposable/duplicate for the manual Ungroup -> Re-Arrange E2E if
+   a direct Resolve surface becomes available.
+2. Re-read the final install manifest/source identity after the docs-only
+   checkpoint and re-read PR #5 metadata. Finish at
+   `V1_RELEASE_CANDIDATE`; do not merge `main` or publish a release.
 
-- disposable duplicate was verified identical before the evidence walk;
-- Timeline 1 remained untouched;
-- no product mutation ran;
-- no project save;
-- Resolve remained responsive;
-- one long in-host evidence walk timed out at the MCP layer (`-32001`), retry then lost/deregistered the bridge (`-32000` / tools unavailable).
+## Learning Gate
 
-This is not evidence that `Tidy Nested` fails at large graph scale. It is a transport-envelope failure: the call was too long for the MCP/bridge path.
-
-Evidence: `docs/checkpoints/2026-09-06-p5-transport-block.md`.
-
-### Cleanup after P5: PASS
-
-A short/light worker run removed stale ResolveNodeKit-owned timelines with exact identity + confirmation guardrails. Final host state was verified:
-
-- timeline list exactly `[Timeline 1]`;
-- current timeline `Timeline 1`;
-- original comps `Modified=false`;
-- no save;
-- Resolve healthy/responsive.
-
-## P5 retry strategy
-
-Do not retry the same full 1107-tool single-call walk.
-
-Use `docs/EVIDENCE_PROTOCOL.md` and determine a transport-fitting envelope first:
-
-1. start with a medium real/disposable subtree or bounded subset;
-2. keep each Resolve/MCP call short;
-3. compute compact counts/hashes locally/in-host;
-4. return only compact evidence per chunk;
-5. measure elapsed time and successful chunk size;
-6. increase scope gradually;
-7. combine chunk evidence deterministically on the parent side or via bounded in-host aggregation;
-8. only mutate after a pre-evidence strategy can complete reliably;
-9. never repeat a materially identical full-graph timeout path.
-
-The next P5 attempt should first establish a stable transport envelope, then run pre -> Tidy Nested -> post -> second-run evidence within that envelope.
-
-## Mission-critical visual Group expansion — P3B OPEN
-
-The serialized-settings hypothesis is disproven on Resolve Studio 21.0.3.7:
-
-`SaveSettings -> Expanded=true -> LoadSettings(True) -> SaveSettings`
-
-does not retain runtime expanded state.
-
-Strict `Tidy + Expand Groups` remains fail-closed and must never silently degrade to `Tidy Nested`.
-
-Next research hypothesis: a deterministic/readback-verifiable runtime Expand/Collapse action/command path.
-
-Do not use blind keystrokes, install a new desktop automation stack, mutate global shortcuts, ungroup, or flatten merely to bypass this blocker without new authority.
-
-P4 fit-to-contents remains gated on P3B PASS.
-
-## Ready queue
-
-Choose the smallest ready gate from live evidence rather than blindly following numeric order.
-
-1. **P5-retry** — establish a transport-fitting chunk size on a medium scope, then scale bounded evidence toward the large graph.
-2. **P6** — low-risk Fusion operations: Align / Distribute / selection traversal / selected-component tidy, each with readback and Undo/rollback contracts.
-3. **P3B** — runtime visual Group Expand/Collapse action research; mission-critical but independent of P5/P6.
-4. **P9** — Color reversible helpers based only on P8-observed readback surfaces (enable/cache/LUT/etc.); no XY layout claim.
-5. **P4** — fit-to-contents only after P3B PASS.
-
-A feature-local blocker must be checkpointed, then another independent ready lane should continue if authorized.
-
-## Program completion semantics
-
-- Current overall status: `CHECKPOINTED`.
-- `USABLE_BETA` may eventually be checkpointed with accurately documented non-critical limitations.
-- `MISSION_COMPLETE` is not allowed while the explicit visual nested-group requirement is unresolved, unless the user explicitly changes/waives that requirement.
-- A whole-run `BLOCKED_*` should be used only when no authorized ready gate remains, host/safety conditions block all useful work, or new user authority is required.
-
-## Required reading on resume
-
-1. live local Git/worktree + remote state
-2. `AGENTS.md`
-3. this file
-4. `docs/ORCHESTRATION.md`
-5. `docs/EVIDENCE_PROTOCOL.md`
-6. `docs/HOST_VALIDATION.md`
-7. `docs/GROUPS.md`
-8. `docs/checkpoints/2026-09-06-tidy-nested-r1-pass.md`
-9. `docs/checkpoints/2026-09-06-p5-transport-block.md`
-10. older checkpoints only as needed
+The product-direction split is the only new generic decision in this reset:
+keep v1 preserve independent, retain strict/flatten evidence as v2, and use
+manual native Ungroup as the explicit v1 boundary. Do not create another
+generic orchestration framework.

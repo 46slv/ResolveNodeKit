@@ -9,11 +9,14 @@ from .tidy import (
     _attrs,
     _classify_input,
     _close_enough,
+    _call_list,
     _ensure_ordered_dict,
     _iter_values,
     _snap_position,
     _tool_name,
     _xy_from_pos_table,
+    _parent_first_order,
+    _restore_positions_batch,
 )
 
 
@@ -54,7 +57,7 @@ def _parent_obj(tool: Any) -> Any | None:
 def _collect_tools(comp: Any) -> tuple[dict[str, Any], dict[str, str | None]]:
     tools: dict[str, Any] = {}
     fallback_parent: dict[str, str | None] = {}
-    queue = [(tool, None) for tool in _iter_values(getattr(comp, "GetToolList", lambda: None)())]
+    queue = [(tool, None) for tool in _call_list(comp, "GetToolList")]
     scanned_groups: set[str] = set()
     while queue:
         tool, discovered_parent = queue.pop(0)
@@ -70,16 +73,97 @@ def _collect_tools(comp: Any) -> tuple[dict[str, Any], dict[str, str | None]]:
             fallback_parent[name] = discovered_parent
         if _reg_id(tool) == "GroupOperator" and name not in scanned_groups:
             scanned_groups.add(name)
-            getter = getattr(tool, "GetChildrenList", None)
-            if callable(getter):
-                for child in _iter_values(getter()):
-                    queue.append((child, name))
+            for child in _call_list(tool, "GetChildrenList"):
+                queue.append((child, name))
 
     parents: dict[str, str | None] = {}
     for name, tool in tools.items():
         parent = _parent_obj(tool)
         parents[name] = _tool_name(parent) if parent is not None else fallback_parent.get(name)
     return tools, parents
+
+
+def _collect_edges(tools: dict[str, Any]) -> list[Edge]:
+    """Collect connected edges with the cheapest verified host direction.
+
+    Fusion exposes both an input-oriented API (``Input.GetConnectedOutput``)
+    and an output-oriented API (``Output.GetConnectedInputs``).  Walking every
+    input is prohibitively expensive on large comps because most tools expose
+    tens of unconnected inputs.  On hosts exposing the output API, enumerate
+    outputs and ask only connected outputs for their inputs; the input API is
+    retained as a compatibility fallback for the small in-memory test doubles
+    and older host surfaces.
+    """
+    edges: list[Edge] = []
+    seen: set[tuple[str, str, str]] = set()
+
+    # Do not select the output path merely because GetOutputList exists.  A
+    # partially implemented/older host may expose that method while its
+    # Output objects do not expose GetConnectedInputs; treating that as a
+    # successful walk would silently turn a connected graph into an empty one.
+    output_entries: list[tuple[str, Any]] = []
+    output_surface_complete = True
+    for source_name, source in sorted(tools.items()):
+        getter = getattr(source, "GetOutputList", None)
+        if not callable(getter):
+            output_surface_complete = False
+            continue
+        for output in _call_list(source, "GetOutputList"):
+            if callable(getattr(output, "GetConnectedInputs", None)):
+                output_entries.append((source_name, output))
+            else:
+                output_surface_complete = False
+
+    if output_entries:
+        for source_name, output in output_entries:
+            for input_obj in _call_list(output, "GetConnectedInputs"):
+                target_getter = getattr(input_obj, "GetTool", None)
+                target = target_getter() if callable(target_getter) else None
+                if target is None:
+                    # Resolve can expose a comp output's viewer/preview sink
+                    # through GetConnectedInputs().  It has no owning Tool and
+                    # is outside the discovered composition, so it is not a
+                    # graph edge we may plan or verify.  Skip that external
+                    # boundary instead of guessing a name.
+                    continue
+                target_name = _tool_name(target)
+                if target_name not in tools:
+                    raise FusionHostError(
+                        f"connected target was not discovered: {target_name!r}"
+                    )
+                edge = Edge(source_name, target_name, _classify_input(input_obj))
+                key = (edge.source, edge.target, edge.kind)
+                if key not in seen:
+                    seen.add(key)
+                    edges.append(edge)
+        # A mixed/partial host surface can expose the output API for only a
+        # subset of tools.  In that case continue through the compatibility
+        # input walk below to account for the remaining sources; its dedupe
+        # guard preserves the cheap output results already collected.  Empty
+        # output lists are complete: that tool has no output endpoint whose
+        # connections could be missing from this walk.
+        if output_surface_complete:
+            return edges
+
+    # Compatibility path for minimal mocks and older Fusion surfaces that do
+    # not expose Output.GetConnectedInputs().
+    for target_name, target in sorted(tools.items()):
+        for input_obj in _call_list(target, "GetInputList"):
+            get_output = getattr(input_obj, "GetConnectedOutput", None)
+            output = get_output() if callable(get_output) else None
+            get_tool = getattr(output, "GetTool", None) if output is not None else None
+            source = get_tool() if callable(get_tool) else None
+            if source is None:
+                continue
+            source_name = _tool_name(source)
+            if source_name not in tools:
+                raise FusionHostError(f"connected source was not discovered: {source_name!r}")
+            edge = Edge(source_name, target_name, _classify_input(input_obj))
+            key = (edge.source, edge.target, edge.kind)
+            if key not in seen:
+                seen.add(key)
+                edges.append(edge)
+    return edges
 
 
 def _validate_hierarchy(tools: dict[str, Any], parents: dict[str, str | None]) -> tuple[str, ...]:
@@ -108,19 +192,7 @@ def _snapshot(comp: Any, flow: Any) -> _Snapshot:
         return _Snapshot({}, {}, (), {}, ())
     groups = _validate_hierarchy(tools, parents)
     positions = {name: _xy_from_pos_table(flow.GetPosTable(tool)) for name, tool in sorted(tools.items())}
-    edges: list[Edge] = []
-    for target_name, target in sorted(tools.items()):
-        for input_obj in _iter_values(getattr(target, "GetInputList", lambda: None)()):
-            get_output = getattr(input_obj, "GetConnectedOutput", None)
-            output = get_output() if callable(get_output) else None
-            get_tool = getattr(output, "GetTool", None) if output is not None else None
-            source = get_tool() if callable(get_tool) else None
-            if source is None:
-                continue
-            source_name = _tool_name(source)
-            if source_name not in tools:
-                raise FusionHostError(f"connected source was not discovered: {source_name!r}")
-            edges.append(Edge(source_name, target_name, _classify_input(input_obj)))
+    edges = _collect_edges(tools)
     return _Snapshot(tools, positions, tuple(edges), parents, groups)
 
 
@@ -313,20 +385,23 @@ def _restore_groups(comp: Any, snapshot: _Snapshot, saved: dict[str, Any]) -> li
 
 
 def _restore_positions(comp: Any, flow: Any, snapshot: _Snapshot) -> list[str]:
-    failures: list[str] = []
     try:
         live, _ = _collect_tools(comp)
     except Exception:
         live = {}
-    for name, (x, y) in sorted(snapshot.positions.items()):
-        try:
-            tool = live.get(name) or snapshot.tools[name]
-            flow.SetPos(tool, x, y)
-            if not _close_enough(_xy_from_pos_table(flow.GetPosTable(tool)), (x, y)):
-                failures.append(name)
-        except Exception:
-            failures.append(name)
-    return failures
+    tools = {
+        name: live.get(name) or snapshot.tools[name]
+        for name in snapshot.positions
+    }
+    # Restore enclosing GroupOperators before their local children.  Fusion's
+    # nested FlowView can normalize a child readback when its parent is written
+    # later; the old lexical order made that normalization look like a
+    # node-class-specific rollback failure.
+    order = sorted(
+        snapshot.positions,
+        key=lambda name: (_depth(name, snapshot.parents), name),
+    )
+    return _restore_positions_batch(flow, tools, snapshot.positions, order=order)
 
 
 def _edge_signature(snapshot: _Snapshot) -> tuple[tuple[str, str, str], ...]:
@@ -366,7 +441,7 @@ def tidy_groups_comp(comp: Any, config: LayoutConfig | None = None) -> GroupTidy
 
         desired, scope_count = _layout(active, config)
         writes = {name: pos for name, pos in desired.items() if not _close_enough(active.positions[name], pos)}
-        for name in sorted(writes):
+        for name in _parent_first_order(writes, active.parents):
             flow.SetPos(active.tools[name], *writes[name])
         mismatch = [
             name for name in sorted(writes)
@@ -426,7 +501,7 @@ def tidy_nested_comp(comp: Any, config: LayoutConfig | None = None) -> GroupTidy
         desired, scope_count = _layout_to_fixed_point(original, config)
         tools = {name: _find_tool(comp, name, original.tools) for name in desired}
         writes = {name: pos for name, pos in desired.items() if not _close_enough(original.positions[name], pos)}
-        for name in sorted(writes):
+        for name in _parent_first_order(writes, original.parents):
             flow.SetPos(tools[name], *writes[name])
         mismatch = [
             name for name in sorted(writes)

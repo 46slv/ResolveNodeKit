@@ -1,0 +1,41 @@
+{
+  "schema": "resolve-node-kit.strict-r1-host-snapshot-adapter/v1",
+  "observed_at_utc": "2026-09-10T06:16:56+09:00",
+  "task": "SO-11/R1 offline Fusion host processing snapshot adapter",
+  "worker": {
+    "name": "host_snapshot_adapter",
+    "model": "gpt-5.6-luna",
+    "effort": "max",
+    "attempt_count": 1,
+    "commit": "c8da5cfcf87075a9438a777e83222f3a25c9a1be"
+  },
+  "owned_files": [
+    "src/resolve_node_kit/fusion/host_snapshot.py",
+    "tests/test_host_snapshot.py",
+    "src/resolve_node_kit/fusion/__init__.py"
+  ],
+  "changed": [
+    "read-only Fusion host object discovery",
+    "explicit port/source/target identity and unsupported/error states",
+    "required processing fields remain unsupported until actually readable",
+    "duplicate/group hierarchy/cycle refusal",
+    "JSON-safe ProcessingSnapshot boundary"
+  ],
+  "verified": {
+    "import_root": "C:/Users/shiro/.codex/worktrees/c22a/ResolveNodeKit/src",
+    "focused_tests": "38/38 PASS",
+    "canonical_tests": "165/165 PASS",
+    "mutation_guard": "no SetPos/LoadSettings/Undo/save calls in adapter fixtures",
+    "diff_check": "PASS"
+  },
+  "host_evidence": "NOT_RUN_BY_DESIGN",
+  "remaining": [
+    "qualified Resolve disposable fixture readback",
+    "strict planner mutation integration",
+    "SO-11 and G01-G14 host gates"
+  ],
+  "blocker": "live host qualification remains Resolve Operator scope",
+  "failure_fingerprint": null,
+  "attempt_count": 1,
+  "next_decision": "consume Operator disposable-target result; install exact candidate after source integration review; do not promote SO-11 from offline evidence"
+}

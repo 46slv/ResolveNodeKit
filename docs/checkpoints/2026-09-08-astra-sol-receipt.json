@@ -1,0 +1,222 @@
+{
+  "schema": "resolve-node-kit.verified-receipt/v1",
+  "handoff_id": "RNK-SO-20260908T010727Z-01a07e8e",
+  "verified_at_utc": "2026-09-08T01:34:45.036435+00:00",
+  "thread_id": "01a07e95-b55e-70a1-8366-b80d785bbaa4",
+  "receipt_turn_id": "01a07ea1-c26e-7940-b8d5-2ca970191cd8",
+  "receiver_raw": {
+    "handoff_id": "RNK-SO-20260908T010727Z-01a07e8e",
+    "thread_id": "01a07e95-b55e-70a1-8366-b80d785bbaa4",
+    "read_only": true,
+    "receipt_status": "PENDING_PARENT_TURN_CONTEXT_AUTHENTICATION",
+    "plan_revision": "AS-BOOTSTRAP-20260908-1",
+    "goal_done": {
+      "accepted": true,
+      "mandatory_gates": [
+        "G01",
+        "G02",
+        "G03",
+        "G04",
+        "G05",
+        "G06",
+        "G07",
+        "G08",
+        "G09",
+        "G10",
+        "G11",
+        "G12",
+        "G13",
+        "G14"
+      ],
+      "bootstrap_done": false,
+      "product_done": false
+    },
+    "observed_bindings": {
+      "repository": "46slv/ResolveNodeKit",
+      "cwd": "C:/Users/shiro/.codex/worktrees/c22a/ResolveNodeKit",
+      "worktree_identity": "D:/Documents/ResolveNodeKit/.git/worktrees/ResolveNodeKit",
+      "branch": "feat/semantic-arrange-v1-20260906",
+      "source_revision": "4b9c8d33a1168e019f935655231d279a05661195",
+      "product_source_revision": "59eeffbce5efd0a73a0fed2a4f3418faf71d5852",
+      "dirty_fingerprint": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "plan_digest": "ebc124049dbb1dfa863cd499c13c2cd1a232774ae754a26edc30ee14668dbc20",
+      "model": null,
+      "effort": null,
+      "permissions_digest": "fac84c32139b1f990555df39c0eddf9fb29a827b3b012633f035a604246189c1",
+      "instruction_digest": "c7e421e8a06ce432272a160044701c4cb97f74e8769162f19be84aed0bd88933",
+      "first_task": "SO-00",
+      "verification_entry": "python docs/execution/strict-orthogonal/check_contract.py"
+    },
+    "runtime_binding": {
+      "expected_model": "gpt-5.6-sol",
+      "expected_effort": "max",
+      "model_effort_receiver_visibility": "NOT_EXPOSED",
+      "receiver_permission_context": {
+        "approval_policy": "never",
+        "sandbox_policy": "danger-full-access",
+        "network_access": true
+      },
+      "parent_turn_context_authentication_required": true
+    },
+    "plan_manifest": {
+      "docs/design/strict-orthogonal/DESIGN.md": "0abead154bb4905a86ea7f145096c16c6745cd35f6e07ff282467425b070ae55",
+      "docs/design/strict-orthogonal/SOURCES.md": "efb8dc94239d41ec0c6cb832940316fb417ee3adaa4bf9a2421e468a1aeb1684",
+      "docs/execution/strict-orthogonal/PLAN.md": "1d7747f6f41cd9dfb2d12ce36abf0c0d50e8c4a67f19ee7531c1d575ae6bada0",
+      "docs/execution/strict-orthogonal/RUNBOOK.md": "9f7be23965717f2433a0b82aebe31359e455283d730f6f9e0a14acaa7355f847",
+      "docs/execution/strict-orthogonal/README.md": "bfd06bbef6e77134d3f04bae7a59a64144e03091a966c4326fafb06dec3493f8",
+      "docs/execution/strict-orthogonal/HANDOFF.md": "a35a6deda60ff5f5cea9598d5955feeef575511193245d17aee0010d57b638d6",
+      "docs/execution/strict-orthogonal/acceptance.json#normative": "e53c7f438ccf3022284b62775236fd9338262a8fe83a8ebb3241a74a25fb01d1",
+      "digest_match": true
+    },
+    "instruction_manifest": {
+      "AGENTS.md": "7e271c57e63715dcbf086dcb2d7aec271904c964932baa683f839d0a6c9f261a",
+      "docs/execution/strict-orthogonal/RUNBOOK.md": "9f7be23965717f2433a0b82aebe31359e455283d730f6f9e0a14acaa7355f847",
+      "C:/Users/shiro/.agents/skills/resolve-operator/SKILL.md": "79a8a70758f0927e8cb6efa95dd64b0684f060d83918e7b8d6a810a537dbbde8",
+      "digest_match": true
+    },
+    "permissions_declaration": {
+      "digest_match": true,
+      "is_runtime_permission_proof": false
+    },
+    "git": {
+      "detached": false,
+      "status_porcelain_v1_bytes": 0,
+      "dirty": false
+    },
+    "lease": {
+      "owner": "Astra",
+      "epoch": 0,
+      "transferred": false
+    },
+    "deadline": {
+      "utc": "2026-09-08T02:07:27Z",
+      "jst": "2026-09-08T11:07:27+09:00",
+      "accepted": true
+    },
+    "actions": {
+      "repo_writes": 0,
+      "git_writes": 0,
+      "workers_spawned": 0,
+      "host_actions": 0,
+      "lease_acquired": false,
+      "product_execution_started": false,
+      "verification_executed": false
+    },
+    "awaiting": "SEPARATE_OWNERSHIP_TRANSFER_NOTIFICATION"
+  },
+  "receiver_event": {
+    "path": "D:\\Documents\\ResolveNodeKit\\.git\\rnk-so-receipt-events-2.jsonl",
+    "line": 15,
+    "sha256": "2d627503b30dacf4383baa462058aa591e35db55c8730d194288d7e7a50e0252"
+  },
+  "runtime_metadata": {
+    "path": "C:\\Users\\shiro\\.codex\\sessions\\2026\\09\\08\\rollout-2026-09-08T10-15-35-01a07e95-b55e-70a1-8366-b80d785bbaa4.jsonl",
+    "line": 193,
+    "timestamp": "2026-09-08T01:28:46.950Z",
+    "event_sha256": "536d02c544dcb3d05fe04e9a2634c1cbd3c5b5b69398ea8abe5c47c3dc621114",
+    "turn_id": "01a07ea1-c26e-7940-b8d5-2ca970191cd8",
+    "model": "gpt-5.6-sol",
+    "effort": "max",
+    "cwd": "C:\\Users\\shiro\\.codex\\worktrees\\c22a\\ResolveNodeKit",
+    "approval_policy": "never",
+    "sandbox_policy": {
+      "type": "danger-full-access"
+    }
+  },
+  "receipt_turn_complete": {
+    "path": "C:\\Users\\shiro\\.codex\\sessions\\2026\\09\\08\\rollout-2026-09-08T10-15-35-01a07e95-b55e-70a1-8366-b80d785bbaa4.jsonl",
+    "line": 243,
+    "timestamp": "2026-09-08T01:33:09.419Z",
+    "event_sha256": "5f8287b211d813443bf6927630a6d4466347b30652b54ca239d51f1e458ab711"
+  },
+  "receiver_read_commands": [
+    {
+      "line": 5,
+      "exit_code": 0,
+      "command_sha256": "b5956bd54a4f0ff45fa1f0c6d039af4d34ddcd5d329ed6d39562b32db2f9e3be",
+      "command_prefix": "\"C:\\\\Users\\\\shiro\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content -Raw -LiteralPath 'C:\\\\Users\\\\shiro\\\\.agents\\\\sk"
+    },
+    {
+      "line": 8,
+      "exit_code": 0,
+      "command_sha256": "caea1924aec5900ea28d105eb2656e02d32c749df10d25e85a126ea5467194e3",
+      "command_prefix": "\"C:\\\\Users\\\\shiro\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content -Raw -LiteralPath 'AGENTS.md'\""
+    },
+    {
+      "line": 10,
+      "exit_code": 0,
+      "command_sha256": "f79d908505bd63b1b45452f558627284fdabe7c469f7d29cf97f0b6bb0b02fcf",
+      "command_prefix": "\"C:\\\\Users\\\\shiro\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content -Raw -LiteralPath 'docs/checkpoints/2026-09-08-a"
+    },
+    {
+      "line": 11,
+      "exit_code": 0,
+      "command_sha256": "50e79583d435842316ba1d8a079498a7dfb5c4c8005c629a4d6f4cb1c33f681f",
+      "command_prefix": "\"C:\\\\Users\\\\shiro\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content -Raw -LiteralPath 'docs/execution/strict-orthogo"
+    },
+    {
+      "line": 14,
+      "exit_code": 0,
+      "command_sha256": "dfa9a62eb06ac585b204ae671df531afef859826ad042987f637bfd0c2919ed8",
+      "command_prefix": "\"C:\\\\Users\\\\shiro\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"@'\nimport hashlib, json, pathlib, subprocess\nroot = pathlib."
+    }
+  ],
+  "observed_bindings": {
+    "repository": "46slv/ResolveNodeKit",
+    "cwd": "C:/Users/shiro/.codex/worktrees/c22a/ResolveNodeKit",
+    "worktree_identity": "D:/Documents/ResolveNodeKit/.git/worktrees/ResolveNodeKit",
+    "branch": "feat/semantic-arrange-v1-20260906",
+    "source_revision": "4b9c8d33a1168e019f935655231d279a05661195",
+    "product_source_revision": "59eeffbce5efd0a73a0fed2a4f3418faf71d5852",
+    "dirty_fingerprint": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "plan_digest": "ebc124049dbb1dfa863cd499c13c2cd1a232774ae754a26edc30ee14668dbc20",
+    "model": "gpt-5.6-sol",
+    "effort": "max",
+    "permissions_digest": "fac84c32139b1f990555df39c0eddf9fb29a827b3b012633f035a604246189c1",
+    "instruction_digest": "c7e421e8a06ce432272a160044701c4cb97f74e8769162f19be84aed0bd88933",
+    "first_task": "SO-00",
+    "verification_entry": "python docs/execution/strict-orthogonal/check_contract.py"
+  },
+  "expected_bindings": {
+    "repository": "46slv/ResolveNodeKit",
+    "cwd": "C:/Users/shiro/.codex/worktrees/c22a/ResolveNodeKit",
+    "worktree_identity": "D:/Documents/ResolveNodeKit/.git/worktrees/ResolveNodeKit",
+    "branch": "feat/semantic-arrange-v1-20260906",
+    "source_revision": "4b9c8d33a1168e019f935655231d279a05661195",
+    "product_source_revision": "59eeffbce5efd0a73a0fed2a4f3418faf71d5852",
+    "dirty_fingerprint": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "plan_digest": "ebc124049dbb1dfa863cd499c13c2cd1a232774ae754a26edc30ee14668dbc20",
+    "model": "gpt-5.6-sol",
+    "effort": "max",
+    "permissions_digest": "fac84c32139b1f990555df39c0eddf9fb29a827b3b012633f035a604246189c1",
+    "instruction_digest": "c7e421e8a06ce432272a160044701c4cb97f74e8769162f19be84aed0bd88933",
+    "first_task": "SO-00",
+    "verification_entry": "python docs/execution/strict-orthogonal/check_contract.py"
+  },
+  "binding_authentication": "Receiver recomputation compared independently with local Git, canonical manifest hashes and persisted runtime turn_context; model/effort added from actual metadata, not from prompt",
+  "runtime_evidence_authenticated_by_parent": true,
+  "permission_scope": "task invocation only; preexisting global configuration unchanged",
+  "independent_lifetime": {
+    "pid": 92856,
+    "parent_pid": 5624,
+    "parent_process_exited_while_receiver_alive": true,
+    "receipt_process_exited_after_completed_turn": true,
+    "same_persisted_thread": true
+  },
+  "lease_before_transfer": {
+    "program": "RNK-STRICT-ORTHOGONAL",
+    "handoff_id": "RNK-SO-20260908T010727Z-01a07e8e",
+    "epoch": 0,
+    "owner": "01a07e8e-41f3-7d30-b190-3f621b5cdb64",
+    "role": "bootstrap",
+    "phase": "PLAN_READY",
+    "active_writers": [
+      "01a07e8e-41f3-7d30-b190-3f621b5cdb64"
+    ],
+    "plan_digest": "ebc124049dbb1dfa863cd499c13c2cd1a232774ae754a26edc30ee14668dbc20",
+    "deadline_utc": "2026-09-08T02:07:27Z",
+    "host_owner": null
+  },
+  "bootstrap_done": false,
+  "product_status": "NOT_YET_PROVEN"
+}

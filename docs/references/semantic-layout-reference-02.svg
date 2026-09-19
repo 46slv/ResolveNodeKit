@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="860" viewBox="0 0 1500 860">
+  <rect width="1500" height="860" fill="#202126"/>
+  <g stroke="#5a5d66" stroke-width="1" opacity="0.45">
+    <path d="M0 80H1500M0 160H1500M0 240H1500M0 320H1500M0 400H1500M0 480H1500M0 560H1500M0 640H1500M0 720H1500M0 800H1500"/>
+    <path d="M100 0V860M200 0V860M300 0V860M400 0V860M500 0V860M600 0V860M700 0V860M800 0V860M900 0V860M1000 0V860M1100 0V860M1200 0V860M1300 0V860M1400 0V860"/>
+  </g>
+  <style>
+    .node{fill:#26282e;stroke:#8d9098;stroke-width:2;rx:8}.merge{fill:#2d3036;stroke:#d8b400;stroke-width:3;rx:8}.group{fill:none;stroke:#d8b400;stroke-width:3;rx:10}.wire{stroke:#ededed;stroke-width:4;fill:none}.branch{stroke:#d8b400;stroke-width:4;fill:none}.txt{font:22px sans-serif;fill:#f2f2f2}.small{font:18px sans-serif;fill:#f2f2f2}.label{font:20px sans-serif;fill:#f4d42a}.note{font:18px sans-serif;fill:#9bd4ff}
+  </style>
+  <rect class="group" x="40" y="120" width="1080" height="430"/>
+  <text class="label" x="510" y="150">Group A — elastic Merge rail</text>
+  <rect class="group" x="690" y="410" width="610" height="260"/>
+  <text class="label" x="915" y="440">Group B</text>
+  <path class="wire" d="M150 740H430H710H1010H1380"/>
+  <path class="wire" d="M430 550V740M710 550V740M1010 670V740"/>
+  <rect class="node" x="80" y="710" width="150" height="60"/><text class="small" x="105" y="747">Background</text>
+  <rect class="merge" x="360" y="710" width="140" height="60"/><text class="small" x="400" y="747">Merge</text>
+  <rect class="merge" x="640" y="710" width="140" height="60"/><text class="small" x="680" y="747">Merge</text>
+  <rect class="merge" x="940" y="710" width="140" height="60"/><text class="small" x="980" y="747">Merge</text>
+  <rect class="node" x="1300" y="710" width="160" height="60"/><text class="small" x="1335" y="747">MediaOut</text>
+  <path class="wire" d="M120 470H400H635"/><path class="branch" d="M400 260V470M635 300V470"/>
+  <rect class="node" x="55" y="440" width="135" height="60"/><text class="small" x="85" y="477">Input</text>
+  <rect class="merge" x="330" y="440" width="140" height="60"/><text class="small" x="370" y="477">Merge</text>
+  <rect class="merge" x="565" y="440" width="140" height="60"/><text class="small" x="605" y="477">Merge</text>
+  <rect class="node" x="330" y="230" width="140" height="60"/><text class="small" x="362" y="267">Branch</text>
+  <rect class="node" x="565" y="270" width="140" height="60"/><text class="small" x="600" y="307">Group</text>
+  <path class="wire" d="M750 590H920H1130"/><path class="branch" d="M820 485V590M1000 510V590M1190 510V590"/>
+  <rect class="node" x="710" y="560" width="120" height="60"/><text class="small" x="735" y="597">Input</text>
+  <rect class="merge" x="850" y="560" width="140" height="60"/><text class="small" x="890" y="597">Merge</text>
+  <rect class="merge" x="1060" y="560" width="140" height="60"/><text class="small" x="1100" y="597">Merge</text>
+  <rect class="node" x="760" y="455" width="120" height="60"/><text class="small" x="785" y="492">Branch</text>
+  <rect class="node" x="940" y="480" width="120" height="60"/><text class="small" x="965" y="517">Branch</text>
+  <rect class="node" x="1130" y="480" width="120" height="60"/><text class="small" x="1155" y="517">Branch</text>
+  <path class="wire" d="M530 80V200V440"/>
+  <rect class="node" x="460" y="35" width="140" height="60"/><text class="small" x="492" y="72">Source</text>
+  <rect class="node" x="460" y="170" width="140" height="60"/><text class="small" x="495" y="207">Group</text>
+  <path d="M490 815H650" stroke="#9bd4ff" stroke-width="3"/>
+  <path d="M650 815l-18-10v20z" fill="#9bd4ff"/>
+  <text class="note" x="670" y="821">wider Merge-side spacing is intentional</text>
+  <text class="txt" x="60" y="835">Reference 02: semantic readability &gt; uniform density; elastic Merge gaps are allowed</text>
+</svg>

@@ -1,0 +1,601 @@
+{
+  "schema": "resolve-node-kit.luna-continuation/v2",
+  "revision": "LM-TAKEOVER-20260910-2",
+  "program": "RNK-STRICT-ORTHOGONAL",
+  "policy_status": "EXECUTION_CONFIRMED",
+  "canonical_branch": "feat/semantic-arrange-v1-20260906",
+  "canonical_pr": 5,
+  "runbook": "LUNA_RUNBOOK.md",
+  "product_acceptance": "acceptance.json",
+  "history_handoff": "HANDOFF.md",
+  "prompt_trial": "PROMPT_ORCHESTRATION_TRIAL.md",
+  "resolve_operator_canary": "docs/checkpoints/2026-09-10-resolve-operator-canary-prompt.md",
+  "precedence": {
+    "current_roles": "this policy",
+    "current_runtime": "actual takeover lease and current Resolve Operator result",
+    "product_gates": "acceptance.json",
+    "previous_handoff": "immutable historical record",
+    "old_deadline": "previous_invocation_only",
+    "live_resolve_routing": "external Resolve Operator automatic delegation"
+  },
+  "roles": {
+    "coordinator": "new Luna Max task",
+    "worker": "independent Luna Max context",
+    "verifier": "fresh independent Luna Max context; no repair",
+    "host": "current qualified external Resolve Operator; all live access leased",
+    "max_parallel_workers": 2,
+    "shared_writers": 1,
+    "host_owners": 1
+  },
+  "routing": {
+    "requested_model_family": "Luna",
+    "requested_reasoning_effort": "max",
+    "runtime_binding_required": true,
+    "automatic_astra_sol_muse_opencode": false,
+    "parent_direct_resolve": false,
+    "resolve_operator_trigger": "live Resolve operation, host validation, restart/reconnect validation, or Resolve-side readback",
+    "parent_passes": ["objective", "target", "done", "restore_policy", "evidence"],
+    "operator_owns": ["inventory", "exclusive_lease", "driver_selection", "launch_quit_restart", "operation", "independent_readback", "cleanup_recovery", "final_readback", "lease_release", "structured_evidence"],
+    "qualified_driver_choice_internal": true,
+    "same_session_role_local_mcp_is_current_path": false,
+    "external_operator_shared_authority": "46slv/CodexOperations PR #5 @ 9958e78e382ba5a312cd0a6cc4887aaab2fe4a08"
+  },
+  "last_observed": {
+    "rnkit_publication_before_routing_correction": "06c85f5e80f86c594ae8c35a49b275bcf15ff7b8",
+    "product_checkpoint_candidate": "dd0069abde35526b8164beae2c5753b95a1e12af",
+    "offline_pass": ["SO-10", "SO-20"],
+    "partial_offline": ["SO-30_VIEW_EVIDENCE_CONTRACT"],
+    "reported_product_tests": 158,
+    "old_rnk_host_calls": 0,
+    "old_rnk_host_surface": "UNAVAILABLE_TO_OLD_OPERATOR_ROUTE",
+    "current_interpretation": "historical RNK checkpoint is not current external Resolve Operator capability authority"
+  },
+  "live_takeover_readback": {
+    "observed_at_utc": "2026-09-09T20:49:59.2899111Z",
+    "cwd": "C:/Users/shiro/.codex/worktrees/c22a/ResolveNodeKit",
+    "branch": "feat/semantic-arrange-v1-20260906",
+    "head": "c590d8d7e617be76b44ad577cebd89082369f3fe",
+    "remote_head": "c590d8d7e617be76b44ad577cebd89082369f3fe",
+    "dirty": false,
+    "pr": {
+      "number": 5,
+      "state": "OPEN",
+      "draft": true,
+      "head": "c590d8d7e617be76b44ad577cebd89082369f3fe"
+    },
+    "product_candidate": "dd0069abde35526b8164beae2c5753b95a1e12af",
+    "installed_manifest": "8c667e6c50b20753657e9c3d36a641d60d0c08e3 (stale; read-only audit)"
+  },
+  "install_readback": {
+    "observed_at_utc": "2026-09-09T21:58:00.0000000Z",
+    "repo_head": "bd2b6294293e1f0664249cd3c327830ed688309d",
+    "branch": "feat/semantic-arrange-v1-20260906",
+    "installer": "scripts/install_resolve_user.ps1",
+    "manifest_path": "%APPDATA%/Blackmagic Design/DaVinci Resolve/Support/Fusion/ResolveNodeKit/install_manifest.json",
+    "entry_path": "%APPDATA%/Blackmagic Design/DaVinci Resolve/Support/Fusion/Scripts/Comp/ResolveNodeKit_Arrange.py",
+    "manifest_repo_commit": "bd2b6294293e1f0664249cd3c327830ed688309d",
+    "manifest_file_count": 18,
+    "entry_plus_manifest_files": 19,
+    "source_installed_manifest_hash_mismatches": 0,
+    "import_readback": {
+      "package": "resolve_node_kit",
+      "host_snapshot": "imported from installed Support/Fusion/ResolveNodeKit/src",
+      "strict_request": "imported from installed Support/Fusion/ResolveNodeKit/src",
+      "strict_planner": "imported from installed Support/Fusion/ResolveNodeKit/src",
+      "view_realization": "imported from installed Support/Fusion/ResolveNodeKit/src",
+      "processing_snapshot": "imported from installed Support/Fusion/ResolveNodeKit/src"
+    },
+    "foreign_file_policy": "installer backup-backed; no unrelated deletion observed",
+    "project_save": 0,
+    "resolve_calls": 0,
+    "status": "PASS_INSTALL_READBACK"
+  },
+  "r1_offline_adapter": {
+    "task": "SO-11/R1 offline Fusion host snapshot adapter",
+    "commit": "c8da5cfcf87075a9438a777e83222f3a25c9a1be",
+    "worker": "host_snapshot_adapter",
+    "worker_model": "gpt-5.6-luna",
+    "worker_effort": "max",
+    "owned_files": [
+      "src/resolve_node_kit/fusion/host_snapshot.py",
+      "tests/test_host_snapshot.py",
+      "src/resolve_node_kit/fusion/__init__.py"
+    ],
+    "changed": "read-only host object adapter to ProcessingSnapshot with explicit unsupported/error states; no SO-20/SO-30 redesign",
+    "independent_tests": {
+      "focused": "38/38 PASS",
+      "canonical": "165/165 PASS",
+      "source_import": "C:/Users/shiro/.codex/worktrees/c22a/ResolveNodeKit/src",
+      "host_access": "NOT_RUN"
+    },
+    "mutation_guard": [
+      "no SetPos",
+      "no LoadSettings",
+      "no Undo",
+      "no save"
+    ],
+    "product_gate_movement": [],
+    "status": "PASS_OFFLINE_ADAPTER;HOST_QUALIFICATION_PENDING"
+  },
+  "r1_strict_preparation": {
+    "task": "R1 pure strict planner integration seam",
+    "commit": "55119cd8b20e227284516b95f77a4b3e05384438",
+    "owner": "Luna Max Coordinator",
+    "changed": [
+      "src/resolve_node_kit/fusion/strict_request.py",
+      "src/resolve_node_kit/fusion/__init__.py",
+      "tests/test_strict_request.py"
+    ],
+    "behavior": "complete ProcessingSnapshot -> existing strict planner -> independent validation; fail closed before any host write",
+    "tests": {
+      "focused": "28/28 PASS",
+      "canonical": "169/169 PASS",
+      "host_access": "NOT_RUN"
+    },
+    "product_gate_movement": [],
+    "status": "PASS_OFFLINE_INTEGRATION;HOST_MUTATION_PENDING"
+  },
+  "r1_disposable_operator_attempt": {
+    "task": "SO-11 disposable-target qualification after semantic target change",
+    "launch_id": "48da83da-041f-493b-80fe-26414f52f0d0",
+    "operator_thread": "01a08803-9bbe-7d01-a391-436133101be7",
+    "attempt_count": 1,
+    "result": "FAIL_TIMEOUT",
+    "failure_fingerprint": "HOST_QUALIFICATION_TIMEOUT:operator_started_against_stale_installed_candidate",
+    "started_before_install_readback": true,
+    "stale_installed_candidate": "3315bc72c09fd10f7672a605cbef76e1d7a1a63c; host_snapshot module absent",
+    "current_installed_candidate_after_recovery": "d6fab45c02b77b5579f18f4ee79b97440b918ef8",
+    "driver_identity": "third-party (Operator selected)",
+    "lease": {
+      "acquired": true,
+      "held_exact_live": true,
+      "cleanup": "stale holder recovered and released",
+      "final": "FREE"
+    },
+    "agent_observation": "installed processing_snapshot existed but host_snapshot did not; scratch cleanup/final Resolve readback was not returned before timeout",
+    "valuable_project_save": 0,
+    "parent_direct_host_fallback": 0,
+    "human_intervention": 0,
+    "product_gate_movement": [],
+    "restore_status": "UNVERIFIED_AFTER_TIMEOUT",
+    "next_decision": "Operator-owned recovery inventory/cleanup, then one requalification only after exact candidate install is confirmed"
+  },
+  "r1_disposable_recovery": {
+    "task": "cleanup after timed-out disposable SO-11 qualification",
+    "launch_id": "6e31406c-12ea-4726-b893-ba4a69a895c9",
+    "operator_thread": "01a0880c-cb3f-70a2-b55e-3de56df2c5d9",
+    "result": "PASS_NO_OWNED_RESIDUE",
+    "driver_identity": "compatibility Resolve MCP v2.203.0 (Operator selected)",
+    "resolve": {
+      "edition": "DaVinci Resolve Studio",
+      "version": "21.1.0.14",
+      "process": "C:/Program Files/Blackmagic Design/DaVinci Resolve/Resolve.exe",
+      "mode": "GUI",
+      "instances": 1,
+      "database": "Local Database"
+    },
+    "target_readback": {
+      "project": "Untitled Project",
+      "project_id": "206a53ff-8d46-4ddc-bd51-88f1abbe5ebc",
+      "saved_project_list_entry": false,
+      "timelines": 0,
+      "media_clips": 0,
+      "residue_owned_projects": 0,
+      "residue_matching_so11_or_launch_id": 0,
+      "timeline_or_comp_residue": 0
+    },
+    "cleanup": "none_required; blank unsaved project had no ownership marker and was preserved",
+    "independent_readback": "before/after matched",
+    "project_or_graph_mutation": 0,
+    "project_save": 0,
+    "lease": {
+      "acquired": true,
+      "held_exact_live": true,
+      "final": "FREE"
+    },
+    "human_intervention": 0,
+    "parent_direct_host_fallback": 0,
+    "product_gate_movement": [],
+    "remaining": "SO-11 disposable fixture qualification still required"
+  },
+  "r1_disposable_requalification_attempt": {
+    "task": "SO-11 disposable nested-fixture qualification on exact installed candidate",
+    "launch_id": "9b291a91-2b9d-469c-bd89-1a751de69934",
+    "operator_thread": "01a08811-ab94-7e41-8189-fed5f8867b85",
+    "attempt_count": 1,
+    "result": "FAIL_TIMEOUT",
+    "failure_fingerprint": "HOST_CAPABILITY_GAP:NESTED_GROUP_CREATION_REFUSED_WITH_TIMEOUT",
+    "exact_installed_candidate": "bce01df2b37aee22079e00f60aeca36999ba171c",
+    "driver_identity": "third-party (Operator selected)",
+    "lease": {
+      "acquired": true,
+      "held_exact_live": true,
+      "cleanup": "launcher recovered stale holder",
+      "final": "FREE"
+    },
+    "new_host_evidence": [
+      "operation-owned scratch project, timeline, and Fusion item were created",
+      "GroupOperator.AddTool was refused",
+      "valid nested Paste was refused",
+      "non-empty nested fixture could not be created"
+    ],
+    "agent_message": "nested group member creation failed on current host; final adapter readback and scratch cleanup were not returned before timeout",
+    "valuable_project_save": 0,
+    "parent_direct_host_fallback": 0,
+    "human_intervention": 0,
+    "product_gate_movement": [],
+    "restore_status": "UNVERIFIED_AFTER_TIMEOUT",
+    "next_decision": "recover scratch residue; no third identical qualification; continue offline integration and require a materially different qualified fixture route"
+  },
+  "r1_nested_fixture_recovery": {
+    "task": "cleanup after nested-fixture capability-gap timeout",
+    "launch_id": "c0a721b8-da1b-4712-b180-415456770d61",
+    "operator_thread": "01a08819-8c85-7963-a0f5-aa6a0481654d",
+    "result": "PASS",
+    "driver_identity": "compatibility Resolve MCP lane (Operator selected)",
+    "resolve": {
+      "edition": "DaVinci Resolve Studio",
+      "version": "21.1.0.14",
+      "process": "C:/Program Files/Blackmagic Design/DaVinci Resolve/Resolve.exe",
+      "gui_instances": 1
+    },
+    "residue": {
+      "identified": "_mcp_RNK_SO11_9b291a91",
+      "ownership_basis": "operation-ID prefix and creation timestamp",
+      "cleanup": "safe_project_delete succeeded",
+      "post_readback": "absent from project list and attributes"
+    },
+    "valuable_state": {
+      "current_project": "Untitled Project",
+      "current_project_id": "b4c37b66-5d7d-4021-bbdb-2ad5809f9f86",
+      "timelines": 0,
+      "unchanged": true
+    },
+    "counts": {
+      "scratch_mutations": 1,
+      "project_save": 0,
+      "qualification_runs": 0,
+      "new_fixtures": 0
+    },
+    "lease": {
+      "acquired": true,
+      "held_exact_live": true,
+      "final": "FREE"
+    },
+    "human_intervention": 0,
+    "parent_direct_host_fallback": 0,
+    "product_gate_movement": [],
+    "remaining": "nested fixture capability remains unqualified; no third identical qualification"
+  },
+  "r1_nested_group_host_qualification": {
+    "task": "SO-11 qualified standalone nested_group_v1 host snapshot",
+    "observed_at_utc": "2026-09-10T05:32:35Z",
+    "candidate_sha": "eedd62e4265a6ddc8a7d291a3e72f1987f1b5b79",
+    "operator": {
+      "launcher_result": "PASS",
+      "launch_id": "a1ecf08a-e24f-477c-afcc-608355b3818a",
+      "thread_id": "01a089c6-7e13-7b60-beff-08175502d05d",
+      "driver": "third-party compatibility MCP v2.203.0",
+      "resolve_version": "21.1.0.14"
+    },
+    "lease": {
+      "acquired": true,
+      "holder_pid": 33152,
+      "holder_process_start": 134334914823840144,
+      "token_prefix": "db88c07d",
+      "final": "FREE"
+    },
+    "fixture": {
+      "operation": "prepare_fusion_fixture",
+      "kind": "nested_group",
+      "topology": "nested_group_v1",
+      "restore_policy": "scratch_disposable",
+      "standalone": true,
+      "comp_sha256": "713E15679F6E95EA66BEC6460BB70DDDE28B0AB97E6985EDB87864E9D72FE67D",
+      "manifest_sha256": "79CE02EDB4FFD67FDD320B9C32EE2A6ACC11122D713E1DD1A36BDC9EB84A25AF"
+    },
+    "structure": {
+      "nodes": 10,
+      "groups": 2,
+      "max_depth": 2,
+      "edges": 7,
+      "membership": "OuterGroup=[OuterSource,InnerGroup,OuterProcess]; InnerGroup=[InnerSource,InnerMask,InnerProcess]",
+      "main_output1": ["OuterGroup", "InnerGroup"],
+      "boundary_edges": ["InnerProcess -> OuterProcess", "OuterProcess -> RootProcess"],
+      "identity": "TOOLS_Name/TOOLS_RegID/TOOLI_ID complete"
+    },
+    "host_snapshot": {
+      "adapter_sha256": "6FF20136854905F1AF7707D548E00C94F16A8E72042D8D7B20EB570C59CFAF5A",
+      "json_safe": true,
+      "ports": "complete",
+      "non_complete": [
+        "position:unsupported",
+        "group_boundary_proxies:unsupported",
+        "parameters:unsupported",
+        "keyframes:unsupported",
+        "expressions:unsupported",
+        "instances:unsupported",
+        "media:unsupported",
+        "time_range:unsupported",
+        "tool_state:error"
+      ]
+    },
+    "mutation": {
+      "layout": 0,
+      "graph": 0,
+      "settings": 0,
+      "undo": 0,
+      "project_save": 0
+    },
+    "cleanup": {
+      "load": 1,
+      "close": 1,
+      "current_comp_after_close": null,
+      "protected_state_unchanged": true,
+      "status": "exact"
+    },
+    "product_gate_movement": {
+      "G01": "PASS",
+      "SO-11_adapter": "PASS"
+    },
+    "strict_writer": "NOT_READY_UNTIL_REQUIRED_FIELDS_COMPLETE",
+    "evidence": "docs/checkpoints/2026-09-10-so11-nested-group-host-pass.json"
+  },
+  "r1_strict_request_preserve_preflight": {
+    "task": "SO-11 to strict_request real-host preserve preflight",
+    "observed_at_utc": "2026-09-10T05:45:17Z",
+    "candidate_sha": "eedd62e4265a6ddc8a7d291a3e72f1987f1b5b79",
+    "operator": {
+      "launcher_result": "PASS",
+      "launch_id": "e57b975e-110f-4299-a2bf-7699b408ad59",
+      "thread_id": "01a089d2-1f5d-7623-91eb-d66ced43556d",
+      "driver": "third-party compatibility MCP v2.203.0",
+      "resolve_version": "21.1.0.14",
+      "installed_manifest_commit": "eedd62e4265a6ddc8a7d291a3e72f1987f1b5b79"
+    },
+    "fixture": {
+      "topology": "nested_group_v1",
+      "standalone": true,
+      "timeline": null,
+      "nodes": 10,
+      "groups": 2,
+      "direct_edges": 7,
+      "adapter_edges": 9
+    },
+    "strict_request": {
+      "status": "STRICT_PREPARATION_BLOCKED",
+      "plan_validation": "NOT_RUN",
+      "preserve_write": "NOT_RUN",
+      "flowview": "unavailable",
+      "unresolved": [
+        "all ten node positions:unsupported",
+        "expressions:unsupported",
+        "group_boundary_proxies:unsupported",
+        "instances:unsupported",
+        "keyframes:unsupported",
+        "media:unsupported",
+        "parameters:unsupported",
+        "time_range:unsupported",
+        "tool_state:error"
+      ]
+    },
+    "mutation": {
+      "writes": 0,
+      "undo": 0,
+      "project_save": 0
+    },
+    "cleanup": {
+      "close": 1,
+      "current_comp_after_close": null,
+      "protected_state_unchanged": true,
+      "lease_final": "FREE"
+    },
+    "evidence": "docs/checkpoints/2026-09-10-strict-request-preserve-preflight-blocked.json",
+    "next": "read-only actual view/wire capability inventory; preserve remains fail-closed"
+  },
+  "r1_actual_view_wire_inventory": {
+    "task": "SO-30/G03 actual view and wire capability inventory",
+    "observed_at_utc": "2026-09-10T05:56:15Z",
+    "candidate_sha": "eedd62e4265a6ddc8a7d291a3e72f1987f1b5b79",
+    "operator": {
+      "launcher_result": "PASS",
+      "launch_id": "3e8a5e8a-acaa-48aa-8fb4-36d3b830c28a",
+      "thread_id": "01a089de-ce00-7c90-99b5-da1c50aac2cf",
+      "driver": "third-party compatibility MCP v2.203.0",
+      "resolve_version": "21.1.0.14"
+    },
+    "fixture": {
+      "topology": "nested_group_v1",
+      "load": "PASS",
+      "close": "PASS",
+      "standalone": true,
+      "timeline": null
+    },
+    "status": "PRECISE_BLOCKER",
+    "missing": [
+      "standalone handle retention",
+      "FlowView positions",
+      "connected endpoints and direct/boundary edges",
+      "pipe or orthogonal mode",
+      "port/group-boundary display",
+      "edge geometry/visibility",
+      "UI-visible scope"
+    ],
+    "timeline_required": "not_proven",
+    "mutation": {
+      "graph": 0,
+      "layout": 0,
+      "settings": 0,
+      "undo": 0,
+      "project_save": 0
+    },
+    "cleanup": "exact; final lease FREE",
+    "evidence": "docs/checkpoints/2026-09-10-actual-view-wire-standalone-blocked.json",
+    "next": "materially different Operator handle-local view/wire capability"
+  },
+  "r1_flatten_canary": {
+    "task": "SO-40 guarded flatten_all_comp preflight/canary",
+    "observed_at_utc": "2026-09-10T06:00:44Z",
+    "candidate_sha": "eedd62e4265a6ddc8a7d291a3e72f1987f1b5b79",
+    "operator": {
+      "launcher_result": "PASS",
+      "launch_id": "6eb2cba0-96bb-4a15-a40c-0722bd822a6c",
+      "thread_id": "01a089e5-09f4-7dc3-b4f9-914ba8ae250a",
+      "driver": "third-party compatibility MCP v2.203.0",
+      "resolve_version": "DaVinci Resolve Studio 21.1.0.14"
+    },
+    "fixture": {
+      "operation": "prepare_fusion_fixture(kind=nested_group, topology=nested_group_v1, restore_policy=scratch_disposable)",
+      "identity": "nested_group_v1",
+      "result": "NOT_CREATED_BY_SELECTED_HOST_SURFACE"
+    },
+    "flatten": {
+      "semantic_result": "BLOCKED_HOST_API",
+      "writes": 0,
+      "undo": 0,
+      "save": 0,
+      "missing_callbacks": [
+        "standalone LoadComp and owned FusionComp.Close",
+        "native identity-preserving Group ungroup",
+        "recursive child/identity inventory",
+        "non-Group identity and endpoint mapping",
+        "processing/parameters/keyframes/expressions/instances/media/port-label snapshot",
+        "bounded Undo/rollback and structural readback"
+      ]
+    },
+    "post_state": {
+      "project": "Untitled Project",
+      "timeline": null,
+      "current_fusion_comp": null,
+      "protected_state": "unchanged",
+      "parent_direct_resolve_calls": 0,
+      "final_lease": "FREE"
+    },
+    "evidence": "docs/checkpoints/2026-09-10-flatten-canary-zero-write.json"
+  },
+  "r1_fresh_offline_verifier": {
+    "task": "fresh independent offline audit after SO-11 host qualification",
+    "recorded_at_utc": "2026-09-10T06:08:58.6078002Z",
+    "candidate_sha": "eedd62e4265a6ddc8a7d291a3e72f1987f1b5b79",
+    "checks": {
+      "required_gate_ids_unchanged": true,
+      "g01_pass": true,
+      "g02_g03_blocked": true,
+      "g04_g14_not_pass": true,
+      "so11_structure_10_nodes_2_groups_depth_2_7_edges": true,
+      "so11_mutation_zero": true,
+      "strict_fail_closed": true,
+      "actual_view_wire_fail_closed": true,
+      "flatten_zero_write": true,
+      "installed_commit_matches_candidate": true,
+      "installed_host_snapshot_hash_matches_source": true
+    },
+    "offline_verification": {
+      "strict_contract": "30/30 PASS",
+      "canonical_suite": "170/170 PASS",
+      "1101_node_planner_stress": "PASS",
+      "1101_node_planner_elapsed_seconds": 0.307,
+      "ui_flatten_recovery_seams": "16/16 PASS",
+      "compileall": "PASS",
+      "git_diff_check": "PASS"
+    },
+    "host_boundary": {
+      "host_1100_plus": "NOT_RUN",
+      "host_performance_recovery_ui": "NOT_RUN",
+      "still_unverified": ["G02", "G03", "G04", "G05", "G06", "G07", "G08", "G09", "G10", "G11", "G12", "G13", "G14"]
+    },
+    "status": "AUDIT_PASS_HOST_COMPLETION_BLOCKED",
+    "evidence": "docs/checkpoints/2026-09-10-fresh-offline-verifier.json"
+  },
+  "takeover": {
+    "status": "EXECUTION_CONFIRMED",
+    "new_task_id": "01a087e9-0cb8-77f3-908d-e0163103ac50",
+    "actual_model": "gpt-5.6-luna",
+    "actual_effort": "max",
+    "runtime_binding_evidence": "user-directed Luna Max task; parent runtime metadata is not exposed by the current native tools",
+    "handoff_id": "RNK-LUNA-20260909T204822Z-01a087e9",
+    "observed_previous_owner": "01a07e95-b55e-70a1-8366-b80d785bbaa4",
+    "observed_previous_epoch": 1,
+    "new_epoch": 2,
+    "plan_digest": "ebc124049dbb1dfa863cd499c13c2cd1a232774ae754a26edc30ee14668dbc20",
+    "old_owner_quiescence_evidence": [
+      "old owner thread readback status=notLoaded and absent from live active task listing",
+      "old owner process IDs 97328 and 97492 absent",
+      "owner lock acquired with FileShare=None",
+      "previous deadline expired 2026-09-08T02:07:27Z"
+    ],
+    "lease_transfer_evidence": [
+      "D:/Documents/ResolveNodeKit/.git/rnk-strict-orthogonal-owner.json#epoch=2",
+      "owner_sha256=88a3f9b307de9c44979fc0234c9069a042de5153aad00e1cf19b04131aa516a8",
+      "pre-takeover backup=D:/Documents/ResolveNodeKit/.git/rnk-strict-orthogonal-owner.json.pre-luna-epoch2.bak"
+    ],
+    "new_owner_readback_evidence": [
+      "owner=01a087e9-0cb8-77f3-908d-e0163103ac50",
+      "epoch=2",
+      "old_writer_fenced=true"
+    ],
+    "first_work_evidence": [
+      "R1-OFFLINE-INTEGRATION-AUDIT / worker offline_integration_audit / gpt-5.6-luna max",
+      "canonical import provenance fixed to C:/Users/shiro/.codex/worktrees/c22a/ResolveNodeKit/src",
+      "contract checker consistent=true; product completion=false; runtime evidence authenticated=false",
+      "strict contract tests 30/30 PASS; canonical suite 158/158 PASS; focused strict/snapshot/view/UI 31/31 PASS",
+      "disposable install verified 17 files at c590d8d; foreign file preserved; owned uninstall exact",
+      "real user install read-only: old 8c667e6 14-file manifest; strict_planner.py and view_realization.py missing; installed package stale",
+      "no Resolve calls, no user install mutation, no worker edits or commit"
+    ]
+  },
+  "first_live_host_package": {
+    "delegate_to": "Resolve Operator",
+    "objective": "current RNK candidate SO-11 host preflight",
+    "restore_policy": "restore",
+    "mutation_allowed": false,
+    "project_save_allowed": false,
+    "driver_specified_by_parent": false,
+    "result_expected": ["resolve_version", "driver_identity", "lease", "target_identity", "capability_inventory", "independent_readback", "final_state"]
+  },
+  "invocation": {
+    "new_user_deadline": null,
+    "inherit_expired_deadline": false,
+    "runtime_limits": "discover current limits, checkpoint safely",
+    "background_execution_claimed": false
+  },
+  "requirements": {
+    "preserve_all_existing_task_results": true,
+    "preserve_all_existing_gate_definitions": true,
+    "required_gate_ids": ["G01", "G02", "G03", "G04", "G05", "G06", "G07", "G08", "G09", "G10", "G11", "G12", "G13", "G14"],
+    "main_merge_authorized": false,
+    "project_save_authorized": false
+  },
+  "trial": {
+    "exact_research_source_found": true,
+    "source": "/AI Operating Context/Coding Intelligence/CODEX_PROMPT_ORCHESTRATION_RESEARCH_2026-08-28.md",
+    "resolve_operator_automatic_delegation": "PROVISIONAL_CANARY",
+    "runtime_trial_started": true,
+    "canary": {
+      "package": "SO-11 host preflight",
+      "attempts": 2,
+      "transport": "PASS",
+      "semantic_result": "BLOCKED",
+      "failure_fingerprint": [
+        "DRIVER_CAPABILITY_GAP:scripting_unavailable_and_database_unattached",
+        "CAPABILITY_GAP:NO_ACTIVE_TIMELINE_OR_COMP_WEDGED_RUNTIME"
+      ],
+      "operator_result": "attempt 1 driver gap; attempt 2 exact Resolve/project identity but no timeline/comp; mutation=0; save=0; final lease FREE",
+      "parent_direct_host_fallback": 0,
+      "human_intervention": 0,
+      "product_gate_movement": [],
+      "same_fingerprint_retry_guard": "attempts used materially different evidence; no third identical preflight",
+      "next": "change semantic target to an owned disposable fixture or continue independent install/offline work"
+      ,"extended_attempts": {
+        "disposable_stale_install": "FAIL_TIMEOUT",
+        "disposable_recovery": "PASS_NO_OWNED_RESIDUE",
+        "exact_candidate_nested_fixture": "FAIL_TIMEOUT; GroupOperator.AddTool and nested Paste refused",
+        "nested_fixture_recovery": "PASS; scratch deleted and absent",
+        "identical_third_qualification": "FORBIDDEN",
+        "product_gate_movement": []
+      }
+    }
+  },
+  "normal_development_human_click_elimination": "NOT_YET_PROVEN",
+  "authoring_is_runtime_evidence": false
+}

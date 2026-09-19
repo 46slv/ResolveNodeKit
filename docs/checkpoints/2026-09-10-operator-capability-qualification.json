@@ -1,0 +1,173 @@
+{
+  "schema": "resolve-node-kit.operator-capability-qualification/v1",
+  "observed_at_utc": "2026-09-10T12:22:14Z",
+  "task": "PR #5 Luna Max continuation: Lane A read-only capabilities and Lane B owned Undo",
+  "repository": {
+    "worktree": "C:/Users/shiro/.codex/worktrees/c22a/ResolveNodeKit",
+    "branch": "feat/semantic-arrange-v1-20260906",
+    "head": "e616966d935c93980ecf0c4b3cd05689926ab56f",
+    "main_merge_authorized": false
+  },
+  "installed_candidate": {
+    "manifest": "C:/Users/shiro/AppData/Roaming/Blackmagic Design/DaVinci Resolve/Support/Fusion/ResolveNodeKit/install_manifest.json",
+    "repository_commit": "e616966d935c93980ecf0c4b3cd05689926ab56f",
+    "status": "MATCH"
+  },
+  "models": {
+    "parent": {
+      "model": "gpt-5.6-luna",
+      "effort": "max"
+    },
+    "external_operator": {
+      "model": "gpt-5.6-terra",
+      "effort": "high"
+    }
+  },
+  "operator": {
+    "workspace": "D:/Documents/ChatGPT/Davinci-Operater",
+    "revision_kind": "uncommitted deterministic source/test tree",
+    "revision": "21ac220fe0877194fbe8c01687642729906cf1c333cdaf80f148cf9d12bfa90a",
+    "skill_sha256": "15DC65E4C00C14B0888F14A52DBCAC427761E0441ED83137B74E6C108025D5CE",
+    "parent_direct_resolve_access": 0
+  },
+  "host": {
+    "resolve": "DaVinci Resolve Studio 21.1.0.14",
+    "project": "Untitled Project",
+    "timeline": null,
+    "lease_final_for_all_runs": "FREE"
+  },
+  "lane_a": {
+    "launch_id": "85d54d87-2aed-48a6-905f-ce77ce5acef6",
+    "route": "third-party compatibility MCP v2.203.0",
+    "status": "BLOCKED",
+    "fixture": {
+      "route": "Operator-owned qualified registry nested_group_v1",
+      "load_count": 1,
+      "close_count": 1,
+      "tool_count": 10,
+      "group_count": 2,
+      "edge_count": 7,
+      "runtime_fingerprint": "9a1a35ffedd8c359041ac35b18798637e857687b26311f91e2b0c588dc16230c"
+    },
+    "processing_snapshot": {
+      "ports": "complete",
+      "group_boundary_proxies": "unsupported",
+      "parameters": "unsupported",
+      "keyframes": "unsupported",
+      "expressions": "unsupported",
+      "instances": "unsupported",
+      "media": "unsupported",
+      "time_range": "unsupported",
+      "tool_state": "error"
+    },
+    "flowview": {
+      "node_positions": "unsupported",
+      "viewport_zoom": "unsupported",
+      "capture_provenance": "unsupported"
+    },
+    "actual_wire_view": {
+      "displayed_geometry": "unsupported",
+      "orthogonal_horizontal_vertical": "unsupported",
+      "required_edge_coverage": {
+        "RootSource->RootProcess": "processing_observed_display_unqualified",
+        "OuterSource->OuterProcess": "processing_observed_display_unqualified",
+        "InnerSource->InnerProcess": "processing_observed_display_unqualified",
+        "InnerMask->InnerProcess": "processing_observed_display_unqualified",
+        "InnerProcess->OuterProcess": "processing_observed_display_unqualified",
+        "OuterProcess->RootProcess": "processing_observed_display_unqualified",
+        "RootProcess->MediaOut1": "processing_observed_display_unqualified"
+      },
+      "mask_edge_included": true,
+      "group_boundary_edges_included": true,
+      "g03_position_only_promotion": false
+    },
+    "mutation": {
+      "graph": 0,
+      "layout": 0,
+      "settings": 0,
+      "undo": 0,
+      "project_save": 0
+    },
+    "protected_state_unchanged": true,
+    "fingerprint": "LANE_A:PROCESSING_PORTS_ONLY;FLOWVIEW_UNSUPPORTED;DISPLAYED_WIRE_UNSUPPORTED"
+  },
+  "lane_b": {
+    "compatibility": {
+      "launch_id": "30712be3-3eac-47a1-b7d1-2d7a21d6b6f2",
+      "status": "BLOCKED",
+      "route_context": {
+        "standalone_registry_fixture": "unsupported: no retained target route exposed",
+        "ui_bound_fusion_comp": "absent",
+        "timeline_attached_scratch_comp": "absent",
+        "selected_compatibility_route": "runtime/project observation only"
+      },
+      "ownership_proof": "not_proven",
+      "first_write_forbidden": true,
+      "mutation": {
+        "position_move": 0,
+        "graph": 0,
+        "layout": 0,
+        "settings": 0,
+        "undo": 0,
+        "project_save": 0
+      },
+      "fixture_load_close": "0/0",
+      "fingerprint": "BLOCKED_NO_QUALIFIED_STANDALONE_TARGET_ZERO_WRITE"
+    },
+    "native": {
+      "launch_id": "c290d6a7-a755-4c54-aea6-c21d0a297fcd",
+      "status": "BLOCKED",
+      "graph_observation": "10 nodes, 2 groups",
+      "retained_position_target": false,
+      "owned_undo_boundary": false,
+      "mutation": {
+        "position_move": 0,
+        "graph": 0,
+        "layout": 0,
+        "settings": 0,
+        "undo": 0,
+        "project_save": 0
+      },
+      "fingerprint": "NATIVE_NO_RETAINED_TARGET_OR_OWNED_UNDO_ZERO_WRITE"
+    },
+    "pass_contract": {
+      "required_sequence": "ownership proof -> one position mutation -> independent post readback -> exactly one owned Undo -> exact restoration",
+      "qualified": false
+    }
+  },
+  "offline_operator": {
+    "capability_modules": [
+      "resolve_operator/fusion/processing_snapshot.py",
+      "resolve_operator/fusion/flowview_readback.py",
+      "resolve_operator/fusion/actual_wire_view.py",
+      "resolve_operator/fusion/undo_transaction.py"
+    ],
+    "focused_tests": "15/15 PASS",
+    "compileall": "PASS",
+    "diff_check": "PASS"
+  },
+  "gate_state": {
+    "G02": "BLOCKED_TECHNICAL",
+    "G03": "BLOCKED_TECHNICAL",
+    "G08": "PENDING",
+    "G04": "PENDING",
+    "integrated_host_session": "NOT_RUN",
+    "project_save": 0,
+    "main_merge": 0,
+    "release": 0
+  },
+  "learning_gate": {
+    "source_supported_conclusion": "The external Operator can acquire/release the exact-live lease and return structured zero-write evidence for materially different compatibility and native probes; the registry fixture processing inventory is observable.",
+    "rnk_specific_inference": "Resolve Studio 21.1.0.14 as observed here does not expose complete processing fields, FlowView/displayed-wire geometry, or a retained target with an owned Undo boundary through the qualified routes used; G02/G03/G08 remain unqualified.",
+    "verified_reusable_delta": "Keep the short semantic envelope, exact installed-candidate precondition, four-state capability contracts, mask/Group-boundary edge gate, ownership-before-write gate, and mechanical no-identical-third-retry guard.",
+    "global_policy_promotion": "NO; this remains an RNK/host-specific result.",
+    "not_collected": [
+      "complete processing serialization on this Resolve host",
+      "FlowView/displayed wire capture with endpoint geometry",
+      "owned position-move Undo transaction",
+      "integrated G02/G03 and G04",
+      "large 1100+ host qualification"
+    ]
+  },
+  "status": "CHECKPOINTED_WITH_TECHNICAL_GAP"
+}

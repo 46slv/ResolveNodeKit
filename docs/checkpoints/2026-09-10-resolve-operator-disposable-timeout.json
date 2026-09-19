@@ -1,0 +1,40 @@
+{
+  "schema": "resolve-node-kit.resolve-operator-disposable-attempt/v1",
+  "task": "SO-11 disposable-target qualification after semantic target change",
+  "launch_id": "48da83da-041f-493b-80fe-26414f52f0d0",
+  "operator_thread": "01a08803-9bbe-7d01-a391-436133101be7",
+  "attempt_count": 1,
+  "parent_envelope": {
+    "driver_specified": false,
+    "target_policy": "owned disposable scratch target",
+    "restore_policy": "scratch_disposable",
+    "parent_direct_host_fallback": 0
+  },
+  "outer_result": {
+    "result": "FAIL",
+    "exit_code": 1,
+    "timed_out": true,
+    "elapsed_sec": 421.344,
+    "driver": "third-party (Operator selected)"
+  },
+  "lease": {
+    "initial": "FREE",
+    "held_exact_live": true,
+    "holder_pid_observed": 27744,
+    "cleanup": "stale holder recovered and released",
+    "final": "FREE"
+  },
+  "operator_observation": {
+    "installed_candidate_at_start": "3315bc72c09fd10f7672a605cbef76e1d7a1a63c",
+    "missing_module": "host_snapshot.py",
+    "agent_message": "processing_snapshot existed but host_snapshot module was absent; scratch cleanup/final readback was not returned before timeout"
+  },
+  "safety": {
+    "valuable_project_save": 0,
+    "human_intervention": 0,
+    "product_gate_movement": [],
+    "restore_status": "UNVERIFIED_AFTER_TIMEOUT"
+  },
+  "failure_fingerprint": "HOST_QUALIFICATION_TIMEOUT:operator_started_against_stale_installed_candidate",
+  "next_decision": "run Operator-owned recovery inventory/cleanup, then requalify once only after exact d6fab45 install readback"
+}

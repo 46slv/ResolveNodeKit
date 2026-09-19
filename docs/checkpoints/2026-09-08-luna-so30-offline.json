@@ -1,0 +1,100 @@
+{
+  "schema": "resolve-node-kit.strict-so30-offline/v1",
+  "program": "RNK-STRICT-ORTHOGONAL",
+  "handoff_id": "RNK-SO-20260908T010727Z-01a07e8e",
+  "coordinator_thread_id": "01a07e95-b55e-70a1-8366-b80d785bbaa4",
+  "owner_epoch": 1,
+  "recorded_at_utc": "2026-09-08T06:15:40Z",
+  "model": "gpt-5.6-luna",
+  "effort": "max",
+  "cwd": "C:/Users/shiro/.codex/worktrees/c22a/ResolveNodeKit",
+  "worktree_identity": "D:/Documents/ResolveNodeKit/.git/worktrees/ResolveNodeKit",
+  "branch": "feat/semantic-arrange-v1-20260906",
+  "publication_base_revision": "17aa6f1783418a1810f58163e3a04874ab27182f",
+  "product_source_revision": "dd0069abde35526b8164beae2c5753b95a1e12af",
+  "unchanged_product_source_revision": "59eeffbce5efd0a73a0fed2a4f3418faf71d5852",
+  "plan_revision": "AS-BOOTSTRAP-20260908-1",
+  "plan_digest": "ebc124049dbb1dfa863cd499c13c2cd1a232774ae754a26edc30ee14668dbc20",
+  "instruction_digest": "c7e421e8a06ce432272a160044701c4cb97f74e8769162f19be84aed0bd88933",
+  "resolve_operator_skill_sha256": "42bf71936531bff62420a9cde1bd695f6e16ee00716cc8fe205d8da89632bc61",
+  "owner_readback": {
+    "owner": "01a07e95-b55e-70a1-8366-b80d785bbaa4",
+    "previous_owner": "01a07e8e-41f3-7d30-b190-3f621b5cdb64",
+    "epoch": 1,
+    "previous_epoch": 0,
+    "cas_success": true,
+    "old_writer_fenced": true,
+    "active_writers": [
+      "01a07e95-b55e-70a1-8366-b80d785bbaa4"
+    ],
+    "owner_file_sha256": "5f8cb002cd32f3960bda9c7e36aad6f3b10e96bf3a808f827e688fcefbd548a2"
+  },
+  "review": {
+    "status": "SO30_OFFLINE_CONTRACT_PASS_HOST_PORTION_UNPROVEN",
+    "owned_files": [
+      "src/resolve_node_kit/fusion/view_realization.py",
+      "tests/test_view_realization.py",
+      "src/resolve_node_kit/fusion/__init__.py"
+    ],
+    "implemented": [
+      "JSON-safe schema with explicit native mode raw value, name, source and scope",
+      "pre/post/restored same-run stage and mode continuity",
+      "canonical source-output to target-input edge IDs with duplicate ordinals",
+      "explicit node/group rectangles, viewport/zoom and endpoint port positions",
+      "directional output/input/mask/auxiliary role validation for every edge endpoint",
+      "per-edge measured/native-contract coverage and overview plus difficult-region zoom linkage",
+      "explicit mask, boundary, multiedge and all-edge coverage",
+      "wrong-schema, missing endpoint, mixed-run, center-only and numeric-mode fail-closed refusal",
+      "host-only boundary retained: no Resolve API names, host calls or native qualification"
+    ],
+    "host_unproven": [
+      "installed native orthogonal renderer/action identity and control",
+      "actual Resolve view readback and screenshots",
+      "host scope, offsets, Undo/cleanup and processing-preservation evidence"
+    ]
+  },
+  "files": {
+    "src/resolve_node_kit/fusion/view_realization.py": {
+      "sha256": "c21fa2e3c6a2711d7ad111af7f617c67e81624299c81c38e59cd85c76da8cd9",
+      "bytes": 29832
+    },
+    "tests/test_view_realization.py": {
+      "sha256": "fd1382195d1d1d559e80a365ab6f455777f959b8edf479e7bb5e6d9e5f2fc641",
+      "bytes": 8155
+    },
+    "src/resolve_node_kit/fusion/__init__.py": {
+      "sha256": "8874becf2a806b9d33a5e3b80f84b67b628f9117d00b802fee668737c55d9649",
+      "bytes": 3013
+    }
+  },
+  "verification": {
+    "focused": "12/12 PASS",
+    "canonical_full_suite": "158/158 PASS",
+    "compileall": "PASS",
+    "git_diff_check": "PASS",
+    "package_import_provenance": "PASS",
+    "canonical_python": "C:/Users/shiro/AppData/Local/Programs/Python/Python312/python.exe",
+    "canonical_pythonpath": "C:/Users/shiro/.codex/worktrees/c22a/ResolveNodeKit/src",
+    "dirty_fingerprint_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "host": {
+    "lease_checkpoint": "docs/checkpoints/2026-09-08-luna-host-recheck.json",
+    "lease_token_prefix": "55d1702a",
+    "status": "FREE_AFTER_EXACT_RELEASE",
+    "mcp_surface": "UNAVAILABLE_TO_RESOLVE_OPERATOR",
+    "resolve_calls": 0,
+    "mutation": false,
+    "save": false,
+    "restart": false,
+    "runtime_identity": "NOT_OBSERVED",
+    "decision": "SO-30/G03 remain host-blocked; no Resolve call was made"
+  },
+  "publication": {
+    "product_commit": "dd0069abde35526b8164beae2c5753b95a1e12af",
+    "product_commit_pushed": true,
+    "normal_non_force_push": true,
+    "pr": 5,
+    "pr_state": "OPEN_DRAFT",
+    "next": "publish this checkpoint with acceptance/CURRENT_STATE and PR body synchronization; retain G03 host gap"
+  }
+}

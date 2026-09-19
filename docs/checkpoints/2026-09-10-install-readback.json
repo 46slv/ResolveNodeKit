@@ -1,0 +1,45 @@
+{
+  "schema": "resolve-node-kit.strict-install-readback/v1",
+  "observed_at_utc": "2026-09-09T21:58:00.0000000Z",
+  "task": "R1 exact per-user install and import provenance",
+  "candidate": {
+    "branch": "feat/semantic-arrange-v1-20260906",
+    "commit": "bd2b6294293e1f0664249cd3c327830ed688309d",
+    "pr": 5,
+    "source_root": "C:/Users/shiro/.codex/worktrees/c22a/ResolveNodeKit"
+  },
+  "installer": {
+    "script": "scripts/install_resolve_user.ps1",
+    "manifest": "%APPDATA%/Blackmagic Design/DaVinci Resolve/Support/Fusion/ResolveNodeKit/install_manifest.json",
+    "entry": "%APPDATA%/Blackmagic Design/DaVinci Resolve/Support/Fusion/Scripts/Comp/ResolveNodeKit_Arrange.py",
+    "manifest_repo_commit": "bd2b6294293e1f0664249cd3c327830ed688309d",
+    "manifest_package_files": 18,
+    "entry_plus_manifest_files": 19,
+    "source_installed_manifest_hash_mismatches": 0
+  },
+  "import_readback": {
+    "package_root": "%APPDATA%/Blackmagic Design/DaVinci Resolve/Support/Fusion/ResolveNodeKit/src",
+    "modules": [
+      "resolve_node_kit",
+      "resolve_node_kit.fusion.host_snapshot",
+      "resolve_node_kit.fusion.strict_request",
+      "resolve_node_kit.fusion.strict_planner",
+      "resolve_node_kit.fusion.view_realization",
+      "resolve_node_kit.fusion.processing_snapshot"
+    ],
+    "status": "PASS"
+  },
+  "safety": {
+    "backup_backed": true,
+    "foreign_file_deleted": false,
+    "resolve_calls": 0,
+    "project_save": 0,
+    "product_gate_movement": []
+  },
+  "status": "PASS_INSTALL_READBACK",
+  "remaining": [
+    "SO-11 host capability remains blocked by current Resolve target/runtime",
+    "strict planner is not yet wired into the installed host mutation path",
+    "G01-G14 remain pending"
+  ]
+}

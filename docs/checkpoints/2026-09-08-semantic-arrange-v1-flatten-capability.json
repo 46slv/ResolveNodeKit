@@ -1,0 +1,55 @@
+{
+  "schema": "rnk.semantic-arrange.flatten-capability.v1",
+  "date": "2026-09-08",
+  "candidate_sha": "59eeffbce5efd0a73a0fed2a4f3418faf71d5852",
+  "host": {
+    "project": "PSD2Fusion",
+    "timeline": "_mcp_RNK_SAV1_60R_20260908",
+    "resolve": "DaVinci Resolve Studio 21.0.3.7",
+    "comp_tool_count": 1111,
+    "group_count": 28,
+    "max_group_depth": 2
+  },
+  "discovery": {
+    "group_methods": ["DoAction", "LoadSettings", "QueueAction", "SaveSettings"],
+    "comp_methods": ["DoAction", "QueueAction"],
+    "flow_methods": ["DoAction", "QueueAction"],
+    "explicit_ungroup_callables": [],
+    "generic_action_policy": "DoAction/QueueAction are not accepted as an ungroup primitive",
+    "bounded_action_probe": "previous disposable GroupOperator candidate names returned false with children unchanged"
+  },
+  "production_refusal": {
+    "request": "arrange_comp(include_unselected=True, ungroup=True)",
+    "outcome": "REFUSED",
+    "error": "Flatten-all is unavailable: the host adapter supplied no measured identity-preserving ungroup primitive",
+    "refusal_ms": 0.1,
+    "exact_no_write": true,
+    "pre": {
+      "tool_count": 1111,
+      "edge_count": 1180,
+      "group_count": 28,
+      "max_group_depth": 2,
+      "non_group_identity_hash": "feedd232167921406ea055076171e8ffb4e9c783d790da4c042f01b06a2c9b4e",
+      "parent_hash": "ebc774841a6bb185c508c15fea425e518646b40b96362364e9dfafe5768b075b",
+      "connection_hash": "453c69f703b2d2716d1e7c7426d9dd223f77fc16803c74d017e5c6c4f1f3d77b",
+      "position_hash": "6a35d9b2d83274edbd6f3ee789b59c5a979986c5c7d4ee8b4763afeb89c96e40"
+    },
+    "post": {
+      "tool_count": 1111,
+      "edge_count": 1180,
+      "group_count": 28,
+      "max_group_depth": 2,
+      "non_group_identity_hash": "feedd232167921406ea055076171e8ffb4e9c783d790da4c042f01b06a2c9b4e",
+      "parent_hash": "ebc774841a6bb185c508c15fea425e518646b40b96362364e9dfafe5768b075b",
+      "connection_hash": "453c69f703b2d2716d1e7c7426d9dd223f77fc16803c74d017e5c6c4f1f3d77b",
+      "position_hash": "6a35d9b2d83274edbd6f3ee789b59c5a979986c5c7d4ee8b4763afeb89c96e40"
+    }
+  },
+  "implementation": {
+    "path": "src/resolve_node_kit/fusion/flatten.py",
+    "contract": "explicit host primitive -> deepest-first groups -> flat readback -> semantic Arrange -> one Undo transaction",
+    "offline_nested_undo": "PASS",
+    "host_flatten_all": "BLOCKED_HOST_API",
+    "ui_exposure": "not exposed until host primitive is proven"
+  }
+}

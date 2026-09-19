@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="820" viewBox="0 0 1400 820">
+  <rect width="1400" height="820" fill="#202126"/>
+  <g stroke="#5a5d66" stroke-width="1" opacity="0.5">
+    <path d="M0 80H1400M0 160H1400M0 240H1400M0 320H1400M0 400H1400M0 480H1400M0 560H1400M0 640H1400M0 720H1400"/>
+    <path d="M100 0V820M200 0V820M300 0V820M400 0V820M500 0V820M600 0V820M700 0V820M800 0V820M900 0V820M1000 0V820M1100 0V820M1200 0V820M1300 0V820"/>
+  </g>
+  <style>
+    .node{fill:#26282e;stroke:#8d9098;stroke-width:2;rx:8}.merge{fill:#2d3036;stroke:#d8b400;stroke-width:3;rx:8}.group{fill:none;stroke:#d8b400;stroke-width:3;rx:10}.wire{stroke:#e8e8e8;stroke-width:4;fill:none}.branch{stroke:#d8b400;stroke-width:4;fill:none}.txt{font:22px sans-serif;fill:#f2f2f2}.small{font:18px sans-serif;fill:#f2f2f2}.label{font:20px sans-serif;fill:#f4d42a}
+  </style>
+  <rect class="group" x="90" y="130" width="900" height="420"/>
+  <text class="label" x="480" y="160">Group A — local scope</text>
+  <rect class="group" x="650" y="390" width="550" height="250"/>
+  <text class="label" x="850" y="420">Group B — nested local scope</text>
+  <path class="wire" d="M170 690H420H650H930H1220"/>
+  <path class="wire" d="M420 550V690M650 550V690M930 640V690"/>
+  <path class="wire" d="M570 90V240V470"/>
+  <path class="wire" d="M760 470V570M930 470V570M1090 470V570"/>
+  <rect class="node" x="100" y="660" width="140" height="60"/><text class="small" x="125" y="697">Background</text>
+  <rect class="merge" x="350" y="660" width="140" height="60"/><text class="small" x="390" y="697">Merge</text>
+  <rect class="merge" x="580" y="660" width="140" height="60"/><text class="small" x="620" y="697">Merge</text>
+  <rect class="merge" x="860" y="660" width="140" height="60"/><text class="small" x="900" y="697">Merge</text>
+  <rect class="node" x="1160" y="660" width="150" height="60"/><text class="small" x="1192" y="697">MediaOut</text>
+  <rect class="node" x="500" y="55" width="140" height="60"/><text class="small" x="532" y="92">Source</text>
+  <rect class="node" x="500" y="215" width="140" height="60"/><text class="small" x="535" y="252">Group</text>
+  <path class="wire" d="M185 470H420H610"/><path class="branch" d="M420 300V470M610 330V470"/>
+  <rect class="node" x="120" y="440" width="130" height="60"/><text class="small" x="150" y="477">Input</text>
+  <rect class="merge" x="350" y="440" width="140" height="60"/><text class="small" x="390" y="477">Merge</text>
+  <rect class="merge" x="540" y="440" width="140" height="60"/><text class="small" x="580" y="477">Merge</text>
+  <rect class="node" x="350" y="270" width="140" height="60"/><text class="small" x="382" y="307">Branch</text>
+  <rect class="node" x="540" y="300" width="140" height="60"/><text class="small" x="575" y="337">Group</text>
+  <path class="wire" d="M710 570H850H1020"/><path class="branch" d="M780 470V570M940 500V570M1100 500V570"/>
+  <rect class="node" x="675" y="540" width="120" height="60"/><text class="small" x="700" y="577">Input</text>
+  <rect class="merge" x="800" y="540" width="120" height="60"/><text class="small" x="830" y="577">Merge</text>
+  <rect class="merge" x="960" y="540" width="120" height="60"/><text class="small" x="990" y="577">Merge</text>
+  <rect class="node" x="720" y="440" width="120" height="60"/><text class="small" x="745" y="477">Branch</text>
+  <rect class="node" x="880" y="470" width="120" height="60"/><text class="small" x="905" y="507">Branch</text>
+  <rect class="node" x="1040" y="470" width="120" height="60"/><text class="small" x="1065" y="507">Branch</text>
+  <text class="txt" x="90" y="775">Reference 01: hierarchy first, local horizontal backbones, vertical branch provenance</text>
+</svg>

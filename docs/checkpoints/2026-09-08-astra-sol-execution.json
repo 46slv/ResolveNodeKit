@@ -1,0 +1,93 @@
+{
+  "schema": "resolve-node-kit.sol-execution/v1",
+  "handoff_id": "RNK-SO-20260908T010727Z-01a07e8e",
+  "plan_revision": "AS-BOOTSTRAP-20260908-1",
+  "plan_digest": "ebc124049dbb1dfa863cd499c13c2cd1a232774ae754a26edc30ee14668dbc20",
+  "thread_id": "01a07e95-b55e-70a1-8366-b80d785bbaa4",
+  "receipt_turn_id": "01a07ea1-c26e-7940-b8d5-2ca970191cd8",
+  "execution_turn_id": null,
+  "execution_turn_evidence": "D:/Documents/ResolveNodeKit/.git/rnk-so-execution-events.jsonl",
+  "observed_at_utc": "2026-09-08T01:42:50.8104611Z",
+  "phase": "EXECUTION_CONFIRMED",
+  "invocation_status": "CHECKPOINTED_WITH_TECHNICAL_GAP",
+  "publication_at_start": "00f44858eaf5ec9c8e50de9f1e89b49357ab37c2",
+  "product_source_revision": "59eeffbce5efd0a73a0fed2a4f3418faf71d5852",
+  "current_candidate": "8c667e6c50b20753657e9c3d36a641d60d0c08e3",
+  "program_lease": {
+    "path": "D:/Documents/ResolveNodeKit/.git/rnk-strict-orthogonal-owner.json",
+    "lock_path": "D:/Documents/ResolveNodeKit/.git/rnk-strict-orthogonal-owner.lock",
+    "previous_owner": "01a07e8e-41f3-7d30-b190-3f621b5cdb64",
+    "owner": "01a07e95-b55e-70a1-8366-b80d785bbaa4",
+    "active_writers": [
+      "01a07e95-b55e-70a1-8366-b80d785bbaa4"
+    ],
+    "previous_epoch": 0,
+    "epoch": 1,
+    "cas_success": true,
+    "old_writer_fenced": true,
+    "sol_readback_epoch": 1,
+    "transfer_ready_commit": "00f44858eaf5ec9c8e50de9f1e89b49357ab37c2"
+  },
+  "first_task_start": {
+    "task_id": "SO-00",
+    "thread_id": "01a07e95-b55e-70a1-8366-b80d785bbaa4",
+    "owner_epoch": 1,
+    "first_bounded_command_started": "D:/Documents/ResolveNodeKit/.git/rnk-so-execution-events.jsonl#line=8,item=item_3",
+    "first_bounded_command_completed": "D:/Documents/ResolveNodeKit/.git/rnk-so-execution-events.jsonl#line=12,item=item_3",
+    "git_identity_command_started": "D:/Documents/ResolveNodeKit/.git/rnk-so-execution-events.jsonl#line=11,item=item_6",
+    "git_identity_command_completed": "D:/Documents/ResolveNodeKit/.git/rnk-so-execution-events.jsonl#line=17,item=item_6"
+  },
+  "runtime_binding": {
+    "model": "gpt-5.6-sol",
+    "effort": "max",
+    "approval_policy": "never",
+    "sandbox_policy": "danger-full-access",
+    "authenticated_by": "docs/checkpoints/2026-09-08-astra-sol-receipt.json#runtime_metadata"
+  },
+  "so_00": {
+    "status": "BLOCKED_TECHNICAL",
+    "git": {
+      "root": "C:/Users/shiro/.codex/worktrees/c22a/ResolveNodeKit",
+      "absolute_git_dir": "D:/Documents/ResolveNodeKit/.git/worktrees/ResolveNodeKit",
+      "common_dir": "D:/Documents/ResolveNodeKit/.git",
+      "branch": "feat/semantic-arrange-v1-20260906",
+      "head": "00f44858eaf5ec9c8e50de9f1e89b49357ab37c2",
+      "dirty": false,
+      "product_path_diff_from_product_source": []
+    },
+    "installed": {
+      "manifest": "C:/Users/shiro/AppData/Roaming/Blackmagic Design/DaVinci Resolve/Support/Fusion/ResolveNodeKit/install_manifest.json",
+      "manifest_sha256": "71809a6ebe3b9c277b8fce77540b61ce7082ce7a8836064417dc46f3a72b401b",
+      "manifest_revision": "562405079aa6bffa6d25668b294a26ac4142a680",
+      "package_files_declared": 13,
+      "package_files_matching_manifest": 13,
+      "entry": "C:/Users/shiro/AppData/Roaming/Blackmagic Design/DaVinci Resolve/Support/Fusion/Scripts/Comp/ResolveNodeKit_Arrange.py",
+      "entry_sha256": "3bb3f6439ac67796197f511692d0a8ca39f4d5cd350a7e992ad783ef5f2e7945"
+    },
+    "runtime_route": {
+      "coordinator_direct_resolve_access": false,
+      "required_agent": "resolve_operator",
+      "lease_wrapper": "C:/Users/shiro/.agents/skills/resolve-operator/scripts/resolve_lease.py",
+      "host_observation": "resolve_operator returned FREE; zero Resolve calls",
+      "host_lease": "NOT_ACQUIRED"
+    }
+  },
+  "work_results": {
+    "SO-10": "PASS_OFFLINE",
+    "SO-50": "OFFLINE_SEAM_COMPLETE_HOST_GATES_PENDING",
+    "full_tests": "136/136 PASS with canonical PYTHONPATH",
+    "installed_candidate": "8c667e6c50b20753657e9c3d36a641d60d0c08e3",
+    "deadline_report": "docs/checkpoints/2026-09-08-sol-deadline-handoff.json"
+  },
+  "instruction_chain": {
+    "receipt_digest": "c7e421e8a06ce432272a160044701c4cb97f74e8769162f19be84aed0bd88933",
+    "execution_readback_digest": "e4c7045294a94ee07807684aec38682dbf058d8bd08f5bee0613f97d79e76c94",
+    "current_skill_sha256_lf": "42bf71936531bff62420a9cde1bd695f6e16ee00716cc8fe205d8da89632bc61",
+    "drift": true,
+    "handling": "Current skill adds stricter host-process corroboration and is followed; no direct host access. Receipt binding remains immutable and the drift is recorded rather than hidden."
+  },
+  "deadline_utc": "2026-09-08T02:07:27Z",
+  "product_gates_changed": false,
+  "bootstrap_done": true,
+  "product_done": false
+}

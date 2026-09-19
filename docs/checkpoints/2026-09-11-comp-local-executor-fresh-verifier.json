@@ -1,0 +1,65 @@
+{
+  "schema": "resolve-node-kit.comp-local-executor-fresh-verifier/v1",
+  "observed_at_utc": "2026-09-10T15:20:45.1831450Z",
+  "verification": "independent parent-side readback after WP1 checkpoint",
+  "repository": {
+    "branch": "feat/semantic-arrange-v1-20260906",
+    "head": "649ce7dd73e120b512ac33b4ba6fb2c19c0f32f4",
+    "remote_head": "649ce7dd73e120b512ac33b4ba6fb2c19c0f32f4",
+    "worktree_clean": true,
+    "source_script_diff_from_product_parent": [],
+    "main_merge": false
+  },
+  "tests": {
+    "rnk_canonical_unittest": "174/174 PASS",
+    "operator_focused_unittest": "15/15 PASS",
+    "compileall": "PASS",
+    "git_diff_check": "PASS",
+    "strict_contract_checker": {
+      "contract_consistent": true,
+      "handoff_record_consistent": true,
+      "product_completion_record_consistent": false,
+      "runtime_evidence_authenticated": false,
+      "host_tests_executed": false
+    }
+  },
+  "install_readback": {
+    "installer": "scripts/install_resolve_user.ps1",
+    "manifest": "%APPDATA%/Blackmagic Design/DaVinci Resolve/Support/Fusion/ResolveNodeKit/install_manifest.json",
+    "manifest_commit": "649ce7dd73e120b512ac33b4ba6fb2c19c0f32f4",
+    "manifest_commit_equals_head": true,
+    "package_files": 19,
+    "entry_checked": true,
+    "source_installed_mismatches": [],
+    "normalized_source_blobs": 19,
+    "backup_entry_created": "%APPDATA%/Blackmagic Design/DaVinci Resolve/Support/Fusion/ResolveNodeKit/backup/20260910-151938/Scripts/Comp/ResolveNodeKit_Arrange.py",
+    "installed_import_provenance": "PASS",
+    "import_cwd": "%TEMP%",
+    "import_root": "%APPDATA%/Blackmagic Design/DaVinci Resolve/Support/Fusion/ResolveNodeKit/src"
+  },
+  "operator_preservation": {
+    "workspace_revision": "21ac220fe0877194fbe8c01687642729906cf1c333cdaf80f148cf9d12bfa90a",
+    "workspace_file_count": 17,
+    "post_readback_equal": true,
+    "parent_direct_resolve_access": 0
+  },
+  "host": {
+    "wp1": "BLOCKED",
+    "wp2_mutation_counters": {
+      "position_move": 0,
+      "undo": 0,
+      "project_save": 0
+    },
+    "final_lease": "FREE",
+    "valuable_project_save": 0
+  },
+  "gates": {
+    "G02": "BLOCKED_TECHNICAL",
+    "G03": "BLOCKED_TECHNICAL",
+    "G08": "PENDING",
+    "G04": "PENDING",
+    "integrated_host_session": "NOT_RUN",
+    "product_completion": false
+  },
+  "status": "CHECKPOINTED_WITH_TECHNICAL_GAP"
+}
