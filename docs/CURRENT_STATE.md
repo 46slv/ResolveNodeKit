@@ -42,6 +42,7 @@ its flatten amendment is not current v1 authority.
 - Repository: `46slv/ResolveNodeKit`
 - PR: `#5`, OPEN, Draft
 - PR head rechecked before this reset: `1035217b71f62b2347da20460ff30cdf5d03b8b3`
+- PR head after the direction-reset contract commit: `1ab8a458e0c1e4731bc66a67a564fc4d89b984d8`
 - PR head branch: `feat/semantic-arrange-v1-20260906`
 - Active PR worktree: `D:/Documents/ResolveNodeKit-pr5-v2-integration`
 - Local branch in that worktree: `feat/direct-guarded-reset-20260911`
@@ -50,14 +51,17 @@ its flatten amendment is not current v1 authority.
 - Installed package: 19 Python files, entry + package hashes matched the PR
   worktree source tree, installed-root import previously passed
 - Resolve executable: `C:/Program Files/Blackmagic Design/DaVinci Resolve/Resolve.exe`
-- A fresh launch was requested during this reset; the process was observed as
-  PID `6484`, window title `Resolve`, `Responding=false`, and no targetable
-  app/window was exposed by the available CUA inventory. No host mutation or
-  project save was performed in this reset.
-
-The manifest commit label is stale relative to the PR docs head even though the
-package bytes match. Refresh it after the final candidate commit and read back
-the manifest, entry hash and package hashes together.
+- A fresh launch was requested during this reset; the original process was
+  observed as PID `6484`, and the post-restart process is PID `70164` with the
+  Resolve project manager visible to Windows but still absent from the
+  available CUA app inventory. No host mutation or project save was performed
+  in this reset.
+- Candidate install refresh was completed from the direction-reset commit:
+  manifest `repo_commit=1ab8a458e0c1e4731bc66a67a564fc4d89b984d8`, 19 package
+  files, zero package mismatches, and source/installed entry SHA256
+  `9C35CA8984163DA0AD2E00899C0EBA2B2C9B08FE039C32EFA235DC367A85AFCE`.
+  Production confirmation uses `include_unselected=True, ungroup=False`, has
+  no checkbox, and the installed entry has no `UngroupFirst` label.
 
 ## v1 carry-forward status
 
@@ -79,12 +83,12 @@ Already valid for v1, with scope recorded:
   13.0515s, plus a separate stable run2;
 - recovery, no-save cleanup and historical fresh-verifier evidence.
 
-The following are the only open v1 candidate items at reset:
+The following are the only open v1 candidate items after the contract/install
+checkpoint:
 
 1. same-fixture installed Arrange -> native GUI manual Ungroup -> installed
    Re-Arrange E2E, including readback, run2, Undo/recovery and cleanup;
-2. final candidate install/manifest/source identity readback;
-3. fresh independent verifier for the new v1 contract and final PR metadata.
+2. fresh independent verifier for the new v1 contract and final PR metadata.
 
 If the Resolve control surface remains unavailable, keep item 1 as
 `NEEDS_SMALL_RECHECK`; do not convert separate native-Ungroup and Arrange
@@ -124,14 +128,11 @@ retired Operator/WP1/HostSession topology.
 
 ## Next gates
 
-1. Run the focused/offline contract checks for the new v1 owner.
-2. Install the final PR candidate with backup-backed installer and read back
-   source/install/package identity.
-3. Use a fresh disposable/duplicate for the manual Ungroup -> Re-Arrange E2E if
+1. Use a fresh disposable/duplicate for the manual Ungroup -> Re-Arrange E2E if
    a direct Resolve surface becomes available.
-4. Add a dated v1 checkpoint with exact evidence and have a fresh verifier
+2. Add a dated v1 checkpoint with exact evidence and have a fresh verifier
    inspect the final candidate.
-5. Update PR #5 title/body and re-read the remote head. Finish at
+3. Update PR #5 title/body and re-read the remote head. Finish at
    `V1_RELEASE_CANDIDATE`; do not merge `main` or publish a release.
 
 ## Learning Gate

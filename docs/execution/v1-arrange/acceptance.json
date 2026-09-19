@@ -2,7 +2,7 @@
   "schema": "resolve-node-kit.v1-arrange-preserve/v1",
   "updated": "2026-09-20",
   "status": "CHECKPOINTED",
-  "release_state": "V1_RELEASE_CANDIDATE_PENDING_VERIFIER",
+  "release_state": "V1_RELEASE_CANDIDATE_PENDING_HOST_RECHECK",
   "product_direction": "docs/PRODUCT_DIRECTION_BRIEF.md",
   "current_owner": "docs/execution/v1-arrange/",
   "preserved_v2_owner": "docs/execution/strict-orthogonal/",
@@ -41,7 +41,7 @@
     {"id": "V1-14", "name": "performance", "status": "PASS", "evidence": ["docs/checkpoints/2026-09-12-so70-depth4-1100-direct-preserve.json#SO-70"]},
     {"id": "V1-15", "name": "recovery_cleanup", "status": "PASS", "evidence": ["docs/checkpoints/2026-09-12-so40-so61-so70-so80-direct-continuation.json#SO-80", "docs/checkpoints/2026-09-12-so70-depth4-1100-direct-preserve.json#cleanup"]},
     {"id": "V1-16", "name": "manual_ungroup_re_arrange_e2e", "status": "NEEDS_SMALL_RECHECK", "evidence": ["docs/checkpoints/2026-09-12-so40-so61-so70-so80-direct-continuation.json#SO-40", "docs/checkpoints/2026-09-11-so30-so40-so50-direct-host-v2.json#SO-60"]},
-    {"id": "V1-17", "name": "source_install_package_identity", "status": "NEEDS_SMALL_RECHECK", "evidence": ["docs/checkpoints/2026-09-12-so70-depth4-1100-direct-preserve.json#candidate", "docs/checkpoints/2026-09-12-so61-so70-parent-first-canary.json#candidate"]},
+    {"id": "V1-17", "name": "source_install_package_identity", "status": "PASS", "evidence": ["docs/checkpoints/2026-09-20-product-direction-reset.md#candidate-install-readback"]},
     {"id": "V1-18", "name": "fresh_independent_verifier", "status": "NEEDS_SMALL_RECHECK", "evidence": ["docs/checkpoints/2026-09-10-fresh-final-verifier.json"]}
   ],
   "v2_research_not_v1_blockers": [
