@@ -42,7 +42,7 @@
     {"id": "V1-15", "name": "recovery_cleanup", "status": "PASS", "evidence": ["docs/checkpoints/2026-09-12-so40-so61-so70-so80-direct-continuation.json#SO-80", "docs/checkpoints/2026-09-12-so70-depth4-1100-direct-preserve.json#cleanup"]},
     {"id": "V1-16", "name": "manual_ungroup_re_arrange_e2e", "status": "NEEDS_SMALL_RECHECK", "evidence": ["docs/checkpoints/2026-09-12-so40-so61-so70-so80-direct-continuation.json#SO-40", "docs/checkpoints/2026-09-11-so30-so40-so50-direct-host-v2.json#SO-60"]},
     {"id": "V1-17", "name": "source_install_package_identity", "status": "PASS", "evidence": ["docs/checkpoints/2026-09-20-product-direction-reset.md#candidate-install-readback"]},
-    {"id": "V1-18", "name": "fresh_independent_verifier", "status": "NEEDS_SMALL_RECHECK", "evidence": ["docs/checkpoints/2026-09-10-fresh-final-verifier.json"]}
+    {"id": "V1-18", "name": "fresh_independent_verifier", "status": "PASS", "evidence": ["docs/checkpoints/2026-09-20-product-direction-reset.md#fresh-independent-verifier"]}
   ],
   "v2_research_not_v1_blockers": [
     "automatic Ungroup",
@@ -57,7 +57,7 @@
   "completion": {
     "required_statuses": ["PASS", "PASS_WITH_SCOPE"],
     "allowed_open_statuses_before_candidate": ["NEEDS_SMALL_RECHECK"],
-    "candidate_requires": ["manual_ungroup_re_arrange_e2e", "source_install_package_identity", "fresh_independent_verifier"],
+    "candidate_requires": ["manual_ungroup_re_arrange_e2e"],
     "output": "V1_RELEASE_CANDIDATE",
     "v2_output": "DEFERRED_RESEARCH",
     "main_merge_authorized": false,

@@ -43,6 +43,7 @@ its flatten amendment is not current v1 authority.
 - PR: `#5`, OPEN, Draft
 - PR head rechecked before this reset: `1035217b71f62b2347da20460ff30cdf5d03b8b3`
 - PR head after the direction-reset contract commit: `1ab8a458e0c1e4731bc66a67a564fc4d89b984d8`
+- Follow-up evidence/checkpoint commit: `66ff8886a88bd96ed07387cdd5f6702401ea7592`
 - PR head branch: `feat/semantic-arrange-v1-20260906`
 - Active PR worktree: `D:/Documents/ResolveNodeKit-pr5-v2-integration`
 - Local branch in that worktree: `feat/direct-guarded-reset-20260911`
@@ -56,12 +57,14 @@ its flatten amendment is not current v1 authority.
   Resolve project manager visible to Windows but still absent from the
   available CUA app inventory. No host mutation or project save was performed
   in this reset.
-- Candidate install refresh was completed from the direction-reset commit:
-  manifest `repo_commit=1ab8a458e0c1e4731bc66a67a564fc4d89b984d8`, 19 package
-  files, zero package mismatches, and source/installed entry SHA256
+- Candidate install refreshes from the direction-reset and follow-up
+  checkpoint heads both passed with 19 package files, zero package mismatches,
+  and source/installed entry SHA256
   `9C35CA8984163DA0AD2E00899C0EBA2B2C9B08FE039C32EFA235DC367A85AFCE`.
-  Production confirmation uses `include_unselected=True, ungroup=False`, has
-  no checkbox, and the installed entry has no `UngroupFirst` label.
+  The final docs-only checkpoint is followed by one last backup-backed install
+  readback; its manifest must match the final PR head. Production confirmation
+  uses `include_unselected=True, ungroup=False`, has no checkbox, and the
+  production function has no `UngroupFirst` label.
 
 ## v1 carry-forward status
 
@@ -83,12 +86,11 @@ Already valid for v1, with scope recorded:
   13.0515s, plus a separate stable run2;
 - recovery, no-save cleanup and historical fresh-verifier evidence.
 
-The following are the only open v1 candidate items after the contract/install
-checkpoint:
+The following is the only open v1 candidate item after the contract/install and
+independent-verifier checkpoints:
 
 1. same-fixture installed Arrange -> native GUI manual Ungroup -> installed
    Re-Arrange E2E, including readback, run2, Undo/recovery and cleanup;
-2. fresh independent verifier for the new v1 contract and final PR metadata.
 
 If the Resolve control surface remains unavailable, keep item 1 as
 `NEEDS_SMALL_RECHECK`; do not convert separate native-Ungroup and Arrange
@@ -130,9 +132,8 @@ retired Operator/WP1/HostSession topology.
 
 1. Use a fresh disposable/duplicate for the manual Ungroup -> Re-Arrange E2E if
    a direct Resolve surface becomes available.
-2. Add a dated v1 checkpoint with exact evidence and have a fresh verifier
-   inspect the final candidate.
-3. Update PR #5 title/body and re-read the remote head. Finish at
+2. Re-read the final install manifest/source identity after the docs-only
+   checkpoint and re-read PR #5 metadata. Finish at
    `V1_RELEASE_CANDIDATE`; do not merge `main` or publish a release.
 
 ## Learning Gate

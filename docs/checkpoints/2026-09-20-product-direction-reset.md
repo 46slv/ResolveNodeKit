@@ -16,6 +16,8 @@ v2: RNK Automatic Ungroup / UngroupFirst / Flatten All
 The pre-reset PR head was `1035217b71f62b2347da20460ff30cdf5d03b8b3`. The
 direction-reset contract is committed as
 `1ab8a458e0c1e4731bc66a67a564fc4d89b984d8` and pushed to PR #5's head branch.
+The follow-up evidence/checkpoint commit is
+`66ff8886a88bd96ed07387cdd5f6702401ea7592`.
 
 ## Durable contract changes
 
@@ -45,7 +47,7 @@ The machine-readable contract is
 | Recovery and cleanup | PASS |
 | Candidate source/install/package identity | PASS |
 | Same-fixture Arrange -> native manual Ungroup -> Re-Arrange | NEEDS_SMALL_RECHECK |
-| Fresh independent verifier | NEEDS_SMALL_RECHECK |
+| Fresh independent verifier | PASS; overall candidate still awaits the host E2E |
 
 Automatic flatten, large flatten, flatten processing/render equivalence,
 automatic flatten rollback, strict machine-readable geometry surfaces and
@@ -55,10 +57,12 @@ block v1 unless the actual Arrange result is visually broken.
 ## Candidate install readback
 
 The backup-backed user install was refreshed from the direction-reset commit
-and read back as follows:
+and again from the follow-up checkpoint commit. Both readbacks passed. The
+final docs-only checkpoint is followed by one last install/readback so the
+manifest's `repo_commit` matches the final PR head; the immutable package
+identity is:
 
 - install root: `C:/Users/shiro/AppData/Roaming/Blackmagic Design/DaVinci Resolve/Support/Fusion/ResolveNodeKit`
-- manifest `repo_commit`: `1ab8a458e0c1e4731bc66a67a564fc4d89b984d8`
 - manifest package count: `19`; total installed files reported by installer: `20`
 - package mismatches: `0`
 - source and installed entry SHA256:
@@ -66,6 +70,22 @@ and read back as follows:
 - production confirmation: `include_unselected=True, ungroup=False`
 - production confirmation contains no checkbox
 - installed entry contains no `UngroupFirst` label
+
+## Fresh independent verifier
+
+A fresh read-only verifier inspected the follow-up checkpoint and returned
+`CHECKPOINTED_PENDING_RECHECK`:
+
+- documentation workflow and active v1 owner: PASS;
+- v1 acceptance JSON and all referenced evidence paths: PASS;
+- all old strict G01-G14 statuses and evidence: preserved, PASS;
+- live manifest/package hashes and preserve-only production confirmation: PASS;
+- explicit-src offline tests and `git diff --check`: PASS;
+- same-fixture installed Arrange -> native GUI Ungroup -> installed Re-Arrange:
+  not evidenced, `NEEDS_SMALL_RECHECK`.
+
+The verifier correctly treated the separate SO-40 and SO-60 fixtures as
+insufficient for the combined workflow.
 
 ## Verification and host boundary
 
